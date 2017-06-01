@@ -699,6 +699,7 @@ Array int_to_array(int x) {
   Assumption:
     Function takes an integer and returns an integer 
 */
+/*
 
 Array map_array(Array input, int (*mapFunction)(int)) {
   int max_len = input.count; 
@@ -733,4 +734,5 @@ Array map_array(Array input, int (*mapFunction)(int)) {
   return *input;
 
 }
+*/
 
