@@ -5,7 +5,7 @@ import edu:umn:cs:melt:ableC:drivers:compile;
 
 parser extendedParser :: cst:Root {
   edu:umn:cs:melt:ableC:concretesyntax;
-  ableC-arrays:matlab;
+  ableC-arrays:zoe;
 }
 
 function main
