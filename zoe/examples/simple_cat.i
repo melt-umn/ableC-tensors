@@ -1,1064 +1,959 @@
 # 1 "simple_cat.xc"
-# 1 "<built-in>" 1
-# 1 "<built-in>" 3
-# 330 "<built-in>" 3
-# 1 "<command line>" 1
-# 1 "<built-in>" 2
-# 1 "simple_cat.xc" 2
+# 1 "<built-in>"
+# 1 "<command-line>"
+# 1 "/usr/include/stdc-predef.h" 1 3 4
+# 1 "<command-line>" 2
+# 1 "simple_cat.xc"
 
 
 # 1 "/usr/include/stdio.h" 1 3 4
-# 64 "/usr/include/stdio.h" 3 4
-# 1 "/usr/include/sys/cdefs.h" 1 3 4
-# 587 "/usr/include/sys/cdefs.h" 3 4
-# 1 "/usr/include/sys/_symbol_aliasing.h" 1 3 4
-# 588 "/usr/include/sys/cdefs.h" 2 3 4
-# 653 "/usr/include/sys/cdefs.h" 3 4
-# 1 "/usr/include/sys/_posix_availability.h" 1 3 4
-# 654 "/usr/include/sys/cdefs.h" 2 3 4
-# 65 "/usr/include/stdio.h" 2 3 4
-# 1 "/usr/include/Availability.h" 1 3 4
-# 190 "/usr/include/Availability.h" 3 4
-# 1 "/usr/include/AvailabilityInternal.h" 1 3 4
-# 191 "/usr/include/Availability.h" 2 3 4
-# 66 "/usr/include/stdio.h" 2 3 4
+# 27 "/usr/include/stdio.h" 3 4
+# 1 "/usr/include/features.h" 1 3 4
+# 367 "/usr/include/features.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/sys/cdefs.h" 1 3 4
+# 410 "/usr/include/x86_64-linux-gnu/sys/cdefs.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/wordsize.h" 1 3 4
+# 411 "/usr/include/x86_64-linux-gnu/sys/cdefs.h" 2 3 4
+# 368 "/usr/include/features.h" 2 3 4
+# 391 "/usr/include/features.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/gnu/stubs.h" 1 3 4
+# 10 "/usr/include/x86_64-linux-gnu/gnu/stubs.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/gnu/stubs-64.h" 1 3 4
+# 11 "/usr/include/x86_64-linux-gnu/gnu/stubs.h" 2 3 4
+# 392 "/usr/include/features.h" 2 3 4
+# 28 "/usr/include/stdio.h" 2 3 4
 
-# 1 "/usr/include/_types.h" 1 3 4
-# 27 "/usr/include/_types.h" 3 4
-# 1 "/usr/include/sys/_types.h" 1 3 4
-# 33 "/usr/include/sys/_types.h" 3 4
-# 1 "/usr/include/machine/_types.h" 1 3 4
-# 32 "/usr/include/machine/_types.h" 3 4
-# 1 "/usr/include/i386/_types.h" 1 3 4
-# 37 "/usr/include/i386/_types.h" 3 4
+
+
+
+
+# 1 "/soft/gcc/4.9.2/ubuntuamd2010/lib/gcc/x86_64-linux-gnu/4.9.2/include/stddef.h" 1 3 4
+# 212 "/soft/gcc/4.9.2/ubuntuamd2010/lib/gcc/x86_64-linux-gnu/4.9.2/include/stddef.h" 3 4
+typedef long unsigned int size_t;
+# 34 "/usr/include/stdio.h" 2 3 4
+
+# 1 "/usr/include/x86_64-linux-gnu/bits/types.h" 1 3 4
+# 27 "/usr/include/x86_64-linux-gnu/bits/types.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/wordsize.h" 1 3 4
+# 28 "/usr/include/x86_64-linux-gnu/bits/types.h" 2 3 4
+
+
+typedef unsigned char __u_char;
+typedef unsigned short int __u_short;
+typedef unsigned int __u_int;
+typedef unsigned long int __u_long;
+
+
 typedef signed char __int8_t;
-
-
-
 typedef unsigned char __uint8_t;
-typedef short __int16_t;
-typedef unsigned short __uint16_t;
-typedef int __int32_t;
+typedef signed short int __int16_t;
+typedef unsigned short int __uint16_t;
+typedef signed int __int32_t;
 typedef unsigned int __uint32_t;
-typedef long long __int64_t;
-typedef unsigned long long __uint64_t;
 
-typedef long __darwin_intptr_t;
-typedef unsigned int __darwin_natural_t;
-# 70 "/usr/include/i386/_types.h" 3 4
-typedef int __darwin_ct_rune_t;
+typedef signed long int __int64_t;
+typedef unsigned long int __uint64_t;
 
 
 
 
 
-typedef union {
- char __mbstate8[128];
- long long _mbstateL;
+
+
+typedef long int __quad_t;
+typedef unsigned long int __u_quad_t;
+# 121 "/usr/include/x86_64-linux-gnu/bits/types.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/typesizes.h" 1 3 4
+# 122 "/usr/include/x86_64-linux-gnu/bits/types.h" 2 3 4
+
+
+typedef unsigned long int __dev_t;
+typedef unsigned int __uid_t;
+typedef unsigned int __gid_t;
+typedef unsigned long int __ino_t;
+typedef unsigned long int __ino64_t;
+typedef unsigned int __mode_t;
+typedef unsigned long int __nlink_t;
+typedef long int __off_t;
+typedef long int __off64_t;
+typedef int __pid_t;
+typedef struct { int __val[2]; } __fsid_t;
+typedef long int __clock_t;
+typedef unsigned long int __rlim_t;
+typedef unsigned long int __rlim64_t;
+typedef unsigned int __id_t;
+typedef long int __time_t;
+typedef unsigned int __useconds_t;
+typedef long int __suseconds_t;
+
+typedef int __daddr_t;
+typedef int __key_t;
+
+
+typedef int __clockid_t;
+
+
+typedef void * __timer_t;
+
+
+typedef long int __blksize_t;
+
+
+
+
+typedef long int __blkcnt_t;
+typedef long int __blkcnt64_t;
+
+
+typedef unsigned long int __fsblkcnt_t;
+typedef unsigned long int __fsblkcnt64_t;
+
+
+typedef unsigned long int __fsfilcnt_t;
+typedef unsigned long int __fsfilcnt64_t;
+
+
+typedef long int __fsword_t;
+
+typedef long int __ssize_t;
+
+
+typedef long int __syscall_slong_t;
+
+typedef unsigned long int __syscall_ulong_t;
+
+
+
+typedef __off64_t __loff_t;
+typedef __quad_t *__qaddr_t;
+typedef char *__caddr_t;
+
+
+typedef long int __intptr_t;
+
+
+typedef unsigned int __socklen_t;
+# 36 "/usr/include/stdio.h" 2 3 4
+# 44 "/usr/include/stdio.h" 3 4
+struct _IO_FILE;
+
+
+
+typedef struct _IO_FILE FILE;
+
+
+
+
+
+# 64 "/usr/include/stdio.h" 3 4
+typedef struct _IO_FILE __FILE;
+# 74 "/usr/include/stdio.h" 3 4
+# 1 "/usr/include/libio.h" 1 3 4
+# 31 "/usr/include/libio.h" 3 4
+# 1 "/usr/include/_G_config.h" 1 3 4
+# 15 "/usr/include/_G_config.h" 3 4
+# 1 "/soft/gcc/4.9.2/ubuntuamd2010/lib/gcc/x86_64-linux-gnu/4.9.2/include/stddef.h" 1 3 4
+# 16 "/usr/include/_G_config.h" 2 3 4
+
+
+
+
+# 1 "/usr/include/wchar.h" 1 3 4
+# 82 "/usr/include/wchar.h" 3 4
+typedef struct
+{
+  int __count;
+  union
+  {
+
+    unsigned int __wch;
+
+
+
+    char __wchb[4];
+  } __value;
 } __mbstate_t;
-
-typedef __mbstate_t __darwin_mbstate_t;
-
-
-typedef long int __darwin_ptrdiff_t;
-
-
-
-
-
-
-
-typedef long unsigned int __darwin_size_t;
-
-
-
-
-
-typedef __builtin_va_list __darwin_va_list;
-
-
-
-
-
-typedef int __darwin_wchar_t;
+# 21 "/usr/include/_G_config.h" 2 3 4
+typedef struct
+{
+  __off_t __pos;
+  __mbstate_t __state;
+} _G_fpos_t;
+typedef struct
+{
+  __off64_t __pos;
+  __mbstate_t __state;
+} _G_fpos64_t;
+# 32 "/usr/include/libio.h" 2 3 4
+# 49 "/usr/include/libio.h" 3 4
+# 1 "/soft/gcc/4.9.2/ubuntuamd2010/lib/gcc/x86_64-linux-gnu/4.9.2/include/stdarg.h" 1 3 4
+# 40 "/soft/gcc/4.9.2/ubuntuamd2010/lib/gcc/x86_64-linux-gnu/4.9.2/include/stdarg.h" 3 4
+typedef __builtin_va_list __gnuc_va_list;
+# 50 "/usr/include/libio.h" 2 3 4
+# 144 "/usr/include/libio.h" 3 4
+struct _IO_jump_t; struct _IO_FILE;
 
 
 
 
-typedef __darwin_wchar_t __darwin_rune_t;
 
-
-typedef int __darwin_wint_t;
-
+typedef void _IO_lock_t;
 
 
 
-typedef unsigned long __darwin_clock_t;
-typedef __uint32_t __darwin_socklen_t;
-typedef long __darwin_ssize_t;
-typedef long __darwin_time_t;
-# 33 "/usr/include/machine/_types.h" 2 3 4
-# 34 "/usr/include/sys/_types.h" 2 3 4
-# 55 "/usr/include/sys/_types.h" 3 4
-typedef __int64_t __darwin_blkcnt_t;
-typedef __int32_t __darwin_blksize_t;
-typedef __int32_t __darwin_dev_t;
-typedef unsigned int __darwin_fsblkcnt_t;
-typedef unsigned int __darwin_fsfilcnt_t;
-typedef __uint32_t __darwin_gid_t;
-typedef __uint32_t __darwin_id_t;
-typedef __uint64_t __darwin_ino64_t;
 
-typedef __darwin_ino64_t __darwin_ino_t;
+
+struct _IO_marker {
+  struct _IO_marker *_next;
+  struct _IO_FILE *_sbuf;
 
 
 
-typedef __darwin_natural_t __darwin_mach_port_name_t;
-typedef __darwin_mach_port_name_t __darwin_mach_port_t;
-typedef __uint16_t __darwin_mode_t;
-typedef __int64_t __darwin_off_t;
-typedef __int32_t __darwin_pid_t;
-typedef __uint32_t __darwin_sigset_t;
-typedef __int32_t __darwin_suseconds_t;
-typedef __uint32_t __darwin_uid_t;
-typedef __uint32_t __darwin_useconds_t;
-typedef unsigned char __darwin_uuid_t[16];
-typedef char __darwin_uuid_string_t[37];
-
-
-# 1 "/usr/include/sys/_pthread/_pthread_types.h" 1 3 4
-# 57 "/usr/include/sys/_pthread/_pthread_types.h" 3 4
-struct __darwin_pthread_handler_rec {
- void (*__routine)(void *);
- void *__arg;
- struct __darwin_pthread_handler_rec *__next;
-};
-
-struct _opaque_pthread_attr_t {
- long __sig;
- char __opaque[56];
-};
-
-struct _opaque_pthread_cond_t {
- long __sig;
- char __opaque[40];
-};
-
-struct _opaque_pthread_condattr_t {
- long __sig;
- char __opaque[8];
-};
-
-struct _opaque_pthread_mutex_t {
- long __sig;
- char __opaque[56];
-};
-
-struct _opaque_pthread_mutexattr_t {
- long __sig;
- char __opaque[8];
-};
-
-struct _opaque_pthread_once_t {
- long __sig;
- char __opaque[8];
-};
-
-struct _opaque_pthread_rwlock_t {
- long __sig;
- char __opaque[192];
-};
-
-struct _opaque_pthread_rwlockattr_t {
- long __sig;
- char __opaque[16];
-};
-
-struct _opaque_pthread_t {
- long __sig;
- struct __darwin_pthread_handler_rec *__cleanup_stack;
- char __opaque[8176];
-};
-
-typedef struct _opaque_pthread_attr_t __darwin_pthread_attr_t;
-typedef struct _opaque_pthread_cond_t __darwin_pthread_cond_t;
-typedef struct _opaque_pthread_condattr_t __darwin_pthread_condattr_t;
-typedef unsigned long __darwin_pthread_key_t;
-typedef struct _opaque_pthread_mutex_t __darwin_pthread_mutex_t;
-typedef struct _opaque_pthread_mutexattr_t __darwin_pthread_mutexattr_t;
-typedef struct _opaque_pthread_once_t __darwin_pthread_once_t;
-typedef struct _opaque_pthread_rwlock_t __darwin_pthread_rwlock_t;
-typedef struct _opaque_pthread_rwlockattr_t __darwin_pthread_rwlockattr_t;
-typedef struct _opaque_pthread_t *__darwin_pthread_t;
-# 81 "/usr/include/sys/_types.h" 2 3 4
-# 28 "/usr/include/_types.h" 2 3 4
-# 39 "/usr/include/_types.h" 3 4
-typedef int __darwin_nl_item;
-typedef int __darwin_wctrans_t;
-
-typedef __uint32_t __darwin_wctype_t;
-# 68 "/usr/include/stdio.h" 2 3 4
-
-
-
-# 1 "/usr/include/sys/_types/_va_list.h" 1 3 4
-# 31 "/usr/include/sys/_types/_va_list.h" 3 4
-typedef __darwin_va_list va_list;
-# 72 "/usr/include/stdio.h" 2 3 4
-# 1 "/usr/include/sys/_types/_size_t.h" 1 3 4
-# 30 "/usr/include/sys/_types/_size_t.h" 3 4
-typedef __darwin_size_t size_t;
-# 73 "/usr/include/stdio.h" 2 3 4
-# 1 "/usr/include/sys/_types/_null.h" 1 3 4
-# 74 "/usr/include/stdio.h" 2 3 4
-
-# 1 "/usr/include/sys/stdio.h" 1 3 4
-# 76 "/usr/include/stdio.h" 2 3 4
-
-typedef __darwin_off_t fpos_t;
-# 88 "/usr/include/stdio.h" 3 4
-struct __sbuf {
- unsigned char *_base;
- int _size;
+  int _pos;
+# 173 "/usr/include/libio.h" 3 4
 };
 
 
-struct __sFILEX;
-# 122 "/usr/include/stdio.h" 3 4
-typedef struct __sFILE {
- unsigned char *_p;
- int _r;
- int _w;
- short _flags;
- short _file;
- struct __sbuf _bf;
- int _lbfsize;
-
-
- void *_cookie;
- int (* _Nullable _close)(void *);
- int (* _Nullable _read) (void *, char *, int);
- fpos_t (* _Nullable _seek) (void *, fpos_t, int);
- int (* _Nullable _write)(void *, const char *, int);
-
-
- struct __sbuf _ub;
- struct __sFILEX *_extra;
- int _ur;
-
-
- unsigned char _ubuf[3];
- unsigned char _nbuf[1];
-
-
- struct __sbuf _lb;
-
-
- int _blksize;
- fpos_t _offset;
-} FILE;
-
-
-extern FILE *__stdinp;
-extern FILE *__stdoutp;
-extern FILE *__stderrp;
-# 231 "/usr/include/stdio.h" 3 4
-void clearerr(FILE *);
-int fclose(FILE *);
-int feof(FILE *);
-int ferror(FILE *);
-int fflush(FILE *);
-int fgetc(FILE *);
-int fgetpos(FILE * restrict, fpos_t *);
-char *fgets(char * restrict, int, FILE *);
+enum __codecvt_result
+{
+  __codecvt_ok,
+  __codecvt_partial,
+  __codecvt_error,
+  __codecvt_noconv
+};
+# 241 "/usr/include/libio.h" 3 4
+struct _IO_FILE {
+  int _flags;
 
 
 
-FILE *fopen(const char * restrict __filename, const char * restrict __mode) __asm("_" "fopen" );
 
-int fprintf(FILE * restrict, const char * restrict, ...) __attribute__((__format__ (__printf__, 2, 3)));
-int fputc(int, FILE *);
-int fputs(const char * restrict, FILE * restrict) __asm("_" "fputs" );
-size_t fread(void * restrict __ptr, size_t __size, size_t __nitems, FILE * restrict __stream);
-FILE *freopen(const char * restrict, const char * restrict,
-                 FILE * restrict) __asm("_" "freopen" );
-int fscanf(FILE * restrict, const char * restrict, ...) __attribute__((__format__ (__scanf__, 2, 3)));
-int fseek(FILE *, long, int);
-int fsetpos(FILE *, const fpos_t *);
-long ftell(FILE *);
-size_t fwrite(const void * restrict __ptr, size_t __size, size_t __nitems, FILE * restrict __stream) __asm("_" "fwrite" );
-int getc(FILE *);
-int getchar(void);
-char *gets(char *);
-void perror(const char *);
-int printf(const char * restrict, ...) __attribute__((__format__ (__printf__, 1, 2)));
-int putc(int, FILE *);
-int putchar(int);
-int puts(const char *);
-int remove(const char *);
-int rename (const char *__old, const char *__new);
-void rewind(FILE *);
-int scanf(const char * restrict, ...) __attribute__((__format__ (__scanf__, 1, 2)));
-void setbuf(FILE * restrict, char * restrict);
-int setvbuf(FILE * restrict, char * restrict, int, size_t);
-int sprintf(char * restrict, const char * restrict, ...) __attribute__((__format__ (__printf__, 2, 3))) __attribute__((__availability__(swift, unavailable, message="Use snprintf instead.")));
-int sscanf(const char * restrict, const char * restrict, ...) __attribute__((__format__ (__scanf__, 2, 3)));
-FILE *tmpfile(void);
+  char* _IO_read_ptr;
+  char* _IO_read_end;
+  char* _IO_read_base;
+  char* _IO_write_base;
+  char* _IO_write_ptr;
+  char* _IO_write_end;
+  char* _IO_buf_base;
+  char* _IO_buf_end;
 
-__attribute__((__availability__(swift, unavailable, message="Use mkstemp(3) instead.")))
+  char *_IO_save_base;
+  char *_IO_backup_base;
+  char *_IO_save_end;
+
+  struct _IO_marker *_markers;
+
+  struct _IO_FILE *_chain;
+
+  int _fileno;
 
 
 
-char *tmpnam(char *);
-int ungetc(int, FILE *);
-int vfprintf(FILE * restrict, const char * restrict, va_list) __attribute__((__format__ (__printf__, 2, 0)));
-int vprintf(const char * restrict, va_list) __attribute__((__format__ (__printf__, 1, 0)));
-int vsprintf(char * restrict, const char * restrict, va_list) __attribute__((__format__ (__printf__, 2, 0))) __attribute__((__availability__(swift, unavailable, message="Use vsnprintf instead.")));
-# 297 "/usr/include/stdio.h" 3 4
-char *ctermid(char *);
+  int _flags2;
+
+  __off_t _old_offset;
+
+
+
+  unsigned short _cur_column;
+  signed char _vtable_offset;
+  char _shortbuf[1];
+
+
+
+  _IO_lock_t *_lock;
+# 289 "/usr/include/libio.h" 3 4
+  __off64_t _offset;
 
 
 
 
 
-FILE *fdopen(int, const char *) __asm("_" "fdopen" );
 
-int fileno(FILE *);
-# 498 "/usr/include/stdio.h" 3 4
-# 1 "/usr/include/secure/_stdio.h" 1 3 4
-# 31 "/usr/include/secure/_stdio.h" 3 4
-# 1 "/usr/include/secure/_common.h" 1 3 4
-# 32 "/usr/include/secure/_stdio.h" 2 3 4
-# 42 "/usr/include/secure/_stdio.h" 3 4
-extern int __sprintf_chk (char * restrict, int, size_t,
-     const char * restrict, ...);
-# 499 "/usr/include/stdio.h" 2 3 4
+
+  void *__pad1;
+  void *__pad2;
+  void *__pad3;
+  void *__pad4;
+
+  size_t __pad5;
+  int _mode;
+
+  char _unused2[15 * sizeof (int) - 4 * sizeof (void *) - sizeof (size_t)];
+
+};
+
+
+typedef struct _IO_FILE _IO_FILE;
+
+
+struct _IO_FILE_plus;
+
+extern struct _IO_FILE_plus _IO_2_1_stdin_;
+extern struct _IO_FILE_plus _IO_2_1_stdout_;
+extern struct _IO_FILE_plus _IO_2_1_stderr_;
+# 333 "/usr/include/libio.h" 3 4
+typedef __ssize_t __io_read_fn (void *__cookie, char *__buf, size_t __nbytes);
+
+
+
+
+
+
+
+typedef __ssize_t __io_write_fn (void *__cookie, const char *__buf,
+     size_t __n);
+
+
+
+
+
+
+
+typedef int __io_seek_fn (void *__cookie, __off64_t *__pos, int __w);
+
+
+typedef int __io_close_fn (void *__cookie);
+# 385 "/usr/include/libio.h" 3 4
+extern int __underflow (_IO_FILE *);
+extern int __uflow (_IO_FILE *);
+extern int __overflow (_IO_FILE *, int);
+# 429 "/usr/include/libio.h" 3 4
+extern int _IO_getc (_IO_FILE *__fp);
+extern int _IO_putc (int __c, _IO_FILE *__fp);
+extern int _IO_feof (_IO_FILE *__fp) __attribute__ ((__nothrow__ , __leaf__));
+extern int _IO_ferror (_IO_FILE *__fp) __attribute__ ((__nothrow__ , __leaf__));
+
+extern int _IO_peekc_locked (_IO_FILE *__fp);
+
+
+
+
+
+extern void _IO_flockfile (_IO_FILE *) __attribute__ ((__nothrow__ , __leaf__));
+extern void _IO_funlockfile (_IO_FILE *) __attribute__ ((__nothrow__ , __leaf__));
+extern int _IO_ftrylockfile (_IO_FILE *) __attribute__ ((__nothrow__ , __leaf__));
+# 459 "/usr/include/libio.h" 3 4
+extern int _IO_vfscanf (_IO_FILE * __restrict, const char * __restrict,
+   __gnuc_va_list, int *__restrict);
+extern int _IO_vfprintf (_IO_FILE *__restrict, const char *__restrict,
+    __gnuc_va_list);
+extern __ssize_t _IO_padn (_IO_FILE *, int, __ssize_t);
+extern size_t _IO_sgetn (_IO_FILE *, void *, size_t);
+
+extern __off64_t _IO_seekoff (_IO_FILE *, __off64_t, int, int);
+extern __off64_t _IO_seekpos (_IO_FILE *, __off64_t, int);
+
+extern void _IO_free_backup_area (_IO_FILE *) __attribute__ ((__nothrow__ , __leaf__));
+# 75 "/usr/include/stdio.h" 2 3 4
+# 108 "/usr/include/stdio.h" 3 4
+
+
+typedef _G_fpos_t fpos_t;
+
+
+
+
+# 164 "/usr/include/stdio.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/stdio_lim.h" 1 3 4
+# 165 "/usr/include/stdio.h" 2 3 4
+
+
+
+extern struct _IO_FILE *stdin;
+extern struct _IO_FILE *stdout;
+extern struct _IO_FILE *stderr;
+
+
+
+
+
+
+
+extern int remove (const char *__filename) __attribute__ ((__nothrow__ , __leaf__));
+
+extern int rename (const char *__old, const char *__new) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+extern FILE *tmpfile (void) ;
+# 209 "/usr/include/stdio.h" 3 4
+extern char *tmpnam (char *__s) __attribute__ ((__nothrow__ , __leaf__)) ;
+
+# 232 "/usr/include/stdio.h" 3 4
+
+
+
+
+
+extern int fclose (FILE *__stream);
+
+
+
+
+extern int fflush (FILE *__stream);
+
+# 266 "/usr/include/stdio.h" 3 4
+
+
+
+
+
+
+extern FILE *fopen (const char *__restrict __filename,
+      const char *__restrict __modes) ;
+
+
+
+
+extern FILE *freopen (const char *__restrict __filename,
+        const char *__restrict __modes,
+        FILE *__restrict __stream) ;
+# 295 "/usr/include/stdio.h" 3 4
+
+# 306 "/usr/include/stdio.h" 3 4
+extern FILE *fdopen (int __fd, const char *__modes) __attribute__ ((__nothrow__ , __leaf__)) ;
+# 329 "/usr/include/stdio.h" 3 4
+
+
+
+extern void setbuf (FILE *__restrict __stream, char *__restrict __buf) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+extern int setvbuf (FILE *__restrict __stream, char *__restrict __buf,
+      int __modes, size_t __n) __attribute__ ((__nothrow__ , __leaf__));
+
+# 351 "/usr/include/stdio.h" 3 4
+
+
+
+
+
+extern int fprintf (FILE *__restrict __stream,
+      const char *__restrict __format, ...);
+
+
+
+
+extern int printf (const char *__restrict __format, ...);
+
+extern int sprintf (char *__restrict __s,
+      const char *__restrict __format, ...) __attribute__ ((__nothrow__));
+
+
+
+
+
+extern int vfprintf (FILE *__restrict __s, const char *__restrict __format,
+       __gnuc_va_list __arg);
+
+
+
+
+extern int vprintf (const char *__restrict __format, __gnuc_va_list __arg);
+
+extern int vsprintf (char *__restrict __s, const char *__restrict __format,
+       __gnuc_va_list __arg) __attribute__ ((__nothrow__));
+
+
+
+
+
+extern int snprintf (char *__restrict __s, size_t __maxlen,
+       const char *__restrict __format, ...)
+     __attribute__ ((__nothrow__)) __attribute__ ((__format__ (__printf__, 3, 4)));
+
+extern int vsnprintf (char *__restrict __s, size_t __maxlen,
+        const char *__restrict __format, __gnuc_va_list __arg)
+     __attribute__ ((__nothrow__)) __attribute__ ((__format__ (__printf__, 3, 0)));
+
+# 420 "/usr/include/stdio.h" 3 4
+
+
+
+
+
+extern int fscanf (FILE *__restrict __stream,
+     const char *__restrict __format, ...) ;
+
+
+
+
+extern int scanf (const char *__restrict __format, ...) ;
+
+extern int sscanf (const char *__restrict __s,
+     const char *__restrict __format, ...) __attribute__ ((__nothrow__ , __leaf__));
+# 463 "/usr/include/stdio.h" 3 4
+
+
+
+
+
+
+
+
+extern int vfscanf (FILE *__restrict __s, const char *__restrict __format,
+      __gnuc_va_list __arg)
+     __attribute__ ((__format__ (__scanf__, 2, 0))) ;
+
+
+
+
+
+extern int vscanf (const char *__restrict __format, __gnuc_va_list __arg)
+     __attribute__ ((__format__ (__scanf__, 1, 0))) ;
+
+
+extern int vsscanf (const char *__restrict __s,
+      const char *__restrict __format, __gnuc_va_list __arg)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__format__ (__scanf__, 2, 0)));
+# 522 "/usr/include/stdio.h" 3 4
+
+
+
+
+
+
+
+
+
+extern int fgetc (FILE *__stream);
+extern int getc (FILE *__stream);
+
+
+
+
+
+extern int getchar (void);
+
+# 550 "/usr/include/stdio.h" 3 4
+extern int getc_unlocked (FILE *__stream);
+extern int getchar_unlocked (void);
+# 565 "/usr/include/stdio.h" 3 4
+
+
+
+
+
+
+
+
+extern int fputc (int __c, FILE *__stream);
+extern int putc (int __c, FILE *__stream);
+
+
+
+
+
+extern int putchar (int __c);
+
+# 602 "/usr/include/stdio.h" 3 4
+extern int putc_unlocked (int __c, FILE *__stream);
+extern int putchar_unlocked (int __c);
+# 617 "/usr/include/stdio.h" 3 4
+
+
+
+
+
+extern char *fgets (char *__restrict __s, int __n, FILE *__restrict __stream)
+     ;
+# 640 "/usr/include/stdio.h" 3 4
+
+# 684 "/usr/include/stdio.h" 3 4
+
+
+
+
+
+extern int fputs (const char *__restrict __s, FILE *__restrict __stream);
+
+
+
+
+
+extern int puts (const char *__s);
+
+
+
+
+
+
+extern int ungetc (int __c, FILE *__stream);
+
+
+
+
+
+
+extern size_t fread (void *__restrict __ptr, size_t __size,
+       size_t __n, FILE *__restrict __stream) ;
+
+
+
+
+extern size_t fwrite (const void *__restrict __ptr, size_t __size,
+        size_t __n, FILE *__restrict __s);
+
+# 744 "/usr/include/stdio.h" 3 4
+
+
+
+
+
+extern int fseek (FILE *__stream, long int __off, int __whence);
+
+
+
+
+extern long int ftell (FILE *__stream) ;
+
+
+
+
+extern void rewind (FILE *__stream);
+
+# 792 "/usr/include/stdio.h" 3 4
+
+
+
+
+
+
+extern int fgetpos (FILE *__restrict __stream, fpos_t *__restrict __pos);
+
+
+
+
+extern int fsetpos (FILE *__stream, const fpos_t *__pos);
+# 815 "/usr/include/stdio.h" 3 4
+
+# 824 "/usr/include/stdio.h" 3 4
+
+
+extern void clearerr (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
+
+extern int feof (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) ;
+
+extern int ferror (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) ;
+
+# 841 "/usr/include/stdio.h" 3 4
+
+
+
+
+
+extern void perror (const char *__s);
+
+
+
+
+
+
+# 1 "/usr/include/x86_64-linux-gnu/bits/sys_errlist.h" 1 3 4
+# 854 "/usr/include/stdio.h" 2 3 4
+
+
+
+
+extern int fileno (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) ;
+# 884 "/usr/include/stdio.h" 3 4
+extern char *ctermid (char *__s) __attribute__ ((__nothrow__ , __leaf__));
+# 912 "/usr/include/stdio.h" 3 4
+extern void flockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+extern int ftrylockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) ;
+
+
+extern void funlockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
+# 942 "/usr/include/stdio.h" 3 4
+
 # 4 "simple_cat.xc" 2
 # 1 "/usr/include/stdlib.h" 1 3 4
-# 65 "/usr/include/stdlib.h" 3 4
-# 1 "/usr/include/sys/wait.h" 1 3 4
-# 79 "/usr/include/sys/wait.h" 3 4
-typedef enum {
- P_ALL,
- P_PID,
- P_PGID
-} idtype_t;
-
-
-
-
-
-
-# 1 "/usr/include/sys/_types/_pid_t.h" 1 3 4
-# 30 "/usr/include/sys/_types/_pid_t.h" 3 4
-typedef __darwin_pid_t pid_t;
-# 90 "/usr/include/sys/wait.h" 2 3 4
-# 1 "/usr/include/sys/_types/_id_t.h" 1 3 4
-# 30 "/usr/include/sys/_types/_id_t.h" 3 4
-typedef __darwin_id_t id_t;
-# 91 "/usr/include/sys/wait.h" 2 3 4
-# 109 "/usr/include/sys/wait.h" 3 4
-# 1 "/usr/include/sys/signal.h" 1 3 4
-# 73 "/usr/include/sys/signal.h" 3 4
-# 1 "/usr/include/sys/appleapiopts.h" 1 3 4
-# 74 "/usr/include/sys/signal.h" 2 3 4
-
-
-
-
-
-
-
-
-# 1 "/usr/include/machine/signal.h" 1 3 4
-# 32 "/usr/include/machine/signal.h" 3 4
-# 1 "/usr/include/i386/signal.h" 1 3 4
-# 39 "/usr/include/i386/signal.h" 3 4
-typedef int sig_atomic_t;
-# 33 "/usr/include/machine/signal.h" 2 3 4
-# 83 "/usr/include/sys/signal.h" 2 3 4
-# 146 "/usr/include/sys/signal.h" 3 4
-# 1 "/usr/include/machine/_mcontext.h" 1 3 4
-# 29 "/usr/include/machine/_mcontext.h" 3 4
-# 1 "/usr/include/i386/_mcontext.h" 1 3 4
-# 33 "/usr/include/i386/_mcontext.h" 3 4
-# 1 "/usr/include/mach/i386/_structs.h" 1 3 4
-# 43 "/usr/include/mach/i386/_structs.h" 3 4
-struct __darwin_i386_thread_state
-{
-    unsigned int __eax;
-    unsigned int __ebx;
-    unsigned int __ecx;
-    unsigned int __edx;
-    unsigned int __edi;
-    unsigned int __esi;
-    unsigned int __ebp;
-    unsigned int __esp;
-    unsigned int __ss;
-    unsigned int __eflags;
-    unsigned int __eip;
-    unsigned int __cs;
-    unsigned int __ds;
-    unsigned int __es;
-    unsigned int __fs;
-    unsigned int __gs;
-};
-# 89 "/usr/include/mach/i386/_structs.h" 3 4
-struct __darwin_fp_control
-{
-    unsigned short __invalid :1,
-        __denorm :1,
-    __zdiv :1,
-    __ovrfl :1,
-    __undfl :1,
-    __precis :1,
-      :2,
-    __pc :2,
-
-
-
-
-
-    __rc :2,
-
-
-
-
-
-
-             :1,
-      :3;
-};
-typedef struct __darwin_fp_control __darwin_fp_control_t;
-# 147 "/usr/include/mach/i386/_structs.h" 3 4
-struct __darwin_fp_status
-{
-    unsigned short __invalid :1,
-        __denorm :1,
-    __zdiv :1,
-    __ovrfl :1,
-    __undfl :1,
-    __precis :1,
-    __stkflt :1,
-    __errsumm :1,
-    __c0 :1,
-    __c1 :1,
-    __c2 :1,
-    __tos :3,
-    __c3 :1,
-    __busy :1;
-};
-typedef struct __darwin_fp_status __darwin_fp_status_t;
-# 191 "/usr/include/mach/i386/_structs.h" 3 4
-struct __darwin_mmst_reg
-{
- char __mmst_reg[10];
- char __mmst_rsrv[6];
-};
-# 210 "/usr/include/mach/i386/_structs.h" 3 4
-struct __darwin_xmm_reg
-{
- char __xmm_reg[16];
-};
-# 232 "/usr/include/mach/i386/_structs.h" 3 4
-struct __darwin_i386_float_state
-{
- int __fpu_reserved[2];
- struct __darwin_fp_control __fpu_fcw;
- struct __darwin_fp_status __fpu_fsw;
- __uint8_t __fpu_ftw;
- __uint8_t __fpu_rsrv1;
- __uint16_t __fpu_fop;
- __uint32_t __fpu_ip;
- __uint16_t __fpu_cs;
- __uint16_t __fpu_rsrv2;
- __uint32_t __fpu_dp;
- __uint16_t __fpu_ds;
- __uint16_t __fpu_rsrv3;
- __uint32_t __fpu_mxcsr;
- __uint32_t __fpu_mxcsrmask;
- struct __darwin_mmst_reg __fpu_stmm0;
- struct __darwin_mmst_reg __fpu_stmm1;
- struct __darwin_mmst_reg __fpu_stmm2;
- struct __darwin_mmst_reg __fpu_stmm3;
- struct __darwin_mmst_reg __fpu_stmm4;
- struct __darwin_mmst_reg __fpu_stmm5;
- struct __darwin_mmst_reg __fpu_stmm6;
- struct __darwin_mmst_reg __fpu_stmm7;
- struct __darwin_xmm_reg __fpu_xmm0;
- struct __darwin_xmm_reg __fpu_xmm1;
- struct __darwin_xmm_reg __fpu_xmm2;
- struct __darwin_xmm_reg __fpu_xmm3;
- struct __darwin_xmm_reg __fpu_xmm4;
- struct __darwin_xmm_reg __fpu_xmm5;
- struct __darwin_xmm_reg __fpu_xmm6;
- struct __darwin_xmm_reg __fpu_xmm7;
- char __fpu_rsrv4[14*16];
- int __fpu_reserved1;
-};
-
-
-struct __darwin_i386_avx_state
-{
- int __fpu_reserved[2];
- struct __darwin_fp_control __fpu_fcw;
- struct __darwin_fp_status __fpu_fsw;
- __uint8_t __fpu_ftw;
- __uint8_t __fpu_rsrv1;
- __uint16_t __fpu_fop;
- __uint32_t __fpu_ip;
- __uint16_t __fpu_cs;
- __uint16_t __fpu_rsrv2;
- __uint32_t __fpu_dp;
- __uint16_t __fpu_ds;
- __uint16_t __fpu_rsrv3;
- __uint32_t __fpu_mxcsr;
- __uint32_t __fpu_mxcsrmask;
- struct __darwin_mmst_reg __fpu_stmm0;
- struct __darwin_mmst_reg __fpu_stmm1;
- struct __darwin_mmst_reg __fpu_stmm2;
- struct __darwin_mmst_reg __fpu_stmm3;
- struct __darwin_mmst_reg __fpu_stmm4;
- struct __darwin_mmst_reg __fpu_stmm5;
- struct __darwin_mmst_reg __fpu_stmm6;
- struct __darwin_mmst_reg __fpu_stmm7;
- struct __darwin_xmm_reg __fpu_xmm0;
- struct __darwin_xmm_reg __fpu_xmm1;
- struct __darwin_xmm_reg __fpu_xmm2;
- struct __darwin_xmm_reg __fpu_xmm3;
- struct __darwin_xmm_reg __fpu_xmm4;
- struct __darwin_xmm_reg __fpu_xmm5;
- struct __darwin_xmm_reg __fpu_xmm6;
- struct __darwin_xmm_reg __fpu_xmm7;
- char __fpu_rsrv4[14*16];
- int __fpu_reserved1;
- char __avx_reserved1[64];
- struct __darwin_xmm_reg __fpu_ymmh0;
- struct __darwin_xmm_reg __fpu_ymmh1;
- struct __darwin_xmm_reg __fpu_ymmh2;
- struct __darwin_xmm_reg __fpu_ymmh3;
- struct __darwin_xmm_reg __fpu_ymmh4;
- struct __darwin_xmm_reg __fpu_ymmh5;
- struct __darwin_xmm_reg __fpu_ymmh6;
- struct __darwin_xmm_reg __fpu_ymmh7;
-};
-# 402 "/usr/include/mach/i386/_structs.h" 3 4
-struct __darwin_i386_exception_state
-{
- __uint16_t __trapno;
- __uint16_t __cpu;
- __uint32_t __err;
- __uint32_t __faultvaddr;
-};
-# 422 "/usr/include/mach/i386/_structs.h" 3 4
-struct __darwin_x86_debug_state32
-{
- unsigned int __dr0;
- unsigned int __dr1;
- unsigned int __dr2;
- unsigned int __dr3;
- unsigned int __dr4;
- unsigned int __dr5;
- unsigned int __dr6;
- unsigned int __dr7;
-};
-# 454 "/usr/include/mach/i386/_structs.h" 3 4
-struct __darwin_x86_thread_state64
-{
- __uint64_t __rax;
- __uint64_t __rbx;
- __uint64_t __rcx;
- __uint64_t __rdx;
- __uint64_t __rdi;
- __uint64_t __rsi;
- __uint64_t __rbp;
- __uint64_t __rsp;
- __uint64_t __r8;
- __uint64_t __r9;
- __uint64_t __r10;
- __uint64_t __r11;
- __uint64_t __r12;
- __uint64_t __r13;
- __uint64_t __r14;
- __uint64_t __r15;
- __uint64_t __rip;
- __uint64_t __rflags;
- __uint64_t __cs;
- __uint64_t __fs;
- __uint64_t __gs;
-};
-# 509 "/usr/include/mach/i386/_structs.h" 3 4
-struct __darwin_x86_float_state64
-{
- int __fpu_reserved[2];
- struct __darwin_fp_control __fpu_fcw;
- struct __darwin_fp_status __fpu_fsw;
- __uint8_t __fpu_ftw;
- __uint8_t __fpu_rsrv1;
- __uint16_t __fpu_fop;
-
-
- __uint32_t __fpu_ip;
- __uint16_t __fpu_cs;
-
- __uint16_t __fpu_rsrv2;
-
-
- __uint32_t __fpu_dp;
- __uint16_t __fpu_ds;
-
- __uint16_t __fpu_rsrv3;
- __uint32_t __fpu_mxcsr;
- __uint32_t __fpu_mxcsrmask;
- struct __darwin_mmst_reg __fpu_stmm0;
- struct __darwin_mmst_reg __fpu_stmm1;
- struct __darwin_mmst_reg __fpu_stmm2;
- struct __darwin_mmst_reg __fpu_stmm3;
- struct __darwin_mmst_reg __fpu_stmm4;
- struct __darwin_mmst_reg __fpu_stmm5;
- struct __darwin_mmst_reg __fpu_stmm6;
- struct __darwin_mmst_reg __fpu_stmm7;
- struct __darwin_xmm_reg __fpu_xmm0;
- struct __darwin_xmm_reg __fpu_xmm1;
- struct __darwin_xmm_reg __fpu_xmm2;
- struct __darwin_xmm_reg __fpu_xmm3;
- struct __darwin_xmm_reg __fpu_xmm4;
- struct __darwin_xmm_reg __fpu_xmm5;
- struct __darwin_xmm_reg __fpu_xmm6;
- struct __darwin_xmm_reg __fpu_xmm7;
- struct __darwin_xmm_reg __fpu_xmm8;
- struct __darwin_xmm_reg __fpu_xmm9;
- struct __darwin_xmm_reg __fpu_xmm10;
- struct __darwin_xmm_reg __fpu_xmm11;
- struct __darwin_xmm_reg __fpu_xmm12;
- struct __darwin_xmm_reg __fpu_xmm13;
- struct __darwin_xmm_reg __fpu_xmm14;
- struct __darwin_xmm_reg __fpu_xmm15;
- char __fpu_rsrv4[6*16];
- int __fpu_reserved1;
-};
-
-
-struct __darwin_x86_avx_state64
-{
- int __fpu_reserved[2];
- struct __darwin_fp_control __fpu_fcw;
- struct __darwin_fp_status __fpu_fsw;
- __uint8_t __fpu_ftw;
- __uint8_t __fpu_rsrv1;
- __uint16_t __fpu_fop;
-
-
- __uint32_t __fpu_ip;
- __uint16_t __fpu_cs;
-
- __uint16_t __fpu_rsrv2;
-
-
- __uint32_t __fpu_dp;
- __uint16_t __fpu_ds;
-
- __uint16_t __fpu_rsrv3;
- __uint32_t __fpu_mxcsr;
- __uint32_t __fpu_mxcsrmask;
- struct __darwin_mmst_reg __fpu_stmm0;
- struct __darwin_mmst_reg __fpu_stmm1;
- struct __darwin_mmst_reg __fpu_stmm2;
- struct __darwin_mmst_reg __fpu_stmm3;
- struct __darwin_mmst_reg __fpu_stmm4;
- struct __darwin_mmst_reg __fpu_stmm5;
- struct __darwin_mmst_reg __fpu_stmm6;
- struct __darwin_mmst_reg __fpu_stmm7;
- struct __darwin_xmm_reg __fpu_xmm0;
- struct __darwin_xmm_reg __fpu_xmm1;
- struct __darwin_xmm_reg __fpu_xmm2;
- struct __darwin_xmm_reg __fpu_xmm3;
- struct __darwin_xmm_reg __fpu_xmm4;
- struct __darwin_xmm_reg __fpu_xmm5;
- struct __darwin_xmm_reg __fpu_xmm6;
- struct __darwin_xmm_reg __fpu_xmm7;
- struct __darwin_xmm_reg __fpu_xmm8;
- struct __darwin_xmm_reg __fpu_xmm9;
- struct __darwin_xmm_reg __fpu_xmm10;
- struct __darwin_xmm_reg __fpu_xmm11;
- struct __darwin_xmm_reg __fpu_xmm12;
- struct __darwin_xmm_reg __fpu_xmm13;
- struct __darwin_xmm_reg __fpu_xmm14;
- struct __darwin_xmm_reg __fpu_xmm15;
- char __fpu_rsrv4[6*16];
- int __fpu_reserved1;
- char __avx_reserved1[64];
- struct __darwin_xmm_reg __fpu_ymmh0;
- struct __darwin_xmm_reg __fpu_ymmh1;
- struct __darwin_xmm_reg __fpu_ymmh2;
- struct __darwin_xmm_reg __fpu_ymmh3;
- struct __darwin_xmm_reg __fpu_ymmh4;
- struct __darwin_xmm_reg __fpu_ymmh5;
- struct __darwin_xmm_reg __fpu_ymmh6;
- struct __darwin_xmm_reg __fpu_ymmh7;
- struct __darwin_xmm_reg __fpu_ymmh8;
- struct __darwin_xmm_reg __fpu_ymmh9;
- struct __darwin_xmm_reg __fpu_ymmh10;
- struct __darwin_xmm_reg __fpu_ymmh11;
- struct __darwin_xmm_reg __fpu_ymmh12;
- struct __darwin_xmm_reg __fpu_ymmh13;
- struct __darwin_xmm_reg __fpu_ymmh14;
- struct __darwin_xmm_reg __fpu_ymmh15;
-};
-# 751 "/usr/include/mach/i386/_structs.h" 3 4
-struct __darwin_x86_exception_state64
-{
-    __uint16_t __trapno;
-    __uint16_t __cpu;
-    __uint32_t __err;
-    __uint64_t __faultvaddr;
-};
-# 771 "/usr/include/mach/i386/_structs.h" 3 4
-struct __darwin_x86_debug_state64
-{
- __uint64_t __dr0;
- __uint64_t __dr1;
- __uint64_t __dr2;
- __uint64_t __dr3;
- __uint64_t __dr4;
- __uint64_t __dr5;
- __uint64_t __dr6;
- __uint64_t __dr7;
-};
-# 34 "/usr/include/i386/_mcontext.h" 2 3 4
-
-
-
-
-struct __darwin_mcontext32
-{
- struct __darwin_i386_exception_state __es;
- struct __darwin_i386_thread_state __ss;
- struct __darwin_i386_float_state __fs;
-};
-
-
-struct __darwin_mcontext_avx32
-{
- struct __darwin_i386_exception_state __es;
- struct __darwin_i386_thread_state __ss;
- struct __darwin_i386_avx_state __fs;
-};
-# 76 "/usr/include/i386/_mcontext.h" 3 4
-struct __darwin_mcontext64
-{
- struct __darwin_x86_exception_state64 __es;
- struct __darwin_x86_thread_state64 __ss;
- struct __darwin_x86_float_state64 __fs;
-};
-
-
-struct __darwin_mcontext_avx64
-{
- struct __darwin_x86_exception_state64 __es;
- struct __darwin_x86_thread_state64 __ss;
- struct __darwin_x86_avx_state64 __fs;
-};
-# 115 "/usr/include/i386/_mcontext.h" 3 4
-typedef struct __darwin_mcontext64 *mcontext_t;
-# 30 "/usr/include/machine/_mcontext.h" 2 3 4
-# 147 "/usr/include/sys/signal.h" 2 3 4
-
-# 1 "/usr/include/sys/_pthread/_pthread_attr_t.h" 1 3 4
-# 30 "/usr/include/sys/_pthread/_pthread_attr_t.h" 3 4
-typedef __darwin_pthread_attr_t pthread_attr_t;
-# 149 "/usr/include/sys/signal.h" 2 3 4
-
-# 1 "/usr/include/sys/_types/_sigaltstack.h" 1 3 4
-# 36 "/usr/include/sys/_types/_sigaltstack.h" 3 4
-struct __darwin_sigaltstack
-{
- void *ss_sp;
- __darwin_size_t ss_size;
- int ss_flags;
-};
-typedef struct __darwin_sigaltstack stack_t;
-# 151 "/usr/include/sys/signal.h" 2 3 4
-# 1 "/usr/include/sys/_types/_ucontext.h" 1 3 4
-# 34 "/usr/include/sys/_types/_ucontext.h" 3 4
-struct __darwin_ucontext
-{
- int uc_onstack;
- __darwin_sigset_t uc_sigmask;
- struct __darwin_sigaltstack uc_stack;
- struct __darwin_ucontext *uc_link;
- __darwin_size_t uc_mcsize;
- struct __darwin_mcontext64 *uc_mcontext;
-
-
-
-};
-
-
-typedef struct __darwin_ucontext ucontext_t;
-# 152 "/usr/include/sys/signal.h" 2 3 4
-
-
-# 1 "/usr/include/sys/_types/_sigset_t.h" 1 3 4
-# 30 "/usr/include/sys/_types/_sigset_t.h" 3 4
-typedef __darwin_sigset_t sigset_t;
-# 155 "/usr/include/sys/signal.h" 2 3 4
-
-# 1 "/usr/include/sys/_types/_uid_t.h" 1 3 4
-# 30 "/usr/include/sys/_types/_uid_t.h" 3 4
-typedef __darwin_uid_t uid_t;
-# 157 "/usr/include/sys/signal.h" 2 3 4
-
-union sigval {
-
- int sival_int;
- void *sival_ptr;
-};
-
-
-
-
-
-struct sigevent {
- int sigev_notify;
- int sigev_signo;
- union sigval sigev_value;
- void (*sigev_notify_function)(union sigval);
- pthread_attr_t *sigev_notify_attributes;
-};
-
-
-typedef struct __siginfo {
- int si_signo;
- int si_errno;
- int si_code;
- pid_t si_pid;
- uid_t si_uid;
- int si_status;
- void *si_addr;
- union sigval si_value;
- long si_band;
- unsigned long __pad[7];
-} siginfo_t;
-# 269 "/usr/include/sys/signal.h" 3 4
-union __sigaction_u {
- void (*__sa_handler)(int);
- void (*__sa_sigaction)(int, struct __siginfo *,
-         void *);
-};
-
-
-struct __sigaction {
- union __sigaction_u __sigaction_u;
- void (*sa_tramp)(void *, int, int, siginfo_t *, void *);
- sigset_t sa_mask;
- int sa_flags;
-};
-
-
-
-
-struct sigaction {
- union __sigaction_u __sigaction_u;
- sigset_t sa_mask;
- int sa_flags;
-};
-# 367 "/usr/include/sys/signal.h" 3 4
-struct sigstack {
- char *ss_sp;
- int ss_onstack;
-};
-# 390 "/usr/include/sys/signal.h" 3 4
-void (*signal(int, void (*)(int)))(int);
-# 110 "/usr/include/sys/wait.h" 2 3 4
-# 1 "/usr/include/sys/resource.h" 1 3 4
-# 80 "/usr/include/sys/resource.h" 3 4
-# 1 "/usr/include/sys/_types/_timeval.h" 1 3 4
-# 30 "/usr/include/sys/_types/_timeval.h" 3 4
-struct timeval
-{
- __darwin_time_t tv_sec;
- __darwin_suseconds_t tv_usec;
-};
-# 81 "/usr/include/sys/resource.h" 2 3 4
-
-
-
-
-
-
-
-
-typedef __uint64_t rlim_t;
-# 152 "/usr/include/sys/resource.h" 3 4
-struct rusage {
- struct timeval ru_utime;
- struct timeval ru_stime;
-
- long ru_opaque[14];
-# 180 "/usr/include/sys/resource.h" 3 4
-};
-# 325 "/usr/include/sys/resource.h" 3 4
-struct rlimit {
- rlim_t rlim_cur;
- rlim_t rlim_max;
-};
-# 385 "/usr/include/sys/resource.h" 3 4
-int getpriority(int, id_t);
-
-
-
-int getrlimit(int, struct rlimit *) __asm("_" "getrlimit" );
-int getrusage(int, struct rusage *);
-int setpriority(int, id_t, int);
-
-
-
-int setrlimit(int, const struct rlimit *) __asm("_" "setrlimit" );
-# 111 "/usr/include/sys/wait.h" 2 3 4
-# 248 "/usr/include/sys/wait.h" 3 4
-pid_t wait(int *) __asm("_" "wait" );
-pid_t waitpid(pid_t, int *, int) __asm("_" "waitpid" );
-
-int waitid(idtype_t, id_t, siginfo_t *, int) __asm("_" "waitid" );
-# 66 "/usr/include/stdlib.h" 2 3 4
-# 80 "/usr/include/stdlib.h" 3 4
-# 1 "/usr/include/sys/_types/_wchar_t.h" 1 3 4
-# 33 "/usr/include/sys/_types/_wchar_t.h" 3 4
-typedef __darwin_wchar_t wchar_t;
-# 81 "/usr/include/stdlib.h" 2 3 4
-
-typedef struct {
- int quot;
- int rem;
-} div_t;
-
-typedef struct {
- long quot;
- long rem;
-} ldiv_t;
-
-
-typedef struct {
- long long quot;
- long long rem;
-} lldiv_t;
-# 117 "/usr/include/stdlib.h" 3 4
-extern int __mb_cur_max;
-# 128 "/usr/include/stdlib.h" 3 4
-void abort(void) __attribute__((noreturn));
-int abs(int) __attribute__((const));
-int atexit(void (* _Nonnull)(void));
-double atof(const char *);
-int atoi(const char *);
-long atol(const char *);
-
-long long
-  atoll(const char *);
-
-void *bsearch(const void *__key, const void *__base, size_t __nel,
-     size_t __width, int (* _Nonnull __compar)(const void *, const void *));
-void *calloc(size_t __count, size_t __size) __attribute__((__warn_unused_result__));
-div_t div(int, int) __attribute__((const));
-void exit(int) __attribute__((noreturn));
-void free(void *);
-char *getenv(const char *);
-long labs(long) __attribute__((const));
-ldiv_t ldiv(long, long) __attribute__((const));
-
-long long
-  llabs(long long);
-lldiv_t lldiv(long long, long long);
-
-void *malloc(size_t __size) __attribute__((__warn_unused_result__));
-int mblen(const char *__s, size_t __n);
-size_t mbstowcs(wchar_t * restrict , const char * restrict, size_t);
-int mbtowc(wchar_t * restrict, const char * restrict, size_t);
-int posix_memalign(void **__memptr, size_t __alignment, size_t __size) __attribute__((availability(macosx,introduced=10.6)));
-void qsort(void *__base, size_t __nel, size_t __width,
-     int (* _Nonnull __compar)(const void *, const void *));
-int rand(void) __attribute__((__availability__(swift, unavailable, message="Use arc4random instead.")));
-void *realloc(void *__ptr, size_t __size) __attribute__((__warn_unused_result__));
-void srand(unsigned) __attribute__((__availability__(swift, unavailable, message="Use arc4random instead.")));
-double strtod(const char *, char **) __asm("_" "strtod" );
-float strtof(const char *, char **) __asm("_" "strtof" );
-long strtol(const char *__str, char **__endptr, int __base);
-long double
-  strtold(const char *, char **);
-
-long long
-  strtoll(const char *__str, char **__endptr, int __base);
-
-unsigned long
-  strtoul(const char *__str, char **__endptr, int __base);
-
-unsigned long long
-  strtoull(const char *__str, char **__endptr, int __base);
-# 184 "/usr/include/stdlib.h" 3 4
-__attribute__((__availability__(swift, unavailable, message="Use posix_spawn APIs or NSTask instead.")))
-__attribute__((availability(macosx,introduced=10.0)))
-__attribute__((availability(watchos,unavailable))) __attribute__((availability(tvos,unavailable)))
-int system(const char *) __asm("_" "system" );
-
-
-
-size_t wcstombs(char * restrict, const wchar_t * restrict, size_t);
-int wctomb(char *, wchar_t);
-
-
-void _Exit(int) __attribute__((noreturn));
-long a64l(const char *);
-double drand48(void);
-char *ecvt(double, int, int *restrict, int *restrict);
-double erand48(unsigned short[3]);
-char *fcvt(double, int, int *restrict, int *restrict);
-char *gcvt(double, int, char *);
-int getsubopt(char **, char * const *, char **);
-int grantpt(int);
-
-char *initstate(unsigned, char *, size_t);
-
-
-
-long jrand48(unsigned short[3]) __attribute__((__availability__(swift, unavailable, message="Use arc4random instead.")));
-char *l64a(long);
-void lcong48(unsigned short[7]);
-long lrand48(void) __attribute__((__availability__(swift, unavailable, message="Use arc4random instead.")));
-char *mktemp(char *);
-int mkstemp(char *);
-long mrand48(void) __attribute__((__availability__(swift, unavailable, message="Use arc4random instead.")));
-long nrand48(unsigned short[3]) __attribute__((__availability__(swift, unavailable, message="Use arc4random instead.")));
-int posix_openpt(int);
-char *ptsname(int);
-int putenv(char *) __asm("_" "putenv" );
-long random(void) __attribute__((__availability__(swift, unavailable, message="Use arc4random instead.")));
-int rand_r(unsigned *) __attribute__((__availability__(swift, unavailable, message="Use arc4random instead.")));
-
-
-
-char *realpath(const char * restrict, char * restrict) __asm("_" "realpath" );
-
-unsigned short
- *seed48(unsigned short[3]);
-int setenv(const char * __name, const char * __value, int __overwrite) __asm("_" "setenv" );
-
-void setkey(const char *) __asm("_" "setkey" );
-
-
-
-char *setstate(const char *);
-void srand48(long);
-
-void srandom(unsigned);
-
-
-
-int unlockpt(int);
-
-int unsetenv(const char *) __asm("_" "unsetenv" );
+# 32 "/usr/include/stdlib.h" 3 4
+# 1 "/soft/gcc/4.9.2/ubuntuamd2010/lib/gcc/x86_64-linux-gnu/4.9.2/include/stddef.h" 1 3 4
+# 324 "/soft/gcc/4.9.2/ubuntuamd2010/lib/gcc/x86_64-linux-gnu/4.9.2/include/stddef.h" 3 4
+typedef int wchar_t;
+# 33 "/usr/include/stdlib.h" 2 3 4
+
+
+# 95 "/usr/include/stdlib.h" 3 4
+
+
+typedef struct
+  {
+    int quot;
+    int rem;
+  } div_t;
+
+
+
+typedef struct
+  {
+    long int quot;
+    long int rem;
+  } ldiv_t;
+
+
+
+
+
+
+
+__extension__ typedef struct
+  {
+    long long int quot;
+    long long int rem;
+  } lldiv_t;
+
+
+# 139 "/usr/include/stdlib.h" 3 4
+extern size_t __ctype_get_mb_cur_max (void) __attribute__ ((__nothrow__ , __leaf__)) ;
+
+
+
+
+extern double atof (const char *__nptr)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1))) ;
+
+extern int atoi (const char *__nptr)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1))) ;
+
+extern long int atol (const char *__nptr)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1))) ;
+
+
+
+
+
+__extension__ extern long long int atoll (const char *__nptr)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1))) ;
+
+
+
+
+
+extern double strtod (const char *__restrict __nptr,
+        char **__restrict __endptr)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+extern float strtof (const char *__restrict __nptr,
+       char **__restrict __endptr) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+extern long double strtold (const char *__restrict __nptr,
+       char **__restrict __endptr)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+extern long int strtol (const char *__restrict __nptr,
+   char **__restrict __endptr, int __base)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+extern unsigned long int strtoul (const char *__restrict __nptr,
+      char **__restrict __endptr, int __base)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+# 206 "/usr/include/stdlib.h" 3 4
+
+
+__extension__
+extern long long int strtoll (const char *__restrict __nptr,
+         char **__restrict __endptr, int __base)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+__extension__
+extern unsigned long long int strtoull (const char *__restrict __nptr,
+     char **__restrict __endptr, int __base)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+# 372 "/usr/include/stdlib.h" 3 4
+
+
+extern int rand (void) __attribute__ ((__nothrow__ , __leaf__));
+
+extern void srand (unsigned int __seed) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+extern int rand_r (unsigned int *__seed) __attribute__ ((__nothrow__ , __leaf__));
+# 464 "/usr/include/stdlib.h" 3 4
+
+
+extern void *malloc (size_t __size) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) ;
+
+extern void *calloc (size_t __nmemb, size_t __size)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) ;
+
+
+
+
+
+
+
+
+
+
+extern void *realloc (void *__ptr, size_t __size)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__warn_unused_result__));
+
+extern void free (void *__ptr) __attribute__ ((__nothrow__ , __leaf__));
+
+# 509 "/usr/include/stdlib.h" 3 4
+extern void *aligned_alloc (size_t __alignment, size_t __size)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) __attribute__ ((__alloc_size__ (2))) ;
+
+
+
+
+extern void abort (void) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__noreturn__));
+
+
+
+extern int atexit (void (*__func) (void)) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+
+
+extern int at_quick_exit (void (*__func) (void)) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+# 539 "/usr/include/stdlib.h" 3 4
+
+
+
+
+extern void exit (int __status) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__noreturn__));
+
+
+
+
+
+extern void quick_exit (int __status) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__noreturn__));
+
+
+
+
+
+
+
+extern void _Exit (int __status) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__noreturn__));
+
+
+
+
+
+
+extern char *getenv (const char *__name) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1))) ;
+
+# 711 "/usr/include/stdlib.h" 3 4
+
+
+
+
+
+extern int system (const char *__command) ;
+
+# 741 "/usr/include/stdlib.h" 3 4
+typedef int (*__compar_fn_t) (const void *, const void *);
+# 751 "/usr/include/stdlib.h" 3 4
+
+
+
+extern void *bsearch (const void *__key, const void *__base,
+        size_t __nmemb, size_t __size, __compar_fn_t __compar)
+     __attribute__ ((__nonnull__ (1, 2, 5))) ;
+
+
+
+
+
+
+
+extern void qsort (void *__base, size_t __nmemb, size_t __size,
+     __compar_fn_t __compar) __attribute__ ((__nonnull__ (1, 4)));
+# 774 "/usr/include/stdlib.h" 3 4
+extern int abs (int __x) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__)) ;
+extern long int labs (long int __x) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__)) ;
+
+
+
+__extension__ extern long long int llabs (long long int __x)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__)) ;
+
+
+
+
+
+
+
+extern div_t div (int __numer, int __denom)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__)) ;
+extern ldiv_t ldiv (long int __numer, long int __denom)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__)) ;
+
+
+
+
+__extension__ extern lldiv_t lldiv (long long int __numer,
+        long long int __denom)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__)) ;
+
+# 859 "/usr/include/stdlib.h" 3 4
+
+
+
+extern int mblen (const char *__s, size_t __n) __attribute__ ((__nothrow__ , __leaf__));
+
+
+extern int mbtowc (wchar_t *__restrict __pwc,
+     const char *__restrict __s, size_t __n) __attribute__ ((__nothrow__ , __leaf__));
+
+
+extern int wctomb (char *__s, wchar_t __wchar) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+extern size_t mbstowcs (wchar_t *__restrict __pwcs,
+   const char *__restrict __s, size_t __n) __attribute__ ((__nothrow__ , __leaf__));
+
+extern size_t wcstombs (char *__restrict __s,
+   const wchar_t *__restrict __pwcs, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__));
+
+# 954 "/usr/include/stdlib.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/stdlib-float.h" 1 3 4
+# 955 "/usr/include/stdlib.h" 2 3 4
+# 967 "/usr/include/stdlib.h" 3 4
+
 # 5 "simple_cat.xc" 2
-# 1 "./../artifact/arraysLib.h" 1
-# 18 "./../artifact/arraysLib.h"
+# 1 "../artifact/arraysLib.h" 1
+# 18 "../artifact/arraysLib.h"
 typedef struct {
   int dim;
   int *dim_size;
