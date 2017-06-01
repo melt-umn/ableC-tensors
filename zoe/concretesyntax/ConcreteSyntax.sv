@@ -11,7 +11,7 @@ imports edu:umn:cs:melt:ableC:concretesyntax;
 imports edu:umn:cs:melt:ableC:abstractsyntax;
 imports edu:umn:cs:melt:ableC:abstractsyntax:construction;
 
-imports edu:umn:cs:melt:exts:ableC:matlab:abstractsyntax;
+imports zoe:abstractsyntax;
 
 imports silver:langutil only ast;
 
