@@ -124,16 +124,22 @@ void print_array(Array input){
   int *dim_size = input.dim_size;
   int order_read[4] = {0,1,2,3};
   char *delimeter[4] = {" ",";","\n","\n\n"};
-
-  if (max_dim > 4) {
-    tooLarge = 1;
-    printf("Beginning of array... \n");
-    max_dim = 4;
-  }
-
+  int tooLarge = 0;
+  int *dim_buff;
   int i,j,k;
 
-  int *dim_buff = malloc(sizeof(dim_size+1));
+  printf("max_dim is %d \n",max_dim);
+
+  if (max_dim > 3) {
+    tooLarge = 1;
+    printf("Beginning of array... \n");
+    max_dim = 3;
+    dim_buff = malloc(8);
+  }
+  else {
+    printf("dim_size + 1 is %d\n",sizeof(dim_size+1));
+    dim_buff = malloc(sizeof(dim_size+1));
+  }
   for (i = 0; i < max_dim; i++) {
     dim_buff[i] = 0;
   }
@@ -164,7 +170,10 @@ void print_array(Array input){
     }
 
   }
-  printf("\n... rest of array cannot be printed\n");
+  if (tooLarge) {
+  	printf("... rest of array cannot be printed");
+  }
+  printf("\n\n");
 }
 
 /*
