@@ -2,6 +2,8 @@
 
 #!/bin/bash
 
+set -eu
+
 # This script shows the steps in compiling an extended C program (.xc)
 # down to C via an extended instance of ableC and then using GCC to
 # compile the generated C code to an executable.
@@ -19,5 +21,5 @@ basefilename="${filename_withoutpath%.*}"
 
 cfile="${basefilename}.c"
 
-gcc -c ../artifact/arraysLib.c
+gcc -c ../artifact/arraysLib.c -o ../artifact/arraysLib.o
 gcc ${cfile} ../artifact/arraysLib.o
