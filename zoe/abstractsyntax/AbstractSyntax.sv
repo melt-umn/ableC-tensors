@@ -3,7 +3,7 @@
 
 --start of what was written from edu.umn.cs.melt.exts.ableC.matlab
 
-grammar ableC-arrays:zoe:abstractsyntax;
+grammar zoe:abstractsyntax;
 
 imports edu:umn:cs:melt:ableC:abstractsyntax;
 -- for mkIntConst, for mkOneByOneArray:

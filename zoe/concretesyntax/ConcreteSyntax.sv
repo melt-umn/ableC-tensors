@@ -4,7 +4,7 @@
 
 --start of what was written from edu.umn.cs.melt.exts.ableC.matlab
 
-grammar ableC-arrays:zoe:concretesyntax;
+grammar zoe:concretesyntax;
 
 -- as cnc?
 imports edu:umn:cs:melt:ableC:concretesyntax;
@@ -53,4 +53,4 @@ e::PostfixExpr_c ::= fn :: Cat_t '(' on_dimension :: AssignExpr_c ','
                location = fn.location);
 }
 
---end of what was written from edu.umn.cs.melt.exts.ableC.matlab 
+--end of what was written from edu.umn.cs.melt.exts.ableC.matlab

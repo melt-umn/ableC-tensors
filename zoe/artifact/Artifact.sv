@@ -1,11 +1,11 @@
-grammar ableC-arrays:zoe:artifact;
+grammar zoe:artifact;
 
 import edu:umn:cs:melt:ableC:concretesyntax as cst;
 import edu:umn:cs:melt:ableC:drivers:compile;
 
 parser extendedParser :: cst:Root {
   edu:umn:cs:melt:ableC:concretesyntax;
-  ableC-arrays:zoe;
+  zoe;
 }
 
 function main
