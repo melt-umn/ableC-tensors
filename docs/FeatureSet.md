@@ -1,9 +1,27 @@
 ## Feature Set:
    
 Roadmap for this is [here](#roadmap).
-   
+
+### Types.
+- ``array``
+  
+  An array has dimensions represented by an list of positive integer values.  We can use ``dims`` as a function that returns the dimensions of an array.
+
 ### Lang Independent Lin Alg
-- Dot Product
+- Dot Product :: (array a1, array a2) -> (array a3)
+
+  Requires:  dims(a1) = dims(a2), length(dims(a1)) = 1
+  Ensures: dims(a3) = []
+  
+  This representation fo the type of the dot production operations tells us that it takes two arrays and returns an array.
+  The names (a1, a2, a3) let us identify them.
+  
+  Besides the type requirements this requries that the two input arrays have the same dimensions and that they are vectors (by having the length of the dimensions be 1).
+  
+  If these requirements are met, the operation ensures that the result is a scalar.
+  
+  You might write another version of dot product that returns a C ``float``.
+  
 - Cross Product
 - Determinants
 - Echelon form row reduction
