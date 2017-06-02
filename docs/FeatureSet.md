@@ -10,8 +10,8 @@ Roadmap for this is [here](#roadmap).
 ### Lang Independent Lin Alg
 - Dot Product :: (array a1, array a2) -> (array a3)
 
-  - *Requires:*  dims(a1) = dims(a2), length(dims(a1)) = 1
-  - *Ensures:* dims(a3) = []
+  - **Requires:**  dims(a1) = dims(a2), length(dims(a1)) = 1
+  - **Ensures:** dims(a3) = []
   
   This representation fo the type of the dot production operations tells us that it takes two arrays and returns an array.
   The names (a1, a2, a3) let us identify them.
