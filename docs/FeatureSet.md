@@ -15,8 +15,11 @@ Roadmap for this is [here](#roadmap).
    3 4
  ```
     
-  We can use ``dims`` as a function that returns the dimensions of an
-  array.
+	Can use ```ones```, ```zeroes``` and ```rand``` to populate a matrix
+	of dimensions passed as an argument
+
+    We can use ``dims`` as a function that returns the dimensions of an
+	array.
 
 ### Lang Independent Lin Algebra
 - Dot Product :: (array a1, array a2) -> (array a3)
