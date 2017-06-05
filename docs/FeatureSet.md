@@ -10,9 +10,9 @@ Roadmap for this is [here](#roadmap).
     
   Array can be constructed by `[shape], [data]` as in the example '[2,2] [1,2,3,4]' creates
     
-  ''' 1 2 
+  ``` 1 2 
       
-  3 4 '''
+  3 4 ```
     
   We can use ``dims`` as a function that returns the dimensions of an
   array.
