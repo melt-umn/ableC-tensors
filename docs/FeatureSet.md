@@ -15,10 +15,14 @@ Roadmap for this is [here](#roadmap).
    3 4
  ```
 
-  Can use `ones`, `zeroes` and `rand` to populate a matrix of dimensions
-  passed as an argument
+  Can use `ones()`, `zeroes()` and `rand()` to populate a matrix of
+  dimensions passed as an argument
 
-  We can use `dims` as a function that returns the dimensions of an array.
+  We can use `dims()` as a function that returns the dimensions of an
+  array.
+
+  Functions numCols and numRows will also be implemented to return the
+  number of rows and columns.
 
 ### Lang Independent Lin Algebra
 - Dot Product :: (array a1, array a2) -> (array a3)
@@ -37,7 +41,22 @@ Roadmap for this is [here](#roadmap).
   If these requirements are met, the operation ensures that the result is a scalar.
   
   You might write another version of dot product that returns a C ``float``.
-  
+
+- ConRow :: (array a1, array a2) -> (array a3)
+  - **Requires:** numCols(a1) = numCols(a2)
+  - **Ensures:** numCols(a3) = numCols(a1), numRows(a3) = numRows(a1)
+	+ numRows(a2)
+
+  How would this work in the case of matrices in 3+ dimensions?
+- ConColumn  -> Similar to ConRow, has same signature, requirements and
+  guarantees, except for number of rows.
+
+- ConDim :: (Integer x, array a1, array a2) -> (array a3)
+  - **Requres:** dims(a1) = dims(a2) except for dimension along `x` axis
+  - **Ensures:** that the dimensions of all axes except the one specified
+	as a parameter are equal and that along `x`, dimensions of a3 = a1
+	+ a2
+
 - Cross Product
 - Determinants
 - Echelon form row reduction
