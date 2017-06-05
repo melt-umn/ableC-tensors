@@ -5,18 +5,28 @@ Roadmap for this is [here](#roadmap).
 ### Types.
 - ``array``
   
-  An array has dimensions represented by an list of positive integer values.  We can use ``dims`` as a function that returns the dimensions of an array.
+  An array has dimensions represented by an list of positive integer
+  values.
+    
+  Array can be constructed by `[shape], [data]` as in the example '[2,2]
+  [1,2,3,4]' creates ''' 1 2 3 4 '''
+    
+  We can use ``dims`` as a function that returns the dimensions of an
+  array.
 
-### Lang Independent Lin Alg
+### Lang Independent Lin Algebra
 - Dot Product :: (array a1, array a2) -> (array a3)
 
   - **Requires:**  dims(a1) = dims(a2), length(dims(a1)) = 1
   - **Ensures:** dims(a3) = []
   
-  This representation fo the type of the dot production operations tells us that it takes two arrays and returns an array.
-  The names (a1, a2, a3) let us identify them.
+  This representation for the type of the dot production operations tells
+  us that it takes two arrays and returns an array. The names (a1, a2, a3)
+  let us identify them.
   
-  Besides the type requirements this requries that the two input arrays have the same dimensions and that they are vectors (by having the length of the dimensions be 1).
+  Besides the type requirements this requires that the two input arrays
+  have the same dimensions and that they are vectors (by having the length
+  of the dimensions be 1).
   
   If these requirements are met, the operation ensures that the result is a scalar.
   
@@ -33,7 +43,7 @@ Roadmap for this is [here](#roadmap).
 - Transpose
 - Inverse
 - Pseudo-inverses (Maybe)
-- Steady state config
+- Steady state configuration
 - Singular Value Decomposition
 
 ### SAC
