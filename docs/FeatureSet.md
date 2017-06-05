@@ -8,8 +8,11 @@ Roadmap for this is [here](#roadmap).
   An array has dimensions represented by an list of positive integer
   values.
     
-  Array can be constructed by `[shape], [data]` as in the example '[2,2]
-  [1,2,3,4]' creates ''' 1 2 3 4 '''
+  Array can be constructed by `[shape], [data]` as in the example '[2,2] [1,2,3,4]' creates
+    
+  ''' 1 2 
+      
+  3 4 '''
     
   We can use ``dims`` as a function that returns the dimensions of an
   array.
