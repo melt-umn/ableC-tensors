@@ -44,8 +44,7 @@ Roadmap for this is [here](#roadmap).
 
 - `ConRow :: (array a1, array a2) -> (array a3)`
   - **Requires:** `numCols(a1) = numCols(a2)`
-  - **Ensures:** ```numCols(a3) = numCols(a1), numRows(a3) = numRows(a1)
-	+ numRows(a2)```
+  - **Ensures:** `numCols(a3) = numCols(a1), numRows(a3) = numRows(a1) + numRows(a2)`
 
   How would this work in the case of matrices in 3+ dimensions?
 
