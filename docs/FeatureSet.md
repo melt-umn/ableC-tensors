@@ -42,19 +42,25 @@ Roadmap for this is [here](#roadmap).
   
   You might write another version of dot product that returns a C ``float``.
 
+  Consider using the operator '.*' for dot product and 'x*' for cross
+  product as these are frequently used operations.
+
 - `ConRow :: (array a1, array a2) -> (array a3)`
   - **Requires:** `numCols(a1) = numCols(a2)`
   - **Ensures:** `numCols(a3) = numCols(a1), numRows(a3) = numRows(a1) + numRows(a2)`
 
   How would this work in the case of matrices in 3+ dimensions?
+  Possible operator for this is `:r`.
 
 - `ConColumn`  -> Similar to ConRow, has same signature, requirements and
   guarantees, except for number of rows.
+  An idea for an operator is similar to the one proposed for ConRow, `:c`
 
 - `ConDim :: (Integer x, array a1, array a2) -> (array a3)`
   - **Requres:** `dims(a1) = dims(a2)` except for dimension along `x` axis
   - **Ensures:** that the dimensions of all axes except the one specified
 	as a parameter are equal and that along `x`, dimensions of `a3 = a1`
+  Operator could be `:[n]` where `n` is the dimension along which you wish to concatenate.
 
 - Cross Product
 - Determinants
