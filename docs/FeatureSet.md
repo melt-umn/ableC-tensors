@@ -2,7 +2,7 @@
    
 Roadmap for this is [here](#roadmap).
 
-### Types.
+### Types
 - ``array``
   
   An array has dimensions represented by an list of positive integer
@@ -10,8 +10,10 @@ Roadmap for this is [here](#roadmap).
     
   Array can be constructed by `[shape], [data]` as in the example `[2,2] [1,2,3,4]` creates
     
- ``` 1 2 
-  3 4 ```
+ ```
+   1 2 
+   3 4
+ ```
     
   We can use ``dims`` as a function that returns the dimensions of an
   array.
@@ -47,21 +49,21 @@ Roadmap for this is [here](#roadmap).
 - Pseudo-inverses (Maybe)
 - Steady state configuration
 - Singular Value Decomposition
-
+    
 ### SAC
 - `where` (Selection option for map)
-
+   
 ### Julia
 - Rich matrix creation
 - Julia should be able to call functions that are created by the extension to use in Julia files.
-
+   
 ### MATLAB
 - `mex` functionality to call C code from the MATLAB environment
 - Sparse matrices
-
+   
 ### Halide
 - Integrate loop transformations from Lucas' Halide extension
-
+   
 ### Roadmap
 - Create structures and functions for arrays/matrices that construct them in a `.h` file
     - Look into matrix representations (think of additional creation features)
