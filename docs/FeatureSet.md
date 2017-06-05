@@ -24,11 +24,11 @@ Roadmap for this is [here](#roadmap).
   Functions numCols and numRows will also be implemented to return the
   number of rows and columns.
 
-### Lang Independent Lin Algebra
-- Dot Product :: (array a1, array a2) -> (array a3)
+### Language Independent Linear Algebra  
+- `Dot Product :: (array a1, array a2) -> (array a3)`
 
-  - **Requires:**  dims(a1) = dims(a2), length(dims(a1)) = 1
-  - **Ensures:** dims(a3) = []
+  - **Requires:**  `dims(a1) = dims(a2), length(dims(a1)) = 1`
+  - **Ensures:** `dims(a3) = []`
   
   This representation for the type of the dot production operations tells
   us that it takes two arrays and returns an array. The names (a1, a2, a3)
@@ -42,20 +42,20 @@ Roadmap for this is [here](#roadmap).
   
   You might write another version of dot product that returns a C ``float``.
 
-- ConRow :: (array a1, array a2) -> (array a3)
-  - **Requires:** numCols(a1) = numCols(a2)
-  - **Ensures:** numCols(a3) = numCols(a1), numRows(a3) = numRows(a1)
-	+ numRows(a2)
+- `ConRow :: (array a1, array a2) -> (array a3)`
+  - **Requires:** `numCols(a1) = numCols(a2)`
+  - **Ensures:** `numCols(a3) = numCols(a1), numRows(a3) = numRows(a1)
+	+ numRows(a2)`
 
   How would this work in the case of matrices in 3+ dimensions?
-- ConColumn  -> Similar to ConRow, has same signature, requirements and
+
+- `ConColumn`  -> Similar to ConRow, has same signature, requirements and
   guarantees, except for number of rows.
 
-- ConDim :: (Integer x, array a1, array a2) -> (array a3)
-  - **Requres:** dims(a1) = dims(a2) except for dimension along `x` axis
+- `ConDim :: (Integer x, array a1, array a2) -> (array a3)`
+  - **Requres:** `dims(a1) = dims(a2)` except for dimension along `x` axis
   - **Ensures:** that the dimensions of all axes except the one specified
-	as a parameter are equal and that along `x`, dimensions of a3 = a1
-	+ a2
+	as a parameter are equal and that along `x`, dimensions of `a3 = a1`
 
 - Cross Product
 - Determinants
