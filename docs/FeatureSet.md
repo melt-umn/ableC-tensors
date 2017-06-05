@@ -15,10 +15,10 @@ Roadmap for this is [here](#roadmap).
    3 4
  ```
     
-	Can use ```ones```, ```zeroes``` and ```rand``` to populate a matrix
+	Can use `ones`, `zeroes` and `rand` to populate a matrix
 	of dimensions passed as an argument
 
-    We can use ``dims`` as a function that returns the dimensions of an
+    We can use `dims` as a function that returns the dimensions of an
 	array.
 
 ### Lang Independent Lin Algebra
