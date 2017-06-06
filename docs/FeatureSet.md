@@ -105,15 +105,91 @@ Roadmap for this is [here](#roadmap).
   - **Requires:** `dims(a1) = [m,m]`
   - **Ensures:** `dims(a2) = [m,m]`
 
-  Takes the inverse of a square array (returns square matrix of same size).
+  Takes the inverse of a square array (returns square array of same size).
 
 - `Determinant :: (array a1) -> (array a2)`
 
   - **Requires:** `dims(a1) = [m,m]`
   - **Ensures:** `dims(a2) = []`
 
-  Takes a square matrix and returns its determinant (scalar value, aka a
+  Takes a square array and returns its determinant (scalar value, aka a
   zero-dimensional array).
+
+- `Map :: (array a1, *(fun int i1 -> int i2)) -> (array a4)`
+
+  - **Requires:** `None`
+  - **Ensures:** `dims(a1) = dims(a4)`
+
+  Map will take an array and a function to be done on every single element of the
+  array. For now, that function must deal with integers. Two possible ways to
+  implement this: either have the function accept and return an integer, or
+  have it accept and return a scalar array.
+
+  I'm leaning toward the former, since it could potentially be easier for the
+  user to write. Rest of documentation written assuming the former. However,
+  if the latter is used, the documentation would be as such:
+
+    `Map :: (array a1, *(fun array a2 -> array a3)) -> array a4)`
+      - **Requires:** `dims(a2) = dims(a3) = []`
+      - **Ensures:** `dims(a1) = dims(a4)`
+
+### Note on the following arithmetic functions: each can be calculated using the
+### previous `Map` function — in addition, each of the scalar arrays to
+### multiply/add/etc by could instead be an integer. This is a design element
+### we need to decide on, or, as talked about, do both of for now. For ease,
+### I have written all as scalar arrays. -Zoë
+
+- `Scalar Multiply :: (array a1, array a2) -> (array a3)`
+
+  - **Requires:** `dims(a2) = []`
+  - **Ensures:** `dims(a1) = dims(a3)`
+
+  Multiplies each integer in a1 to the integer in a2, equivalent to normal
+  scalar multiplication (not to be confused with matrix multiplication, even
+  though both elements are arrays).
+
+- `Scalar Divide :: (array a1, array a2) -> (array a3)`
+
+  - **Requires:** `dims(a2) = [], a2 != [0]`
+  - **Ensures:** `dims(a1) = dims(a3)`
+
+  Divides each integer in a1 by the integer in a2 (a2 cannot be [0], due to obvious
+  division by zero errors).
+
+- `Scalar Mod :: (array a1, array a2) -> (array a3)`
+
+  - **Requires:** `dims(a2) = [], a2 != [0]`
+  - **Ensures:** `dims(a1) = dims(a3)`
+
+  Mods each integer in a1 by the integer in a2 (a2 cannot be [0], due to obvious
+  division by zero errors).
+
+- `Scalar Add :: (array a1, array a2) -> (array a3)`
+
+  - **Requires:** `dims(a2) = []`
+  - **Ensures:** `dims(a1) = dims(a3)`
+
+  Adds the integer in a2 to each integer in a1.
+
+- `Scalar Subtract :: (array a1, array a2) -> (array a3)`
+
+  - **Requires:** `dims(a2) = []`
+  - **Ensures:** `dims(a1) = dims(a2)`
+
+  Subtracts the integer in a2 from each integer in a1.
+
+### done with arithmetic functions to be implemented using map
+
+### this one cannot actually be done yet, must allow boolean arrays first
+### (or use the normal C array system until boolean arrays are implemented)
+- `Where :: (array a1, array a2, array a3) -> (array a4)`
+
+  - **Requires:** `type(a1) = bool, type(a2) = type(a3), dims(a1) = dims(a2) = dims(a3)`
+  - **Ensures:** `dims(a1) = dims(a4), type(a2) = type(a4)`
+
+  `Where` goes through each boolean in a1. If it is true, it puts the corresponding
+  element in a2 into a4. If it is false, it puts the corresponding element in a3
+  into a4. It is similar to a giant `if then else` statement for an array.
 
 
 
@@ -123,7 +199,6 @@ Roadmap for this is [here](#roadmap).
 - Diagonalizations
 - RF/LU factorization + Gram Schmidt
 - Linearization
-- Inverse
 - Pseudo-inverses (Maybe)
 - Steady state configuration
 - Singular Value Decomposition
