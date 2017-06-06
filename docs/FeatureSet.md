@@ -82,7 +82,7 @@ Roadmap for this is [here](#roadmap).
   An idea for an operator is similar to the one proposed for ConRow, `:c`
 
 - `ConDim :: (Integer x, array a1, array a2) -> (array a3)`
-  - **Requres:** `dims(a1) = dims(a2)` except for dimension along `x` axis
+  - **Requires:** `dims(a1) = dims(a2)` except for dimension along `x` axis
   - **Ensures:** that the dimensions of all axes except the one specified
 	as a parameter are equal and that along `x`, dimensions of `a3 = a1`
   Operator could be `:[n]` where `n` is the dimension along which you wish to concatenate.
@@ -98,16 +98,31 @@ Roadmap for this is [here](#roadmap).
 
   ex: [ 1 2 3 ; 4 5 6 ] -> [ 1 4 ; 2 5 ; 3 6 ]
 
-  TO CHECK: extend transpose for a matrix greater than two dimensions?
+  TO CHECK: extend transpose for a array greater than two dimensions?
 
-- Determinants
+- `Inverse :: (array a1) -> (array a2)`
+
+  - **Requires:** `dims(a1) = [m,m]`
+  - **Ensures:** `dims(a2) = [m,m]`
+
+  Takes the inverse of a square array (returns square matrix of same size).
+
+- `Determinant :: (array a1) -> (array a2)`
+
+  - **Requires:** `dims(a1) = [m,m]`
+  - **Ensures:** `dims(a2) = []`
+
+  Takes a square matrix and returns its determinant (scalar value, aka a
+  zero-dimensional array).
+
+
+
 - Echelon form row reduction
 - Transformations (aka Rotations)
 - Automated Eigenvalue/vector calculation -> think about complex values
 - Diagonalizations
 - RF/LU factorization + Gram Schmidt
 - Linearization
-- Transpose
 - Inverse
 - Pseudo-inverses (Maybe)
 - Steady state configuration
