@@ -115,10 +115,10 @@ Roadmap for this is [here](#roadmap).
   Takes a square array and returns its determinant (scalar value, aka a
   zero-dimensional array).
 
-- `Map :: (array a1, *(fun int i1 -> int i2)) -> (array a4)`
+- `Map :: (*(fun int i1 -> int i2), array a1) -> (array a2)`
 
   - **Requires:** `None`
-  - **Ensures:** `dims(a1) = dims(a4)`
+  - **Ensures:** `dims(a1) = dims(a2)`
 
   Map will take an array and a function to be done on every single element of the
   array. For now, that function must deal with integers. Two possible ways to
@@ -129,9 +129,9 @@ Roadmap for this is [here](#roadmap).
   user to write. Rest of documentation written assuming the former. However,
   if the latter is used, the documentation would be as such:
 
-    `Map :: (array a1, *(fun array a2 -> array a3)) -> array a4)`
-      - **Requires:** `dims(a2) = dims(a3) = []`
-      - **Ensures:** `dims(a1) = dims(a4)`
+    `Map :: (*(fun array a1 -> array a2), array a3) -> array a4)`
+      - **Requires:** `dims(a1) = dims(a2) = []`
+      - **Ensures:** `dims(a3) = dims(a4)`
 
 ### Note on the following arithmetic functions: each can be calculated using the
 ### previous `Map` function — in addition, each of the scalar arrays to
@@ -191,7 +191,58 @@ Roadmap for this is [here](#roadmap).
   element in a2 into a4. If it is false, it puts the corresponding element in a3
   into a4. It is similar to a giant `if then else` statement for an array.
 
+  Format and idea for where is taken from SAC.
 
+- `Fold :: (*(fun int i1, int i2 -> int i3), array a1, array a2) -> (array a3)`
+
+  - **Requires:** `dims(a2) = []`
+  - **Ensures:** `dims(a3) = []`
+
+  Takes an array and folds it, using the function passed in, to a scalar array.
+  A scalar array must also be passed in, since the function needs a value to
+  start with. This is useful for various reduction operations, shown below.
+
+  Similar to the `Map` function above, the inner passed in here could instead
+  be represented as taking in and returning a scalar array (versus integers).
+  Writing this one, I am starting to think that it may be better to write both
+  of these functions that way instead. Still not sure.
+
+### Following functions can be written using fold (ideas taken from SAC).
+- `Sum :: (array a1) -> (array a2)`
+
+  - **Requires:** `None`
+  - **Ensures:** `dims(a2) = []`
+
+  Adds each element in the array together and returns a scalar array with
+  that value, assumes addition starts with 0. If empty array, [0] is returned.
+
+- `Prod :: (array a1) -> (array a2)`
+
+  - **Requires:** `None`
+  - **Ensures:** `dims(a2) = []`
+
+  Multiplies each element in the array together and returns a scalar array with
+  that value, assumes multiplication starts with 1. If empty array, [1] is returned.
+
+- `Max :: (array a1) -> array a2)`
+
+  - **Requires:** `None`
+  - **Ensures:** `dims(a2) = []`
+
+  Finds the maximum number in the array. If the array is empty, returns lowest
+  possible integer (not sure what this is off the top of my head) as a scalar
+  array.
+
+
+- `Min :: (array a1) -> array a2)`
+
+  - **Requires:** `None`
+  - **Ensures:** `dims(a2) = []`
+
+  Finds the minimum number in the array. If the array is empty, returns largest
+  possible integer as a scalar array.
+  
+#end of fold functions
 
 - Echelon form row reduction
 - Transformations (aka Rotations)
