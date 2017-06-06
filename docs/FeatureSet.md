@@ -87,6 +87,19 @@ Roadmap for this is [here](#roadmap).
 	as a parameter are equal and that along `x`, dimensions of `a3 = a1`
   Operator could be `:[n]` where `n` is the dimension along which you wish to concatenate.
 
+- `Transpose :: (array a1) -> (array a2)`
+
+  - **Requires:** `length(dims(a1)) <= 2`
+  - **Ensures:** `dims(a1) = [m,n] -> dims(a2) = [n,m]`
+
+  Transpose takes an array up to two dimensions and rotates it so that the rows
+  and columns are swapped. As a result, the values in dims(a1) will switch places
+  in dims(a2). If it's a zero-dimensional array (scalar), return the same array.
+
+  ex: [ 1 2 3 ; 4 5 6 ] -> [ 1 4 ; 2 5 ; 3 6 ]
+
+  TO CHECK: extend transpose for a matrix greater than two dimensions?
+
 - Determinants
 - Echelon form row reduction
 - Transformations (aka Rotations)
