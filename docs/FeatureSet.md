@@ -14,7 +14,7 @@ Roadmap for this is [here](#roadmap).
 3. Number of dimensions
 4. Length of matrix in each dimension.
 
-  Only data elements (2 on the list) are allowed to be floats and/or <= 0.
+  Only data elements (number 2 on the list) are allowed to be floats and/or <= 0.
 
   Array can be constructed by `[shape], [data]` as in the example `[2,2] [1,2,3,4]` creates
 
@@ -52,7 +52,7 @@ Roadmap for this is [here](#roadmap).
 
   Consider using the operator '.*' for dot product and 'x*' for cross
   product as these are frequently used operations.
-  
+
   **Important note:** Should use the **Kahan Summation Algorithm** to prevent loss of significance in calculation with floating point numbers.
 
 - `Cross Product :: (array a1, array a2) -> (array a3)`
@@ -87,7 +87,7 @@ Roadmap for this is [here](#roadmap).
 - `ConRow :: (array a1, array a2) -> (array a3)`
   - **Requires:** `numCols(a1) = numCols(a2)`
   - **Ensures:** `numCols(a3) = numCols(a1), numRows(a3) = numRows(a1) + numRows(a2)`
-  
+
   This is an extension of the `ConDim` operation, but more specifically for rows (the first dimension).
 
 - `ConColumn`  -> Similar to ConRow, has same signature, requirements and
@@ -248,7 +248,7 @@ Roadmap for this is [here](#roadmap).
 
   Finds the minimum number in the array. If the array is empty, returns largest
   possible integer as a scalar array.
-  
+
 #end of fold functions
 
 - Echelon form row reduction
