@@ -44,6 +44,8 @@ Roadmap for this is [here](#roadmap).
 
   Consider using the operator '.*' for dot product and 'x*' for cross
   product as these are frequently used operations.
+  
+  **Important note:** Should use the **Kahan Summation Algorithm** to prevent loss of significance in calculation with floating point numbers.
 
 - `Cross Product :: (array a1, array a2) -> (array a3)`
 
