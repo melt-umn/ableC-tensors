@@ -1,3 +1,15 @@
-*.swp
+# Ignore emacs swapfiles
+*~
+
+# Ignore dotfiles, except .gitignore
+.*
+!.gitignore
+
+# Ignore artifacts.
+build.xml
+*.i
+*.jar
+*.o
 *.out
-ankit/
+*.so
+example/*.c

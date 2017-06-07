@@ -8,7 +8,7 @@ GRAMMAR_DIRS=$(ABLEC_BASE) $(EXTS_BASE)/ableC-arrays/grammars
 # All silver files in included grammars, to be included as dependancies
 GRAMMAR_SOURCES=$(shell find $(GRAMMAR_DIRS) -name *.sv -print0 | xargs -0)
 
-CFLAGS+=-I ../include
+CFLAGS+=-I../include -L../src -lArraysLib
 
 all: ableC.jar examples
 
@@ -18,25 +18,19 @@ ableC.jar: $(GRAMMAR_SOURCES)
 		     -I $(EXTS_BASE)/ableC-arrays/grammars \
 		     artifact
 
+# This is phony despite being a real file, because the Makefile in src checks
+# if the source files have been modified or not.
+.PHONY: ../src/libArraysLib.so
+../src/libArraysLib.so:
+	@cd ../src && make
+
 examples: simple_cat.out
 
-simple_cat.c: ableC.jar simple_cat.xc
+simple_cat.c: ableC.jar simple_cat.xc ../src/libArraysLib.so
 	java -jar ableC.jar simple_cat.xc $(CFLAGS)
 
 simple_cat.out: simple_cat.c
 	gcc $(CFLAGS) simple_cat.c -o simple_cat.out
-
-#altitude_switch.c: ableC.jar altitude_switch.xc
-#	java -jar ableC.jar altitude_switch.xc
-#
-#altitude_switch.out: altitude_switch.c
-#	gcc altitude_switch.c -o altitude_switch.out
-#
-#type_error.c: ableC.jar type_error.xc
-#	java -jar ableC.jar type_error.xc
-#
-#mismatched_rows.c: ableC.jar mismatched_rows.xc
-#	java -jar ableC.jar mismatched_rows.xc
 
 clean:
 	rm -f *~ *.i *.c *.o *.out *.test *.jar *.copperdump.html build.xml
