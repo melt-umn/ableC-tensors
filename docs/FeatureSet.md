@@ -72,22 +72,22 @@ Roadmap for this is [here](#roadmap).
   (dims(a1) != dims(a2)), or have no dimension in which there are three elements,
   an error will be returned.
 
+- `ConDim :: (Integer x, array a1, array a2) -> (array a3)`
+  - **Requires:** `dims(a1) = dims(a2)` except for dimension along `x` axis. `x` cannot be negative, that is, `x` >= 0;
+  - **Ensures:** that the dimensions of all axes except the one specified
+	as a parameter are equal and that along `x`, dimensions of `a3 = a1`
+  Operator could be `:[n]` where `n` is the dimension along which you wish to concatenate.
+
+
 - `ConRow :: (array a1, array a2) -> (array a3)`
   - **Requires:** `numCols(a1) = numCols(a2)`
   - **Ensures:** `numCols(a3) = numCols(a1), numRows(a3) = numRows(a1) + numRows(a2)`
-
-  How would this work in the case of matrices in 3+ dimensions?
-  Possible operator for this is `:r`.
+  
+  This is an extension of the `ConDim` operation, but more specifically for rows (the first dimension).
 
 - `ConColumn`  -> Similar to ConRow, has same signature, requirements and
   guarantees, except for number of rows.
   An idea for an operator is similar to the one proposed for ConRow, `:c`
-
-- `ConDim :: (Integer x, array a1, array a2) -> (array a3)`
-  - **Requires:** `dims(a1) = dims(a2)` except for dimension along `x` axis
-  - **Ensures:** that the dimensions of all axes except the one specified
-	as a parameter are equal and that along `x`, dimensions of `a3 = a1`
-  Operator could be `:[n]` where `n` is the dimension along which you wish to concatenate.
 
 - `Transpose :: (array a1) -> (array a2)`
 
