@@ -8,6 +8,14 @@ Roadmap for this is [here](#roadmap).
   An array has dimensions represented by an list of positive integer
   values.
 
+  Arrays have the following properties:
+1. Number of data elements
+2. Data elements
+3. Number of dimensions
+4. Length of matrix in each dimension.
+
+  Only data elements (2 on the list) are allowed to be floats and/or <= 0.
+
   Array can be constructed by `[shape], [data]` as in the example `[2,2] [1,2,3,4]` creates
 
  ```
@@ -49,10 +57,7 @@ Roadmap for this is [here](#roadmap).
 
 - `Cross Product :: (array a1, array a2) -> (array a3)`
 
-  - **Requires:** `dims(a1) = dims(a2) and iff
-                        1) length(dims(a1)) = 1, dims(a1) = [3]
-                           or
-                        2) length(dims(a1)) > 1, 3 is in dims(a1)`
+  - **Requires:** `dims(a1) = dims(a2)` and that `dims(a1) >=0` and both dimensions belong to integers.
   - **Ensures:** `dims(a3) = dims(a1)`
 
   Cross product will take two arrays and return a third array of the same size
