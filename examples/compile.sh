@@ -10,7 +10,7 @@ set -eu
 # Of course, if the use of 'cut' below fails for you, then just run
 # the commands individually by hand.
 
-java -jar ../artifact/ableC.jar $1
+java -jar artifact/ableC.jar $1
 
 # extract the base filename, everything before the dot (.)
 
@@ -21,5 +21,5 @@ basefilename="${filename_withoutpath%.*}"
 
 cfile="${basefilename}.c"
 
-gcc -c ../artifact/arraysLib.c -o ../artifact/arraysLib.o
-gcc ${cfile} ../artifact/arraysLib.o
+gcc -c artifact/arraysLib.c -o artifact/arraysLib.o
+gcc ${cfile} artifact/arraysLib.o

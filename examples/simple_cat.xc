@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "../artifact/arraysLib.h"
+#include "arraysLib.h"
 
 int main (int argc, char **argv) {
 

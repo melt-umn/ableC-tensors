@@ -952,8 +952,8 @@ extern size_t wcstombs (char *__restrict __s,
 # 967 "/usr/include/stdlib.h" 3 4
 
 # 5 "simple_cat.xc" 2
-# 1 "../artifact/arraysLib.h" 1
-# 18 "../artifact/arraysLib.h"
+# 1 "../include/arraysLib.h" 1
+# 18 "../include/arraysLib.h"
 typedef struct {
   int dim;
   int *dim_size;
