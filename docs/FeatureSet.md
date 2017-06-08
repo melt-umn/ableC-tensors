@@ -57,7 +57,7 @@ Roadmap for this is [here](#roadmap).
 
 - `Cross Product :: (array a1, array a2) -> (array a3)`
 
-  - **Requires:** `dims(a1) = dims(a2)` and that `dims(a1) >=0` and both dimensions belong to integers.
+  - **Requires:** `dims(a1) = dims(a2)` and both dimensions belong to integers.
   - **Ensures:** `dims(a3) = dims(a1)`
 
   Cross product will take two arrays and return a third array of the same size
@@ -76,6 +76,30 @@ Roadmap for this is [here](#roadmap).
   If the arrays are scalar (dims(a1) = dims(a2) = []), different sizes
   (dims(a1) != dims(a2)), or have no dimension in which there are three elements,
   an error will be returned.
+
+- `Scalar Triple Product :: (array a1, array a2, array a3) -> (array a4)`
+
+  - **Requires:** `dims(a1) = dims(a2) = dims(a3) = [3]`
+  - **Ensures:** `dims(a4) = []`
+
+  The scalar triple product takes three vectors of size three and finds the
+  cross product of two, and then the dot product between that result and the
+  remaining vector. Which vectors are used when does not matter (the property is
+  commutative).
+
+  For ease, will likely be `a1 .* (a2 x* a3)`
+
+- `Vector Triple Product :: (array a1, array a2, array a3) -> (array a4)`
+
+  - **Requires:** `dims(a1) = dims(a2) = dims(a3) = [3]`
+  - **Ensures:** `dims(a4) = [3]`
+
+  The vector triple product takes the cross product of each array, like below:
+                            `a1 x* (a2 x* a3)`
+
+  Each array must be single-dimensional (vector) with a size of three. Because
+  only cross products are being calculated, the result will be an another
+  single-dimensional array of size three.
 
 - `ConDim :: (Integer x, array a1, array a2) -> (array a3)`
   - **Requires:** `dims(a1) = dims(a2)` except for dimension along `x` axis. `x` cannot be negative, that is, `x` >= 0;
@@ -109,14 +133,14 @@ Roadmap for this is [here](#roadmap).
 
 - `Inverse :: (array a1) -> (array a2)`
 
-  - **Requires:** `dims(a1) = [m,m]`
-  - **Ensures:** `dims(a2) = [m,m]`
+  - **Requires:** `dims(a1) = [n,n]`
+  - **Ensures:** `dims(a2) = [n,n]`
 
   Takes the inverse of a square array (returns square array of same size).
 
 - `Determinant :: (array a1) -> (array a2)`
 
-  - **Requires:** `dims(a1) = [m,m]`
+  - **Requires:** `dims(a1) = [n,n]`
   - **Ensures:** `dims(a2) = []`
 
   Takes a square array and returns its determinant (scalar value, aka a
@@ -125,6 +149,10 @@ Roadmap for this is [here](#roadmap).
   The determinant of a scalar is that scalar.
 
   The inverse of a matrix only exists if its determinant != 0.
+
+
+### Map should be able to use parallelism or concurrency (forget which) or even
+### loop unrolling to be much more efficient.
 
 - `Map :: (*(fun int i1 -> int i2), array a1) -> (array a2)`
 
@@ -244,7 +272,6 @@ Roadmap for this is [here](#roadmap).
   possible integer (not sure what this is off the top of my head) as a scalar
   array.
 
-
 - `Min :: (array a1) -> (array a2)`
 
   - **Requires:** `None`
@@ -287,21 +314,38 @@ Roadmap for this is [here](#roadmap).
 ### We could also implement various forms of eigenvalue calculation, that may
 ### be the safest option? :) Set-up below is assuming column array return, however.
 
-- `Eigenvalue Calculation ::(array a1) -> (array a2) `
+- `Eigenvalue Calculation :: (array a1) -> (array a2) `
 
-  - **Requires:** `dims(a1) = [m,m]`
-  - **Ensures:** `dims(a2) = [1,m] (assuming it's [row,column])`
+  - **Requires:** `dims(a1) = [n,n]`
+  - **Ensures:** `dims(a2) = [1,n] (assuming it's [row,column])`
 
   This function takes in a square array and returns a column vector (of same
   height) with the eigenvalues of the original array.
 
+- `Trace :: (array a1) -> (array a2)`
+
+  - **Requires:** `dims(a1) = [n,n]`
+  - **Ensures:** `dims(a2) = []`
+
+  The trace of a square matrix is the sum of all the elements along its main
+  diagonal (top left to bottom right). Trace also has some relation to other
+  equations, such as eigenvalue. We may be able to link them ourselves, or leave
+  it to the user to utilize.
+
+
 
 
 - Echelon form row reduction
+    - just reduced form or also a generic row echelon form?
 - Transformations (aka Rotations)
+    - ???
 - Automated Eigenvalue/vector calculation -> think about complex values
+    - complex values in the future, completely new data type
 - Diagonalizations
-- RF/LU factorization + Gram Schmidt
+    - function to see if an array can be diagonalized and another to actually
+      diagonalize it?
+- RF/LU factorization + Gram-Schmidt
+    - want to do the modified Gram-Schmidt (MGS) for accuracy/error reduction?
 - Linearization
 - Pseudo-inverses (Maybe)
 - Steady state configuration
