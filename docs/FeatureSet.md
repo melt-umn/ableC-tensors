@@ -50,8 +50,11 @@ Roadmap for this is [here](#roadmap).
 
   You might write another version of dot product that returns a C ``float``.
 
-  Consider using the operator '.*' for dot product and 'x*' for cross
+  Consider using the operator `.*` for dot product and `x*` for cross
   product as these are frequently used operations.
+
+  **NOTE:** Matlab uses `.*` to multiply each individual element in an array
+  with the corresponding element in another array.
 
   **Important note:** Should use the **Kahan Summation Algorithm** to prevent loss of significance in calculation with floating point numbers.
 
@@ -129,7 +132,7 @@ Roadmap for this is [here](#roadmap).
 
   ex: [ 1 2 3 ; 4 5 6 ] -> [ 1 4 ; 2 5 ; 3 6 ]
 
-  TO CHECK: extend transpose for a array greater than two dimensions?
+  TO CHECK: extend transpose for arrays greater than two dimensions?
 
 - `Inverse :: (array a1) -> (array a2)`
 
@@ -150,6 +153,42 @@ Roadmap for this is [here](#roadmap).
 
   The inverse of a matrix only exists if its determinant != 0.
 
+- `Normal Array Multiplication :: (array a1, array a2) -> (array a3)`
+
+  - **Requires:** `dims(a1) = [n,m], dims(a2) = [m,p]`
+  - **Ensures:** `dims(a3) = [n,p]`
+
+  This is the customary way to multiply two arrays together. The number of columns
+  of the first array must match the number of rows of the second array. The
+  resulting array will have the number of rows from the first array and the
+  number of columns from the second array.
+
+  TODO: Extend beyond two dimensions? Not sure how this would work, but I assume
+  it is possible.
+
+- `Elemental Array Multiplication :: (array a1, array a2) -> (array a3)`
+
+  - **Requires:** `dims(a1) = dims(a2)`
+  - **Ensures:** `dims(a3) = dims(a1)`
+
+  This array multiplication method will multiply each element in the first array
+  by the corresponding element in the second array.
+
+- `Array Addition :: (array a1, array a2) -> (array a3)`
+
+  - **Requires:** `dims(a1) = dims(a2)`
+  - **Ensures:** `dims(a3) = dims(a1)`
+
+  Takes two arrays and adds together each corresponding element. Should be possible
+  to do some loop unrolling/other means of efficiency.
+
+- `Array Subtraction :: (array a1, array a2) -> (array a3)`
+
+  - **Requires:** `dims(a1) = dims(a2)`
+  - **Ensures:** `dims(a3) = dims(a1)`
+
+  Takes two arrays and subtracts each element in the second array from the
+  corresponding element in the first array. Should be possible to do some loop unrolling/other means of efficiency.
 
 ### Map should be able to use parallelism or concurrency (forget which) or even
 ### loop unrolling to be much more efficient.
@@ -187,6 +226,11 @@ Roadmap for this is [here](#roadmap).
   scalar multiplication (not to be confused with matrix multiplication, even
   though both elements are arrays).
 
+  This will likely be linked with one of the multiplication methods from above
+  (dot, cross, elemental, or normal array; not sure what would be best). May
+  be the same function (or that one will call this one when the second array is
+  a scalar).
+
 - `Scalar Divide :: (array a1, array a2) -> (array a3)`
 
   - **Requires:** `dims(a2) = [], a2 != [0]`
@@ -208,14 +252,15 @@ Roadmap for this is [here](#roadmap).
   - **Requires:** `dims(a2) = []`
   - **Ensures:** `dims(a1) = dims(a3)`
 
-  Adds the integer in a2 to each integer in a1.
+  Adds the integer in a2 to each integer in a1. May be linked to the array addition function.
 
 - `Scalar Subtract :: (array a1, array a2) -> (array a3)`
 
   - **Requires:** `dims(a2) = []`
   - **Ensures:** `dims(a1) = dims(a2)`
 
-  Subtracts the integer in a2 from each integer in a1.
+  Subtracts the integer in a2 from each integer in a1. May be linked to the array
+  subtraction function.
 
 ### done with arithmetic functions to be implemented using map
 
