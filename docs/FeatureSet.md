@@ -122,6 +122,10 @@ Roadmap for this is [here](#roadmap).
   Takes a square array and returns its determinant (scalar value, aka a
   zero-dimensional array).
 
+  The determinant of a scalar is that scalar.
+
+  The inverse of a matrix only exists if its determinant != 0.
+
 - `Map :: (*(fun int i1 -> int i2), array a1) -> (array a2)`
 
   - **Requires:** `None`
@@ -231,7 +235,7 @@ Roadmap for this is [here](#roadmap).
   Multiplies each element in the array together and returns a scalar array with
   that value, assumes multiplication starts with 1. If empty array, [1] is returned.
 
-- `Max :: (array a1) -> array a2)`
+- `Max :: (array a1) -> (array a2)`
 
   - **Requires:** `None`
   - **Ensures:** `dims(a2) = []`
@@ -241,7 +245,7 @@ Roadmap for this is [here](#roadmap).
   array.
 
 
-- `Min :: (array a1) -> array a2)`
+- `Min :: (array a1) -> (array a2)`
 
   - **Requires:** `None`
   - **Ensures:** `dims(a2) = []`
@@ -250,6 +254,48 @@ Roadmap for this is [here](#roadmap).
   possible integer as a scalar array.
 
 #end of fold functions
+
+- `Reduced row echelon form :: (array a1) -> (array a2)`
+
+  - **Requires:** `1 <= length(dims(a1)) <= 2`
+  - **Ensures:** `dims(a1) = dims(a2)`
+
+  An array is in echelon form when the non-zero element (leading entry) in each
+  row is one, each leading entry is to the right of the row above it, and any
+  rows with only zeros are at the very bottom of the matrix (a row with all zeros
+  cannot be followed by a row with any numbers).
+
+  Because there are multiple possibilities for an row echelon form (in other words, there is not always a unique solution), I would recommend we do this as the
+  reduced row echelon form (I'm guessing this was the intention). If this is the
+  case, there is one more rule: the leading entry in each row is the only
+  non-zero element in its column.
+
+  NOTE: might be useful/smart to have another function that can swap two rows.
+  This ability is necessary to find the row echelon form (reduced or not).
+
+  Reference: http://stattrek.com/matrix-algebra/echelon-transform.aspx  
+
+- `Rotations :: `
+
+  - **Requires:** ``
+  - **Ensures:** ``
+
+### MATLAB has various eigenvalue/eigenvector calculations, not sure which we want
+### implement? https://www.mathworks.com/help/matlab/ref/eig.html#inputarg_A
+### Return a column matrix or a diagonal matrix? The default in MATLAB seems to
+### be the column vector, but that does not necessarily mean it is the best option.
+### We could also implement various forms of eigenvalue calculation, that may
+### be the safest option? :) Set-up below is assuming column array return, however.
+
+- `Eigenvalue Calculation ::(array a1) -> (array a2) `
+
+  - **Requires:** `dims(a1) = [m,m]`
+  - **Ensures:** `dims(a2) = [1,m] (assuming it's [row,column])`
+
+  This function takes in a square array and returns a column vector (of same
+  height) with the eigenvalues of the original array.
+
+
 
 - Echelon form row reduction
 - Transformations (aka Rotations)
