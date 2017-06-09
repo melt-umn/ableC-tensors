@@ -47,8 +47,25 @@ Roadmap for this is [here](#roadmap).
   - **Requires:** `dims(a1) = dims(a2), each element of a2 must be of type interval or integer.`
   - **Ensures:**  `dims(a3) = dims(a1) - number of interval types in a2`
 
-  Need to find a way to access chunks of data from the array efficiently. 
+  Need to find a way to access chunks of data from the array efficiently.
   For example, you should be able to pull out a 2D matrix from a 2+D matrix.
+
+- `ConDim :: (Integer x, array a1, array a2) -> (array a3)`
+  - **Requires:** `dims(a1) = dims(a2)` except for dimension along `x` axis. `x` cannot be negative, that is, `x` >= 0;
+  - **Ensures:** that the dimensions of all axes except the one specified
+	as a parameter are equal and that along `x`, dimensions of `a3 = a1`
+  Operator could be `:[n]` where `n` is the dimension along which you wish to concatenate.
+
+
+- `ConRow :: (array a1, array a2) -> (array a3)`
+  - **Requires:** `numCols(a1) = numCols(a2)`
+  - **Ensures:** `numCols(a3) = numCols(a1), numRows(a3) = numRows(a1) + numRows(a2)`
+
+  This is an extension of the `ConDim` operation, but more specifically for rows (the first dimension).
+
+- `ConColumn`  -> Similar to ConRow, has same signature, requirements and
+  guarantees, except for number of rows.
+  An idea for an operator is similar to the one proposed for ConRow, `:c`
 
 ### Language Independent Linear Algebra  
 - `Dot Product :: (array a1, array a2) -> (array a3)`
@@ -71,7 +88,7 @@ Roadmap for this is [here](#roadmap).
   Consider using the operator `.*` for dot product and `x*` for cross
   product as these are frequently used operations.
 
-  **NOTE:** Matlab uses `.*` to multiply each individual element in an array
+  **To Consider:** Matlab uses `.*` to multiply each individual element in an array
   with the corresponding element in another array.
 
   **Important note:** Should use the **Kahan Summation Algorithm** to prevent loss of significance in calculation with floating point numbers.
@@ -122,23 +139,6 @@ Roadmap for this is [here](#roadmap).
   only cross products are being calculated, the result will be an another
   single-dimensional array of size three.
 
-- `ConDim :: (Integer x, array a1, array a2) -> (array a3)`
-  - **Requires:** `dims(a1) = dims(a2)` except for dimension along `x` axis. `x` cannot be negative, that is, `x` >= 0;
-  - **Ensures:** that the dimensions of all axes except the one specified
-	as a parameter are equal and that along `x`, dimensions of `a3 = a1`
-  Operator could be `:[n]` where `n` is the dimension along which you wish to concatenate.
-
-
-- `ConRow :: (array a1, array a2) -> (array a3)`
-  - **Requires:** `numCols(a1) = numCols(a2)`
-  - **Ensures:** `numCols(a3) = numCols(a1), numRows(a3) = numRows(a1) + numRows(a2)`
-
-  This is an extension of the `ConDim` operation, but more specifically for rows (the first dimension).
-
-- `ConColumn`  -> Similar to ConRow, has same signature, requirements and
-  guarantees, except for number of rows.
-  An idea for an operator is similar to the one proposed for ConRow, `:c`
-
 - `Transpose :: (array a1) -> (array a2)`
 
   - **Requires:** `length(dims(a1)) <= 2`
@@ -150,7 +150,7 @@ Roadmap for this is [here](#roadmap).
 
   ex: [ 1 2 3 ; 4 5 6 ] -> [ 1 4 ; 2 5 ; 3 6 ]
 
-  TO CHECK: extend transpose for arrays greater than two dimensions?
+  **TO CHECK:** extend transpose for arrays greater than two dimensions?
 
 - `Inverse :: (array a1) -> (array a2)`
 
@@ -167,9 +167,28 @@ Roadmap for this is [here](#roadmap).
   Takes a square array and returns its determinant (scalar value, aka a
   zero-dimensional array).
 
-  The determinant of a scalar is that scalar.
+  The determinant of a scalar (equivalent to a dimension of [1,1]) is that scalar.
 
   The inverse of a matrix only exists if its determinant != 0.
+
+- `Eigenvalue Calculation :: (array a1) -> (array a2) `
+
+  - **Requires:** `dims(a1) = [n,n]`
+  - **Ensures:** `dims(a2) = [1,n] (assuming it's [row,column])`
+
+  This function takes in a square array and returns a column vector (of same
+  height) with the eigenvalues of the original array.
+
+- `Trace :: (array a1) -> (array a2)`
+
+  - **Requires:** `dims(a1) = [n,n]`
+  - **Ensures:** `dims(a2) = []`
+
+  The trace of a square matrix is the sum of all the elements along its main
+  diagonal (top left to bottom right). Trace also has some relation to other
+  equations, such as eigenvalue. We may be able to link them ourselves, or leave
+  it to the user to utilize.
+
 
 - `Normal Array Multiplication :: (array a1, array a2) -> (array a3)`
 
@@ -181,7 +200,7 @@ Roadmap for this is [here](#roadmap).
   resulting array will have the number of rows from the first array and the
   number of columns from the second array.
 
-  TODO: Extend beyond two dimensions? Not sure how this would work, but I assume
+  **TODO:** Extend beyond two dimensions? Not sure how this would work, but I assume
   it is possible.
 
 - `Elemental Array Multiplication :: (array a1, array a2) -> (array a3)`
@@ -198,7 +217,9 @@ Roadmap for this is [here](#roadmap).
   - **Ensures:** `dims(a3) = dims(a1)`
 
   Takes two arrays and adds together each corresponding element. Should be possible
-  to do some loop unrolling/other means of efficiency.
+  to do some loop unrolling/other means of efficiency. Not to be confused with
+  concatenation (if we choose to concatenate with `+`, must use a different
+  symbol for this).
 
 - `Array Subtraction :: (array a1, array a2) -> (array a3)`
 
@@ -206,7 +227,8 @@ Roadmap for this is [here](#roadmap).
   - **Ensures:** `dims(a3) = dims(a1)`
 
   Takes two arrays and subtracts each element in the second array from the
-  corresponding element in the first array. Should be possible to do some loop unrolling/other means of efficiency.
+  corresponding element in the first array. Should be possible to do some loop
+  unrolling/other means of efficiency.
 
 ### Map should be able to use parallelism or concurrency (forget which) or even
 ### loop unrolling to be much more efficient.
@@ -291,9 +313,10 @@ Roadmap for this is [here](#roadmap).
 
   `Where` goes through each boolean in a1. If it is true, it puts the corresponding
   element in a2 into a4. If it is false, it puts the corresponding element in a3
-  into a4. It is similar to a giant `if then else` statement for an array.
+  into a4. It is basically a giant `if then else` statement for each element in
+  an array, using three arrays to form a new one.
 
-  Format and idea for where is taken from SAC.
+  Format and idea for `where` is taken from SAC.
 
 - `Fold :: (*(fun int i1, int i2 -> int i3), array a1, array a2) -> (array a3)`
 
@@ -304,8 +327,8 @@ Roadmap for this is [here](#roadmap).
   A scalar array must also be passed in, since the function needs a value to
   start with. This is useful for various reduction operations, shown below.
 
-  Similar to the `Map` function above, the inner passed in here could instead
-  be represented as taking in and returning a scalar array (versus integers).
+  Similar to the `Map` function above, the inner function passed in here could
+  instead be represented as taking in and returning a scalar array (versus integers).
   Writing this one, I am starting to think that it may be better to write both
   of these functions that way instead. Still not sure.
 
@@ -332,8 +355,7 @@ Roadmap for this is [here](#roadmap).
   - **Ensures:** `dims(a2) = []`
 
   Finds the maximum number in the array. If the array is empty, returns lowest
-  possible integer (not sure what this is off the top of my head) as a scalar
-  array.
+  possible integer (-2147483648?) as a scalar array.
 
 - `Min :: (array a1) -> (array a2)`
 
@@ -341,7 +363,7 @@ Roadmap for this is [here](#roadmap).
   - **Ensures:** `dims(a2) = []`
 
   Finds the minimum number in the array. If the array is empty, returns largest
-  possible integer as a scalar array.
+  possible integer (2147483647?) as a scalar array.
 
 #end of fold functions
 
@@ -365,11 +387,6 @@ Roadmap for this is [here](#roadmap).
 
   Reference: http://stattrek.com/matrix-algebra/echelon-transform.aspx  
 
-- `Rotations :: `
-
-  - **Requires:** ``
-  - **Ensures:** ``
-
 ### MATLAB has various eigenvalue/eigenvector calculations, not sure which we want
 ### implement? https://www.mathworks.com/help/matlab/ref/eig.html#inputarg_A
 ### Return a column matrix or a diagonal matrix? The default in MATLAB seems to
@@ -377,23 +394,6 @@ Roadmap for this is [here](#roadmap).
 ### We could also implement various forms of eigenvalue calculation, that may
 ### be the safest option? :) Set-up below is assuming column array return, however.
 
-- `Eigenvalue Calculation :: (array a1) -> (array a2) `
-
-  - **Requires:** `dims(a1) = [n,n]`
-  - **Ensures:** `dims(a2) = [1,n] (assuming it's [row,column])`
-
-  This function takes in a square array and returns a column vector (of same
-  height) with the eigenvalues of the original array.
-
-- `Trace :: (array a1) -> (array a2)`
-
-  - **Requires:** `dims(a1) = [n,n]`
-  - **Ensures:** `dims(a2) = []`
-
-  The trace of a square matrix is the sum of all the elements along its main
-  diagonal (top left to bottom right). Trace also has some relation to other
-  equations, such as eigenvalue. We may be able to link them ourselves, or leave
-  it to the user to utilize.
 
 
 
