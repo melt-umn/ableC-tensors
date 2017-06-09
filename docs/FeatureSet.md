@@ -42,6 +42,12 @@ Roadmap for this is [here](#roadmap).
   2. A low bound integer that specifies the lower bound of the interval (if bounded or bounded left)
   3. A high bound integer that specifies the higher bound of the interval (if bounded or bounded right)
 
+- `Identity :: (int i1) -> (array a1)`
+  - **Requires:** `i1 >= 1`
+  - **Ensures:** `dims(a1) = [i1,i1]`
+
+  Creates an identity matrix the square size of the int given. Each number along
+  the diagonal of the matrix will be one.
 
 ### Array Accessing
 - `Array Access :: (array a1, array a2) -> (array a3)`
