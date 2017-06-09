@@ -42,6 +42,7 @@ Roadmap for this is [here](#roadmap).
   2. A low bound integer that specifies the lower bound of the interval (if bounded or bounded left)
   3. A high bound integer that specifies the higher bound of the interval (if bounded or bounded right)
 
+
 ### Array Accessing
 - `Array Access :: (array a1, array a2) -> (array a3)`
   - **Requires:** `dims(a1) = dims(a2), each element of a2 must be of type interval or integer.`
