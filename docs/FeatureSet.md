@@ -47,7 +47,8 @@ Roadmap for this is [here](#roadmap).
   - **Requires:** `dims(a1) = dims(a2), each element of a2 must be of type interval or integer.`
   - **Ensures:**  `dims(a3) = dims(a1) - number of interval types in a2`
 
-  Need to find a way to access chunks of data from the array efficiently. For example, you should be able to pull out a 2D matrix from a 2+D matrix.
+  Need to find a way to access chunks of data from the array efficiently. 
+  For example, you should be able to pull out a 2D matrix from a 2+D matrix.
 
 ### Language Independent Linear Algebra  
 - `Dot Product :: (array a1, array a2) -> (array a3)`
