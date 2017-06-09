@@ -35,10 +35,10 @@ Roadmap for this is [here](#roadmap).
 - ``Interval``
 
   1. An Interval has an enum that specifies the boundedness property, and can be one of the following four:
-    1. Unbounded
-    2. Bounded
-    3. Bounded left, unbounded right
-    4. Unbounded left, bounded right
+      1. Unbounded
+      2. Bounded
+      3. Bounded left, unbounded right
+      4. Unbounded left, bounded right
   2. A low bound integer that specifies the lower bound of the interval (if bounded or bounded left)
   3. A high bound integer that specifies the higher bound of the interval (if bounded or bounded right)
 
