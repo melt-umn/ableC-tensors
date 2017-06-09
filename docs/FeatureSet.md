@@ -32,6 +32,23 @@ Roadmap for this is [here](#roadmap).
   Functions numCols and numRows will also be implemented to return the
   number of rows and columns.
 
+- ``Interval``
+
+  1. An Interval has an enum that specifies the boundedness property, and can be one of the following four:
+    1. Unbounded
+    2. Bounded
+    3. Bounded left, unbounded right
+    4. Unbounded left, bounded right
+  2. A low bound integer that specifies the lower bound of the interval (if bounded or bounded left)
+  3. A high bound integer that specifies the higher bound of the interval (if bounded or bounded right)
+
+### Array Accessing
+- `Array Access :: (array a1, array a2) -> (array a3)`
+  - **Requires:** `dims(a1) = dims(a2), each element of a2 must be of type interval or integer.`
+  - **Ensures:**  `dims(a3) = dims(a1) - number of interval types in a2`
+
+  Need to find a way to access chunks of data from the array efficiently. For example, you should be able to pull out a 2D matrix from a 2+D matrix.
+
 ### Language Independent Linear Algebra  
 - `Dot Product :: (array a1, array a2) -> (array a3)`
 
