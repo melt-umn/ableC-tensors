@@ -32,7 +32,10 @@ Array create_array(int dim, int* dim_size, int num, int* incr){
 		for(col=0; col< dim_size[1];col++){
 		cena[(dim_size[1])*row + col] = (num + (row*(incr[1]))) + (col*incr[0]);
 		fill++;
+		printf("cena[i]");
+		printf(" ");
 		}
+		printf(";");
 	}
 
 
