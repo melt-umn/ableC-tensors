@@ -17,8 +17,13 @@ typedef struct {
 // Function calls
 
 Array create_identity_array(int);
-Array int_to_array(int);
-int array_to_int(Array);
+void print_array(Array);
+Array fill_array(int,int*,int);
+Array ones(int,int*);
+Array zeros(int,int*);
+Array int_to_scalar(int);
+int scalar_to_int(Array);
+
 
 /*
 Array create_array(int, int*, int, int*);
