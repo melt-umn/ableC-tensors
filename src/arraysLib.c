@@ -14,16 +14,16 @@
 Array create_identity_array(int dimension, int dim_len){
 	int i = 0;
 	Array *matrix = malloc(sizeof(Array));
-	*matrix. dim = dimension;
-	 Array ->dim_size = malloc(sizeof(int)*dimension);
-	Array -> count = pow(dim_len, dimension);
-	Array -> data = malloc(sizeof(int)*count);
+	*matrix.dim = dimension;
+	*matrix.dim_size = calloc(dim_len*dim_len, sizeof(int));
+	*matrix.count = pow(dim_len, dimension);
+	*matrix.data = malloc(sizeof(int)*count);
 
 	for (i = 0; i < count; i++) {
 		if (i % (dim_len + 2) == 0) {
-			data[i] = 1;
+			*(data + i) = 1;
 		} else {
-			data[i] = 0;
+			*(data + i) = 0;
 		}
 	}
 
@@ -58,4 +58,12 @@ int array_to_int(Array a) {
 void print_array(Array tensor) {
 	int i = 0;
 	for (i =0; i < tensor -> count; i++) {
-		if (i % (tensor. 
+		printf(tensor -> *(data + i));
+		if (i % (tensor -> dim_len) == 0) {
+			printf("; ");
+		} else {
+			printf(" ");
+		}
+	}
+}
+
