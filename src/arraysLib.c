@@ -14,10 +14,10 @@
 Array create_identity_array(int dimension, int dim_len){
 	int i = 0;
 	Array *matrix = malloc(sizeof(Array));
-	*matrix.dim = dimension;
-	*matrix.dim_size = malloc(sizeof(int)*dimension);
-	*matrix.count = pow(dim_len, dimension);
-	*matrix.data = malloc(sizeof(int)*count);
+	*matrix. dim = dimension;
+	 Array ->dim_size = malloc(sizeof(int)*dimension);
+	Array -> count = pow(dim_len, dimension);
+	Array -> data = malloc(sizeof(int)*count);
 
 	for (i = 0; i < count; i++) {
 		if (i % (dim_len + 2) == 0) {
@@ -27,7 +27,7 @@ Array create_identity_array(int dimension, int dim_len){
 		}
 	}
 
-	print_array(*matrix);
+	print_array(matrix);
 }
 
 Array int_to_array(int i) {
@@ -55,16 +55,7 @@ int array_to_int(Array a) {
 	}
 }
 
-//A basic print square array to test out identity array fn
-//need to figure out a neat way to code out printing.
-void print_sq_array(Array tensor) {
+void print_array(Array tensor) {
 	int i = 0;
 	for (i =0; i < tensor -> count; i++) {
-		printf("%i ", tensor.data[i]);
-		if (i % (tensor.dim_len) == 0) {
-			printf(";");
-		} else {
-			printf(" ");
-		}
-	}
-}
+		if (i % (tensor. 
