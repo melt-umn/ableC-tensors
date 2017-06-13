@@ -22,18 +22,19 @@
 Tensor create_identity_tensor(int dimension, int dim_len){
 	int i = 0;
 	Tensor *matrix = malloc(sizeof(Tensor));
-	*matrix.dim = dimension;
-	*matrix.dim_size = calloc(dim_len*dim_len, sizeof(int));
-	*matrix.count = pow(dim_len, dimension);
-	*matrix.data = malloc(sizeof(int)*count);
-	for (i = 0; i < count; i++) {
+	matrix -> dim = dimension;
+	matrix -> dim_size = calloc(dim_len*dim_len, sizeof(int));
+	matrix -> count = pow(dim_len, dimension);
+	matrix -> data = malloc(sizeof(int)*(matrix->count));
+	for (i = 0; i < matrix -> count; i++) {
 		if (i % (dim_len + dimension) == 0) {
-			*(data + i) = 1;
+			*(matrix -> data + i) = 1;
 		} else {
-		*(data + i) = 0;
+			*(matrix -> data + i) = 0;
 		}
 	}
-	print_tensor(matrix);
+	print_tensor(*matrix);
+	return *matrix;
 }
 
 Tensor fill_tensor(int dim, int *dim_size, int toFill) {
