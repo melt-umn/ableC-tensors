@@ -132,29 +132,7 @@ int scalar_tensor_to_int(Tensor a) {
 	}
 }
 
-int main (int argc, char **argv) {
-
-	int intTest = 5;
-  Tensor intToScalarTest = int_to_scalar_tensor(intTest);
-	int scalarToIntTest = scalar_tensor_to_int(intToScalarTest);
-
-	int *dataTestOne = malloc(sizeof(int) * 2);
-	dataTestOne[0] = 3;
-	dataTestOne[1] = 3;
-
-	int *dataTestTwo = malloc(sizeof(int) * 2);
-	dataTestTwo[0] = 6;
-	dataTestTwo[1] = 2;
-
-	int *dataTestThree = malloc(sizeof(int));
-	dataTestThree[0] = 9;
-
-	Tensor fillTensorTest = fill_tensor(2,dataTestOne,666);
-	Tensor onesTest = ones(2,dataTestTwo);
-	Tensor zerosTest = zeros(1,dataTestThree);
-
-	printf("intToScalarTest Tensor:\n");
-/*	print_tensor(Tensor input){
+void print_tensor(Tensor input){
 	int currentCount,i,j;
   int totalCount = input.count;
   int totalDim = input.dim;
@@ -186,5 +164,28 @@ int main (int argc, char **argv) {
 	}
 
 	printf("]");
-} */
+}
+
+int main (int argc, char **argv) {
+
+	int intTest = 5;
+  Tensor intToScalarTest = int_to_scalar_tensor(intTest);
+	int scalarToIntTest = scalar_tensor_to_int(intToScalarTest);
+
+	int *dataTestOne = malloc(sizeof(int) * 2);
+	dataTestOne[0] = 3;
+	dataTestOne[1] = 3;
+
+	int *dataTestTwo = malloc(sizeof(int) * 2);
+	dataTestTwo[0] = 6;
+	dataTestTwo[1] = 2;
+
+	int *dataTestThree = malloc(sizeof(int));
+	dataTestThree[0] = 9;
+
+	Tensor fillTensorTest = fill_tensor(2,dataTestOne,666);
+	Tensor onesTest = ones(2,dataTestTwo);
+	Tensor zerosTest = zeros(1,dataTestThree);
+
+	printf("intToScalarTest Tensor:\n");
 }
