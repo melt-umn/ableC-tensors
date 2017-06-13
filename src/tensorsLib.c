@@ -10,7 +10,6 @@
 #include <errno.h>
 #include <math.h>
 
-
 /*
   Description:
     Takes a Tensor and returns a duplicate of it in a new space in memory.
@@ -18,7 +17,6 @@
 		data. By copying the Tensor first, it can be modified without getting
 		rid of previous data.
 */
-
 Tensor copy_tensor(Tensor tens) {
 	int i,j;
 	int dim = tens.dim;
@@ -82,7 +80,6 @@ Tensor create_identity_tensor(int numDimensions, int dim_len){
   Assumption:
     Tensor returned will have the value of the given number in all dimensions
 */
-
 Tensor fill_tensor(int dim, int *dim_size, int toFill) {
 	int i, count;
 	int *data;
@@ -98,7 +95,9 @@ Tensor fill_tensor(int dim, int *dim_size, int toFill) {
 		data[i] = toFill; //fill tensor with the given number
 	}
 
-	Tensor *tens = malloc(sizeof(Tensor) + sizeof(int)*count + sizeof(int)*dim);
+	////////IS THIS NECESSARY IDK I COMMENTED IT OUT AND IT WORKS STILL//////////
+
+	Tensor *tens = malloc(sizeof(Tensor)); //+ sizeof(int)*count + sizeof(int)*dim);
 
 	tens->dim = dim;
 	tens->dim_size = dim_size;
@@ -116,7 +115,6 @@ Tensor fill_tensor(int dim, int *dim_size, int toFill) {
   Assumption:
     Tensor returned will have ones in all dimensions
 */
-
 Tensor ones(int dim, int *dim_size) {
 	return fill_tensor(dim,dim_size,1);
 }
@@ -129,7 +127,6 @@ Tensor ones(int dim, int *dim_size) {
   Assumption:
     Tensor returned will have zeros in all dimensions
 */
-
 Tensor zeros(int dim, int *dim_size) {
 	return fill_tensor(dim,dim_size,0);
 }
@@ -142,11 +139,13 @@ Tensor zeros(int dim, int *dim_size) {
     The returned tensor will have a dim of 0, a dim_size of null, and a count
 		of 1. It's only data will be the given integer.
 */
-
 Tensor int_to_scalar_tensor(int i) {
 	int *data;
 	data = malloc(sizeof(int));
-	Tensor *tens = malloc(sizeof(Tensor) + sizeof(int) ); //sizeof(int) * dim + sizeof(int) * count
+
+	////////IS THIS NECESSARY IDK I COMMENTED IT OUT AND IT WORKS STILL////////////
+
+	Tensor *tens = malloc(sizeof(Tensor)); //+ sizeof(int) ); //sizeof(int) * dim + sizeof(int) * count
 
 	data[0] = i;
 
@@ -167,7 +166,6 @@ Tensor int_to_scalar_tensor(int i) {
 		that its dimension is 0 and it's dim_size is NULL, though neither of these
 		are being checked.
 */
-
 int scalar_tensor_to_int(Tensor a) {
 	if (a.count == 1) {
 		return a.data[0];
@@ -188,7 +186,6 @@ int scalar_tensor_to_int(Tensor a) {
 		the same size as the one passed in. Will mutate the tensor itself, will
 		not return a new tensor.
 */
-
 Tensor map(int (*fun)(int,int), int j, Tensor tens) {
 	int i;
 	int count = tens.count;
@@ -285,12 +282,17 @@ int main (int argc, char **argv) {
 	Tensor fillTensorTest = fill_tensor(2,dataTestOne,666);
 	Tensor onesTest = ones(2,dataTestTwo);
 	Tensor zerosTest = zeros(1,dataTestThree);
+	Tensor identityTest = create_identity_tensor(2,3);
 
+<<<<<<< HEAD
 	printf("\nIdentity matrix is:\n");
 	Tensor identity = create_identity_tensor(2, 8);
 	print_tensor(identity);
 
 	printf("\nintToScalarTest Tensor:\n");
+=======
+	printf("intToScalarTest Tensor:\n");
+>>>>>>> 057456c3ca331f127ec4987424a9c359df4849c1
 	print_tensor(intToScalarTest);
 	printf("\n");
 
@@ -306,6 +308,10 @@ int main (int argc, char **argv) {
 
 	printf("The zeros tensor is: \n");
 	print_tensor(zerosTest);
+	printf("\n\n");
+
+	printf("The identity tensor is: \n");
+	print_tensor(identityTest);
 	printf("\n\n");
 
 	printf("The mutable ones + 1 tensor is: \n");
@@ -333,11 +339,14 @@ int main (int argc, char **argv) {
 	printf("\n\n");
 
 	//this will break it, it's on purpose :D
-	printf("The ones -222 / 0 tensor is: \n");
+	printf("The ones -666 / 0 tensor is: \n");
 	map(scalar_divide,0,onesTest);
 	print_tensor(onesTest);
 	printf("\n\n");
 
 	return 0;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 057456c3ca331f127ec4987424a9c359df4849c1
 }
