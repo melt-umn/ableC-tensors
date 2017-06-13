@@ -10,105 +10,6 @@
 #include <errno.h>
 #include <math.h>
 
-int main (int argc, char **argv) {
-
-	int intTest = 5;
-  Tensor intToScalarTest = int_to_scalar_tensor(intTest);
-	int scalarToIntTest = scalar_tensor_to_int(intToScalarTest);
-
-	int *dataTestOne = malloc(sizeof(int) * 2);
-	dataTestOne[0] = 3;
-	dataTestOne[1] = 3;
-
-	int *dataTestTwo = malloc(sizeof(int) * 2);
-	dataTestTwo[0] = 6;
-	dataTestTwo[1] = 2;
-
-	int *dataTestThree = malloc(sizeof(int));
-	dataTestThree[0] = 9;
-
-	Tensor fillTensorTest = fill_tensor(2,dataTestOne,666);
-	Tensor onesTest = ones(2,dataTestTwo);
-	Tensor zerosTest = zeros(1,dataTestThree);
-
-	printf("intToScalarTest Tensor:\n");
-	print_tensor(intToScalarTest);
-	printf("\n");
-
-	printf("\nThe intTest was %d\n\n",scalarToIntTest);
-
-	printf("The tensor full of the devil is: \n");
-	print_tensor(fillTensorTest);
-	printf("\n\n");
-
-	printf("The ones tensor is: \n");
-	print_tensor(onesTest);
-	printf("\n\n");
-
-	printf("The zeros tensor is: \n");
-	print_tensor(zerosTest);
-	printf("\n\n");
-
-	return 0;
-
-}
-
-
-Tensor create_identity_tensor(int dimension, int dim_len){
-	int i = 0;
-	Tensor *matrix = malloc(sizeof(Tensor));
-	*matrix.dim = dimension;
-	*matrix.dim_size = calloc(dim_len*dim_len, sizeof(int));
-	*matrix.count = pow(dim_len, dimension);
-	*matrix.data = malloc(sizeof(int)*count);
-
-	for (i = 0; i < count; i++) {
-		if (i % (dim_len + dimension) == 0) {
-			*(data + i) = 1;
-		} else {
-			*(data + i) = 0;
-		}
-	}
-
-	print_tensor(matrix);
-}
-
-
-//prints tensor up to two dimensions for now
-void print_tensor(Tensor input){
-	int currentCount,i,j;
-  int totalCount = input.count;
-  int totalDim = input.dim;
-  int *data = input.data;
-  int *dim_size = input.dim_size;
-	currentCount = 0;
-
-	printf("[ ");
-	if (totalDim == 0) {
-		printf("%d ", data[currentCount]);
-	}
-
-	if (totalDim == 1) {
-		for (i = 0; i < dim_size[0]; i++) {
-			printf("%d ", data[currentCount]);
-		}
-	}
-
-	if (totalDim == 2) {
-		for (i = 0; i < dim_size[1]; i++) {
-			for (j = 0; j < dim_size[0]; j++) {
-				printf("%d ", data[currentCount]);
-				currentCount++;
-			}
-			if (i != dim_size[1] - 1) {
-				printf("\n  ");
-			}
-		}
-	}
-
-	printf("]");
-}
-
 /*
   Description:
     Take the number of dimensions, a pointer to the dimension tensor, and the
@@ -211,4 +112,61 @@ int scalar_tensor_to_int(Tensor a) {
 		printf("Error, not a scalar tensor");
 		exit(-1);
 	}
+}
+
+int main (int argc, char **argv) {
+
+	int intTest = 5;
+  Tensor intToScalarTest = int_to_scalar_tensor(intTest);
+	int scalarToIntTest = scalar_tensor_to_int(intToScalarTest);
+
+	int *dataTestOne = malloc(sizeof(int) * 2);
+	dataTestOne[0] = 3;
+	dataTestOne[1] = 3;
+
+	int *dataTestTwo = malloc(sizeof(int) * 2);
+	dataTestTwo[0] = 6;
+	dataTestTwo[1] = 2;
+
+	int *dataTestThree = malloc(sizeof(int));
+	dataTestThree[0] = 9;
+
+	Tensor fillTensorTest = fill_tensor(2,dataTestOne,666);
+	Tensor onesTest = ones(2,dataTestTwo);
+	Tensor zerosTest = zeros(1,dataTestThree);
+
+	printf("intToScalarTest Tensor:\n");
+/*	print_tensor(Tensor input){
+	int currentCount,i,j;
+  int totalCount = input.count;
+  int totalDim = input.dim;
+  int *data = input.data;
+  int *dim_size = input.dim_size;
+	currentCount = 0;
+
+	printf("[ ");
+	if (totalDim == 0) {
+		printf("%d ", data[currentCount]);
+	}
+
+	if (totalDim == 1) {
+		for (i = 0; i < dim_size[0]; i++) {
+			printf("%d ", data[currentCount]);
+		}
+	}
+
+	if (totalDim == 2) {
+		for (i = 0; i < dim_size[1]; i++) {
+			for (j = 0; j < dim_size[0]; j++) {
+				printf("%d ", data[currentCount]);
+				currentCount++;
+			}
+			if (i != dim_size[1] - 1) {
+				printf("\n  ");
+			}
+		}
+	}
+
+	printf("]");
+} */
 }

@@ -16,7 +16,7 @@ typedef struct {
 
 // Function calls
 
-Tensor create_identity_tensor(int);
+Tensor create_identity_tensor(int, int);
 void print_tensor(Tensor);
 Tensor fill_tensor(int,int*,int);
 Tensor ones(int,int*);

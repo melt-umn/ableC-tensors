@@ -7,10 +7,10 @@ CFLAGS+=-fpic -shared
 # The C source files.
 C_SOURCES=$(wildcard *.c)
 
-all: libArraysLib.so
+all: libTensorsLib.so
 
-libArraysLib.so: $(C_SOURCES)
-	gcc $(CFLAGS) -o libArraysLib.so $(C_SOURCES)
+libTensorsLib.so: $(C_SOURCES)
+	gcc $(CFLAGS) -o libTensorsLib.so $(C_SOURCES)
 
 clean:
 	rm -f *~ *.i *.c *.o
