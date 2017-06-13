@@ -10,6 +10,42 @@
 #include <errno.h>
 #include <math.h>
 
+
+/*
+  Description:
+    Takes a Tensor and returns a duplicate of it in a new space in memory.
+		Can be useful since Tensor functions, such as map, work on it as mutable
+		data. By copying the Tensor first, it can be modified without getting
+		rid of previous data.
+*/
+
+Tensor copy_tensor(Tensor tens) {
+	int i,j;
+	int dim = tens.dim;
+	int count = tens.count;
+	int *dim_size;
+	int *data;
+
+	data = malloc(sizeof(int)*count);
+	dim_size = malloc(sizeof(int)*dim);
+
+	for (i = 0; i < count; i++) {
+		data[i] = tens.data[i];
+	}
+	for (j = 0; j < dim; j++) {
+		dim_size[j] = tens.dim_size[j];
+	}
+
+	Tensor *newTens = malloc(sizeof(Tensor) + sizeof(int)*count + sizeof(int)*dim);
+
+	newTens->dim = dim;
+	newTens->dim_size = dim_size;
+	newTens->count = count;
+	newTens->data = data;
+
+	return *newTens;
+}
+
 Tensor create_identity_tensor(int dimension, int dim_len){
 	int i = 0;
 	Tensor *matrix = malloc(sizeof(Tensor));
@@ -131,7 +167,6 @@ int scalar_tensor_to_int(Tensor a) {
 	}
 }
 
-
 /*
   Description:
     Takes a function and a Tensor and performs that function on every element in
@@ -143,7 +178,7 @@ int scalar_tensor_to_int(Tensor a) {
 		not return a new tensor.
 */
 
-void map(int (*fun)(int,int), int j, Tensor tens) {
+Tensor map(int (*fun)(int,int), int j, Tensor tens) {
 	int i;
 	int count = tens.count;
 	int *data = tens.data;
@@ -151,6 +186,8 @@ void map(int (*fun)(int,int), int j, Tensor tens) {
 	for (i = 0; i < count; i++) {
 		data[i] = (*fun)(data[i],j);
 	}
+
+	return tens;
 }
 
 /*
@@ -182,7 +219,6 @@ int scalar_divide(int i, int j) {
 		exit(-1);
 	}
 }
-
 
 void print_tensor(Tensor input){
 	int currentCount,i,j;
@@ -257,23 +293,27 @@ int main (int argc, char **argv) {
 	print_tensor(zerosTest);
 	printf("\n\n");
 
-	printf("The ones + 1 tensor is: \n");
+	printf("The mutable ones + 1 tensor is: \n");
 	map(scalar_add,1,onesTest);
 	print_tensor(onesTest);
 	printf("\n\n");
 
-	printf("The ones + 1 - 3 tensor is: \n");
+	printf("The mutable ones + 1 - 3 tensor is: \n");
 	map(scalar_subtract,3,onesTest);
 	print_tensor(onesTest);
 	printf("\n\n");
 
-	printf("The ones - 1 * 666 tensor is: \n");
+	printf("The mutable ones - 1 * 666 tensor is: \n");
 	map(scalar_multiply,666,onesTest);
 	print_tensor(onesTest);
 	printf("\n\n");
 
-	printf("The ones * -666 / 3 tensor is: \n");
-	map(scalar_divide,3,onesTest);
+	printf("The copied ones * -666 / 3 tensor is: \n");
+	Tensor copiedOnesTest = map(scalar_divide,3,copy_tensor(onesTest));
+	print_tensor(copiedOnesTest);
+	printf("\n\n");
+
+	printf("But the before ones is still : \n");
 	print_tensor(onesTest);
 	printf("\n\n");
 
