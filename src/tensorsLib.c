@@ -165,8 +165,6 @@ int scalar_tensor_to_int(Tensor a) {
 	}
 }
 
-<<<<<<< HEAD
-=======
 /*
   Description:
     Takes a function and a Tensor and performs that function on every element in
@@ -219,7 +217,6 @@ int scalar_divide(int i, int j) {
 	}
 }
 
->>>>>>> 4f44e4e5188f8d7b2e6181c77bf18f4479b68edc
 void print_tensor(Tensor input){
 	int currentCount,i,j;
   int totalCount = input.count;
