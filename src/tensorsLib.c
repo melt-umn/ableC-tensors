@@ -46,20 +46,31 @@ Tensor copy_tensor(Tensor tens) {
 	return *newTens;
 }
 
-Tensor create_identity_tensor(int dimension, int dim_len){
+Tensor create_identity_tensor(int numDimensions, int dim_len){
 	int i = 0;
-	Tensor *matrix = malloc(sizeof(Tensor));
-	matrix -> dim = dimension;
-	matrix -> dim_size = calloc(dim_len*dim_len, sizeof(int));
-	matrix -> count = pow(dim_len, dimension);
-	matrix -> data = malloc(sizeof(int)*(matrix->count));
-	for (i = 0; i < matrix -> count; i++) {
-		if (i % (dim_len + dimension) == 0) {
-			*(matrix -> data + i) = 1;
+	int count = pow(dim_len, numDimensions);
+
+	int *data = malloc(sizeof(int)*count);
+	
+	for (i = 0; i < count; i++) {
+		if (i % (dim_len + numDimensions - 1) == 0) {
+			data[i] = 1;
 		} else {
-			*(matrix -> data + i) = 0;
+			data[i] = 0;
 		}
 	}
+	
+	Tensor *matrix = malloc(sizeof(Tensor));
+	matrix -> dim = numDimensions;
+	matrix -> dim_size = malloc(sizeof(int)*numDimensions);
+	
+	for (i = 0; i < numDimensions; i++) {
+		matrix -> dim_size[i] = dim_len;
+	}
+
+	matrix -> count = pow(dim_len, numDimensions);
+	matrix -> data =  data;
+
 	return *matrix;
 }
 
@@ -167,8 +178,6 @@ int scalar_tensor_to_int(Tensor a) {
 	}
 }
 
-<<<<<<< HEAD
-=======
 /*
   Description:
     Takes a function and a Tensor and performs that function on every element in
@@ -222,7 +231,6 @@ int scalar_divide(int i, int j) {
 	}
 }
 
->>>>>>> 4f44e4e5188f8d7b2e6181c77bf18f4479b68edc
 void print_tensor(Tensor input){
 	int currentCount,i,j;
   int totalCount = input.count;
@@ -278,9 +286,11 @@ int main (int argc, char **argv) {
 	Tensor onesTest = ones(2,dataTestTwo);
 	Tensor zerosTest = zeros(1,dataTestThree);
 
-	printf("intToScalarTest Tensor:\n");
-<<<<<<< HEAD
-=======
+	printf("\nIdentity matrix is:\n");
+	Tensor identity = create_identity_tensor(2, 8);
+	print_tensor(identity);
+
+	printf("\nintToScalarTest Tensor:\n");
 	print_tensor(intToScalarTest);
 	printf("\n");
 
@@ -330,5 +340,4 @@ int main (int argc, char **argv) {
 
 	return 0;
 
->>>>>>> 4f44e4e5188f8d7b2e6181c77bf18f4479b68edc
 }
