@@ -77,7 +77,7 @@ Roadmap for this is [here](#roadmap).
 ### Language Independent Linear Algebra  
 - `Dot Product :: (array a1, array a2) -> (array a3)`
 
-  - **Requires:**  `dims(a1) = dims(a2), length(dims(a1)) = 1`
+  - **Requires:**  `dims(a1) = dims(a2), length(dims(a1)) <= 1`
   - **Ensures:** `dims(a3) = []`
 
   This representation for the type of the dot production operations tells

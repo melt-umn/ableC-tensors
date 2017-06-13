@@ -24,11 +24,13 @@ Tensor int_to_scalar(int);
 
 int scalar_to_int(Tensor);
 
-
 Tensor map(int (*)(int,int),int,Tensor);
 int scalar_add(int,int);
 int scalar_subtract(int,int);
 int scalar_multiply(int,int);
 int scalar_divide(int,int);
+
+Tensor dot_product(Tensor,Tensor);
+int int_dot_product(Tensor,Tensor);
 
 void print_tensor(Tensor);

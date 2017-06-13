@@ -49,7 +49,7 @@ Tensor create_identity_tensor(int numDimensions, int dim_len){
 	int count = pow(dim_len, numDimensions);
 
 	int *data = malloc(sizeof(int)*count);
-	
+
 	for (i = 0; i < count; i++) {
 		if (i % (dim_len + numDimensions - 1) == 0) {
 			data[i] = 1;
@@ -57,11 +57,11 @@ Tensor create_identity_tensor(int numDimensions, int dim_len){
 			data[i] = 0;
 		}
 	}
-	
+
 	Tensor *matrix = malloc(sizeof(Tensor));
 	matrix -> dim = numDimensions;
 	matrix -> dim_size = malloc(sizeof(int)*numDimensions);
-	
+
 	for (i = 0; i < numDimensions; i++) {
 		matrix -> dim_size[i] = dim_len;
 	}
@@ -228,6 +228,97 @@ int scalar_divide(int i, int j) {
 	}
 }
 
+
+/*
+  Description:
+    Takes two tensors calculates the dot product between them, returns tensor.
+
+  Assumption:
+    The tensors passed in must be the same dimensions and cannot exceed two
+		dimensions. The returned tensor will be scalar (zero dimensions).
+*/
+Tensor dot_product(Tensor tOne, Tensor tTwo) {
+	int i, sum;
+	int dimOne = tOne.dim;
+	int dimTwo = tTwo.dim;
+	int *dimSizeOne = tOne.dim_size;
+	int *dimSizeTwo = tTwo.dim_size;
+	int *dataOne = tOne.data;
+	int *dataTwo = tTwo.data;
+	int totalCount = tOne.count; //if dimSizeOne == dimSizeTwo, count for each will be same
+
+	//used for return scalar tensor;
+	int *data;
+	Tensor *tens;
+
+	sum = 0;
+
+	if (dimOne == dimTwo) {
+		for (i = 0; i < dimOne; i++) {
+			if (dimSizeOne[i] != dimSizeTwo[i]) {
+				printf("The two tensors have different length of dimensions\n");
+				exit(-1);
+			}
+		}
+		data = malloc(sizeof(int));
+		////////IS THIS NECESSARY IDK I COMMENTED IT OUT AND IT WORKS STILL////////////
+		tens = malloc(sizeof(Tensor)); //+ sizeof(int) ); //sizeof(int) * dim + sizeof(int) * count
+		for (i = 0; i < totalCount; i++) {
+			sum += dataOne[i] * dataTwo[i];
+		}
+		data[0] = sum;
+		tens->dim = 0;
+		tens->dim_size = NULL;
+		tens->count = 1;
+		tens->data = data;
+		return *tens;
+	}
+	else {
+		printf("The two tensors have a different number of dimensions\n");
+		exit(-1);
+	}
+}
+
+/*
+  Description:
+    Returns the dot product of two tensors as an integer.
+
+  Assumption:
+    The two tensors passed in must be the same dimensions and cannot be greater
+		than two-dimensional.
+*/
+int int_dot_product(Tensor tOne, Tensor tTwo) {
+	//return scalar_tensor_to_int(dot_product(tOne,tTwo)); //wastes memory, but
+	//also less code (is it worth it to call it? small amount of wasted time as well)
+	int i, sum;
+	int dimOne = tOne.dim;
+	int dimTwo = tTwo.dim;
+	int *dimSizeOne = tOne.dim_size;
+	int *dimSizeTwo = tTwo.dim_size;
+	int *dataOne = tOne.data;
+	int *dataTwo = tTwo.data;
+	int totalCount = tOne.count; //if dimSizeOne == dimSizeTwo, count for each will be same
+	sum = 0;
+
+	if (dimOne == dimTwo) {
+		for (i = 0; i < dimOne; i++) {
+			if (dimSizeOne[i] != dimSizeTwo[i]) {
+				printf("The two tensors have different length of dimensions\n");
+				exit(-1);
+			}
+		}
+		for (i = 0; i < totalCount; i++) {
+			sum += dataOne[i] * dataTwo[i];
+		}
+		return sum;
+	}
+	else {
+		printf("The two tensors have a different number of dimensions\n");
+		exit(-1);
+	}
+}
+
+
 void print_tensor(Tensor input){
 	int currentCount,i,j;
   int totalCount = input.count;
@@ -282,71 +373,77 @@ int main (int argc, char **argv) {
 	Tensor fillTensorTest = fill_tensor(2,dataTestOne,666);
 	Tensor onesTest = ones(2,dataTestTwo);
 	Tensor zerosTest = zeros(1,dataTestThree);
-	Tensor identityTest = create_identity_tensor(2,3);
+	Tensor dotProductTestOne = fill_tensor(1,dataTestThree,666);
+	Tensor dotProductTestTwo = fill_tensor(1,dataTestThree,-666);
 
-<<<<<<< HEAD
 	printf("\nIdentity matrix is:\n");
 	Tensor identity = create_identity_tensor(2, 8);
 	print_tensor(identity);
+	printf("\n\n");
+	//
+	// printf("intToScalarTest Tensor:\n");
+	// print_tensor(intToScalarTest);
+	// printf("\n");
+	//
+	// printf("\nThe intTest was %d\n\n",scalarToIntTest);
+	//
+	// printf("The tensor full of the devil is: \n");
+	// print_tensor(fillTensorTest);
+	// printf("\n\n");
+	//
+	// printf("The ones tensor is: \n");
+	// print_tensor(onesTest);
+	// printf("\n\n");
+	//
+	// printf("The zeros tensor is: \n");
+	// print_tensor(zerosTest);
+	// printf("\n\n");
+	//
+	// printf("The mutable ones + 1 tensor is: \n");
+	// map(scalar_add,1,onesTest);
+	// print_tensor(onesTest);
+	// printf("\n\n");
+	//
+	// printf("The mutable ones + 1 - 3 tensor is: \n");
+	// map(scalar_subtract,3,onesTest);
+	// print_tensor(onesTest);
+	// printf("\n\n");
+	//
+	// printf("The mutable ones - 1 * 666 tensor is: \n");
+	// map(scalar_multiply,666,onesTest);
+	// print_tensor(onesTest);
+	// printf("\n\n");
+	//
+	// printf("The copied ones * -666 / 3 tensor is: \n");
+	// Tensor copiedOnesTest = map(scalar_divide,3,copy_tensor(onesTest));
+	// print_tensor(copiedOnesTest);
+	// printf("\n\n");
+	//
+	// printf("But the before ones is still : \n");
+	// print_tensor(onesTest);
+	// printf("\n\n");
+	//
+	// //this will break it, it's on purpose :D
+	// printf("The ones -666 / 0 tensor is: \n");
+	// map(scalar_divide,0,onesTest);
+	// print_tensor(onesTest);
+	// printf("\n\n");
 
-	printf("\nintToScalarTest Tensor:\n");
-=======
-	printf("intToScalarTest Tensor:\n");
->>>>>>> 057456c3ca331f127ec4987424a9c359df4849c1
-	print_tensor(intToScalarTest);
-	printf("\n");
-
-	printf("\nThe intTest was %d\n\n",scalarToIntTest);
-
-	printf("The tensor full of the devil is: \n");
-	print_tensor(fillTensorTest);
+	printf("first array to dot:\n");
+	print_tensor(dotProductTestOne);
 	printf("\n\n");
 
-	printf("The ones tensor is: \n");
-	print_tensor(onesTest);
+	printf("second array to dot:\n");
+	print_tensor(dotProductTestTwo);
 	printf("\n\n");
 
-	printf("The zeros tensor is: \n");
-	print_tensor(zerosTest);
+	printf("when dotted together (tensor):\n");
+	print_tensor(dot_product(dotProductTestOne,dotProductTestTwo));
 	printf("\n\n");
 
-	printf("The identity tensor is: \n");
-	print_tensor(identityTest);
-	printf("\n\n");
-
-	printf("The mutable ones + 1 tensor is: \n");
-	map(scalar_add,1,onesTest);
-	print_tensor(onesTest);
-	printf("\n\n");
-
-	printf("The mutable ones + 1 - 3 tensor is: \n");
-	map(scalar_subtract,3,onesTest);
-	print_tensor(onesTest);
-	printf("\n\n");
-
-	printf("The mutable ones - 1 * 666 tensor is: \n");
-	map(scalar_multiply,666,onesTest);
-	print_tensor(onesTest);
-	printf("\n\n");
-
-	printf("The copied ones * -666 / 3 tensor is: \n");
-	Tensor copiedOnesTest = map(scalar_divide,3,copy_tensor(onesTest));
-	print_tensor(copiedOnesTest);
-	printf("\n\n");
-
-	printf("But the before ones is still : \n");
-	print_tensor(onesTest);
-	printf("\n\n");
-
-	//this will break it, it's on purpose :D
-	printf("The ones -666 / 0 tensor is: \n");
-	map(scalar_divide,0,onesTest);
-	print_tensor(onesTest);
+	printf("when dotted together (int):\n");
+	printf("%d",int_dot_product(dotProductTestOne,dotProductTestTwo));
 	printf("\n\n");
 
 	return 0;
-<<<<<<< HEAD
-
-=======
->>>>>>> 057456c3ca331f127ec4987424a9c359df4849c1
 }
