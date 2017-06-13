@@ -1,19 +1,19 @@
 //Written by Nguyen Nguyen, Ankit Siva and Zoe Wentzel
 //Parts copied from edu.umn.cs.melt.exts.ableC.matlab
 
-//Modified arraysLib.c file to fit our own needs, cleaning out most of the
+//Modified tensorsLib.c file to fit our own needs, cleaning out most of the
 //code from the matlab version but still using snippets for inspiration/help//might break, please don't trust this -zoe
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "arraysLib.h"
+#include "tensorsLib.h"
 #include <errno.h>
 #include <math.h>
 
 
-Array create_identity_array(int dimension, int dim_len){
+Tensor create_identity_tensor(int dimension, int dim_len){
 	int i = 0;
-	Array *matrix = malloc(sizeof(Array));
+	Tensor *matrix = malloc(sizeof(Tensor));
 	*matrix.dim = dimension;
 	*matrix.dim_size = calloc(dim_len*dim_len, sizeof(int));
 	*matrix.count = pow(dim_len, dimension);
@@ -27,14 +27,14 @@ Array create_identity_array(int dimension, int dim_len){
 		}
 	}
 
-	print_array(matrix);
+	print_tensor(matrix);
 }
 
-Array int_to_array(int i) {
+Tensor int_to_tensor(int i) {
 	int *data, *dim;
 	dim = malloc(sizeof(int));
 	data = malloc(sizeof(int));
-	Array *arr = malloc(sizeof(Array) + sizeof(int) * 2);
+	Tensor *arr = malloc(sizeof(Tensor) + sizeof(int) * 2);
 
 	data[0] = i;
 	
@@ -45,17 +45,17 @@ Array int_to_array(int i) {
 }
 
 //i think i'm using count wrong, idk though -zoe
-int array_to_int(Array a) {
+int tensor_to_int(Tensor a) {
 	if (a.count == 1) {
 		return a.data[0];
 	}
 	else {
-		printf("Error, not a scalar array");
+		printf("Error, not a scalar tensor");
 		exit(-1);
 	}
 }
 
-void print_array(Array tensor) {
+void print_tensor(Tensor tensor) {
 	int i = 0;
 	for (i =0; i < tensor -> count; i++) {
 		printf(tensor -> *(data + i));
