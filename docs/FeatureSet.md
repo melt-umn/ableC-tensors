@@ -240,7 +240,7 @@ Roadmap for this is [here](#roadmap).
 ### Map should be able to use parallelism or concurrency (forget which) or even
 ### loop unrolling to be much more efficient.
 
-- `Map :: (*(fun int i1 -> int i2), array a1) -> (array a2)`
+- `Map :: (*(fun int i1, i2 -> int i3), array a1) -> (array a2)`
 
   - **Requires:** `None`
   - **Ensures:** `dims(a1) = dims(a2)`

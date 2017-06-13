@@ -6,18 +6,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "tensorsLib.h"
+#include "../include/tensorsLib.h"
 #include <errno.h>
 #include <math.h>
-
-/*
-  Description:
-    Take the number of dimensions, a pointer to the dimension tensor, and the
-		number to fill the tensor with
-
-  Assumption:
-    Tensor returned will have the value of the given number in all dimensions
-*/
 
 Tensor create_identity_tensor(int dimension, int dim_len){
 	int i = 0;
@@ -33,9 +24,17 @@ Tensor create_identity_tensor(int dimension, int dim_len){
 			*(matrix -> data + i) = 0;
 		}
 	}
-	print_tensor(*matrix);
 	return *matrix;
 }
+
+/*
+  Description:
+    Take the number of dimensions, a pointer to the dimension tensor, and the
+		number to fill the tensor with
+
+  Assumption:
+    Tensor returned will have the value of the given number in all dimensions
+*/
 
 Tensor fill_tensor(int dim, int *dim_size, int toFill) {
 	int i, count;
@@ -132,29 +131,60 @@ int scalar_tensor_to_int(Tensor a) {
 	}
 }
 
-int main (int argc, char **argv) {
 
-	int intTest = 5;
-  Tensor intToScalarTest = int_to_scalar_tensor(intTest);
-	int scalarToIntTest = scalar_tensor_to_int(intToScalarTest);
+/*
+  Description:
+    Takes a function and a Tensor and performs that function on every element in
+		the Tensor.
 
-	int *dataTestOne = malloc(sizeof(int) * 2);
-	dataTestOne[0] = 3;
-	dataTestOne[1] = 3;
+  Assumption:
+    The given function must handle integers and the returned Tensor will be
+		the same size as the one passed in. Will mutate the tensor itself, will
+		not return a new tensor.
+*/
 
-	int *dataTestTwo = malloc(sizeof(int) * 2);
-	dataTestTwo[0] = 6;
-	dataTestTwo[1] = 2;
+void map(int (*fun)(int,int), int j, Tensor tens) {
+	int i;
+	int count = tens.count;
+	int *data = tens.data;
 
-	int *dataTestThree = malloc(sizeof(int));
-	dataTestThree[0] = 9;
+	for (i = 0; i < count; i++) {
+		data[i] = (*fun)(data[i],j);
+	}
+}
 
-	Tensor fillTensorTest = fill_tensor(2,dataTestOne,666);
-	Tensor onesTest = ones(2,dataTestTwo);
-	Tensor zerosTest = zeros(1,dataTestThree);
+/*
+  Description:
+    Following functions are some classics to pass into map.
 
-	printf("intToScalarTest Tensor:\n");
-/*	print_tensor(Tensor input){
+  Assumption:
+    These functions must be passed into map alongside another integer that
+		will be used with them and the tensor to use them all.
+*/
+int scalar_add(int i, int j) {
+	return i + j;
+}
+
+int scalar_subtract(int i, int j) {
+	return i - j;
+}
+
+int scalar_multiply(int i, int j) {
+	return i * j;
+}
+
+int scalar_divide(int i, int j) {
+	if (j != 0) {
+		return i / j;
+	}
+	else {
+		printf("Error, cannot scalar divide by zero\n");
+		exit(-1);
+	}
+}
+
+
+void print_tensor(Tensor input){
 	int currentCount,i,j;
   int totalCount = input.count;
   int totalDim = input.dim;
@@ -186,5 +216,73 @@ int main (int argc, char **argv) {
 	}
 
 	printf("]");
-} */
+}
+
+int main (int argc, char **argv) {
+
+	int intTest = 5;
+  Tensor intToScalarTest = int_to_scalar_tensor(intTest);
+	int scalarToIntTest = scalar_tensor_to_int(intToScalarTest);
+
+	int *dataTestOne = malloc(sizeof(int) * 2);
+	dataTestOne[0] = 3;
+	dataTestOne[1] = 3;
+
+	int *dataTestTwo = malloc(sizeof(int) * 2);
+	dataTestTwo[0] = 6;
+	dataTestTwo[1] = 2;
+
+	int *dataTestThree = malloc(sizeof(int));
+	dataTestThree[0] = 9;
+
+	Tensor fillTensorTest = fill_tensor(2,dataTestOne,666);
+	Tensor onesTest = ones(2,dataTestTwo);
+	Tensor zerosTest = zeros(1,dataTestThree);
+
+	printf("intToScalarTest Tensor:\n");
+	print_tensor(intToScalarTest);
+	printf("\n");
+
+	printf("\nThe intTest was %d\n\n",scalarToIntTest);
+
+	printf("The tensor full of the devil is: \n");
+	print_tensor(fillTensorTest);
+	printf("\n\n");
+
+	printf("The ones tensor is: \n");
+	print_tensor(onesTest);
+	printf("\n\n");
+
+	printf("The zeros tensor is: \n");
+	print_tensor(zerosTest);
+	printf("\n\n");
+
+	printf("The ones + 1 tensor is: \n");
+	map(scalar_add,1,onesTest);
+	print_tensor(onesTest);
+	printf("\n\n");
+
+	printf("The ones + 1 - 3 tensor is: \n");
+	map(scalar_subtract,3,onesTest);
+	print_tensor(onesTest);
+	printf("\n\n");
+
+	printf("The ones - 1 * 666 tensor is: \n");
+	map(scalar_multiply,666,onesTest);
+	print_tensor(onesTest);
+	printf("\n\n");
+
+	printf("The ones * -666 / 3 tensor is: \n");
+	map(scalar_divide,3,onesTest);
+	print_tensor(onesTest);
+	printf("\n\n");
+
+	//this will break it, it's on purpose :D
+	printf("The ones -222 / 0 tensor is: \n");
+	map(scalar_divide,0,onesTest);
+	print_tensor(onesTest);
+	printf("\n\n");
+
+	return 0;
+
 }

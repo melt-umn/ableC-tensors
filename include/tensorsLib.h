@@ -16,13 +16,19 @@ typedef struct {
 
 // Function calls
 
-Tensor create_identity_tensor(int, int);
+
+Tensor create_identity_tensor(int,int);
 void print_tensor(Tensor);
 Tensor fill_tensor(int,int*,int);
 Tensor ones(int,int*);
 Tensor zeros(int,int*);
-Tensor int_to_scalar_tensor(int);
-int scalar_tensor_to_int(Tensor);
+Tensor int_to_scalar(int);
+int scalar_to_int(Tensor);
+void map(int (*)(int,int),int,Tensor);
+int scalar_add(int,int);
+int scalar_subtract(int,int);
+int scalar_multiply(int,int);
+int scalar_divide(int,int);
 
 
 /*
