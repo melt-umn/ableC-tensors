@@ -32,5 +32,6 @@ int scalar_divide(int,int);
 
 Tensor dot_product(Tensor,Tensor);
 int int_dot_product(Tensor,Tensor);
+Tensor cross_product(Tensor,Tensor);
 
 void print_tensor(Tensor);

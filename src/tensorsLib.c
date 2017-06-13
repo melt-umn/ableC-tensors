@@ -318,6 +318,56 @@ int int_dot_product(Tensor tOne, Tensor tTwo) {
 	}
 }
 
+/*
+  Description:
+    Takes two tensors calculates the cross product between them, returns tensor.
+
+  Assumption:
+    The tensors passed in must be vectors (dim = 1) with three elements. The
+		returned tensor will be the same. In the future, this function may be extended
+		to match that in Matlab.
+*/
+Tensor cross_product(Tensor tOne, Tensor tTwo) {
+	int i;
+	int dimOne = tOne.dim;
+	int dimTwo = tTwo.dim;
+	int *dimSizeOne = tOne.dim_size;
+	int *dimSizeTwo = tTwo.dim_size;
+	int *dataOne = tOne.data;
+	int *dataTwo = tTwo.data;
+	int totalCount = tOne.count; //if dimSizeOne == dimSizeTwo, count for each will be same
+
+	int *data;
+	int *dim_size;
+	Tensor *tens;
+
+	if (dimOne == dimTwo && dimOne == 1) {
+		if (dimSizeOne[0] == dimSizeTwo[0] && dimSizeOne[0] == 3) {
+			////////IS THIS NECESSARY IDK I COMMENTED IT OUT AND IT WORKS STILL////////////
+			tens = malloc(sizeof(Tensor)); //+ sizeof(int) ); //sizeof(int) * dim + sizeof(int) * count
+			dim_size = malloc(sizeof(int));
+			data = malloc(sizeof(int)*3);
+			dim_size[0] = 3;
+			data[0] = (dataOne[1] * dataTwo[2]) - (dataOne[2] * dataTwo[1]);
+			data[1] = (dataOne[2] * dataTwo[0]) - (dataOne[0] * dataTwo[2]);
+			data[2] = (dataOne[0] * dataTwo[1]) - (dataOne[1] * dataTwo[0]);
+
+			tens->dim = 1;
+			tens->dim_size = dim_size;
+			tens->count = 3;
+			tens->data = data;
+			return *tens;
+		}
+		else {
+			printf("The two tensors have different length of dimensions\n");
+			exit(-1);
+		}
+	}
+	else {
+		printf("The two tensors have a different number of dimensions\n");
+		exit(-1);
+	}
+}
 
 void print_tensor(Tensor input){
 	int currentCount,i,j;
@@ -370,11 +420,16 @@ int main (int argc, char **argv) {
 	int *dataTestThree = malloc(sizeof(int));
 	dataTestThree[0] = 9;
 
+	int *dataTestFour = malloc(sizeof(int));
+	dataTestFour[0] = 3;
+
 	Tensor fillTensorTest = fill_tensor(2,dataTestOne,666);
 	Tensor onesTest = ones(2,dataTestTwo);
 	Tensor zerosTest = zeros(1,dataTestThree);
 	Tensor dotProductTestOne = fill_tensor(1,dataTestThree,666);
 	Tensor dotProductTestTwo = fill_tensor(1,dataTestThree,-666);
+	Tensor crossProductTestOne = fill_tensor(1,dataTestFour,6);
+	Tensor crossProductTestTwo = fill_tensor(1,dataTestFour,2);
 
 	printf("\nIdentity matrix is:\n");
 	Tensor identity = create_identity_tensor(2, 8);
@@ -444,6 +499,20 @@ int main (int argc, char **argv) {
 	printf("when dotted together (int):\n");
 	printf("%d",int_dot_product(dotProductTestOne,dotProductTestTwo));
 	printf("\n\n");
+
+
+	printf("first array to cross:\n");
+	print_tensor(crossProductTestOne);
+	printf("\n\n");
+
+	printf("second array to cross:\n");
+	print_tensor(crossProductTestTwo);
+	printf("\n\n");
+
+	printf("when crossed together:\n");
+	print_tensor(cross_product(crossProductTestOne,crossProductTestTwo));
+	printf("\n\n");
+
 
 	return 0;
 }
