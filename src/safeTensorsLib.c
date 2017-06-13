@@ -5,20 +5,20 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "arraysLib.h"
+#include "tensorsLib.h"
 #include <errno.h>
 
 /*
   Description:
-    Create array will return an array that has "num" on the top left corner of
-   	the array and all of the remaining values in the array will be assigned by 
+    Create tensor will return an tensor that has "num" on the top left corner of
+   	the tensor and all of the remaining values in the tensor will be assigned by 
 	incrementing num based on "incr"
 
   Assumption:
-    Dimension_size and incr must be an array of size "dimension"
+    Dimension_size and incr must be an tensor of size "dimension"
  */
 
-Array create_array(int dim, int* dim_size, int num, int* incr){
+Tensor create_tensor(int dim, int* dim_size, int num, int* incr){
 	int i,j, col, row, high;
 	int ecnt = 1;
 	int fill=0;
@@ -28,7 +28,7 @@ Array create_array(int dim, int* dim_size, int num, int* incr){
 
 	int* cena = malloc(sizeof(int)*ecnt);
 
-	// Do the 2D part first, assuming a array is always at least 2D
+	// Do the 2D part first, assuming a tensor is always at least 2D
 
 	for(row=0; row< dim_size[0]; row++){
 		for(col=0; col< dim_size[1];col++){
@@ -56,7 +56,7 @@ Array create_array(int dim, int* dim_size, int num, int* incr){
 
 	//end of higher-than-2D part
 
-	Array *mtrx = malloc(sizeof(Array) + sizeof(int) * dim + sizeof(int) * ecnt);
+	Tensor *mtrx = malloc(sizeof(Tensor) + sizeof(int) * dim + sizeof(int) * ecnt);
 
 	mtrx->dim = dim;
 	mtrx->dim_size = dim_size;
@@ -68,15 +68,15 @@ Array create_array(int dim, int* dim_size, int num, int* incr){
 
 /*
   Description:
-    Print out the array element by element and in addition printing out the
+    Print out the tensor element by element and in addition printing out the
     delimeter when appropriate.
   Assumption:
     "delimeter" and "order_read" must have the same number of dimension as the
-    array being use to print.
+    tensor being use to print.
     "order_read" must only contain value between 0 and the dimension-1 being used.
  */
 
-void print_array_ex(Array input, int* order_read, char** delimeter){
+void print_tensor_ex(Tensor input, int* order_read, char** delimeter){
 	int max_len = input.count;
 	int max_dim = input.dim;
 	int *data = input.data;
@@ -119,13 +119,13 @@ void print_array_ex(Array input, int* order_read, char** delimeter){
 }
 
 /*
-  Description: Print out a array with default delimeter just as print_array_ex
+  Description: Print out a tensor with default delimeter just as print_tensor_ex
 
-  Assumption: Only acccept array up to the 4th Dimension
+  Assumption: Only acccept tensor up to the 4th Dimension
 
 */
 
-void print_array(Array input){
+void print_tensor(Tensor input){
   int max_len = input.count;
   int max_dim = input.dim;
   int *data = input.data;
@@ -140,7 +140,7 @@ void print_array(Array input){
 
   if (max_dim > 3) {
     tooLarge = 1;
-    printf("Beginning of array... \n");
+    printf("Beginning of tensor... \n");
     max_dim = 3;
     dim_buff = malloc(8);
   }
@@ -179,18 +179,18 @@ void print_array(Array input){
 
   }
   if (tooLarge) {
-  	printf("... rest of array cannot be printed");
+  	printf("... rest of tensor cannot be printed");
   }
   printf("\n\n");
 }
 
 /*
   Description:
-    Perform the same action as print_array except out will be redirected to a
+    Perform the same action as print_tensor except out will be redirected to a
     file descriptor.
 */
 
-void fprintf_array_ex(FILE* fd, Array input, int* order_read, char** delimeter){
+void fprintf_tensor_ex(FILE* fd, Tensor input, int* order_read, char** delimeter){
   int max_len = input.count;
   int max_dim = input.dim;
   int *data = input.data;
@@ -232,11 +232,11 @@ void fprintf_array_ex(FILE* fd, Array input, int* order_read, char** delimeter){
 
 /*
   Description:
-    Perform the same action as print_array except out will be redirected to a
+    Perform the same action as print_tensor except out will be redirected to a
     file descriptor. Uses default delimeter.
 */
 
-void fprintf_array(FILE* fd, Array input){
+void fprintf_tensor(FILE* fd, Tensor input){
   int max_len = input.count;
   int max_dim = input.dim;
   int *data = input.data;
@@ -280,35 +280,35 @@ void fprintf_array(FILE* fd, Array input){
 
 /*
   Description:
-    Create a file from filename and call fprintf_array to output the array
+    Create a file from filename and call fprintf_tensor to output the tensor
     into that file. Must define the order of reading and delimeter
 */
 
-void file_print_array_ex(char* filename, Array input, int* order_read, char**delimeter) {
+void file_print_tensor_ex(char* filename, Tensor input, int* order_read, char**delimeter) {
   FILE *fp;
   fp = fopen(filename, "w+");
 
-  fprintf_array_ex(fp, input, order_read, delimeter);
+  fprintf_tensor_ex(fp, input, order_read, delimeter);
 
   fclose(fp);
 }
 
 /*
   Description:
-    Create a file from filename and call fprintf_array to output the array
+    Create a file from filename and call fprintf_tensor to output the tensor
     into that file. Uses default order of read and delimeter.
 */
 
-void file_print_array(char* filename, Array input) {
+void file_print_tensor(char* filename, Tensor input) {
   FILE *fp;
   fp = fopen(filename, "w+");
 
-  fprintf_array(fp, input);
+  fprintf_tensor(fp, input);
 
   fclose(fp);
 }
 
-void print(Array input){
+void print(Tensor input){
 	int max_len = input.count;
 	int *data = input.data;
 	int i;
@@ -320,13 +320,13 @@ void print(Array input){
 
 /*
   Description:
-    Read a array from a txt file and return it as a Array
+    Read a tensor from a txt file and return it as a Tensor
   Assumption:
-    Array in txt file must be of the correct format and that user must give
+    Tensor in txt file must be of the correct format and that user must give
     the correct dimension size and dimension
 */
 
-Array read_array(char* filename, int* dim_size, int dim){
+Tensor read_tensor(char* filename, int* dim_size, int dim){
   FILE *fp;
   char* c;
   int i, flag;
@@ -350,7 +350,7 @@ Array read_array(char* filename, int* dim_size, int dim){
 
   fclose(fp);
 
-  Array *mtrx = malloc(sizeof(Array) + sizeof(int)*dim + sizeof(int)*ele);
+  Tensor *mtrx = malloc(sizeof(Tensor) + sizeof(int)*dim + sizeof(int)*ele);
 
   mtrx->count = ele;
   mtrx->data = cena;
@@ -362,16 +362,16 @@ Array read_array(char* filename, int* dim_size, int dim){
 
 /*
   Description:
-    Create a new array based on how we want to access array A. access_range
-    will need to have double the amount of dimension for array A since it
+    Create a new tensor based on how we want to access tensor A. access_range
+    will need to have double the amount of dimension for tensor A since it
     should contain two value for each dimension, where it start and where it ends.
   Assumption:
     Index of access_range start at 0. For example if we want to access the first
     3 row it would be {0,2}
-    Access_range must only contain valid value, in range of array A dimension.
+    Access_range must only contain valid value, in range of tensor A dimension.
  */
 
-Array accessor_array(Array A, int* access_range){
+Tensor accessor_tensor(Tensor A, int* access_range){
 	int *cena, *dim_size;
 	int ecnt, dim, flag;
 	int i,j,k;
@@ -394,7 +394,7 @@ Array accessor_array(Array A, int* access_range){
 
 	cena = malloc(sizeof(int) * ecnt);
 
-	Array *mtrx = malloc(sizeof(Array) + sizeof(int) * dim + sizeof(int) * ecnt);
+	Tensor *mtrx = malloc(sizeof(Tensor) + sizeof(int) * dim + sizeof(int) * ecnt);
 
 	j = 0;
 	for(i = 0; i < A.count; i++) {
@@ -451,18 +451,18 @@ Array accessor_array(Array A, int* access_range){
 }
 
 /*Description:
-    Concat two array on a certain specify dimension and return a new array
+    Concat two tensor on a certain specify dimension and return a new tensor
 
   Assumption:
-    Array A and B must have the same dimension size on every dimension except
-    the dimension being concanted in order to return a rectangular array.
-    Example would be for array A to be a 2x6x4 array, then B can only be a
-    array of size 2xYx4 where Y could be any number greater than 0 in order
-    for the two array to concat on the second dimension (column).
+    Tensor A and B must have the same dimension size on every dimension except
+    the dimension being concanted in order to return a rectangular tensor.
+    Example would be for tensor A to be a 2x6x4 tensor, then B can only be a
+    tensor of size 2xYx4 where Y could be any number greater than 0 in order
+    for the two tensor to concat on the second dimension (column).
 
  */
 
-Array cat_array(int dim, Array A, Array B){
+Tensor cat_tensor(int dim, Tensor A, Tensor B){
 	int *cena, *dimension_size;
 	int ecnt, dimension, slice_count;
 	int i,j,k;
@@ -474,7 +474,7 @@ Array cat_array(int dim, Array A, Array B){
 			if (A.dim_size[i] != B.dim_size[i]) {
 				printf("Error, can't concat these two matrices. Invald dimension !!!\n");
 				printf("Attempted to concat on dimension %d, but ", dim);
-				printf("Dimension number %d does not match, cannot create a rectangular array\n", i+1);
+				printf("Dimension number %d does not match, cannot create a rectangular tensor\n", i+1);
 			exit(-1);
 			}
 		}
@@ -484,7 +484,7 @@ Array cat_array(int dim, Array A, Array B){
 	int *B_buff = malloc(sizeof(int) *B.dim);
 
 	if (dim <= A.dim && dim <= B.dim) {
-		//printf("Concating two array into a smaller or current dimension\n");
+		//printf("Concating two tensor into a smaller or current dimension\n");
 		dimension_size = malloc(sizeof(int) *A.dim);
 		dimension = A.dim;
 		for (i = 0;  i < dimension; i++) {
@@ -504,7 +504,7 @@ Array cat_array(int dim, Array A, Array B){
 
 		slice_count = dimension_size[0] * dimension_size[1];
 
-		Array *mtrx = malloc(sizeof (Array) + sizeof(int) * dimension + sizeof(int) * ecnt);
+		Tensor *mtrx = malloc(sizeof (Tensor) + sizeof(int) * dimension + sizeof(int) * ecnt);
 
 
 		if (dimension == dim) {
@@ -612,7 +612,7 @@ Array cat_array(int dim, Array A, Array B){
     cena = malloc(sizeof(int)*ecnt);
     dimension_size = malloc(sizeof(int) * dim);
 
-		Array *mtrx = malloc(sizeof (Array) + sizeof(int) * dimension + sizeof(int) * ecnt);
+		Tensor *mtrx = malloc(sizeof (Tensor) + sizeof(int) * dimension + sizeof(int) * ecnt);
 
     j=0;
 
@@ -647,14 +647,14 @@ Array cat_array(int dim, Array A, Array B){
 
 /*
   Description:
-    Take a struct Array and return an integer.
+    Take a struct Tensor and return an integer.
 
   Assumption:
-    Array A must be a array with value of 1 for all dimension which mean data
-    should be a pointer to an int array of length 1.
+    Tensor A must be a tensor with value of 1 for all dimension which mean data
+    should be a pointer to an int tensor of length 1.
 */
 
-int array_to_int(Array A){
+int tensor_to_int(Tensor A){
 	int flag = 1;
 	int i;
 
@@ -667,27 +667,27 @@ int array_to_int(Array A){
 	if (flag == 1) {
 		return A.data[0];
 	} else {
-		printf("Error, array is not appropriate for conversion");
+		printf("Error, tensor is not appropriate for conversion");
 		exit(-1);
 	}
 }
 
 /*
   Description:
-    Take an integer value and a dimension, and return a Array
+    Take an integer value and a dimension, and return a Tensor
 
   Assumption:
-    Array return will have the value of 1 on all dimension, and a single value
+    Tensor return will have the value of 1 on all dimension, and a single value
     of the interger inputed (x).
 */
 
-Array int_to_array_ex(int x, int dimension){
+Tensor int_to_tensor_ex(int x, int dimension){
 	int *cena, *dim;
 	int i;
 
 	dim = malloc(sizeof(int)*dimension);
 	cena = malloc(sizeof(int));
-	Array *mtrx = malloc(sizeof( Array) + sizeof(int)*dimension + sizeof(int));
+	Tensor *mtrx = malloc(sizeof( Tensor) + sizeof(int)*dimension + sizeof(int));
 
 	cena[0] = x;
 
@@ -702,7 +702,7 @@ Array int_to_array_ex(int x, int dimension){
   return *mtrx;
 }
 
-Array int_to_array(int x) {
-  return int_to_array_ex(x,1);
+Tensor int_to_tensor(int x) {
+  return int_to_tensor_ex(x,1);
 }
 
