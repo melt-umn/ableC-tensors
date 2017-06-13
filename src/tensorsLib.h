@@ -21,8 +21,8 @@ void print_tensor(Tensor);
 Tensor fill_tensor(int,int*,int);
 Tensor ones(int,int*);
 Tensor zeros(int,int*);
-Tensor int_to_scalar(int);
-int scalar_to_int(Tensor);
+Tensor int_to_scalar_tensor(int);
+int scalar_tensor_to_int(Tensor);
 
 
 /*
