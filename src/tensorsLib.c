@@ -274,8 +274,6 @@ int main (int argc, char **argv) {
 	Tensor identityTest = create_identity_tensor(2,3);
 
 	printf("intToScalarTest Tensor:\n");
-<<<<<<< HEAD
-=======
 	print_tensor(intToScalarTest);
 	printf("\n");
 
@@ -328,6 +326,4 @@ int main (int argc, char **argv) {
 	printf("\n\n");
 
 	return 0;
-
->>>>>>> 4f44e4e5188f8d7b2e6181c77bf18f4479b68edc
 }
