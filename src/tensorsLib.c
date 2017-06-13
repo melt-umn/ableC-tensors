@@ -20,7 +20,7 @@ Tensor create_identity_tensor(int dimension, int dim_len){
 	*matrix.data = malloc(sizeof(int)*count);
 
 	for (i = 0; i < count; i++) {
-		if (i % (dim_len + 2) == 0) {
+		if (i % (dim_len + dimension) == 0) {
 			*(data + i) = 1;
 		} else {
 			*(data + i) = 0;
