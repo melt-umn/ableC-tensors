@@ -19,6 +19,23 @@
     Tensor returned will have the value of the given number in all dimensions
 */
 
+Tensor create_identity_tensor(int dimension, int dim_len){
+	int i = 0;
+	Tensor *matrix = malloc(sizeof(Tensor));
+	*matrix.dim = dimension;
+	*matrix.dim_size = calloc(dim_len*dim_len, sizeof(int));
+	*matrix.count = pow(dim_len, dimension);
+	*matrix.data = malloc(sizeof(int)*count);
+	for (i = 0; i < count; i++) {
+		if (i % (dim_len + dimension) == 0) {
+			*(data + i) = 1;
+		} else {
+		*(data + i) = 0;
+		}
+	}
+	print_tensor(matrix);
+}
+
 Tensor fill_tensor(int dim, int *dim_size, int toFill) {
 	int i, count;
 	int *data;
