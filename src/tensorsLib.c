@@ -383,46 +383,7 @@ Tensor cross_product(Tensor tOne, Tensor tTwo) {
 		exit(1);
 	}
 }
-/*
-void print_tensor(Tensor input) {
-	int currentCount,i,j;
-	int totalCount = input.count;
-	int totalDim = input.dim;
-	int *data = input.data;
-	int *dim_size = input.dim_size;
-	currentCount = 0;
 
-	printf("[ ");
-	if (totalDim == 0) {
-		printf("%d ", data[currentCount]);
-	}
-
-	if (totalDim == 1) {
-		for (i = 0; i < dim_size[0]; i++) {
-			printf("%d ", data[currentCount]);
-		}
-	}
-
-	if (totalDim == 2) {
-		for (i = 0; i < dim_size[1]; i++) {
-			for (j = 0; j < dim_size[0]; j++) {
-				printf("%d ", data[currentCount]);
-				currentCount++;
-			}
-			if (i != dim_size[1] - 1) {
-				printf("\n  ");
-			}
-		}
-	}
-
-	printf("]");
-}*/
-
-/*
- * Proper, n-dimensional tensor print
- * Should be written with modular arithmetic to ensure high portability
- * As of now works with 2D and lower, so should run fine instead of using the large print function above
- */
 void print_tensor(Tensor input) {
 	int i = 0;
 	int j = 0;
