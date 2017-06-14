@@ -431,11 +431,11 @@ void print_tensor(Tensor input) {
 
 	for (; i < input.count; i++) {
 		printf("%i", input.data[i]);
-//		printf("\n\nLooking at element %i at index %i",input.data[i], i);
+		//printf("\n\nLooking at element %i at index %i",input.data[i], i);
 
 		for(j = input.dim - 1; j > 0; j--) {
-//			printf("\n\nLooking at dimension length of %ith dimension = %i", j+1, input.dim_size[j]);
-//			printf("\n(%i+1) %% input.dim_size[%i] = %i", i, j, (i + 1) % input.dim_size[j]);
+			//printf("\n\nLooking at dimension length of %ith dimension = %i", j+1, input.dim_size[j]);
+			//printf("\n(%i+1) %% input.dim_size[%i] = %i", i, j, (i + 1) % input.dim_size[j]);
 			if ((i+1) % input.dim_size[j] == 0 && i != input.count - 1) { //second part of conditional gets rid of ending delimeter
 				printf("%c", delimiters[j]);
 				j = 0;
