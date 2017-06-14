@@ -54,12 +54,11 @@ Tensor copy_tensor(Tensor tens) {
  *
  * For now, selects along a column, that is, across a range of rows
  */
-
 Tensor access_tensor(Tensor toAccess, int accessAlongCol, Interval interval) {
 	int i = 0;
 	int j = 0;
 	int offset = 0;
-	
+
 /*	if (aLen > toAccess.dim) {
 		printf("Too many dimensions specified. Tensor cannot be accessed with these parameters");
 		exit(1);
@@ -81,7 +80,7 @@ Tensor access_tensor(Tensor toAccess, int accessAlongCol, Interval interval) {
 		j++;
 	}
 
-	return *toReturn;	
+	return *toReturn;
 }
 
 /*
@@ -280,6 +279,59 @@ int scalar_divide(int i, int j) {
 	} else {
 		printf("Error, cannot scalar divide by zero\n");
 		exit(1);
+	}
+}
+
+/*
+  Description:
+    Takes a function, an integer, and a Tensor. Will reduce the Tensor using
+		the rules given by the function, with the integer as the base. For example,
+		if you wanted to add each element together, the function would be an
+		addition function, the integer would be 0, and the Tensor would be the Tensor.
+
+  Assumption:
+    The given function must handle integers and will return an integer.
+*/
+int fold(int (*fun)(int,int), int current, Tensor tens){
+	int i;
+	int count = tens.count;
+	int *data = tens.data;
+
+	for (i = 0; i < tens.count; i++) {
+		current = (*fun)(data[i],current);
+	}
+	return current;
+}
+
+int max(Tensor tens) {
+	return fold(greater_than,-2147483648,tens);
+}
+
+int min(Tensor tens) {
+	return fold(lesser_than,2147483647,tens);
+}
+
+int sum(Tensor tens) {
+	return fold(scalar_add,0,tens);
+}
+
+int product(Tensor tens) {
+	return fold(scalar_multiply,1,tens);
+}
+
+int greater_than(int i, int j) {
+	if (i > j) {
+		return i;
+	} else {
+		return j;
+	}
+}
+
+int lesser_than(int i, int j) {
+	if (i > j) {
+		return j;
+	} else {
+		return i;
 	}
 }
 
@@ -557,6 +609,18 @@ int main (int argc, char **argv) {
 
 	printf("when crossed together:\n");
 	print_tensor(cross_product(crossProductTestOne,crossProductTestTwo));
+	printf("\n\n");
+
+	printf("[6 6 6] folded sum is: %d", sum(crossProductTestOne));
+	printf("\n\n");
+
+	printf("[6 6 6] folded product is: %d", product(crossProductTestOne));
+	printf("\n\n");
+
+	printf("[6 6 6] folded max is: %d", max(crossProductTestOne));
+	printf("\n\n");
+
+	printf("[6 6 6] folded min is: %d", min(crossProductTestOne));
 	printf("\n\n");
 
 	printf("Access test:\n");
