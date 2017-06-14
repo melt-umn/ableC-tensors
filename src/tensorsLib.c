@@ -11,12 +11,13 @@
 #include <math.h>
 
 /*
-  Description:
-    Takes a Tensor and returns a duplicate of it in a new space in memory.
-		Can be useful since Tensor functions, such as map, work on it as mutable
-		data. By copying the Tensor first, it can be modified without getting
-		rid of previous data.
-*/
+ * Description:
+ * Takes a Tensor and returns a duplicate of it in a new space in memory.
+ * Can be useful since Tensor functions, such as map, work on it as mutable
+ * data. By copying the Tensor first, it can be modified without getting
+ * rid of previous data.
+ */
+
 Tensor copy_tensor(Tensor tens) {
 	int i,j;
 	int dim = tens.dim;
@@ -44,6 +45,16 @@ Tensor copy_tensor(Tensor tens) {
 	return *newTens;
 }
 
+/*
+ * Description:
+ * Creates an identity tensor for a given number of dimensions
+ * and each dimension having a certain dimension length.
+ * This function makes only tensors that have the same length in all dimensions
+ *
+ * Assumption:
+ * Identity tensor with given dimension number and dimension length parameters
+ * is generated.
+ */
 Tensor create_identity_tensor(int numDimensions, int dim_len){
 	int i = 0;
 	int count = pow(dim_len, numDimensions);
@@ -73,13 +84,25 @@ Tensor create_identity_tensor(int numDimensions, int dim_len){
 }
 
 /*
-  Description:
-    Take the number of dimensions, a pointer to the dimension tensor, and the
-		number to fill the tensor with
+ * Description:
+ * Creates an identity tensor for a given number of dimensions
+ * and each dimension having a length specified by the array of integers passed
+ *
+ * Assumption:
+ * Identity tensor with given number of dimensions and each having the specified
+ * dimension length is created.
+ */
 
-  Assumption:
-    Tensor returned will have the value of the given number in all dimensions
-*/
+Tensor create_identity_tensor_asymmetric(int numDimensions, int * dim_len);
+
+/*
+ * Description:
+ * Take the number of dimensions, a pointer to the dimension tensor, and the
+ * number to fill the tensor with
+ *
+ * Assumption:
+ * Tensor returned will have the value of the given number in all dimensions
+ */
 Tensor fill_tensor(int dim, int *dim_size, int toFill) {
 	int i, count;
 	int *data;
@@ -172,7 +195,7 @@ int scalar_tensor_to_int(Tensor a) {
 	}
 	else {
 		printf("Error, not a scalar tensor");
-		exit(-1);
+		exit(1);
 	}
 }
 
@@ -224,7 +247,7 @@ int scalar_divide(int i, int j) {
 	}
 	else {
 		printf("Error, cannot scalar divide by zero\n");
-		exit(-1);
+		exit(1);
 	}
 }
 
@@ -257,7 +280,7 @@ Tensor dot_product(Tensor tOne, Tensor tTwo) {
 		for (i = 0; i < dimOne; i++) {
 			if (dimSizeOne[i] != dimSizeTwo[i]) {
 				printf("The two tensors have different length of dimensions\n");
-				exit(-1);
+				exit(1);
 			}
 		}
 		data = malloc(sizeof(int));
@@ -275,7 +298,7 @@ Tensor dot_product(Tensor tOne, Tensor tTwo) {
 	}
 	else {
 		printf("The two tensors have a different number of dimensions\n");
-		exit(-1);
+		exit(1);
 	}
 }
 
@@ -304,17 +327,16 @@ int int_dot_product(Tensor tOne, Tensor tTwo) {
 		for (i = 0; i < dimOne; i++) {
 			if (dimSizeOne[i] != dimSizeTwo[i]) {
 				printf("The two tensors have different length of dimensions\n");
-				exit(-1);
+				exit(1);
 			}
 		}
 		for (i = 0; i < totalCount; i++) {
 			sum += dataOne[i] * dataTwo[i];
 		}
 		return sum;
-	}
-	else {
+	} else {
 		printf("The two tensors have a different number of dimensions\n");
-		exit(-1);
+		exit(1);
 	}
 }
 
@@ -357,24 +379,22 @@ Tensor cross_product(Tensor tOne, Tensor tTwo) {
 			tens->count = 3;
 			tens->data = data;
 			return *tens;
-		}
-		else {
+		} else {
 			printf("The two tensors have different length of dimensions\n");
-			exit(-1);
+			exit(1);
 		}
-	}
-	else {
+	} else {
 		printf("The two tensors have a different number of dimensions\n");
-		exit(-1);
+		exit(1);
 	}
 }
-
-void print_tensor(Tensor input){
+/*
+void print_tensor(Tensor input) {
 	int currentCount,i,j;
-  int totalCount = input.count;
-  int totalDim = input.dim;
-  int *data = input.data;
-  int *dim_size = input.dim_size;
+	int totalCount = input.count;
+	int totalDim = input.dim;
+	int *data = input.data;
+	int *dim_size = input.dim_size;
 	currentCount = 0;
 
 	printf("[ ");
@@ -401,12 +421,44 @@ void print_tensor(Tensor input){
 	}
 
 	printf("]");
+}*/
+
+/*
+ * Proper, n-dimensional tensor print
+ * Should be written with modular arithmetic to ensure high portability
+ * As of now works with 2D and lower, so should run fine instead of using the large print function above
+ */
+void print_tensor(Tensor input) {
+	int i = 0;
+	int j = 0;
+
+	printf("[\n");
+	
+	for (; i < input.count; i++) {
+		printf("%i", input.data[i]);
+//		printf("\n\nLooking at element %i at index %i",input.data[i], i);
+
+		for(j = input.dim - 1; j > 0; j--) {
+//			printf("\n\nLooking at dimension length of %ith dimension = %i", j+1, input.dim_size[j]);
+//			printf("\n(%i+1) %% input.dim_size[%i] = %i", i, j, (i + 1) % input.dim_size[j]);
+			if ((i+1) % input.dim_size[j] == 0) {
+				printf("%c", delimiters[j]);
+				j = 0;
+			}
+		}
+		
+		if (j == 0) {
+			printf("%c", delimiters[j]);
+		}
+	}
+
+	printf("]");
 }
 
 int main (int argc, char **argv) {
 
 	int intTest = 5;
-  Tensor intToScalarTest = int_to_scalar_tensor(intTest);
+	Tensor intToScalarTest = int_to_scalar_tensor(intTest);
 	int scalarToIntTest = scalar_tensor_to_int(intToScalarTest);
 
 	int *dataTestOne = malloc(sizeof(int) * 2);
@@ -432,53 +484,53 @@ int main (int argc, char **argv) {
 	Tensor crossProductTestTwo = fill_tensor(1,dataTestFour,2);
 
 	printf("\nIdentity matrix is:\n");
-	Tensor identity = create_identity_tensor(2, 8);
+	Tensor identity = create_identity_tensor(2, 2);
 	print_tensor(identity);
 	printf("\n\n");
-	//
-	// printf("intToScalarTest Tensor:\n");
-	// print_tensor(intToScalarTest);
-	// printf("\n");
-	//
-	// printf("\nThe intTest was %d\n\n",scalarToIntTest);
-	//
-	// printf("The tensor full of the devil is: \n");
-	// print_tensor(fillTensorTest);
-	// printf("\n\n");
-	//
-	// printf("The ones tensor is: \n");
-	// print_tensor(onesTest);
-	// printf("\n\n");
-	//
-	// printf("The zeros tensor is: \n");
-	// print_tensor(zerosTest);
-	// printf("\n\n");
-	//
-	// printf("The mutable ones + 1 tensor is: \n");
-	// map(scalar_add,1,onesTest);
-	// print_tensor(onesTest);
-	// printf("\n\n");
-	//
-	// printf("The mutable ones + 1 - 3 tensor is: \n");
-	// map(scalar_subtract,3,onesTest);
-	// print_tensor(onesTest);
-	// printf("\n\n");
-	//
-	// printf("The mutable ones - 1 * 666 tensor is: \n");
-	// map(scalar_multiply,666,onesTest);
-	// print_tensor(onesTest);
-	// printf("\n\n");
-	//
-	// printf("The copied ones * -666 / 3 tensor is: \n");
-	// Tensor copiedOnesTest = map(scalar_divide,3,copy_tensor(onesTest));
-	// print_tensor(copiedOnesTest);
-	// printf("\n\n");
-	//
-	// printf("But the before ones is still : \n");
-	// print_tensor(onesTest);
-	// printf("\n\n");
-	//
-	// //this will break it, it's on purpose :D
+	
+	 printf("intToScalarTest Tensor:\n");
+	 print_tensor(intToScalarTest);
+	 printf("\n");
+	
+	 printf("\nThe intTest was %d\n\n",scalarToIntTest);
+	
+	 printf("The tensor full of the devil is: \n");
+	 print_tensor(fillTensorTest);
+	 printf("\n\n");
+	
+	 printf("The ones tensor is: \n");
+	 print_tensor(onesTest);
+	 printf("\n\n");
+	
+	 printf("The zeros tensor is: \n");
+	 print_tensor(zerosTest);
+	 printf("\n\n");
+	
+	 printf("The mutable ones + 1 tensor is: \n");
+	 map(scalar_add,1,onesTest);
+	 print_tensor(onesTest);
+	 printf("\n\n");
+	
+	 printf("The mutable ones + 1 - 3 tensor is: \n");
+	 map(scalar_subtract,3,onesTest);
+	 print_tensor(onesTest);
+	 printf("\n\n");
+	
+	 printf("The mutable ones - 1 * 666 tensor is: \n");
+	 map(scalar_multiply,666,onesTest);
+	 print_tensor(onesTest);
+	 printf("\n\n");
+	
+	 printf("The copied ones * -666 / 3 tensor is: \n");
+	 Tensor copiedOnesTest = map(scalar_divide,3,copy_tensor(onesTest));
+	 print_tensor(copiedOnesTest);
+	 printf("\n\n");
+	
+	 printf("But the before ones is still : \n");
+	 print_tensor(onesTest);
+	 printf("\n\n");
+	
+	 //this will break it, it's on purpose :D
 	// printf("The ones -666 / 0 tensor is: \n");
 	// map(scalar_divide,0,onesTest);
 	// print_tensor(onesTest);

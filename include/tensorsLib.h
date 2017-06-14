@@ -14,6 +14,8 @@ typedef struct {
   int *data;
 } Tensor;
 
+char delimiters[10] = {',', '\n', '/', '-', '!', '@', '#', '%', '^', '&'};
+
 // Function calls
 Tensor copy_tensor(Tensor);
 Tensor create_identity_tensor(int,int);
