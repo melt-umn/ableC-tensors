@@ -59,7 +59,7 @@ Tensor access_tensor(Tensor toAccess, int accessAlongCol, Interval interval) {
 	int j = 0;
 	int offset = 0;
 
-/*	if (aLen > toAccess.dim) {
+	/*	if (aLen > toAccess.dim) {
 		printf("Too many dimensions specified. Tensor cannot be accessed with these parameters");
 		exit(1);
 	}
