@@ -35,7 +35,7 @@ Tensor copy_tensor(Tensor tens) {
 		dim_size[j] = tens.dim_size[j];
 	}
 
-	Tensor *newTens = malloc(sizeof(Tensor) + sizeof(int)*count + sizeof(int)*dim);
+	Tensor *newTens = malloc(sizeof(Tensor));
 
 	newTens->dim = dim;
 	newTens->dim_size = dim_size;
@@ -118,9 +118,7 @@ Tensor fill_tensor(int dim, int *dim_size, int toFill) {
 		data[i] = toFill; //fill tensor with the given number
 	}
 
-	////////IS THIS NECESSARY IDK I COMMENTED IT OUT AND IT WORKS STILL//////////
-
-	Tensor *tens = malloc(sizeof(Tensor)); //+ sizeof(int)*count + sizeof(int)*dim);
+	Tensor *tens = malloc(sizeof(Tensor));
 
 	tens->dim = dim;
 	tens->dim_size = dim_size;
@@ -166,9 +164,8 @@ Tensor int_to_scalar_tensor(int i) {
 	int *data;
 	data = malloc(sizeof(int));
 
-	////////IS THIS NECESSARY IDK I COMMENTED IT OUT AND IT WORKS STILL////////////
 
-	Tensor *tens = malloc(sizeof(Tensor)); //+ sizeof(int) ); //sizeof(int) * dim + sizeof(int) * count
+	Tensor *tens = malloc(sizeof(Tensor));
 
 	data[0] = i;
 
@@ -284,8 +281,7 @@ Tensor dot_product(Tensor tOne, Tensor tTwo) {
 			}
 		}
 		data = malloc(sizeof(int));
-		////////IS THIS NECESSARY IDK I COMMENTED IT OUT AND IT WORKS STILL////////////
-		tens = malloc(sizeof(Tensor)); //+ sizeof(int) ); //sizeof(int) * dim + sizeof(int) * count
+		tens = malloc(sizeof(Tensor));
 		for (i = 0; i < totalCount; i++) {
 			sum += dataOne[i] * dataTwo[i];
 		}
@@ -365,8 +361,7 @@ Tensor cross_product(Tensor tOne, Tensor tTwo) {
 
 	if (dimOne == dimTwo && dimOne == 1) {
 		if (dimSizeOne[0] == dimSizeTwo[0] && dimSizeOne[0] == 3) {
-			////////IS THIS NECESSARY IDK I COMMENTED IT OUT AND IT WORKS STILL////////////
-			tens = malloc(sizeof(Tensor)); //+ sizeof(int) ); //sizeof(int) * dim + sizeof(int) * count
+			tens = malloc(sizeof(Tensor));
 			dim_size = malloc(sizeof(int));
 			data = malloc(sizeof(int)*3);
 			dim_size[0] = 3;
@@ -433,7 +428,7 @@ void print_tensor(Tensor input) {
 	int j = 0;
 
 	printf("[\n");
-	
+
 	for (; i < input.count; i++) {
 		printf("%i", input.data[i]);
 //		printf("\n\nLooking at element %i at index %i",input.data[i], i);
@@ -446,7 +441,7 @@ void print_tensor(Tensor input) {
 				j = 0;
 			}
 		}
-		
+
 		if (j == 0) {
 			printf("%c", delimiters[j]);
 		}
@@ -487,49 +482,49 @@ int main (int argc, char **argv) {
 	Tensor identity = create_identity_tensor(2, 2);
 	print_tensor(identity);
 	printf("\n\n");
-	
+
 	 printf("intToScalarTest Tensor:\n");
 	 print_tensor(intToScalarTest);
 	 printf("\n");
-	
+
 	 printf("\nThe intTest was %d\n\n",scalarToIntTest);
-	
+
 	 printf("The tensor full of the devil is: \n");
 	 print_tensor(fillTensorTest);
 	 printf("\n\n");
-	
+
 	 printf("The ones tensor is: \n");
 	 print_tensor(onesTest);
 	 printf("\n\n");
-	
+
 	 printf("The zeros tensor is: \n");
 	 print_tensor(zerosTest);
 	 printf("\n\n");
-	
+
 	 printf("The mutable ones + 1 tensor is: \n");
 	 map(scalar_add,1,onesTest);
 	 print_tensor(onesTest);
 	 printf("\n\n");
-	
+
 	 printf("The mutable ones + 1 - 3 tensor is: \n");
 	 map(scalar_subtract,3,onesTest);
 	 print_tensor(onesTest);
 	 printf("\n\n");
-	
+
 	 printf("The mutable ones - 1 * 666 tensor is: \n");
 	 map(scalar_multiply,666,onesTest);
 	 print_tensor(onesTest);
 	 printf("\n\n");
-	
+
 	 printf("The copied ones * -666 / 3 tensor is: \n");
 	 Tensor copiedOnesTest = map(scalar_divide,3,copy_tensor(onesTest));
 	 print_tensor(copiedOnesTest);
 	 printf("\n\n");
-	
+
 	 printf("But the before ones is still : \n");
 	 print_tensor(onesTest);
 	 printf("\n\n");
-	
+
 	 //this will break it, it's on purpose :D
 	// printf("The ones -666 / 0 tensor is: \n");
 	// map(scalar_divide,0,onesTest);
