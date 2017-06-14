@@ -1,8 +1,7 @@
 /************************************************************
-                MATLAB MATRIX FUNCTION LIBRARY
-
+                TENSOR FUNCTION LIBRARY 
 Created by: Nguyen Nguyen
-Modified by: Nguyen Nguyen
+Modified by: Ankit Siva, Zoe Wentzel
 *************************************************************/
 
 // Struct definition for Tensor Struct
@@ -13,6 +12,11 @@ typedef struct {
   int count;
   int *data;
 } Tensor;
+
+typedef struct {
+	int lBound;
+	int rBound;
+} Interval;
 
 char delimiters[10] = {',', '\n', '/', '-', '!', '@', '#', '%', '^', '&'};
 

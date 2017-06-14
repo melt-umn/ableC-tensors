@@ -4,7 +4,6 @@
 # Ignore dotfiles, except .gitignore
 .*
 !.gitignore
-src/tensorsLib
 # Ignore artifacts.
 build.xml
 *.i

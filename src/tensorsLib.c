@@ -46,6 +46,46 @@ Tensor copy_tensor(Tensor tens) {
 
 /*
  * Description:
+ * This function creates and returns a tensor containing the elements that need to be accessed
+ * Takes in the tensor to be accessed, an integer pointer pointing to an array that specifies
+ * which dimensions need to be accessed along. An interval is also passed (that for now moves only along the row,
+ * but later changes wil allow interval to specify the dimension it needs to go along as well).
+ * Passed also is an int containing the length of the accessAlongDims.
+ *
+ * For now, selects along a column, that is, across a range of rows
+ */
+
+Tensor access_tensor(Tensor toAccess, int accessAlongCol, Interval interval) {
+	int i = 0;
+	int j = 0;
+	int offset = 0;
+	
+/*	if (aLen > toAccess.dim) {
+		printf("Too many dimensions specified. Tensor cannot be accessed with these parameters");
+		exit(1);
+	}
+	*/
+
+	Tensor * toReturn = malloc(sizeof(Tensor));
+	toReturn -> count = interval.rBound - interval.lBound + 1;
+	toReturn -> data = malloc(toReturn -> count * sizeof(int));
+	toReturn -> dim = toAccess.dim - 1;
+	toReturn -> dim_size = malloc(sizeof(int)*2);
+
+	toReturn -> dim_size[0] = 1;
+	toReturn -> dim_size[1] = toReturn -> count;
+
+	for (i = interval.lBound; i <= interval.rBound; i++) {
+		offset = accessAlongCol + toAccess.dim_size[1]*i;
+		toReturn -> data[j] = toAccess.data[offset];
+		j++;
+	}
+
+	return *toReturn;	
+}
+
+/*
+ * Description:
  * Creates an identity tensor for a given number of dimensions
  * and each dimension having a certain dimension length.
  * This function makes only tensors that have the same length in all dimensions
@@ -377,14 +417,11 @@ Tensor cross_product(Tensor tOne, Tensor tTwo) {
 	}
 }
 
-<<<<<<< HEAD
-=======
 /*
  * Proper, n-dimensional tensor print
  * Should be written with modular arithmetic to ensure high portability
  * As of now works with 2D and lower, so should run fine instead of using the large print function above
  */
->>>>>>> 1e732670e494e3fd3a0dcb4209800637576cb6d9
 void print_tensor(Tensor input) {
 	int i = 0;
 	int j = 0;
@@ -441,7 +478,7 @@ int main (int argc, char **argv) {
 	Tensor crossProductTestTwo = fill_tensor(1,dataTestFour,2);
 
 	printf("\nIdentity matrix is:\n");
-	Tensor identity = create_identity_tensor(2, 2);
+	Tensor identity = create_identity_tensor(2, 8);
 	print_tensor(identity);
 	printf("\n\n");
 
@@ -522,6 +559,11 @@ int main (int argc, char **argv) {
 	print_tensor(cross_product(crossProductTestOne,crossProductTestTwo));
 	printf("\n\n");
 
-
+	printf("Access test:\n");
+	Interval interval = {0, 7};
+	print_tensor(identity);
+	printf("\n");
+	printf("%i to %i", interval.lBound, interval.rBound);
+	print_tensor(access_tensor(identity, 5, interval));
 	return 0;
 }
