@@ -17,7 +17,6 @@
  * data. By copying the Tensor first, it can be modified without getting
  * rid of previous data.
  */
-
 Tensor copy_tensor(Tensor tens) {
 	int i,j;
 	int dim = tens.dim;
@@ -92,7 +91,6 @@ Tensor create_identity_tensor(int numDimensions, int dim_len){
  * Identity tensor with given number of dimensions and each having the specified
  * dimension length is created.
  */
-
 Tensor create_identity_tensor_asymmetric(int numDimensions, int * dim_len);
 
 /*
@@ -164,7 +162,6 @@ Tensor int_to_scalar_tensor(int i) {
 	int *data;
 	data = malloc(sizeof(int));
 
-
 	Tensor *tens = malloc(sizeof(Tensor));
 
 	data[0] = i;
@@ -189,8 +186,7 @@ Tensor int_to_scalar_tensor(int i) {
 int scalar_tensor_to_int(Tensor a) {
 	if (a.count == 1) {
 		return a.data[0];
-	}
-	else {
+	} else {
 		printf("Error, not a scalar tensor");
 		exit(1);
 	}
@@ -241,13 +237,11 @@ int scalar_multiply(int i, int j) {
 int scalar_divide(int i, int j) {
 	if (j != 0) {
 		return i / j;
-	}
-	else {
+	} else {
 		printf("Error, cannot scalar divide by zero\n");
 		exit(1);
 	}
 }
-
 
 /*
   Description:
@@ -291,8 +285,7 @@ Tensor dot_product(Tensor tOne, Tensor tTwo) {
 		tens->count = 1;
 		tens->data = data;
 		return *tens;
-	}
-	else {
+	} else {
 		printf("The two tensors have a different number of dimensions\n");
 		exit(1);
 	}
@@ -384,6 +377,14 @@ Tensor cross_product(Tensor tOne, Tensor tTwo) {
 	}
 }
 
+<<<<<<< HEAD
+=======
+/*
+ * Proper, n-dimensional tensor print
+ * Should be written with modular arithmetic to ensure high portability
+ * As of now works with 2D and lower, so should run fine instead of using the large print function above
+ */
+>>>>>>> 1e732670e494e3fd3a0dcb4209800637576cb6d9
 void print_tensor(Tensor input) {
 	int i = 0;
 	int j = 0;
@@ -392,23 +393,23 @@ void print_tensor(Tensor input) {
 
 	for (; i < input.count; i++) {
 		printf("%i", input.data[i]);
-//		printf("\n\nLooking at element %i at index %i",input.data[i], i);
+		//printf("\n\nLooking at element %i at index %i",input.data[i], i);
 
 		for(j = input.dim - 1; j > 0; j--) {
-//			printf("\n\nLooking at dimension length of %ith dimension = %i", j+1, input.dim_size[j]);
-//			printf("\n(%i+1) %% input.dim_size[%i] = %i", i, j, (i + 1) % input.dim_size[j]);
-			if ((i+1) % input.dim_size[j] == 0) {
+			//printf("\n\nLooking at dimension length of %ith dimension = %i", j+1, input.dim_size[j]);
+			//printf("\n(%i+1) %% input.dim_size[%i] = %i", i, j, (i + 1) % input.dim_size[j]);
+			if ((i+1) % input.dim_size[j] == 0 && i != input.count - 1) { //second part of conditional gets rid of ending delimeter
 				printf("%c", delimiters[j]);
 				j = 0;
 			}
 		}
 
-		if (j == 0) {
+		if (j == 0 && i != input.count - 1) { //second part of conditional gets rid of ending delimeter
 			printf("%c", delimiters[j]);
 		}
 	}
 
-	printf("]");
+	printf("\n]");
 }
 
 int main (int argc, char **argv) {
