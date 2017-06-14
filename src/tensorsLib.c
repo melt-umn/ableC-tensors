@@ -436,18 +436,18 @@ void print_tensor(Tensor input) {
 		for(j = input.dim - 1; j > 0; j--) {
 //			printf("\n\nLooking at dimension length of %ith dimension = %i", j+1, input.dim_size[j]);
 //			printf("\n(%i+1) %% input.dim_size[%i] = %i", i, j, (i + 1) % input.dim_size[j]);
-			if ((i+1) % input.dim_size[j] == 0) {
+			if ((i+1) % input.dim_size[j] == 0 && i != input.count - 1) { //second part of conditional gets rid of ending delimeter
 				printf("%c", delimiters[j]);
 				j = 0;
 			}
 		}
 
-		if (j == 0) {
+		if (j == 0 && i != input.count - 1) { //second part of conditional gets rid of ending delimeter
 			printf("%c", delimiters[j]);
 		}
 	}
 
-	printf("]");
+	printf("\n]");
 }
 
 int main (int argc, char **argv) {
