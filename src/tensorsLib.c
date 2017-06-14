@@ -17,7 +17,6 @@
  * data. By copying the Tensor first, it can be modified without getting
  * rid of previous data.
  */
-
 Tensor copy_tensor(Tensor tens) {
 	int i,j;
 	int dim = tens.dim;
@@ -92,7 +91,6 @@ Tensor create_identity_tensor(int numDimensions, int dim_len){
  * Identity tensor with given number of dimensions and each having the specified
  * dimension length is created.
  */
-
 Tensor create_identity_tensor_asymmetric(int numDimensions, int * dim_len);
 
 /*
@@ -164,7 +162,6 @@ Tensor int_to_scalar_tensor(int i) {
 	int *data;
 	data = malloc(sizeof(int));
 
-
 	Tensor *tens = malloc(sizeof(Tensor));
 
 	data[0] = i;
@@ -189,8 +186,7 @@ Tensor int_to_scalar_tensor(int i) {
 int scalar_tensor_to_int(Tensor a) {
 	if (a.count == 1) {
 		return a.data[0];
-	}
-	else {
+	} else {
 		printf("Error, not a scalar tensor");
 		exit(1);
 	}
@@ -241,13 +237,11 @@ int scalar_multiply(int i, int j) {
 int scalar_divide(int i, int j) {
 	if (j != 0) {
 		return i / j;
-	}
-	else {
+	} else {
 		printf("Error, cannot scalar divide by zero\n");
 		exit(1);
 	}
 }
-
 
 /*
   Description:
@@ -291,8 +285,7 @@ Tensor dot_product(Tensor tOne, Tensor tTwo) {
 		tens->count = 1;
 		tens->data = data;
 		return *tens;
-	}
-	else {
+	} else {
 		printf("The two tensors have a different number of dimensions\n");
 		exit(1);
 	}
@@ -383,40 +376,6 @@ Tensor cross_product(Tensor tOne, Tensor tTwo) {
 		exit(1);
 	}
 }
-/*
-void print_tensor(Tensor input) {
-	int currentCount,i,j;
-	int totalCount = input.count;
-	int totalDim = input.dim;
-	int *data = input.data;
-	int *dim_size = input.dim_size;
-	currentCount = 0;
-
-	printf("[ ");
-	if (totalDim == 0) {
-		printf("%d ", data[currentCount]);
-	}
-
-	if (totalDim == 1) {
-		for (i = 0; i < dim_size[0]; i++) {
-			printf("%d ", data[currentCount]);
-		}
-	}
-
-	if (totalDim == 2) {
-		for (i = 0; i < dim_size[1]; i++) {
-			for (j = 0; j < dim_size[0]; j++) {
-				printf("%d ", data[currentCount]);
-				currentCount++;
-			}
-			if (i != dim_size[1] - 1) {
-				printf("\n  ");
-			}
-		}
-	}
-
-	printf("]");
-}*/
 
 /*
  * Proper, n-dimensional tensor print
