@@ -157,7 +157,7 @@ Roadmap for this is [here](#roadmap).
 
   ex: [ 1 2 3 ; 4 5 6 ] -> [ 1 4 ; 2 5 ; 3 6 ]
 
-  **TO CHECK:** extend transpose for tensors greater than two dimensions?
+  **TODO(?):** extend transpose for tensors greater than two dimensions?
 
 - `Inverse :: (tensor a1) -> (tensor a2)`
 

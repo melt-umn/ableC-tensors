@@ -21,8 +21,11 @@ typedef struct {
 char delimiters[10] = {',', '\n', '/', '-', '!', '@', '#', '%', '^', '&'};
 
 // Function calls
+Tensor access_tensor(Tensor,int,Interval);
 Tensor copy_tensor(Tensor);
+Tensor transpose(Tensor);
 Tensor create_identity_tensor(int,int);
+Tensor create_identity_tensor_asymmetric(int, int*);
 Tensor fill_tensor(int,int*,int);
 Tensor ones(int,int*);
 Tensor zeros(int,int*);
@@ -35,6 +38,7 @@ int scalar_add(int,int);
 int scalar_subtract(int,int);
 int scalar_multiply(int,int);
 int scalar_divide(int,int);
+int scalar_mod(int,int);
 
 int fold(int (*)(int,int),int,Tensor);
 int max(Tensor);
@@ -44,8 +48,15 @@ int product(Tensor);
 int greater_than(int,int);
 int lesser_than(int,int);
 
+Tensor tensor_combine(int (*)(int,int),Tensor,Tensor);
+Tensor tensor_elem_add(Tensor,Tensor);
+Tensor tensor_elem_subtract(Tensor,Tensor);
+Tensor tensor_elem_multiple(Tensor,Tensor);
+Tensor tensor_elem_divide(Tensor,Tensor);
+
 Tensor dot_product(Tensor,Tensor);
 int int_dot_product(Tensor,Tensor);
+int int_dot_product_vtwo(Tensor,Tensor);
 Tensor cross_product(Tensor,Tensor);
 Tensor scalar_triple_product(Tensor,Tensor,Tensor);
 int int_scalar_triple_product(Tensor,Tensor,Tensor);

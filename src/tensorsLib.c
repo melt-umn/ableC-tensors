@@ -12,40 +12,6 @@
 
 /*
  * Description:
- * Takes a Tensor and returns a duplicate of it in a new space in memory.
- * Can be useful since Tensor functions, such as map, work on it as mutable
- * data. By copying the Tensor first, it can be modified without getting
- * rid of previous data.
- */
-Tensor copy_tensor(Tensor tens) {
-	int i,j;
-	int dim = tens.dim;
-	int count = tens.count;
-	int *dim_size;
-	int *data;
-
-	data = malloc(sizeof(int)*count);
-	dim_size = malloc(sizeof(int)*dim);
-
-	for (i = 0; i < count; i++) {
-		data[i] = tens.data[i];
-	}
-	for (j = 0; j < dim; j++) {
-		dim_size[j] = tens.dim_size[j];
-	}
-
-	Tensor *newTens = malloc(sizeof(Tensor));
-
-	newTens->dim = dim;
-	newTens->dim_size = dim_size;
-	newTens->count = count;
-	newTens->data = data;
-
-	return *newTens;
-}
-
-/*
- * Description:
  * This function creates and returns a tensor containing the elements that need to be accessed
  * Takes in the tensor to be accessed, an integer pointer pointing to an array that specifies
  * which dimensions need to be accessed along. An interval is also passed (that for now moves only along the row,
@@ -81,6 +47,111 @@ Tensor access_tensor(Tensor toAccess, int accessAlongCol, Interval interval) {
 	}
 
 	return *toReturn;
+}
+
+/*
+ * Description:
+ * Takes a Tensor and returns a duplicate of it in a new space in memory.
+ * Can be useful since Tensor functions, such as map, work on it as mutable
+ * data. By copying the Tensor first, it can be modified without getting
+ * rid of previous data.
+ */
+Tensor copy_tensor(Tensor tens) {
+	int i,j;
+	int dim = tens.dim;
+	int count = tens.count;
+	int *dim_size;
+	int *data;
+
+	data = malloc(sizeof(int)*count);
+	dim_size = malloc(sizeof(int)*dim);
+
+	for (i = 0; i < count; i++) {
+		data[i] = tens.data[i];
+	}
+	for (j = 0; j < dim; j++) {
+		dim_size[j] = tens.dim_size[j];
+	}
+
+	Tensor *newTens = malloc(sizeof(Tensor));
+
+	newTens->dim = dim;
+	newTens->dim_size = dim_size;
+	newTens->count = count;
+	newTens->data = data;
+
+	return *newTens;
+}
+
+/*
+  Description:
+    Takes a tensor and transposes it (rows and columns are swapped).
+
+  Assumption:
+    The tensors passed in must be <= two dimensions and the returned tensor
+		will have the same dimensions, but swapped. Does NOT mutate the actual tensor.
+*/
+Tensor transpose(Tensor tens) {
+	int i,j;
+
+	//passed in tensor
+	int dim = tens.dim;
+	int *dim_size = tens.dim_size;
+	int count = tens.count;
+	int *data = tens.data;
+
+	//new tensor
+	int new_dim;
+	int *new_dim_size;
+	int *new_data;
+	Tensor *newTens;
+
+	if (dim <= 2) { //make sure tensor is two or less dimensions
+		if (dim == 0) { //scalar tensor returns the tensor (copy)
+			return copy_tensor(tens);
+		}
+
+		new_data = malloc(sizeof(int)*count); //malloc space for data
+		newTens = malloc(sizeof(Tensor));
+
+		if (dim == 1) { // n tensor is equivalent to n x 1, will become 1 x n
+			new_dim = 2;
+			new_dim_size = malloc(sizeof(int)*2);
+			new_dim_size[0] = 1;
+			new_dim_size[1] = dim_size[0];
+			for (i = 0; i < count; i++) { //put all elements in, just need to copy
+				new_data[i] = data[i];
+			}
+		} else { //tensor is two dimensional
+			if (dim_size[0] == 1) { // 1 x n tensor will become n
+				new_dim = 1;
+				new_dim_size = malloc(sizeof(int));
+				new_dim_size[0] = dim_size[1];
+				for (i = 0; i < count; i++) { //put all elements in, just need to copy
+					new_data[i] = data[i];
+				}
+			} else { // n x m tensor will become m x n
+				new_dim = 2;
+				new_dim_size = malloc(sizeof(int)*2);
+				new_dim_size[0] = dim_size[1];
+				new_dim_size[1] = dim_size[0];
+				//can't just copy the elements for an n x m array :(
+				for (i = 0; i < dim_size[0]; i++) {
+					for (j = 0; j < dim_size[1]; j++) {
+						new_data[j+dim_size[1]*i] = data[i + dim_size[0]*j]; //rip math thanks nathan
+					}
+				}
+			}
+		}
+		newTens->dim = new_dim;
+		newTens->dim_size = new_dim_size;
+		newTens->count = count; //count won't change no matter what
+		newTens->data = new_data;
+		return *newTens;
+	} else {
+		printf("Error, cannot transpose a Tensor that is greater than two dimensions");
+		exit(1);
+	}
 }
 
 /*
@@ -282,6 +353,15 @@ int scalar_divide(int i, int j) {
 	}
 }
 
+int scalar_mod(int i, int j) {
+	if (j != 0) {
+		return i % j;
+	} else {
+		printf("Error, cannot scalar divide by zero\n");
+		exit(1);
+	}
+}
+
 /*
   Description:
     Takes a function, an integer, and a Tensor. Will reduce the Tensor using
@@ -333,6 +413,63 @@ int lesser_than(int i, int j) {
 	} else {
 		return i;
 	}
+}
+
+Tensor tensor_combine(int (*fun)(int,int), Tensor tOne, Tensor tTwo) { //pls rename
+	int i, sum;
+	int dimOne = tOne.dim;
+	int dimTwo = tTwo.dim;
+	int *dimSizeOne = tOne.dim_size;
+	int *dimSizeTwo = tTwo.dim_size;
+	int *dataOne = tOne.data;
+	int *dataTwo = tTwo.data;
+	int totalCount = tOne.count; //if dimSizeOne == dimSizeTwo, count for each will be same
+
+	int *data;
+	int *dimSize;
+	Tensor *tens;
+
+	if (dimOne == dimTwo) {
+		for (i = 0; i < dimOne; i++) {
+			if (dimSizeOne[i] != dimSizeTwo[i]) {
+				printf("The two tensors have different length of dimensions\n");
+				exit(1);
+			}
+		}
+		data = malloc(sizeof(int)*totalCount);
+		dimSize = malloc(sizeof(int)*dimOne);
+		for (i = 0; i < dimOne; i++) {
+			dimSize[i] = dimSizeOne[i];
+		}
+		tens = malloc(sizeof(Tensor));
+		for (i = 0; i < totalCount; i++) {
+			data[i] = (*fun)(dataOne[i], dataTwo[i]);
+		}
+		tens->dim = dimOne;
+		tens->dim_size = dimSize;
+		tens->count = totalCount;
+		tens->data = data;
+		return *tens;
+	} else {
+		printf("The two tensors have a different number of dimensions\n");
+		exit(1);
+	}
+}
+
+Tensor tensor_elem_add(Tensor tOne, Tensor tTwo) {
+	return tensor_combine(scalar_add,tOne,tTwo);
+}
+
+Tensor tensor_elem_subtract(Tensor tOne, Tensor tTwo) {
+	return tensor_combine(scalar_subtract,tOne,tTwo);
+}
+
+Tensor tensor_elem_multiply(Tensor tOne, Tensor tTwo) {
+	return tensor_combine(scalar_multiply,tOne,tTwo);
+}
+
+Tensor tensor_elem_divide(Tensor tOne, Tensor tTwo) {
+	return tensor_combine(scalar_divide,tOne,tTwo);
 }
 
 /*
@@ -419,6 +556,19 @@ int int_dot_product(Tensor tOne, Tensor tTwo) {
 		printf("The two tensors have a different number of dimensions\n");
 		exit(1);
 	}
+}
+
+/*
+  Description:
+    Returns the dot product of two tensors as an integer. This version uses
+		tensor combine and fold functions.
+
+  Assumption:
+    The two tensors passed in must be the same dimensions and cannot be greater
+		than two-dimensional.
+*/
+int int_dot_product_vtwo(Tensor tOne, Tensor tTwo) {
+	return sum(tensor_combine(scalar_multiply,tOne,tTwo));
 }
 
 /*
@@ -512,7 +662,7 @@ int int_scalar_triple_product(Tensor tOne, Tensor tTwo, Tensor tThree) {
 
   Assumption:
     The tensors passed in must be vectors (dim = 1) with three elements. The
-		returned tensor will also be a vector with three elements. 
+		returned tensor will also be a vector with three elements.
 */
 Tensor vector_triple_product(Tensor tOne, Tensor tTwo, Tensor tThree) {
 	return cross_product(tOne,cross_product(tTwo,tThree));
@@ -550,6 +700,7 @@ void print_tensor(Tensor input) {
 	printf("\n]");
 }
 
+//yo we gotta write legit test files soon lol
 int main (int argc, char **argv) {
 
 	int intTest = 5;
@@ -577,53 +728,58 @@ int main (int argc, char **argv) {
 	Tensor dotProductTestTwo = fill_tensor(1,dataTestThree,-666);
 	Tensor crossProductTestOne = fill_tensor(1,dataTestFour,6);
 	Tensor crossProductTestTwo = fill_tensor(1,dataTestFour,2);
+	Tensor tensorCombineTestOne = fill_tensor(2,dataTestOne,2);
 
 	printf("\nIdentity matrix is:\n");
 	Tensor identity = create_identity_tensor(2, 8);
 	print_tensor(identity);
 	printf("\n\n");
 
-	 printf("intToScalarTest Tensor:\n");
-	 print_tensor(intToScalarTest);
-	 printf("\n");
+	printf("intToScalarTest Tensor:\n");
+	print_tensor(intToScalarTest);
+	printf("\n");
 
-	 printf("\nThe intTest was %d\n\n",scalarToIntTest);
+	printf("\nThe intTest was %d\n\n",scalarToIntTest);
 
-	 printf("The tensor full of the devil is: \n");
-	 print_tensor(fillTensorTest);
-	 printf("\n\n");
+	printf("The tensor full of the devil is: \n");
+	print_tensor(fillTensorTest);
+	printf("\n\n");
 
-	 printf("The ones tensor is: \n");
-	 print_tensor(onesTest);
-	 printf("\n\n");
+	printf("The ones tensor is: \n");
+	print_tensor(onesTest);
+	printf("\n\n");
 
-	 printf("The zeros tensor is: \n");
-	 print_tensor(zerosTest);
-	 printf("\n\n");
+	printf("The transposed ones tensor is: \n");
+	print_tensor(transpose(onesTest));
+	printf("\n\n");
 
-	 printf("The mutable ones + 1 tensor is: \n");
-	 map(scalar_add,1,onesTest);
-	 print_tensor(onesTest);
-	 printf("\n\n");
+	printf("The zeros tensor is: \n");
+	print_tensor(zerosTest);
+	printf("\n\n");
 
-	 printf("The mutable ones + 1 - 3 tensor is: \n");
-	 map(scalar_subtract,3,onesTest);
-	 print_tensor(onesTest);
-	 printf("\n\n");
+	printf("The mutable ones + 1 tensor is: \n");
+	map(scalar_add,1,onesTest);
+	print_tensor(onesTest);
+	printf("\n\n");
 
-	 printf("The mutable ones - 1 * 666 tensor is: \n");
-	 map(scalar_multiply,666,onesTest);
-	 print_tensor(onesTest);
-	 printf("\n\n");
+	printf("The mutable ones + 1 - 3 tensor is: \n");
+	map(scalar_subtract,3,onesTest);
+	print_tensor(onesTest);
+	printf("\n\n");
 
-	 printf("The copied ones * -666 / 3 tensor is: \n");
-	 Tensor copiedOnesTest = map(scalar_divide,3,copy_tensor(onesTest));
-	 print_tensor(copiedOnesTest);
-	 printf("\n\n");
+	printf("The mutable ones - 1 * 666 tensor is: \n");
+	map(scalar_multiply,666,onesTest);
+	print_tensor(onesTest);
+	printf("\n\n");
 
-	 printf("But the before ones is still : \n");
-	 print_tensor(onesTest);
-	 printf("\n\n");
+	printf("The copied ones * -666 / 3 tensor is: \n");
+	Tensor copiedOnesTest = map(scalar_divide,3,copy_tensor(onesTest));
+	print_tensor(copiedOnesTest);
+	printf("\n\n");
+
+	printf("But the before ones is still : \n");
+	print_tensor(onesTest);
+	printf("\n\n");
 
 	 //this will break it, it's on purpose :D
 	// printf("The ones -666 / 0 tensor is: \n");
@@ -647,6 +803,9 @@ int main (int argc, char **argv) {
 	printf("%d",int_dot_product(dotProductTestOne,dotProductTestTwo));
 	printf("\n\n");
 
+	printf("when dotted together (int) v2 (tensor combine and fold):\n");
+	printf("%d",int_dot_product_vtwo(dotProductTestOne,dotProductTestTwo));
+	printf("\n\n");
 
 	printf("first array to cross:\n");
 	print_tensor(crossProductTestOne);
