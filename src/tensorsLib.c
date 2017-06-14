@@ -470,6 +470,55 @@ Tensor cross_product(Tensor tOne, Tensor tTwo) {
 }
 
 /*
+  Description:
+    Takes three tensors and calculates the scalar triple product of them. Takes
+		the dot product of the first tensor with the cross product of the other two.
+
+  Assumption:
+    The tensors passed in must be vectors (dim = 1) with three elements. The
+		result will be a scalar tensor (one element, dim = 0).
+*/
+Tensor scalar_triple_product(Tensor tOne, Tensor tTwo, Tensor tThree) {
+	return dot_product(tOne, cross_product(tTwo,tThree));
+	/* Note: the size checking of the last two tensors should happen during the call
+		 to cross product (which makes sure the size of each is three). Then, because
+		 dot product will make sure the first tensor and the other one are the same
+		 size, that should also be size three. No need to explicitely check size here.
+	*/
+}
+
+/*
+  Description:
+    Takes three tensors and calculates the scalar triple product of them. Takes
+		the dot product of the first tensor with the cross product of the other two.
+
+  Assumption:
+    The tensors passed in must be vectors (dim = 1) with three elements. The
+		result will be the integer calculated.
+*/
+int int_scalar_triple_product(Tensor tOne, Tensor tTwo, Tensor tThree) {
+	return int_dot_product(tOne, cross_product(tTwo,tThree));
+	/* Note: the size checking of the last two tensors should happen during the call
+		 to cross product (which makes sure the size of each is three). Then, because
+		 dot product will make sure the first tensor and the other one are the same
+		 size, that should also be size three. No need to explicitely check size here.
+	*/
+}
+
+/*
+  Description:
+    Takes three tensors and calculates the vector triple product of them. Takes
+		the cross product of the first tensor with the cross product of the other two.
+
+  Assumption:
+    The tensors passed in must be vectors (dim = 1) with three elements. The
+		returned tensor will also be a vector with three elements. 
+*/
+Tensor vector_triple_product(Tensor tOne, Tensor tTwo, Tensor tThree) {
+	return cross_product(tOne,cross_product(tTwo,tThree));
+}
+
+/*
  * Proper, n-dimensional tensor print
  * Should be written with modular arithmetic to ensure high portability
  * As of now works with 2D and lower, so should run fine instead of using the large print function above

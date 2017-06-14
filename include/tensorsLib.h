@@ -47,5 +47,8 @@ int lesser_than(int,int);
 Tensor dot_product(Tensor,Tensor);
 int int_dot_product(Tensor,Tensor);
 Tensor cross_product(Tensor,Tensor);
+Tensor scalar_triple_product(Tensor,Tensor,Tensor);
+int int_scalar_triple_product(Tensor,Tensor,Tensor);
+Tensor vector_triple_product(Tensor,Tensor,Tensor);
 
 void print_tensor(Tensor);
