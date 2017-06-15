@@ -304,8 +304,8 @@ int scalar_tensor_to_int(Tensor a) {
 
 /*
   Description:
-    Takes a function and a Tensor and performs that function on every element in
-		the Tensor.
+    Takes a function, an int, and a Tensor and performs that function on every
+		element in the Tensor with the int.
 
   Assumption:
     The given function must handle integers and the returned Tensor will be
@@ -322,6 +322,40 @@ Tensor map(int (*fun)(int,int), int j, Tensor tens) {
 	}
 
 	return tens;
+}
+
+/*
+  Description:
+    Takes a function, a scalar Tensor, and a Tensor to map over and performs that
+		function on every element in the Tensor.
+
+  Assumption:
+    The given function must handle integers and the returned Tensor will be
+		the same size as the one passed in. Will mutate the tensor itself, will
+		not return a new tensor.
+*/
+Tensor tensor_map(int (*fun)(int,int), Tensor toMap, Tensor tens) {
+	int i;
+	int count = tens.count;
+	int *data = tens.data;
+	int currentCount = toMap.count;
+	int *currentDimSize = toMap.dim_size;
+	int *currentData = toMap.data;
+
+	if (currentCount == 1) {
+		if (currentDimSize[0] == 1) {
+			for (i = 0; i < count; i++) {
+				data[i] = (*fun)(data[i],currentData[0]);
+			}
+			return tens;
+		} else {
+			printf("Error, starting data must be scalar array");
+			exit(1);
+		}
+	} else {
+		printf("Error, not a scalar tensor");
+		exit(1);
+	}
 }
 
 /*
@@ -358,6 +392,49 @@ int scalar_mod(int i, int j) {
 		return i % j;
 	} else {
 		printf("Error, cannot scalar divide by zero\n");
+		exit(1);
+	}
+}
+
+/*
+  Description:
+    Takes a function, an integer, and a Tensor. Will reduce the Tensor using
+		the rules given by the function, with the integer as the base. For example,
+		if you wanted to add each element together, the function would be an
+		addition function, the integer would be 0, and the Tensor would be the Tensor.
+
+  Assumption:
+    The given function must handle integers and will return a scalar Tensor.
+*/
+Tensor tensor_fold(int (*fun)(int,int), Tensor current, Tensor tens){
+	int i;
+	int count = tens.count;
+	int currentCount = current.count;
+	int *data = tens.data;
+	int *currentDimSize = current.dim_size;
+	int *currentData = current.data;
+
+	if (currentCount == 1) {
+		if (currentDimSize[0] == 1) {
+				int *newData;
+				Tensor *newTens = malloc(sizeof(Tensor));
+				newData[0] = currentData[0];
+
+				for (i = 0; i < tens.count; i++) {
+					newData[0] = (*fun)(data[i],newData[0]);
+				}
+
+				newTens->dim = 0;
+				newTens->dim_size = NULL;
+				newTens->count = 1;
+				newTens->data = newData;
+				return *newTens;
+		} else {
+			printf("Error, starting data must be scalar array");
+			exit(1);
+		}
+	} else {
+		printf("Error, not a scalar tensor");
 		exit(1);
 	}
 }
@@ -697,145 +774,5 @@ void print_tensor(Tensor input) {
 		}
 	}
 
-	printf("\n]");
-}
-
-//yo we gotta write legit test files soon lol
-int main (int argc, char **argv) {
-
-	int intTest = 5;
-	Tensor intToScalarTest = int_to_scalar_tensor(intTest);
-	int scalarToIntTest = scalar_tensor_to_int(intToScalarTest);
-
-	int *dataTestOne = malloc(sizeof(int) * 2);
-	dataTestOne[0] = 3;
-	dataTestOne[1] = 3;
-
-	int *dataTestTwo = malloc(sizeof(int) * 2);
-	dataTestTwo[0] = 6;
-	dataTestTwo[1] = 2;
-
-	int *dataTestThree = malloc(sizeof(int));
-	dataTestThree[0] = 9;
-
-	int *dataTestFour = malloc(sizeof(int));
-	dataTestFour[0] = 3;
-
-	Tensor fillTensorTest = fill_tensor(2,dataTestOne,666);
-	Tensor onesTest = ones(2,dataTestTwo);
-	Tensor zerosTest = zeros(1,dataTestThree);
-	Tensor dotProductTestOne = fill_tensor(1,dataTestThree,666);
-	Tensor dotProductTestTwo = fill_tensor(1,dataTestThree,-666);
-	Tensor crossProductTestOne = fill_tensor(1,dataTestFour,6);
-	Tensor crossProductTestTwo = fill_tensor(1,dataTestFour,2);
-	Tensor tensorCombineTestOne = fill_tensor(2,dataTestOne,2);
-
-	printf("\nIdentity matrix is:\n");
-	Tensor identity = create_identity_tensor(2, 8);
-	print_tensor(identity);
-	printf("\n\n");
-
-	printf("intToScalarTest Tensor:\n");
-	print_tensor(intToScalarTest);
-	printf("\n");
-
-	printf("\nThe intTest was %d\n\n",scalarToIntTest);
-
-	printf("The tensor full of the devil is: \n");
-	print_tensor(fillTensorTest);
-	printf("\n\n");
-
-	printf("The ones tensor is: \n");
-	print_tensor(onesTest);
-	printf("\n\n");
-
-	printf("The transposed ones tensor is: \n");
-	print_tensor(transpose(onesTest));
-	printf("\n\n");
-
-	printf("The zeros tensor is: \n");
-	print_tensor(zerosTest);
-	printf("\n\n");
-
-	printf("The mutable ones + 1 tensor is: \n");
-	map(scalar_add,1,onesTest);
-	print_tensor(onesTest);
-	printf("\n\n");
-
-	printf("The mutable ones + 1 - 3 tensor is: \n");
-	map(scalar_subtract,3,onesTest);
-	print_tensor(onesTest);
-	printf("\n\n");
-
-	printf("The mutable ones - 1 * 666 tensor is: \n");
-	map(scalar_multiply,666,onesTest);
-	print_tensor(onesTest);
-	printf("\n\n");
-
-	printf("The copied ones * -666 / 3 tensor is: \n");
-	Tensor copiedOnesTest = map(scalar_divide,3,copy_tensor(onesTest));
-	print_tensor(copiedOnesTest);
-	printf("\n\n");
-
-	printf("But the before ones is still : \n");
-	print_tensor(onesTest);
-	printf("\n\n");
-
-	 //this will break it, it's on purpose :D
-	// printf("The ones -666 / 0 tensor is: \n");
-	// map(scalar_divide,0,onesTest);
-	// print_tensor(onesTest);
-	// printf("\n\n");
-
-	printf("first array to dot:\n");
-	print_tensor(dotProductTestOne);
-	printf("\n\n");
-
-	printf("second array to dot:\n");
-	print_tensor(dotProductTestTwo);
-	printf("\n\n");
-
-	printf("when dotted together (tensor):\n");
-	print_tensor(dot_product(dotProductTestOne,dotProductTestTwo));
-	printf("\n\n");
-
-	printf("when dotted together (int):\n");
-	printf("%d",int_dot_product(dotProductTestOne,dotProductTestTwo));
-	printf("\n\n");
-
-	printf("when dotted together (int) v2 (tensor combine and fold):\n");
-	printf("%d",int_dot_product_vtwo(dotProductTestOne,dotProductTestTwo));
-	printf("\n\n");
-
-	printf("first array to cross:\n");
-	print_tensor(crossProductTestOne);
-	printf("\n\n");
-
-	printf("second array to cross:\n");
-	print_tensor(crossProductTestTwo);
-	printf("\n\n");
-
-	printf("when crossed together:\n");
-	print_tensor(cross_product(crossProductTestOne,crossProductTestTwo));
-	printf("\n\n");
-
-	printf("[6 6 6] folded sum is: %d", sum(crossProductTestOne));
-	printf("\n\n");
-
-	printf("[6 6 6] folded product is: %d", product(crossProductTestOne));
-	printf("\n\n");
-
-	printf("[6 6 6] folded max is: %d", max(crossProductTestOne));
-	printf("\n\n");
-
-	printf("[6 6 6] folded min is: %d", min(crossProductTestOne));
-	printf("\n\n");
-
-	printf("Access test:\n");
-	Interval interval = {0, 7};
-	print_tensor(identity);
-	printf("\n");
-	printf("%i to %i", interval.lBound, interval.rBound);
-	print_tensor(access_tensor(identity, 5, interval));
-	return 0;
+	printf("\n]\n");
 }
