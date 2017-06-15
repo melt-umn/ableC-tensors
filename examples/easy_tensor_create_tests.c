@@ -28,27 +28,27 @@ int main (int argc, char **argv) {
 
   Tensor fillOne = fill_tensor(0,dataTestOne,666);
   printf("0 dim 666 tensor is: \n");
-  print_tensor(fillOne);
+  print_tensor(fillOne,delimiters,10);
   printf("\n");
 
   Tensor fillTwo = fill_tensor(1,dataTestTwo,666);
   printf("3 x 1 666 tensor is: \n");
-  print_tensor(fillTwo);
+  print_tensor(fillTwo,delimiters,10);
   printf("\n");
 
   Tensor fillThree = ones(2,dataTestThree);
   printf("2 x 5 ones tensor is: \n");
-  print_tensor(fillThree);
+  print_tensor(fillThree,delimiters,10);
   printf("\n");
 
   Tensor fillFour = zeros(2,dataTestFour);
   printf("1 x 6 zeros tensor is: \n");
-  print_tensor(fillFour);
+  print_tensor(fillFour,delimiters,10);
   printf("\n");
 
   Tensor fillFive = fill_tensor(3,dataTestFive,666);
   printf("3 x 4 x 5 666 tensor is: \n");
-  print_tensor(fillFive);
+  print_tensor(fillFive,delimiters,10);
   printf("\n");
 
 
