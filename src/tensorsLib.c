@@ -149,7 +149,7 @@ Tensor transpose(Tensor tens) {
 		newTens->data = new_data;
 		return *newTens;
 	} else {
-		printf("Error, cannot transpose a Tensor that is greater than two dimensions");
+		printf("Error, cannot transpose a Tensor that is greater than two dimensions\n");
 		exit(1);
 	}
 }
@@ -289,15 +289,13 @@ Tensor int_to_scalar_tensor(int i) {
     Takes an (scalar) tensor and returns the integer in it
 
   Assumption:
-    The given tensor must have only one element (count of 1). This also means
-		that its dimension is 0 and it's dim_size is NULL, though neither of these
-		are being checked.
+    The given tensor must have only one element (count of 1).
 */
 int scalar_tensor_to_int(Tensor a) {
 	if (a.count == 1) {
 		return a.data[0];
 	} else {
-		printf("Error, not a scalar tensor");
+		printf("Error, not a scalar tensor\n");
 		exit(1);
 	}
 }
@@ -753,6 +751,10 @@ Tensor vector_triple_product(Tensor tOne, Tensor tTwo, Tensor tThree) {
 void print_tensor(Tensor input) {
 	int i = 0;
 	int j = 0;
+	if (input.dim == 2) {
+		printf("///%i///\n\n\n",input.dim_size[0]);
+		printf("///%i///\n\n\n",input.dim_size[1]);
+	}
 
 	printf("[\n");
 
