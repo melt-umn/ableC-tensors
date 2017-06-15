@@ -150,7 +150,7 @@ Tensor transpose(Tensor tens) {
 		newTens->data = new_data;
 		return *newTens;
 	} else {
-		printf("Error, cannot transpose a Tensor that is greater than two dimensions");
+		printf("Error, cannot transpose a Tensor that is greater than two dimensions\n");
 		exit(1);
 	}
 }
@@ -290,23 +290,21 @@ Tensor int_to_scalar_tensor(int i) {
     Takes an (scalar) tensor and returns the integer in it
 
   Assumption:
-    The given tensor must have only one element (count of 1). This also means
-		that its dimension is 0 and it's dim_size is NULL, though neither of these
-		are being checked.
+    The given tensor must have only one element (count of 1).
 */
 int scalar_tensor_to_int(Tensor a) {
 	if (a.count == 1) {
 		return a.data[0];
 	} else {
-		printf("Error, not a scalar tensor");
+		printf("Error, not a scalar tensor\n");
 		exit(1);
 	}
 }
 
 /*
   Description:
-    Takes a function and a Tensor and performs that function on every element in
-		the Tensor.
+    Takes a function, an int, and a Tensor and performs that function on every
+		element in the Tensor with the int.
 
   Assumption:
     The given function must handle integers and the returned Tensor will be
@@ -323,6 +321,40 @@ Tensor map(int (*fun)(int,int), int j, Tensor tens) {
 	}
 
 	return tens;
+}
+
+/*
+  Description:
+    Takes a function, a scalar Tensor, and a Tensor to map over and performs that
+		function on every element in the Tensor.
+
+  Assumption:
+    The given function must handle integers and the returned Tensor will be
+		the same size as the one passed in. Will mutate the tensor itself, will
+		not return a new tensor.
+*/
+Tensor tensor_map(int (*fun)(int,int), Tensor toMap, Tensor tens) {
+	int i;
+	int count = tens.count;
+	int *data = tens.data;
+	int currentCount = toMap.count;
+	int *currentDimSize = toMap.dim_size;
+	int *currentData = toMap.data;
+
+	if (currentCount == 1) {
+		if (currentDimSize[0] == 1) {
+			for (i = 0; i < count; i++) {
+				data[i] = (*fun)(data[i],currentData[0]);
+			}
+			return tens;
+		} else {
+			printf("Error, starting data must be scalar array");
+			exit(1);
+		}
+	} else {
+		printf("Error, not a scalar tensor");
+		exit(1);
+	}
 }
 
 /*
@@ -359,6 +391,49 @@ int scalar_mod(int i, int j) {
 		return i % j;
 	} else {
 		printf("Error, cannot scalar divide by zero\n");
+		exit(1);
+	}
+}
+
+/*
+  Description:
+    Takes a function, an integer, and a Tensor. Will reduce the Tensor using
+		the rules given by the function, with the integer as the base. For example,
+		if you wanted to add each element together, the function would be an
+		addition function, the integer would be 0, and the Tensor would be the Tensor.
+
+  Assumption:
+    The given function must handle integers and will return a scalar Tensor.
+*/
+Tensor tensor_fold(int (*fun)(int,int), Tensor current, Tensor tens){
+	int i;
+	int count = tens.count;
+	int currentCount = current.count;
+	int *data = tens.data;
+	int *currentDimSize = current.dim_size;
+	int *currentData = current.data;
+
+	if (currentCount == 1) {
+		if (currentDimSize[0] == 1) {
+				int *newData;
+				Tensor *newTens = malloc(sizeof(Tensor));
+				newData[0] = currentData[0];
+
+				for (i = 0; i < tens.count; i++) {
+					newData[0] = (*fun)(data[i],newData[0]);
+				}
+
+				newTens->dim = 0;
+				newTens->dim_size = NULL;
+				newTens->count = 1;
+				newTens->data = newData;
+				return *newTens;
+		} else {
+			printf("Error, starting data must be scalar array");
+			exit(1);
+		}
+	} else {
+		printf("Error, not a scalar tensor");
 		exit(1);
 	}
 }
@@ -702,6 +777,7 @@ void print_tensor(Tensor input, char * delimiters, int numDelims) {
 		printf("%c", delimiterToPrint);
 	}
 
+<<<<<<< HEAD
 	printf("\n]");
 	printf("\n%i dimensions in this tensor\n", input.dim);
 }
@@ -851,4 +927,7 @@ int main (int argc, char **argv) {
 	printTensTest = fill_tensor(3, dataTestFive, 0);
 	print_tensor(printTensTest, delimiters, 10);
 	return 0;
+=======
+	printf("\n]\n");
+>>>>>>> a30811a3161725851c980bc912d88ae37458461f
 }

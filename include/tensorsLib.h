@@ -40,6 +40,7 @@ int scalar_multiply(int,int);
 int scalar_divide(int,int);
 int scalar_mod(int,int);
 
+Tensor tensor_fold(int (*)(int,int),Tensor,Tensor);
 int fold(int (*)(int,int),int,Tensor);
 int max(Tensor);
 int min(Tensor);

@@ -13,3 +13,4 @@ build.xml
 *.so
 *.orig
 example/*.c
+tensorsLib
