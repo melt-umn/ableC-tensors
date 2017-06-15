@@ -18,7 +18,7 @@ typedef struct {
 	int rBound;
 } Interval;
 
-char delimiters[10] = {',', '\n', '/', '-', '!', '@', '#', '%', '^', '&'};
+char delimiters[10] = {',', '/', ';', '-', '!', '@', '#', '%', '^', '&'};
 
 // Function calls
 Tensor access_tensor(Tensor,int,Interval);
@@ -64,4 +64,4 @@ Tensor scalar_triple_product(Tensor,Tensor,Tensor);
 int int_scalar_triple_product(Tensor,Tensor,Tensor);
 Tensor vector_triple_product(Tensor,Tensor,Tensor);
 
-void print_tensor(Tensor);
+void print_tensor(Tensor, char *, int);
