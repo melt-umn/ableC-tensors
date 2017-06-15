@@ -751,10 +751,6 @@ Tensor vector_triple_product(Tensor tOne, Tensor tTwo, Tensor tThree) {
 void print_tensor(Tensor input) {
 	int i = 0;
 	int j = 0;
-	if (input.dim == 2) {
-		printf("///%i///\n\n\n",input.dim_size[0]);
-		printf("///%i///\n\n\n",input.dim_size[1]);
-	}
 
 	printf("[\n");
 

@@ -25,9 +25,7 @@ int main (int argc, char **argv) {
   printf("ten 666 to int 666 is: %d\n",scalar_tensor_to_int(tenTwo));
   printf("ten -12 to int -12 is: %d\n\n",scalar_tensor_to_int(tenThree));
 
-  int *dataTestOne;
-  dataTestOne = malloc(sizeof(int));
-  dataTestOne[0] = 0;
+  int *dataTestOne = NULL;
 
   int *dataTestTwo;
   dataTestOne = malloc(sizeof(int));
