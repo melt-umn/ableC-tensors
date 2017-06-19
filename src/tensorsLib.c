@@ -3,12 +3,27 @@
 
 //Modified tensorsLib.c file to fit our own needs, cleaning out most of the
 //code from the matlab version but still using snippets for inspiration/help//might break, please don't trust this -zoe
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "../include/tensorsLib.h"
 #include <errno.h>
 #include <math.h>
+
+/*
+ * Description:
+ * Creates a Tensor in which each field of the tensor struct is passed in
+ *
+ * Assumption:
+ * everything is passed in correctly
+*/
+Tensor create_tensor(int dim, int *dim_size, int count, int *data) {
+	Tensor *newTens = malloc(sizeof(Tensor));
+	newTens->dim = dim;
+	newTens->dim_size = dim_size;
+	newTens->count = count;
+	newTens->data = data;
+	return *newTens;
+}
 
 /*
  * Description:
