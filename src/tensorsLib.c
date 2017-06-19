@@ -801,7 +801,7 @@ void print_tensor(Tensor input, char * delimiters, int numDelims) {
 	printf("]\n\n");
 }
 
-print_tensor_alternate(Tensor input, char * delimiters, int numDelims) {
+void print_tensor_alternate(Tensor input, char * delimiters, int numDelims) {
 	if(numDelims < input.dim) {
 		printf("Delimiter array has too few delimiters for the current tensor input");
 		exit(1);
@@ -811,7 +811,7 @@ print_tensor_alternate(Tensor input, char * delimiters, int numDelims) {
 	int j = 0;
 	char delimiterToPrint = ',';
 	int dimChecker = 1;
-	
+
 	printf("[\n");
 
 	for (; i < input.count; i++) {
@@ -836,157 +836,4 @@ print_tensor_alternate(Tensor input, char * delimiters, int numDelims) {
 		printf("%i, ",  input.dim_size[i]);
 	}
 	printf("]\n\n");
-}
-
-
-//yo we gotta write legit test files soon lol
-int main (int argc, char **argv) {
-
-	int intTest = 5;
-	Tensor intToScalarTest = int_to_scalar_tensor(intTest);
-	int scalarToIntTest = scalar_tensor_to_int(intToScalarTest);
-
-	int *dataTestOne = malloc(sizeof(int) * 2);
-	dataTestOne[0] = 3;
-	dataTestOne[1] = 3;
-
-	int *dataTestTwo = malloc(sizeof(int) * 2);
-	dataTestTwo[0] = 6;
-	dataTestTwo[1] = 2;
-
-	int *dataTestThree = malloc(sizeof(int));
-	dataTestThree[0] = 9;
-
-	int *dataTestFour = malloc(sizeof(int));
-	dataTestFour[0] = 3;
-
-	int dataTestFive[3] = {3,3,3};
-
-	Tensor fillTensorTest = fill_tensor(2,dataTestOne,666);
-	Tensor onesTest = ones(2,dataTestTwo);
-	Tensor zerosTest = zeros(1,dataTestThree);
-	Tensor dotProductTestOne = fill_tensor(1,dataTestThree,666);
-	Tensor dotProductTestTwo = fill_tensor(1,dataTestThree,-666);
-	Tensor crossProductTestOne = fill_tensor(1,dataTestFour,6);
-	Tensor crossProductTestTwo = fill_tensor(1,dataTestFour,2);
-	Tensor tensorCombineTestOne = fill_tensor(2,dataTestOne,2);
-	Tensor printTensTest;
-	
-	int twoByTwo[] = {2, 2};
-	int data[] = {1, 2, 3, 4};
-	Tensor custom = {2, twoByTwo, 4, data};
-
-	printf("\nIdentity matrix is:\n");
-	Tensor identity = create_identity_tensor(2, 2);
-	print_tensor(identity, delimiters, 10);
-	printf("\n\n");
-
-	printf("intToScalarTest Tensor:\n");
-	print_tensor(intToScalarTest, delimiters, 10);
-	printf("\n");
-
-	printf("\nThe intTest was %d\n\n",scalarToIntTest);
-
-	printf("The tensor full of the devil is: \n");
-	print_tensor(fillTensorTest, delimiters, 10);
-	printf("\n\n");
-
-	printf("The ones tensor is: \n");
-	print_tensor(onesTest, delimiters, 10);
-	printf("\n\n");
-
-	printf("The transposed ones tensor is: \n");
-	print_tensor(transpose(onesTest), delimiters, 10);
-	printf("\n\n");
-
-	printf("The zeros tensor is: \n");
-	print_tensor(zerosTest, delimiters, 10);
-	printf("\n\n");
-
-	printf("The mutable ones + 1 tensor is: \n");
-	map(scalar_add,1,onesTest);
-	print_tensor(onesTest, delimiters, 10);
-	printf("\n\n");
-
-	printf("The mutable ones + 1 - 3 tensor is: \n");
-	map(scalar_subtract,3,onesTest);
-	print_tensor(onesTest, delimiters, 10);
-	printf("\n\n");
-
-	printf("The mutable ones - 1 * 666 tensor is: \n");
-	map(scalar_multiply,666,onesTest);
-	print_tensor(onesTest, delimiters, 10);
-	printf("\n\n");
-
-	printf("The copied ones * -666 / 3 tensor is: \n");
-	Tensor copiedOnesTest = map(scalar_divide,3,copy_tensor(onesTest));
-	print_tensor(copiedOnesTest, delimiters, 10);
-	printf("\n\n");
-
-	printf("But the before ones is still : \n");
-	print_tensor(onesTest, delimiters, 10);
-	printf("\n\n");
-
-	 //this will break it, it's on purpose :D
-	// printf("The ones -666 / 0 tensor is: \n");
-	// map(scalar_divide,0,onesTest);
-	// print_tensor(onesTest, delimiters, 10);
-	// printf("\n\n");
-
-	printf("first array to dot:\n");
-	print_tensor(dotProductTestOne, delimiters, 10);
-	printf("\n\n");
-
-	printf("second array to dot:\n");
-	print_tensor(dotProductTestTwo, delimiters, 10);
-	printf("\n\n");
-
-	printf("when dotted together (tensor):\n");
-	print_tensor(dot_product(dotProductTestOne,dotProductTestTwo), delimiters, 10);
-	printf("\n\n");
-
-	printf("when dotted together (int):\n");
-	printf("%d",int_dot_product(dotProductTestOne,dotProductTestTwo));
-	printf("\n\n");
-
-	printf("when dotted together (int) v2 (tensor combine and fold):\n");
-	printf("%d",int_dot_product_vtwo(dotProductTestOne,dotProductTestTwo));
-	printf("\n\n");
-
-	printf("first array to cross:\n");
-	print_tensor(crossProductTestOne, delimiters, 10);
-	printf("\n\n");
-
-	printf("second array to cross:\n");
-	print_tensor(crossProductTestTwo, delimiters, 10);
-	printf("\n\n");
-
-	printf("when crossed together:\n");
-	print_tensor(cross_product(crossProductTestOne, crossProductTestTwo), delimiters, 10);
-	printf("\n\n");
-
-	printf("[6 6 6] folded sum is: %d", sum(crossProductTestOne));
-	printf("\n\n");
-
-	printf("[6 6 6] folded product is: %d", product(crossProductTestOne));
-	printf("\n\n");
-
-	printf("[6 6 6] folded max is: %d", max(crossProductTestOne));
-	printf("\n\n");
-
-	printf("[6 6 6] folded min is: %d", min(crossProductTestOne));
-	printf("\n\n");
-
-	printf("Access test:\n");
-	Interval interval = {0, 1};
-	int accessAlongDim[] = {2};
-	print_tensor(custom, delimiters, 10);
-	printf("\n");
-	printf("%i to %i along dimension %i\n", interval.lBound, interval.rBound, accessAlongDim[0]);
-	print_tensor(access_tensor(custom,2,interval,accessAlongDim,1), delimiters, 10);
-	
-	printf("Printing test:\n");
-	printTensTest = fill_tensor(3, dataTestFive, 0);
-	print_tensor(printTensTest, delimiters, 10);
-	printf("\n\n");
 }
