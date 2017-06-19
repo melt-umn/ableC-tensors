@@ -18,7 +18,8 @@ typedef struct {
 	int rBound;
 } Interval;
 
-char delimiters[10] = {',', '/', ';', '-', '!', '@', '#', '%', '^', '&'};
+char delimiters[10] = {',', ';', '/', '-', '!', '@', '#', '%', '^', '&'};
+char delimiters_alternate[10] = {'&', '^', '%', '#', '@', '!', '-', ';', '/', ','};
 
 // Function calls
 Tensor access_tensor(Tensor,int,Interval);

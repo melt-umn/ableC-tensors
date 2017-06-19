@@ -766,10 +766,10 @@ void print_tensor(Tensor input, char * delimiters, int numDelims) {
 		printf("%i", input.data[i]);
 		delimiterToPrint = delimiters[0];
 		dimChecker = 1;
-		for(j = 1; j < input.dim; j++) {
-			dimChecker *= input.dim_size[input.dim - 1 - j];
+		for(j = 0; j < input.dim - 1; j++) {
+			dimChecker *= input.dim_size[input.dim - j - 1];
 			if ((i + 1 ) % dimChecker == 0) {
-				delimiterToPrint = delimiters[j];
+				delimiterToPrint = delimiters[j + 1];
 			} else {
 				break;
 			}
@@ -777,10 +777,53 @@ void print_tensor(Tensor input, char * delimiters, int numDelims) {
 		printf("%c", delimiterToPrint);
 	}
 
-<<<<<<< HEAD
 	printf("\n]");
 	printf("\n%i dimensions in this tensor\n", input.dim);
+	printf("Dimensions are: [");
+	for (i = 0; i < input.dim; i++) {
+		printf("%i, ",  input.dim_size[i]);
+	}
+	printf("]\n\n");
 }
+
+print_tensor_alternate(Tensor input, char * delimiters, int numDelims) {
+	if(numDelims < input.dim) {
+		printf("Delimiter array has too few delimiters for the current tensor input");
+		exit(1);
+	}
+
+	int i = 0;
+	int j = 0;
+	char delimiterToPrint = ',';
+	int dimChecker = 1;
+	
+	printf("[\n");
+
+	for (; i < input.count; i++) {
+		printf("%i", input.data[i]);
+		delimiterToPrint = delimiters[0];
+		dimChecker = 1;
+		for(j = input.dim - 1; j >= 0; j--) {
+			dimChecker *= input.dim_size[input.dim - 1 - j];
+			if ((i + 1 ) % dimChecker == 0) {
+				delimiterToPrint = delimiters[input.dim - j];
+			} else {
+				break;
+			}
+		}
+		printf("%c", delimiterToPrint);
+	}
+	printf("]\n\n");
+
+	printf("\n]");
+	printf("\n%i dimensions in this tensor\n", input.dim);
+	printf("Dimensions are: [");
+	for (i = 0; i < input.dim; i++) {
+		printf("%i, ",  input.dim_size[i]);
+	}
+	printf("]\n\n");
+}
+
 
 //yo we gotta write legit test files soon lol
 int main (int argc, char **argv) {
@@ -926,8 +969,6 @@ int main (int argc, char **argv) {
 	printf("Printing test:\n");
 	printTensTest = fill_tensor(3, dataTestFive, 0);
 	print_tensor(printTensTest, delimiters, 10);
+	printf("\n\n");
 	return 0;
-=======
-	printf("\n]\n");
->>>>>>> a30811a3161725851c980bc912d88ae37458461f
 }
