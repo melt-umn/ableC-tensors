@@ -46,6 +46,8 @@ int scalar_subtract(int,int);
 int scalar_multiply(int,int);
 int scalar_divide(int,int);
 int scalar_mod(int,int);
+int greater_than(int,int);
+int lesser_than(int,int);
 
 Tensor tensor_fold(int (*)(int,int),Tensor,Tensor);
 int fold(int (*)(int,int),int,Tensor);
@@ -57,9 +59,6 @@ Tensor tensor_max(Tensor);
 Tensor tensor_min(Tensor);
 Tensor tensor_sum(Tensor);
 Tensor tensor_product(Tensor);
-
-int greater_than(int,int);
-int lesser_than(int,int);
 
 Tensor tensor_combine(int (*)(int,int),Tensor,Tensor);
 Tensor tensor_elem_add(Tensor,Tensor);

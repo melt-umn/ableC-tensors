@@ -71,7 +71,6 @@ int main (int argc, char **argv) {
   print_tensor(tenFour,delimiters,10);
   printf("\n\n\n");
 
-
   printf("2 x 2 identity tensor\n");
   print_tensor(tenFive,delimiters,10);
   printf("\n");

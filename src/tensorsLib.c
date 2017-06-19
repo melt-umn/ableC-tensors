@@ -402,6 +402,23 @@ int scalar_mod(int i, int j) {
 	}
 }
 
+int greater_than(int i, int j) {
+	if (i > j) {
+		return i;
+	} else {
+		return j;
+	}
+}
+
+int lesser_than(int i, int j) {
+	if (i > j) {
+		return j;
+	} else {
+		return i;
+	}
+}
+
+
 /*
   Description:
     Takes a function, an integer, and a Tensor. Will reduce the Tensor using
@@ -497,23 +514,6 @@ Tensor tensor_sum(Tensor tens) {
 Tensor tensor_product(Tensor tens) {
 	return int_to_scalar_tensor(product(tens));
 }
-
-int greater_than(int i, int j) {
-	if (i > j) {
-		return i;
-	} else {
-		return j;
-	}
-}
-
-int lesser_than(int i, int j) {
-	if (i > j) {
-		return j;
-	} else {
-		return i;
-	}
-}
-
 
 /*
  * Description:
