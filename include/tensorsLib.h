@@ -48,6 +48,11 @@ int max(Tensor);
 int min(Tensor);
 int sum(Tensor);
 int product(Tensor);
+Tensor tensor_max(Tensor);
+Tensor tensor_min(Tensor);
+Tensor tensor_sum(Tensor);
+Tensor tensor_product(Tensor);
+
 int greater_than(int,int);
 int lesser_than(int,int);
 

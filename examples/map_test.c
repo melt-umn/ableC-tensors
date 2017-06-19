@@ -1,6 +1,8 @@
 #include "../src/tensorsLib.c"
 
 //tests different functions written with map
+//-- scalar_add, scalar_subtract, scalar_multiply, scalar_divide, scalar_mod
+//also tests one function for tensor_map just to have something :)
 int main (int argc, char **argv) {
 
   int *dataTestOne = malloc(sizeof(int));
@@ -56,8 +58,8 @@ int main (int argc, char **argv) {
 
   printf("\n\n\n");
 
-  printf("2 x 3 x 4 100 tensor divide 10\n");
-  print_tensor(map(scalar_divide,10,tenThree),delimiters,10);
+  printf("2 x 3 x 4 100 tensor mod 8\n");
+  print_tensor(map(scalar_mod,8,tenThree),delimiters,10);
   printf("\n2 x 3 x 4 10 tensor multiply 3\n");
   print_tensor(map(scalar_multiply,3,tenThree),delimiters,10);
   printf("\n2 x 3 x 4 30 tensor plus 6\n");
@@ -79,5 +81,9 @@ int main (int argc, char **argv) {
   Tensor tenFive = create_identity_tensor(2,2);
   printf("\n2 x 2 identity tensor plus 1\n");
   print_tensor(map(scalar_add,1,tenFive),delimiters,10);
+  printf("\n");
+
+  printf("\n2 x 2 identity tensor plus 1 times -1 with tensor_map\n");
+  print_tensor(tensor_map(scalar_multiply,tenFour,tenFive),delimiters,10);
   printf("\n");
 }

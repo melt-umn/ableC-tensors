@@ -55,7 +55,7 @@ Tensor access_tensor(Tensor toAccess, int dimOfInterval, Interval interval, int 
 			} else {
 				offset *= i + toAccess.dim_size[k];
 			}
-		}	
+		}
 		offset *= accessAlongRemaining[0];
 		toReturn -> data[j] = toAccess.data[offset];
 		j++;
@@ -308,7 +308,7 @@ Tensor int_to_scalar_tensor(int i) {
     The given tensor must have only one element (count of 1).
 */
 int scalar_tensor_to_int(Tensor a) {
-	if (a.count == 1) {
+	if (a.count == 1) { //should work for tensors with dim_size = [], [1], [1,1,1], etc
 		return a.data[0];
 	} else {
 		printf("Error, not a scalar tensor\n");
@@ -353,11 +353,11 @@ Tensor tensor_map(int (*fun)(int,int), Tensor toMap, Tensor tens) {
 	int count = tens.count;
 	int *data = tens.data;
 	int currentCount = toMap.count;
-	int *currentDimSize = toMap.dim_size;
+	int currentDim = toMap.dim;
 	int *currentData = toMap.data;
 
 	if (currentCount == 1) {
-		if (currentDimSize[0] == 1) {
+		if (currentDim == 0) { //dim needs to be 0, a [1] tensor will not work
 			for (i = 0; i < count; i++) {
 				data[i] = (*fun)(data[i],currentData[0]);
 			}
@@ -425,11 +425,11 @@ Tensor tensor_fold(int (*fun)(int,int), Tensor current, Tensor tens){
 	int count = tens.count;
 	int currentCount = current.count;
 	int *data = tens.data;
-	int *currentDimSize = current.dim_size;
+	int currentDim = current.dim;
 	int *currentData = current.data;
 
 	if (currentCount == 1) {
-		if (currentDimSize[0] == 1) {
+		if (currentDim == 0) { //dim needs to be 0, a [1] tensor will not work
 				int *newData;
 				Tensor *newTens = malloc(sizeof(Tensor));
 				newData[0] = currentData[0];
@@ -488,6 +488,22 @@ int sum(Tensor tens) {
 
 int product(Tensor tens) {
 	return fold(scalar_multiply,1,tens);
+}
+
+Tensor tensor_max(Tensor tens) {
+	return int_to_scalar_tensor(max(tens));
+}
+
+Tensor tensor_min(Tensor tens) {
+	return int_to_scalar_tensor(min(tens));
+}
+
+Tensor tensor_sum(Tensor tens) {
+	return int_to_scalar_tensor(sum(tens));
+}
+
+Tensor tensor_product(Tensor tens) {
+	return int_to_scalar_tensor(product(tens));
 }
 
 int greater_than(int i, int j) {
