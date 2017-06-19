@@ -57,36 +57,6 @@ int main (int argc, char **argv) {
 	print_tensor(zerosTest,delimiters,10);
 	printf("\n");
 
-	printf("The mutable ones + 1 tensor is: \n");
-	map(scalar_add,1,onesTest);
-	print_tensor(onesTest,delimiters,10);
-	printf("\n");
-
-	printf("The mutable ones + 1 - 3 tensor is: \n");
-	map(scalar_subtract,3,onesTest);
-	print_tensor(onesTest,delimiters,10);
-	printf("\n");
-
-	printf("The mutable ones - 1 * 666 tensor is: \n");
-	map(scalar_multiply,666,onesTest);
-	print_tensor(onesTest,delimiters,10);
-	printf("\n");
-
-	printf("The copied ones * -666 / 3 tensor is: \n");
-	Tensor copiedOnesTest = map(scalar_divide,3,copy_tensor(onesTest));
-	print_tensor(copiedOnesTest,delimiters,10);
-	printf("\n");
-
-	printf("But the before ones is still : \n");
-	print_tensor(onesTest,delimiters,10);
-	printf("\n");
-
-	 //this will break it, it's on purpose :D
-	// printf("The ones -666 / 0 tensor is: \n");
-	// map(scalar_divide,0,onesTest);
-	// print_tensor(onesTest);
-	// printf("\n\n");
-
 	printf("first array to dot:\n");
 	print_tensor(dotProductTestOne,delimiters,10);
 	printf("\n");
@@ -131,12 +101,12 @@ int main (int argc, char **argv) {
 	printf("[6 6 6] folded min is: %d", min(crossProductTestOne));
 	printf("\n");
 
-	printf("Access test:\n");
-	Interval interval = {0, 7};
-	print_tensor(identity,delimiters,10);
-	printf("\n");
-	printf("%i to %i", interval.lBound, interval.rBound);
-	print_tensor(access_tensor(identity, 5, interval),delimiters,10);
-	
+	// printf("Access test:\n");
+	// Interval interval = {0, 7};
+	// print_tensor(identity,delimiters,10);
+	// printf("\n");
+	// printf("%i to %i", interval.lBound, interval.rBound);
+	// print_tensor(access_tensor(identity, 5, interval),delimiters,10);
+
 	return 0;
 }
