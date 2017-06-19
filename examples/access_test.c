@@ -1,7 +1,7 @@
-#include "../include/tensorsLib.h"
+#include "../src/tensorsLib.c"
 #include <stdio.h>
 
-int main(char *argc, char **argv) {
+int main(int argc, char **argv) {
 	printf("\n\nAccess Tensor test:\n");
 
 	//Constructing tensor
@@ -10,6 +10,9 @@ int main(char *argc, char **argv) {
 	int data[] = {1, 2, 3, 4};
 
 	Tensor test = {2, dimSizes, 4, data};
+
+	printf("\n\nConstructed tensor is: \n");
+	print_tensor(test, delimiters, 10);
 	//Tensor constructed
 	
 	//Costructing aux data structures for access

@@ -63,6 +63,7 @@ Tensor access_tensor(Tensor toAccess, int dimOfInterval, Interval interval, int 
 	}
 
 	for (i = interval.lBound; i <= interval.rBound; i++) {
+		printf("\n%i", i);
 		offset = 1;
 		for (k = toAccess.dim - 1; k > 0; k--) {
 			if (k != dimOfInterval - 1) {
@@ -70,8 +71,10 @@ Tensor access_tensor(Tensor toAccess, int dimOfInterval, Interval interval, int 
 			} else {
 				offset *= i + toAccess.dim_size[k];
 			}
+			printf("%i", offset);
 		}
 		offset *= accessAlongRemaining[0];
+		printf("\nAt index %i", offset);
 		toReturn -> data[j] = toAccess.data[offset];
 		j++;
 	}
