@@ -272,7 +272,7 @@ Tensor fill_tensor(int dim, int *dim_size, int toFill) {
 /*
   Description:
     Take the number of dimensions and a pointer to the dimension tensor to
-		return a tensor of that size full of ones
+		return a tensor of that shape full of ones
 
   Assumption:
     Tensor returned will have ones in all dimensions
@@ -284,7 +284,7 @@ Tensor ones(int dim, int *dim_size) {
 /*
   Description:
     Take the number of dimensions and a pointer to the dimension tensor to
-		return a tensor of that size full of zeros
+		return a tensor of that shape full of zeros
 
   Assumption:
     Tensor returned will have zeros in all dimensions
@@ -340,7 +340,7 @@ int scalar_tensor_to_int(Tensor a) {
 
   Assumption:
     The given function must handle integers and the returned Tensor will be
-		the same size as the one passed in. Will mutate the tensor itself, will
+		the same shape as the one passed in. Will mutate the tensor itself, will
 		not return a new tensor.
 */
 Tensor map(int (*fun)(int), Tensor tens) {
@@ -519,7 +519,7 @@ Tensor tensor_product(Tensor tens) {
  * Creates a new tensor using a function and two other tensors
  *
  * Assumption:
- * two tensors must be the same size and the function must deal with ints
+ * two tensors must be the sameshape and the function must deal with ints
  * does not mutate either tensor passed in
 */
 Tensor tensor_combine(int (*fun)(int,int), Tensor tOne, Tensor tTwo) {
@@ -734,10 +734,10 @@ Tensor cross_product(Tensor tOne, Tensor tTwo) {
 */
 Tensor scalar_triple_product(Tensor tOne, Tensor tTwo, Tensor tThree) {
 	return dot_product(tOne, cross_product(tTwo,tThree));
-	/* Note: the size checking of the last two tensors should happen during the call
+	/* Note: the shape checking of the last two tensors should happen during the call
 		 to cross product (which makes sure the size of each is three). Then, because
 		 dot product will make sure the first tensor and the other one are the same
-		 size, that should also be size three. No need to explicitely check size here.
+		 shape, that should also be size three. No need to explicitely check shape here.
 	*/
 }
 
@@ -752,10 +752,10 @@ Tensor scalar_triple_product(Tensor tOne, Tensor tTwo, Tensor tThree) {
 */
 int int_scalar_triple_product(Tensor tOne, Tensor tTwo, Tensor tThree) {
 	return int_dot_product(tOne, cross_product(tTwo,tThree));
-	/* Note: the size checking of the last two tensors should happen during the call
+	/* Note: the shape checking of the last two tensors should happen during the call
 		 to cross product (which makes sure the size of each is three). Then, because
 		 dot product will make sure the first tensor and the other one are the same
-		 size, that should also be size three. No need to explicitely check size here.
+		 shape, that should also be size three. No need to explicitely check shape here.
 	*/
 }
 
