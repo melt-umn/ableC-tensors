@@ -74,6 +74,9 @@ Tensor scalar_triple_product(Tensor,Tensor,Tensor);
 int int_scalar_triple_product(Tensor,Tensor,Tensor);
 Tensor vector_triple_product(Tensor,Tensor,Tensor);
 
+int trace(Tensor);
+Tensor tensor_trace(Tensor);
+
 void free_tensor(Tensor);
 
 void print_tensor(Tensor, char *, int);

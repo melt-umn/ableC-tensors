@@ -772,6 +772,54 @@ Tensor vector_triple_product(Tensor tOne, Tensor tTwo, Tensor tThree) {
 	return cross_product(tOne,cross_product(tTwo,tThree));
 }
 
+
+/*
+  Description:
+    Takes a tensor and calculates its trace (summation of all elements along its
+		main diagonal). Returns an integer.
+
+  Assumption:
+    The tensor passed in is a square matrix, shape [n,n]
+*/
+int trace(Tensor tens) {
+	int i,total;
+	int dim = tens.dim;
+	int *dim_size = tens.dim_size;
+	int count = tens.count;
+	int *data = tens.data;
+
+	if (dim == 2) {
+		if (dim_size[0] == dim_size[1]) {
+			total = 0;
+			for (i = 0; i < count; i++) {
+				if (i % (dim_size[0] + dim - 1) == 0) { //finds each diagonal
+					total += data[i];
+				}
+			}
+			return total;
+		} else {
+			printf("Tensor passed in to trace is not square");
+			return -1;
+		}
+	} else {
+		printf("Tensor passed in to trace is not two dimensions");
+		return -1;
+	}
+}
+
+/*
+  Description:
+    Takes a tensor and calculates its trace (summation of all elements along its
+		main diagonal). Returns a scalar tensor.
+
+  Assumption:
+    The tensor passed in is a square matrix, shape [n,n]. Returned tensor is
+		scalar, dim = 0
+*/
+Tensor tensor_trace(Tensor tens) {
+	return int_to_scalar_tensor(trace(tens));
+}
+
 void free_tensor(Tensor tens) {
 	free(tens.data);
 	free(tens.dim_size);
