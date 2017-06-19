@@ -1,6 +1,6 @@
 #include "../src/tensorsLib.c"
 
-//tests the normal identity function
+//tests basic tensor creations; fill_tensor(),ones(),zeros()
 int main (int argc, char **argv) {
   int *dataTestOne;
   dataTestOne = malloc(sizeof(int));
@@ -50,7 +50,4 @@ int main (int argc, char **argv) {
   printf("3 x 4 x 5 666 tensor is: \n");
   print_tensor(fillFive,delimiters,10);
   printf("\n");
-
-
-
 }

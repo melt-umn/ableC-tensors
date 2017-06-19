@@ -1,6 +1,6 @@
 #include "../src/tensorsLib.c"
 
-//yo we gotta write legit test files soon lol
+//tests different functions written with map
 int main (int argc, char **argv) {
 
   int *dataTestOne = malloc(sizeof(int));
@@ -8,7 +8,7 @@ int main (int argc, char **argv) {
 
 	int *dataTestTwo = malloc(sizeof(int) * 2);
 	dataTestTwo[0] = 3;
-	dataTestTwo[1] = 3;
+	dataTestTwo[1] = 9;
 
   int *dataTestThree = malloc(sizeof(int)*3);
   dataTestThree[0] = 2;

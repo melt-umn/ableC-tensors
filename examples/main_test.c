@@ -1,6 +1,6 @@
 #include "../src/tensorsLib.c"
 
-//yo we gotta write legit test files soon lol
+//a melting pot of different tensor functions
 int main (int argc, char **argv) {
 
 	int intTest = 5;

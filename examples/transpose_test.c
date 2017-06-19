@@ -1,6 +1,6 @@
 #include "../src/tensorsLib.c"
 
-//tests the normal identity function
+//tests the transpose function (print isn't working yet)
 int main (int argc, char **argv) {
   int *dataTestOne;
   dataTestOne = malloc(sizeof(int)*1);

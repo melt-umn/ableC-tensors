@@ -1,6 +1,5 @@
 #include "../src/tensorsLib.c"
 
-//tests the normal identity function
 int main (int argc, char **argv) {
   int intOne = 5;
   int intTwo = 666;
