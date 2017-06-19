@@ -35,8 +35,12 @@ Tensor int_to_scalar(int);
 
 int scalar_to_int(Tensor);
 
-Tensor tensor_map(int (*)(int,int),Tensor,Tensor);
-Tensor map(int (*)(int,int),int,Tensor);
+Tensor map(int (*)(int),Tensor);
+Tensor square(Tensor);
+Tensor increment(Tensor);
+
+int plus_one(int);
+int scalar_square(int);
 int scalar_add(int,int);
 int scalar_subtract(int,int);
 int scalar_multiply(int,int);

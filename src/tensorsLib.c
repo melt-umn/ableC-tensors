@@ -336,68 +336,42 @@ int scalar_tensor_to_int(Tensor a) {
 
 /*
   Description:
-    Takes a function, an int, and a Tensor and performs that function on every
-		element in the Tensor with the int.
+    Takes a function and a Tensor and performs that function on every
+		element in the Tensor.
 
   Assumption:
     The given function must handle integers and the returned Tensor will be
 		the same size as the one passed in. Will mutate the tensor itself, will
 		not return a new tensor.
 */
-Tensor map(int (*fun)(int,int), int j, Tensor tens) {
+Tensor map(int (*fun)(int), Tensor tens) {
 	int i;
 	int count = tens.count;
 	int *data = tens.data;
 
 	for (i = 0; i < count; i++) {
-		data[i] = (*fun)(data[i],j);
+		data[i] = (*fun)(data[i]);
 	}
 
 	return tens;
 }
 
-/*
-  Description:
-    Takes a function, a scalar Tensor, and a Tensor to map over and performs that
-		function on every element in the Tensor.
-
-  Assumption:
-    The given function must handle integers and the returned Tensor will be
-		the same size as the one passed in. Will mutate the tensor itself, will
-		not return a new tensor.
-*/
-Tensor tensor_map(int (*fun)(int,int), Tensor toMap, Tensor tens) {
-	int i;
-	int count = tens.count;
-	int *data = tens.data;
-	int currentCount = toMap.count;
-	int currentDim = toMap.dim;
-	int *currentData = toMap.data;
-
-	if (currentCount == 1) {
-		if (currentDim == 0) { //dim needs to be 0, a [1] tensor will not work
-			for (i = 0; i < count; i++) {
-				data[i] = (*fun)(data[i],currentData[0]);
-			}
-			return tens;
-		} else {
-			printf("Error, starting data must be scalar array");
-			exit(1);
-		}
-	} else {
-		printf("Error, not a scalar tensor");
-		exit(1);
-	}
+Tensor square(Tensor tens) {
+	return map(scalar_square,tens);
 }
 
-/*
-  Description:
-    Following functions are some classics to pass into map.
+Tensor increment(Tensor tens) {
+	return map(plus_one,tens);
+}
 
-  Assumption:
-    These functions must be passed into map alongside another integer that
-		will be used with them and the tensor to use them all.
-*/
+int plus_one(int i) {
+	return i + 1;
+}
+
+int scalar_square(int i) {
+	return i * i;
+}
+
 int scalar_add(int i, int j) {
 	return i + j;
 }

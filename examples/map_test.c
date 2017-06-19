@@ -23,6 +23,7 @@ int main (int argc, char **argv) {
   Tensor tenTwo = fill_tensor(2,dataTestTwo,666);
   Tensor tenThree = fill_tensor(3,dataTestThree,100);
   Tensor tenFour = fill_tensor(0,dataTestFour,1);
+  Tensor tenFive = create_identity_tensor(2,2);
 
   printf("9 2 tensor: \n");
   print_tensor(tenOne,delimiters,10);
@@ -36,55 +37,39 @@ int main (int argc, char **argv) {
   print_tensor(tenThree,delimiters,10);
   printf("\n");
 
-  printf("9 2 tensor times 4\n");
-  print_tensor(map(scalar_multiply,4,tenOne),delimiters,10);
-  printf("\n9 8 tensor divide 2\n");
-  print_tensor(map(scalar_divide,2,tenOne),delimiters,10);
-  printf("\n9 4 tensor plus 662\n");
-  print_tensor(map(scalar_add,662,tenOne),delimiters,10);
-  printf("\n9 666 tensor minus 666\n");
-  print_tensor(map(scalar_subtract,666,tenOne),delimiters,10);
+  printf("9 2 tensor incremented\n");
+  print_tensor(increment(tenOne),delimiters,10);
+  printf("\n9 3 tensor squared\n");
+  print_tensor(square(tenOne),delimiters,10);
 
   printf("\n\n\n");
 
-  printf("3 x 9 666 tensor divide 666\n");
-  print_tensor(map(scalar_divide,666,tenTwo),delimiters,10);
-  printf("\n3 x 9 1 tensor multiply 3\n");
-  print_tensor(map(scalar_multiply,3,tenTwo),delimiters,10);
-  printf("\n3 x 9 3 tensor plus 6\n");
-  print_tensor(map(scalar_add,6,tenTwo),delimiters,10);
-  printf("\n3 x 9 9 tensor minus 10\n");
-  print_tensor(map(scalar_subtract,10,tenTwo),delimiters,10);
-
+  printf("3 x 9 666 tensor incremented\n");
+  print_tensor(increment(tenTwo),delimiters,10);
+  printf("\n3 x 9 667 tensor squared\n");
+  print_tensor(square(tenTwo),delimiters,10);
   printf("\n\n\n");
 
-  printf("2 x 3 x 4 100 tensor mod 8\n");
-  print_tensor(map(scalar_mod,8,tenThree),delimiters,10);
-  printf("\n2 x 3 x 4 10 tensor multiply 3\n");
-  print_tensor(map(scalar_multiply,3,tenThree),delimiters,10);
-  printf("\n2 x 3 x 4 30 tensor plus 6\n");
-  print_tensor(map(scalar_add,6,tenThree),delimiters,10);
-  printf("\n2 x 3 x 4 36 tensor minus 10\n");
-  print_tensor(map(scalar_subtract,10,tenThree),delimiters,10);
-
+  printf("2 x 3 x 4 100 tensor incremented\n");
+  print_tensor(increment(tenThree),delimiters,10);
+  printf("\n2 x 3 x 4 101 tensor squared\n");
+  print_tensor(square(tenThree),delimiters,10);
   printf("\n\n\n");
 
-  printf("0 dim 1 tensor divide 1\n");
-  print_tensor(map(scalar_divide,1,tenFour),delimiters,10);
-  printf("\n0 dim 1 tensor multiply 3\n");
-  print_tensor(map(scalar_multiply,3,tenFour),delimiters,10);
-  printf("\n0 dim 3 tensor plus 6\n");
-  print_tensor(map(scalar_add,6,tenFour),delimiters,10);
-  printf("\n0 dim 9 tensor minus 10\n");
-  print_tensor(map(scalar_subtract,10,tenFour),delimiters,10);
+  printf("0 dim 1 tensor incremented\n");
+  print_tensor(increment(tenFour),delimiters,10);
+  printf("\n0 dim 2 tensor squared\n");
+  print_tensor(square(tenFour),delimiters,10);
+  printf("\n\n\n");
 
-  Tensor tenFive = create_identity_tensor(2,2);
-  printf("\n2 x 2 identity tensor plus 1\n");
-  print_tensor(map(scalar_add,1,tenFive),delimiters,10);
+  printf("2 x 2 identity tensor incremented\n");
+  print_tensor(increment(tenFive),delimiters,10);
+  printf("\n");
+  printf("2 x 2 identity tensor + 1 squared\n");
+  print_tensor(square(tenFive),delimiters,10);
   printf("\n");
 
-  printf("\n2 x 2 identity tensor plus 1 times -1 with tensor_map\n");
-  print_tensor(tensor_map(scalar_multiply,tenFour,tenFive),delimiters,10);
+
 
   return 0;
 }
