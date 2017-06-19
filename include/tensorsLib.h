@@ -22,7 +22,7 @@ char delimiters[10] = {',', ';', '/', '-', '!', '@', '#', '%', '^', '&'};
 char delimiters_alternate[10] = {'&', '^', '%', '#', '@', '!', '-', ';', '/', ','};
 
 // Function calls
-Tensor access_tensor(Tensor,int,Interval);
+Tensor access_tensor(Tensor,int, Interval, int *, int);
 Tensor copy_tensor(Tensor);
 Tensor transpose(Tensor);
 Tensor create_identity_tensor(int,int);

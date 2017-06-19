@@ -18,30 +18,45 @@
  * but later changes wil allow interval to specify the dimension it needs to go along as well).
  * Passed also is an int containing the length of the accessAlongDims.
  *
- * For now, selects along a column, that is, across a range of rows
  */
-Tensor access_tensor(Tensor toAccess, int accessAlongCol, Interval interval) {
+Tensor access_tensor(Tensor toAccess, int dimOfInterval, Interval interval, int * accessAlongRemaining, int accessAlongRemainingSize) {
 	int i = 0;
 	int j = 0;
+	int k = 0;
 	int offset = 0;
 
-	/*	if (aLen > toAccess.dim) {
-		printf("Too many dimensions specified. Tensor cannot be accessed with these parameters");
+	if (accessAlongRemainingSize > toAccess.dim) {
+		printf("\n\nToo many dimensions specified. Tensor cannot be accessed with these parameters");
+		exit(1);
+	} else if (accessAlongRemainingSize < toAccess.dim - 1) {
+		printf("\n\nToo few dimensions specified. Tensor cannot be accessed with these parameters");
 		exit(1);
 	}
-	*/
 
 	Tensor * toReturn = malloc(sizeof(Tensor));
 	toReturn -> count = interval.rBound - interval.lBound + 1;
 	toReturn -> data = malloc(toReturn -> count * sizeof(int));
-	toReturn -> dim = toAccess.dim - 1;
-	toReturn -> dim_size = malloc(sizeof(int)*2);
+	toReturn -> dim = toAccess.dim;
+	toReturn -> dim_size = malloc(sizeof(int)*toReturn -> dim);
 
-	toReturn -> dim_size[0] = 1;
-	toReturn -> dim_size[1] = toReturn -> count;
+	for (i = 0; i < toReturn -> dim; i++) {
+		if(i != dimOfInterval - 1) {
+			toReturn -> dim_size[i] = 1;
+		} else {
+			toReturn -> dim_size[i] = toReturn -> count;
+		}
+	}
 
 	for (i = interval.lBound; i <= interval.rBound; i++) {
-		offset = accessAlongCol + toAccess.dim_size[1]*i;
+		offset = 1;
+		for (k = toAccess.dim - 1; k > 0; k--) {
+			if (k != dimOfInterval - 1) {
+				offset *= accessAlongRemaining[accessAlongRemainingSize - k] + toAccess.dim_size[k];
+			} else {
+				offset *= i + toAccess.dim_size[k];
+			}
+		}	
+		offset *= accessAlongRemaining[0];
 		toReturn -> data[j] = toAccess.data[offset];
 		j++;
 	}
