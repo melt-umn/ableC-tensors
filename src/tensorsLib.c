@@ -772,6 +772,11 @@ Tensor vector_triple_product(Tensor tOne, Tensor tTwo, Tensor tThree) {
 	return cross_product(tOne,cross_product(tTwo,tThree));
 }
 
+void free_tensor(Tensor tens) {
+	free(tens.data);
+	free(tens.dim_size);
+}
+
 /*
  * Proper, n-dimensional tensor print
  * Should be written with modular arithmetic to ensure high portability
