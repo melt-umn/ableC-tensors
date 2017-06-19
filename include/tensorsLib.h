@@ -34,6 +34,7 @@ Tensor int_to_scalar(int);
 
 int scalar_to_int(Tensor);
 
+Tensor tensor_map(int (*)(int,int),Tensor,Tensor);
 Tensor map(int (*)(int,int),int,Tensor);
 int scalar_add(int,int);
 int scalar_subtract(int,int);

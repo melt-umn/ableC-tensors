@@ -759,7 +759,7 @@ void print_tensor(Tensor input, char * delimiters, int numDelims) {
 	int j = 0;
 	char delimiterToPrint = ',';
 	int dimChecker = 1;
-	
+
 	printf("[\n");
 
 	for (; i < input.count; i++) {
@@ -813,8 +813,8 @@ print_tensor_alternate(Tensor input, char * delimiters, int numDelims) {
 		}
 		printf("%c", delimiterToPrint);
 	}
+<<<<<<< HEAD
 	printf("]\n\n");
-
 	printf("\n]");
 	printf("\n%i dimensions in this tensor\n", input.dim);
 	printf("Dimensions are: [");
@@ -970,5 +970,4 @@ int main (int argc, char **argv) {
 	printTensTest = fill_tensor(3, dataTestFive, 0);
 	print_tensor(printTensTest, delimiters, 10);
 	printf("\n\n");
-	return 0;
 }
