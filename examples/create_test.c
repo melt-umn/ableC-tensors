@@ -70,6 +70,7 @@ int main (int argc, char **argv) {
 
   printf("tenThree is: \n");
   print_tensor(tenThree,delimiters,10);
-  printf("\n\n\n");
+  printf("\n");
 
+  return 0;
 }

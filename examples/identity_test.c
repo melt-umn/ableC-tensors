@@ -23,5 +23,6 @@ int main (int argc, char **argv) {
   Tensor idFour = create_identity_tensor(5,3);
   printf("3 x 3 x 3 x 3 x 3 identity tensor is: \n");
   print_tensor(idFour,delimiters,10);
-  printf("\n");
+
+  return 0;
 }

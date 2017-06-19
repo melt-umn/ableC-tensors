@@ -60,7 +60,7 @@ int lesser_than(int,int);
 Tensor tensor_combine(int (*)(int,int),Tensor,Tensor);
 Tensor tensor_elem_add(Tensor,Tensor);
 Tensor tensor_elem_subtract(Tensor,Tensor);
-Tensor tensor_elem_multiple(Tensor,Tensor);
+Tensor tensor_elem_multiply(Tensor,Tensor);
 Tensor tensor_elem_divide(Tensor,Tensor);
 
 Tensor dot_product(Tensor,Tensor);
