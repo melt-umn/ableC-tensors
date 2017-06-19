@@ -49,5 +49,6 @@ int main (int argc, char **argv) {
   Tensor fillFive = fill_tensor(3,dataTestFive,666);
   printf("3 x 4 x 5 666 tensor is: \n");
   print_tensor(fillFive,delimiters,10);
-  printf("\n");
+
+  return 0;
 }

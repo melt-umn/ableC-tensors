@@ -65,5 +65,6 @@ int main (int argc, char **argv) {
   printf("\n");
   printf("3 x 4 x 5 666 tranposed tensor (should break) is: \n");
   print_tensor(transpose(fillFive),delimiters,10);
-  printf("\n\n");
+
+  return 0;
 }

@@ -540,7 +540,16 @@ int lesser_than(int i, int j) {
 	}
 }
 
-Tensor tensor_combine(int (*fun)(int,int), Tensor tOne, Tensor tTwo) {//pls rename
+
+/*
+ * Description:
+ * Creates a new tensor using a function and two other tensors
+ *
+ * Assumption:
+ * two tensors must be the same size and the function must deal with ints
+ * does not mutate either tensor passed in
+*/
+Tensor tensor_combine(int (*fun)(int,int), Tensor tOne, Tensor tTwo) {
 	int i, sum;
 	int dimOne = tOne.dim;
 	int dimTwo = tTwo.dim;

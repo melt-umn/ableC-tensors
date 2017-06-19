@@ -85,5 +85,6 @@ int main (int argc, char **argv) {
 
   printf("\n2 x 2 identity tensor plus 1 times -1 with tensor_map\n");
   print_tensor(tensor_map(scalar_multiply,tenFour,tenFive),delimiters,10);
-  printf("\n");
+
+  return 0;
 }

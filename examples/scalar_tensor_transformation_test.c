@@ -48,4 +48,5 @@ int main (int argc, char **argv) {
   printf("\n");
   printf("ten 134 to int 134 is: %d\n",scalar_tensor_to_int(tenSix));
 
+  return 0;
 }

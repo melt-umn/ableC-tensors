@@ -5,7 +5,7 @@ int main(int argc, char **argv) {
 	printf("\n\nAccess Tensor test:\n");
 
 	//Constructing tensor
-	
+
 	int dimSizes[] = {2, 2};
 	int data[] = {1, 2, 3, 4};
 
@@ -14,7 +14,7 @@ int main(int argc, char **argv) {
 	printf("\n\nConstructed tensor is: \n");
 	print_tensor(test, delimiters, 10);
 	//Tensor constructed
-	
+
 	//Costructing aux data structures for access
 	int dimOfInterval = 1;
 	Interval interval = {0, 1};
