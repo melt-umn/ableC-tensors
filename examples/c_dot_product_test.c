@@ -1,4 +1,4 @@
-#include "../src/tensorsLib.c"
+#include "tensorsLib.h"
 
 //tests different functions written with tensor_combine
 int main (int argc, char **argv) {

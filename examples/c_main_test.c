@@ -1,4 +1,4 @@
-#include "../src/tensorsLib.c"
+#include "tensorsLib.h"
 
 //a melting pot of different tensor functions
 int main (int argc, char **argv) {

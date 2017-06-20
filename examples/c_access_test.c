@@ -1,4 +1,4 @@
-#include "../src/tensorsLib.c"
+#include "tensorsLib.h"
 #include <stdio.h>
 
 int main(int argc, char **argv) {
@@ -7,12 +7,12 @@ int main(int argc, char **argv) {
 	//Constructing tensor
 	int dimSizes[] = {2, 2};
 	int data[] = {1, 2, 3, 4};
-	
+
 	Tensor test;
 	test.dim = 2;
 	test.data = data;
 	test.dim_size = dimSizes;
-    test.count = 4;	
+    test.count = 4;
 
 	printf("\n%i", test.dim);
 
@@ -27,9 +27,9 @@ int main(int argc, char **argv) {
 
 	inOne.lBound = 1;
 	inOne.rBound = 1;
-	
-	
-	
+
+
+
 	printf("\n%i", test.dim);
 	print_tensor(access_tensor(test, intervalList, 2), delimiters, 10);
 

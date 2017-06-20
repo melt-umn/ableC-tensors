@@ -1,4 +1,4 @@
-#include "../src/tensorsLib.c"
+#include "tensorsLib.h"
 
 int main (int argc, char **argv) {
   int intOne = 5;

@@ -1,4 +1,4 @@
-#include "../src/tensorsLib.c"
+#include "tensorsLib.h"
 
 //tests the transpose function (print isn't working yet)
 int main (int argc, char **argv) {

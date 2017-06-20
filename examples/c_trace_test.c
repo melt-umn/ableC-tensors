@@ -1,4 +1,4 @@
-#include "../src/tensorsLib.c"
+#include "tensorsLib.h"
 
 //tests the trace function
 int main (int argc, char **argv) {

@@ -1,4 +1,4 @@
-#include "../src/tensorsLib.c"
+#include "tensorsLib.h"
 
 //create manual tensors boop boop
 int main (int argc, char **argv) {

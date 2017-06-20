@@ -1,4 +1,4 @@
-#include "../src/arrayAccess.c"
+#include "tensorsLib.h"
 #include <stdio.h>
 
 int main(int argc, char **argv) {

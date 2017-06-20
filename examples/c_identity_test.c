@@ -1,4 +1,4 @@
-#include "../src/tensorsLib.c"
+#include "tensorsLib.h"
 
 //tests the normal identity function
 //ankit, can you add the asymmetric identity function is as a test please?
