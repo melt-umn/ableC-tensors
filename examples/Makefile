@@ -23,14 +23,14 @@ ableC.jar: $(GRAMMAR_SOURCES)
 .PHONY: ../src/libArraysLib.so
 ../src/libArraysLib.so:
 	@cd ../src && make
-
-examples: simple_cat.out
-
-simple_cat.c: ableC.jar simple_cat.xc ../src/libArraysLib.so
-	java -jar ableC.jar simple_cat.xc $(CFLAGS)
-
-simple_cat.out: simple_cat.c
-	gcc $(CFLAGS) simple_cat.c -o simple_cat.out
+# 
+# examples: simple_cat.out
+#
+# simple_cat.c: ableC.jar simple_cat.xc ../src/libArraysLib.so
+# 	java -jar ableC.jar simple_cat.xc $(CFLAGS)
+#
+# simple_cat.out: simple_cat.c
+# 	gcc $(CFLAGS) simple_cat.c -o simple_cat.out
 
 clean:
 	rm -f *~ *.i *.c *.o *.out *.test *.jar *.copperdump.html build.xml

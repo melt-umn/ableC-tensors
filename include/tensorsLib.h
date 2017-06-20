@@ -36,13 +36,19 @@ Tensor int_to_scalar(int);
 
 int scalar_to_int(Tensor);
 
-Tensor tensor_map(int (*)(int,int),Tensor,Tensor);
-Tensor map(int (*)(int,int),int,Tensor);
+Tensor map(int (*)(int),Tensor);
+Tensor square(Tensor);
+Tensor increment(Tensor);
+
+int plus_one(int);
+int scalar_square(int);
 int scalar_add(int,int);
 int scalar_subtract(int,int);
 int scalar_multiply(int,int);
 int scalar_divide(int,int);
 int scalar_mod(int,int);
+int greater_than(int,int);
+int lesser_than(int,int);
 
 Tensor tensor_fold(int (*)(int,int),Tensor,Tensor);
 int fold(int (*)(int,int),int,Tensor);
@@ -54,9 +60,6 @@ Tensor tensor_max(Tensor);
 Tensor tensor_min(Tensor);
 Tensor tensor_sum(Tensor);
 Tensor tensor_product(Tensor);
-
-int greater_than(int,int);
-int lesser_than(int,int);
 
 Tensor tensor_combine(int (*)(int,int),Tensor,Tensor);
 Tensor tensor_elem_add(Tensor,Tensor);
@@ -71,5 +74,10 @@ Tensor cross_product(Tensor,Tensor);
 Tensor scalar_triple_product(Tensor,Tensor,Tensor);
 int int_scalar_triple_product(Tensor,Tensor,Tensor);
 Tensor vector_triple_product(Tensor,Tensor,Tensor);
+
+int trace(Tensor);
+Tensor tensor_trace(Tensor);
+
+void free_tensor(Tensor);
 
 void print_tensor(Tensor, char *, int);

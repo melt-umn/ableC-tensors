@@ -27,8 +27,8 @@ int main (int argc, char **argv) {
   print_tensor(tenOne,delimiters,10);
   printf("\n");
 
-  printf("9 2 tensor times 4\n");
-  print_tensor(map(scalar_multiply,4,copy_tensor(tenOne)),delimiters,10);
+  printf("9 2 tensor squared\n");
+  print_tensor(square(copy_tensor(tenOne)),delimiters,10);
   printf("\n");
 
   printf("9 2 tensor: \n");
@@ -39,8 +39,8 @@ int main (int argc, char **argv) {
   print_tensor(tenTwo,delimiters,10);
   printf("\n");
 
-  printf("3 x 9 666 tensor divide 666\n");
-  print_tensor(map(scalar_divide,666,copy_tensor(tenTwo)),delimiters,10);
+  printf("3 x 9 666 tensor squared\n");
+  print_tensor(square(copy_tensor(tenTwo)),delimiters,10);
   printf("\n");
 
   printf("3 x 9 666 tensor: \n");
@@ -51,8 +51,8 @@ int main (int argc, char **argv) {
   print_tensor(tenThree,delimiters,10);
   printf("\n");
 
-  printf("2 x 3 x 4 100 tensor divide 10\n");
-  print_tensor(map(scalar_divide,10,copy_tensor(tenThree)),delimiters,10);
+  printf("2 x 3 x 4 100 tensor squared\n");
+  print_tensor(square(copy_tensor(tenThree)),delimiters,10);
   printf("\n");
 
   printf("2 x 3 x 4 100 tensor: \n");
@@ -63,21 +63,20 @@ int main (int argc, char **argv) {
   print_tensor(tenFour,delimiters,10);
   printf("\n");
 
-  printf("\n0 dim 1 tensor multiply 3\n");
-  print_tensor(map(scalar_multiply,3,copy_tensor(tenFour)),delimiters,10);
+  printf("\n0 dim 1 tensor squared\n");
+  print_tensor(square(copy_tensor(tenFour)),delimiters,10);
   printf("\n");
 
   printf("0 dim 1 tensor 1: \n");
   print_tensor(tenFour,delimiters,10);
   printf("\n\n\n");
 
-
   printf("2 x 2 identity tensor\n");
   print_tensor(tenFive,delimiters,10);
   printf("\n");
 
-  printf("2 x 2 identity tensor plus 1\n");
-  print_tensor(map(scalar_add,1,copy_tensor(tenFive)),delimiters,10);
+  printf("2 x 2 identity tensor squared\n");
+  print_tensor(square(copy_tensor(tenFive)),delimiters,10);
   printf("\n");
 
   printf("2 x 2 identity tensor\n");

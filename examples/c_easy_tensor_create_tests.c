@@ -50,5 +50,11 @@ int main (int argc, char **argv) {
   printf("3 x 4 x 5 666 tensor is: \n");
   print_tensor(fillFive,delimiters,10);
 
+  free_tensor(fillOne);
+  free_tensor(fillTwo);
+  free_tensor(fillThree);
+  free_tensor(fillFour);
+  free_tensor(fillFive);
+
   return 0;
 }

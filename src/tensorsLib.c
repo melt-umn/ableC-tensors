@@ -17,12 +17,12 @@
  * everything is passed in correctly
 */
 Tensor create_tensor(int dim, int *dim_size, int count, int *data) {
-	Tensor *newTens = malloc(sizeof(Tensor));
-	newTens->dim = dim;
-	newTens->dim_size = dim_size;
-	newTens->count = count;
-	newTens->data = data;
-	return *newTens;
+	Tensor newTens;
+	newTens.dim = dim;
+	newTens.dim_size = dim_size;
+	newTens.count = count;
+	newTens.data = data;
+	return newTens;
 }
 
 /*
@@ -47,17 +47,17 @@ Tensor access_tensor(Tensor toAccess, int dimOfInterval, Interval interval, int 
 		exit(1);
 	}
 
-	Tensor * toReturn = malloc(sizeof(Tensor));
-	toReturn -> count = interval.rBound - interval.lBound + 1;
-	toReturn -> data = malloc(toReturn -> count * sizeof(int));
-	toReturn -> dim = toAccess.dim;
-	toReturn -> dim_size = malloc(sizeof(int)*toReturn -> dim);
+	Tensor toReturn;
+	toReturn.count = interval.rBound - interval.lBound + 1;
+	toReturn.data = malloc(toReturn.count * sizeof(int));
+	toReturn.dim = toAccess.dim;
+	toReturn.dim_size = malloc(sizeof(int)*toReturn.dim);
 
-	for (i = 0; i < toReturn -> dim; i++) {
+	for (i = 0; i < toReturn.dim; i++) {
 		if(i != dimOfInterval - 1) {
-			toReturn -> dim_size[i] = 1;
+			toReturn.dim_size[i] = 1;
 		} else {
-			toReturn -> dim_size[i] = toReturn -> count;
+			toReturn.dim_size[i] = toReturn.count;
 		}
 	}
 
@@ -74,7 +74,7 @@ Tensor access_tensor(Tensor toAccess, int dimOfInterval, Interval interval, int 
 		}
 		offset *= accessAlongRemaining[0];
 		printf("\nAt index %i", offset);
-		toReturn -> data[j] = toAccess.data[offset];
+		toReturn.data[j] = toAccess.data[offset];
 		j++;
 	}
 
@@ -115,7 +115,6 @@ Tensor access_tensor(Tensor toAccess, struct Interval * intervalList, int interv
 	return toReturn;
 }
 
-
 /*
  * Description:
  * Takes a Tensor and returns a duplicate of it in a new space in memory.
@@ -141,14 +140,14 @@ Tensor copy_tensor(Tensor tens) {
 		dim_size[j] = tens.dim_size[j];
 	}
 
-	Tensor *newTens = malloc(sizeof(Tensor));
+	Tensor newTens;
 
-	newTens->dim = dim;
-	newTens->dim_size = dim_size;
-	newTens->count = count;
-	newTens->data = data;
+	newTens.dim = dim;
+	newTens.dim_size = dim_size;
+	newTens.count = count;
+	newTens.data = data;
 
-	return *newTens;
+	return newTens;
 }
 
 /*
@@ -172,7 +171,7 @@ Tensor transpose(Tensor tens) {
 	int new_dim;
 	int *new_dim_size;
 	int *new_data;
-	Tensor *newTens;
+	Tensor newTens;
 
 	if (dim <= 2) { //make sure tensor is two or less dimensions
 		if (dim == 0) { //scalar tensor returns the tensor (copy)
@@ -180,7 +179,6 @@ Tensor transpose(Tensor tens) {
 		}
 
 		new_data = malloc(sizeof(int)*count); //malloc space for data
-		newTens = malloc(sizeof(Tensor));
 
 		if (dim == 1) { // n tensor is equivalent to n x 1, will become 1 x n
 			new_dim = 2;
@@ -211,11 +209,11 @@ Tensor transpose(Tensor tens) {
 				}
 			}
 		}
-		newTens->dim = new_dim;
-		newTens->dim_size = new_dim_size;
-		newTens->count = count; //count won't change no matter what
-		newTens->data = new_data;
-		return *newTens;
+		newTens.dim = new_dim;
+		newTens.dim_size = new_dim_size;
+		newTens.count = count; //count won't change no matter what
+		newTens.data = new_data;
+		return newTens;
 	} else {
 		printf("Error, cannot transpose a Tensor that is greater than two dimensions\n");
 		exit(1);
@@ -246,18 +244,18 @@ Tensor create_identity_tensor(int numDimensions, int dim_len){
 		}
 	}
 
-	Tensor *matrix = malloc(sizeof(Tensor));
-	matrix -> dim = numDimensions;
-	matrix -> dim_size = malloc(sizeof(int)*numDimensions);
+	Tensor matrix;
+	matrix.dim = numDimensions;
+	matrix.dim_size = malloc(sizeof(int)*numDimensions);
 
 	for (i = 0; i < numDimensions; i++) {
-		matrix -> dim_size[i] = dim_len;
+		matrix.dim_size[i] = dim_len;
 	}
 
-	matrix -> count = pow(dim_len, numDimensions);
-	matrix -> data =  data;
+	matrix.count = pow(dim_len, numDimensions);
+	matrix.data =  data;
 
-	return *matrix;
+	return matrix;
 }
 
 /*
@@ -294,20 +292,20 @@ Tensor fill_tensor(int dim, int *dim_size, int toFill) {
 		data[i] = toFill; //fill tensor with the given number
 	}
 
-	Tensor *tens = malloc(sizeof(Tensor));
+	Tensor tens;
 
-	tens->dim = dim;
-	tens->dim_size = dim_size;
-	tens->count = count;
-	tens->data = data;
+	tens.dim = dim;
+	tens.dim_size = dim_size;
+	tens.count = count;
+	tens.data = data;
 
-	return *tens;
+	return tens;
 }
 
 /*
   Description:
     Take the number of dimensions and a pointer to the dimension tensor to
-		return a tensor of that size full of ones
+		return a tensor of that shape full of ones
 
   Assumption:
     Tensor returned will have ones in all dimensions
@@ -319,7 +317,7 @@ Tensor ones(int dim, int *dim_size) {
 /*
   Description:
     Take the number of dimensions and a pointer to the dimension tensor to
-		return a tensor of that size full of zeros
+		return a tensor of that shape full of zeros
 
   Assumption:
     Tensor returned will have zeros in all dimensions
@@ -340,16 +338,16 @@ Tensor int_to_scalar_tensor(int i) {
 	int *data;
 	data = malloc(sizeof(int));
 
-	Tensor *tens = malloc(sizeof(Tensor));
+	Tensor tens;
 
 	data[0] = i;
 
-	tens->dim = 0;
-	tens->dim_size = NULL;
-	tens->count = 1;
-	tens->data = data;
+	tens.dim = 0;
+	tens.dim_size = NULL;
+	tens.count = 1;
+	tens.data = data;
 
-	return *tens;
+	return tens;
 }
 
 /*
@@ -370,68 +368,42 @@ int scalar_tensor_to_int(Tensor a) {
 
 /*
   Description:
-    Takes a function, an int, and a Tensor and performs that function on every
-		element in the Tensor with the int.
+    Takes a function and a Tensor and performs that function on every
+		element in the Tensor.
 
   Assumption:
     The given function must handle integers and the returned Tensor will be
-		the same size as the one passed in. Will mutate the tensor itself, will
+		the same shape as the one passed in. Will mutate the tensor itself, will
 		not return a new tensor.
 */
-Tensor map(int (*fun)(int,int), int j, Tensor tens) {
+Tensor map(int (*fun)(int), Tensor tens) {
 	int i;
 	int count = tens.count;
 	int *data = tens.data;
 
 	for (i = 0; i < count; i++) {
-		data[i] = (*fun)(data[i],j);
+		data[i] = (*fun)(data[i]);
 	}
 
 	return tens;
 }
 
-/*
-  Description:
-    Takes a function, a scalar Tensor, and a Tensor to map over and performs that
-		function on every element in the Tensor.
-
-  Assumption:
-    The given function must handle integers and the returned Tensor will be
-		the same size as the one passed in. Will mutate the tensor itself, will
-		not return a new tensor.
-*/
-Tensor tensor_map(int (*fun)(int,int), Tensor toMap, Tensor tens) {
-	int i;
-	int count = tens.count;
-	int *data = tens.data;
-	int currentCount = toMap.count;
-	int currentDim = toMap.dim;
-	int *currentData = toMap.data;
-
-	if (currentCount == 1) {
-		if (currentDim == 0) { //dim needs to be 0, a [1] tensor will not work
-			for (i = 0; i < count; i++) {
-				data[i] = (*fun)(data[i],currentData[0]);
-			}
-			return tens;
-		} else {
-			printf("Error, starting data must be scalar array");
-			exit(1);
-		}
-	} else {
-		printf("Error, not a scalar tensor");
-		exit(1);
-	}
+Tensor square(Tensor tens) {
+	return map(scalar_square,tens);
 }
 
-/*
-  Description:
-    Following functions are some classics to pass into map.
+Tensor increment(Tensor tens) {
+	return map(plus_one,tens);
+}
 
-  Assumption:
-    These functions must be passed into map alongside another integer that
-		will be used with them and the tensor to use them all.
-*/
+int plus_one(int i) {
+	return i + 1;
+}
+
+int scalar_square(int i) {
+	return i * i;
+}
+
 int scalar_add(int i, int j) {
 	return i + j;
 }
@@ -462,6 +434,23 @@ int scalar_mod(int i, int j) {
 	}
 }
 
+int greater_than(int i, int j) {
+	if (i > j) {
+		return i;
+	} else {
+		return j;
+	}
+}
+
+int lesser_than(int i, int j) {
+	if (i > j) {
+		return j;
+	} else {
+		return i;
+	}
+}
+
+
 /*
   Description:
     Takes a function, an integer, and a Tensor. Will reduce the Tensor using
@@ -483,18 +472,18 @@ Tensor tensor_fold(int (*fun)(int,int), Tensor current, Tensor tens){
 	if (currentCount == 1) {
 		if (currentDim == 0) { //dim needs to be 0, a [1] tensor will not work
 				int *newData;
-				Tensor *newTens = malloc(sizeof(Tensor));
+				Tensor newTens;
 				newData[0] = currentData[0];
 
 				for (i = 0; i < tens.count; i++) {
 					newData[0] = (*fun)(data[i],newData[0]);
 				}
 
-				newTens->dim = 0;
-				newTens->dim_size = NULL;
-				newTens->count = 1;
-				newTens->data = newData;
-				return *newTens;
+				newTens.dim = 0;
+				newTens.dim_size = NULL;
+				newTens.count = 1;
+				newTens.data = newData;
+				return newTens;
 		} else {
 			printf("Error, starting data must be scalar array");
 			exit(1);
@@ -558,29 +547,12 @@ Tensor tensor_product(Tensor tens) {
 	return int_to_scalar_tensor(product(tens));
 }
 
-int greater_than(int i, int j) {
-	if (i > j) {
-		return i;
-	} else {
-		return j;
-	}
-}
-
-int lesser_than(int i, int j) {
-	if (i > j) {
-		return j;
-	} else {
-		return i;
-	}
-}
-
-
 /*
  * Description:
  * Creates a new tensor using a function and two other tensors
  *
  * Assumption:
- * two tensors must be the same size and the function must deal with ints
+ * two tensors must be the sameshape and the function must deal with ints
  * does not mutate either tensor passed in
 */
 Tensor tensor_combine(int (*fun)(int,int), Tensor tOne, Tensor tTwo) {
@@ -595,7 +567,7 @@ Tensor tensor_combine(int (*fun)(int,int), Tensor tOne, Tensor tTwo) {
 
 	int *data;
 	int *dimSize;
-	Tensor *tens;
+	Tensor tens;
 
 	if (dimOne == dimTwo) {
 		for (i = 0; i < dimOne; i++) {
@@ -609,15 +581,14 @@ Tensor tensor_combine(int (*fun)(int,int), Tensor tOne, Tensor tTwo) {
 		for (i = 0; i < dimOne; i++) {
 			dimSize[i] = dimSizeOne[i];
 		}
-		tens = malloc(sizeof(Tensor));
 		for (i = 0; i < totalCount; i++) {
 			data[i] = (*fun)(dataOne[i], dataTwo[i]);
 		}
-		tens->dim = dimOne;
-		tens->dim_size = dimSize;
-		tens->count = totalCount;
-		tens->data = data;
-		return *tens;
+		tens.dim = dimOne;
+		tens.dim_size = dimSize;
+		tens.count = totalCount;
+		tens.data = data;
+		return tens;
 	} else {
 		printf("The two tensors have a different number of dimensions\n");
 		exit(1);
@@ -660,7 +631,7 @@ Tensor dot_product(Tensor tOne, Tensor tTwo) {
 
 	//used for return scalar tensor;
 	int *data;
-	Tensor *tens;
+	Tensor tens;
 
 	sum = 0;
 
@@ -672,16 +643,15 @@ Tensor dot_product(Tensor tOne, Tensor tTwo) {
 			}
 		}
 		data = malloc(sizeof(int));
-		tens = malloc(sizeof(Tensor));
 		for (i = 0; i < totalCount; i++) {
 			sum += dataOne[i] * dataTwo[i];
 		}
 		data[0] = sum;
-		tens->dim = 0;
-		tens->dim_size = NULL;
-		tens->count = 1;
-		tens->data = data;
-		return *tens;
+		tens.dim = 0;
+		tens.dim_size = NULL;
+		tens.count = 1;
+		tens.data = data;
+		return tens;
 	} else {
 		printf("The two tensors have a different number of dimensions\n");
 		exit(1);
@@ -760,11 +730,10 @@ Tensor cross_product(Tensor tOne, Tensor tTwo) {
 
 	int *data;
 	int *dim_size;
-	Tensor *tens;
+	Tensor tens;
 
 	if (dimOne == dimTwo && dimOne == 1) {
 		if (dimSizeOne[0] == dimSizeTwo[0] && dimSizeOne[0] == 3) {
-			tens = malloc(sizeof(Tensor));
 			dim_size = malloc(sizeof(int));
 			data = malloc(sizeof(int)*3);
 			dim_size[0] = 3;
@@ -772,11 +741,11 @@ Tensor cross_product(Tensor tOne, Tensor tTwo) {
 			data[1] = (dataOne[2] * dataTwo[0]) - (dataOne[0] * dataTwo[2]);
 			data[2] = (dataOne[0] * dataTwo[1]) - (dataOne[1] * dataTwo[0]);
 
-			tens->dim = 1;
-			tens->dim_size = dim_size;
-			tens->count = 3;
-			tens->data = data;
-			return *tens;
+			tens.dim = 1;
+			tens.dim_size = dim_size;
+			tens.count = 3;
+			tens.data = data;
+			return tens;
 		} else {
 			printf("The two tensors have different length of dimensions\n");
 			exit(1);
@@ -798,10 +767,10 @@ Tensor cross_product(Tensor tOne, Tensor tTwo) {
 */
 Tensor scalar_triple_product(Tensor tOne, Tensor tTwo, Tensor tThree) {
 	return dot_product(tOne, cross_product(tTwo,tThree));
-	/* Note: the size checking of the last two tensors should happen during the call
+	/* Note: the shape checking of the last two tensors should happen during the call
 		 to cross product (which makes sure the size of each is three). Then, because
 		 dot product will make sure the first tensor and the other one are the same
-		 size, that should also be size three. No need to explicitely check size here.
+		 shape, that should also be size three. No need to explicitely check shape here.
 	*/
 }
 
@@ -816,10 +785,10 @@ Tensor scalar_triple_product(Tensor tOne, Tensor tTwo, Tensor tThree) {
 */
 int int_scalar_triple_product(Tensor tOne, Tensor tTwo, Tensor tThree) {
 	return int_dot_product(tOne, cross_product(tTwo,tThree));
-	/* Note: the size checking of the last two tensors should happen during the call
+	/* Note: the shape checking of the last two tensors should happen during the call
 		 to cross product (which makes sure the size of each is three). Then, because
 		 dot product will make sure the first tensor and the other one are the same
-		 size, that should also be size three. No need to explicitely check size here.
+		 shape, that should also be size three. No need to explicitely check shape here.
 	*/
 }
 
@@ -834,6 +803,59 @@ int int_scalar_triple_product(Tensor tOne, Tensor tTwo, Tensor tThree) {
 */
 Tensor vector_triple_product(Tensor tOne, Tensor tTwo, Tensor tThree) {
 	return cross_product(tOne,cross_product(tTwo,tThree));
+}
+
+
+/*
+  Description:
+    Takes a tensor and calculates its trace (summation of all elements along its
+		main diagonal). Returns an integer.
+
+  Assumption:
+    The tensor passed in is a square matrix, shape [n,n]
+*/
+int trace(Tensor tens) {
+	int i,total;
+	int dim = tens.dim;
+	int *dim_size = tens.dim_size;
+	int count = tens.count;
+	int *data = tens.data;
+
+	if (dim == 2) {
+		if (dim_size[0] == dim_size[1]) {
+			total = 0;
+			for (i = 0; i < count; i++) {
+				if (i % (dim_size[0] + dim - 1) == 0) { //finds each diagonal
+					total += data[i];
+				}
+			}
+			return total;
+		} else {
+			printf("Tensor passed in to trace is not square");
+			return -1;
+		}
+	} else {
+		printf("Tensor passed in to trace is not two dimensions");
+		return -1;
+	}
+}
+
+/*
+  Description:
+    Takes a tensor and calculates its trace (summation of all elements along its
+		main diagonal). Returns a scalar tensor.
+
+  Assumption:
+    The tensor passed in is a square matrix, shape [n,n]. Returned tensor is
+		scalar, dim = 0
+*/
+Tensor tensor_trace(Tensor tens) {
+	return int_to_scalar_tensor(trace(tens));
+}
+
+void free_tensor(Tensor tens) {
+	free(tens.data);
+	free(tens.dim_size);
 }
 
 /*
