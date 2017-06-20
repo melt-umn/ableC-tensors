@@ -23,7 +23,6 @@ Tensor access_tensor_vtwo(Tensor tens, Interval *indices) {
 
 // 1 dim:
   if (dim == 1) {
-    printf("one dim \n");
     newDim = 1;
     newDimSize = malloc(sizeof(int)*newDim);
     newDimSize[0] = 1 + indices[0].rBound - indices[0].lBound;
@@ -42,11 +41,8 @@ Tensor access_tensor_vtwo(Tensor tens, Interval *indices) {
   }
 
   if (dim == 2) {
-    printf("two dims \n");
     newDim = 2;
     newDimSize = malloc(sizeof(int)*newDim);
-    printf("indices[0].rbound = %d\n",indices[0].rBound);
-    printf("indices[0].lbound = %d\n",indices[0].lBound);
 
     newDimSize[0] = 1 + indices[0].rBound - indices[0].lBound;
     newDimSize[1] = 1 + indices[1].rBound - indices[1].lBound;
