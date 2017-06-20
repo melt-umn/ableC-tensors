@@ -6,6 +6,7 @@
 !.gitignore
 # Ignore artifacts.
 build.xml
+*.a
 *.i
 *.jar
 *.o

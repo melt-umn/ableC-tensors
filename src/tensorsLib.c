@@ -79,7 +79,7 @@ Tensor access_tensor(Tensor toAccess, int dimOfInterval, Interval interval, int 
 	}
 
 	return *toReturn;
-}*/
+}
 
 Tensor access_tensor(Tensor toAccess, struct Interval * intervalList, int intervalListLength) {
 	if (intervalListLength != toAccess.dim) {
@@ -113,7 +113,7 @@ Tensor access_tensor(Tensor toAccess, struct Interval * intervalList, int interv
 
 
 	return toReturn;
-}
+}*/
 
 /*
  * Description:

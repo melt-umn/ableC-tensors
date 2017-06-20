@@ -1,7 +1,7 @@
 #include "tensorsLib.h"
 #include <stdio.h>
 
-int main(int argc, char **argv) {
+int main() {
   int dimOne = 1;
   int *dimSizeOne = malloc(sizeof(int)); //1
   dimSizeOne[0] = 5;
