@@ -23,9 +23,9 @@ ableC.jar: $(GRAMMAR_SOURCES)
 .PHONY: ../src/libTensorsLib.so
 ../src/libTensorsLib.so:
 	@cd ../src && make
-#
-# examples: simple_cat.out
-#
+
+examples:
+
 # simple_cat.c: ableC.jar simple_cat.xc ../src/libArraysLib.so
 # 	java -jar ableC.jar simple_cat.xc $(CFLAGS)
 #
