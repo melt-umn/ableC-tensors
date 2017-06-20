@@ -64,13 +64,13 @@ int main() {
 
   Interval interFour;
   interFour.lBound = 0;
-  interFour.rBound = 0;
+  interFour.rBound = 1;
   Interval interFive;
-  interFive.lBound = 0;
-  interFive.rBound = 0;
+  interFive.lBound = 1;
+  interFive.rBound = 2;
   Interval interSix;
-  interSix.lBound = 0;
-  interSix.rBound = 0;
+  interSix.lBound = 1;
+  interSix.rBound = 2;
   Interval *interListThree = malloc(sizeof(Interval)*3);
   interListThree[0] = interFour;
   interListThree[1] = interFive;
@@ -94,7 +94,7 @@ int main() {
   printf("original tensor:\n");
   print_tensor(tenThree,delimiters,10);
   printf("\n\n");
-  printf("accessing from [1][0][0](should be 10)\n");
+  printf("accessing from [0-1][1-2][1-2](should be 5 6 8 9 14 15 17 18)\n");
   print_tensor(access_tensor_vtwo(tenThree,interListThree),delimiters,10);
   printf("\n\n");
 
