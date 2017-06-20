@@ -1,4 +1,4 @@
-//Written by Nguyen Nguyen, Ankit Siva and Zoe Wentzel
+//Written by Ankit Siva and Zoe Wentzel
 //Parts copied from edu.umn.cs.melt.exts.ableC.matlab
 
 //Modified tensorsLib.c file to fit our own needs, cleaning out most of the
@@ -33,7 +33,6 @@ Tensor create_tensor(int dim, int *dim_size, int count, int *data) {
  * but later changes wil allow interval to specify the dimension it needs to go along as well).
  * Passed also is an int containing the length of the accessAlongDims.
  *
- */
 Tensor access_tensor(Tensor toAccess, int dimOfInterval, Interval interval, int * accessAlongRemaining, int accessAlongRemainingSize) {
 	int i = 0;
 	int j = 0;
@@ -80,7 +79,42 @@ Tensor access_tensor(Tensor toAccess, int dimOfInterval, Interval interval, int 
 	}
 
 	return *toReturn;
+}*/
+
+Tensor access_tensor(Tensor toAccess, struct Interval * intervalList, int intervalListLength) {
+	if (intervalListLength != toAccess.dim) {
+		printf("\n\nNot enough intervals specifying the accessing");
+	}
+
+	Tensor toReturn;
+	int j = 0;
+	int i = 0;
+	int boundDiff = 0;
+
+	Tensor toReturn;
+	toReturn.dim = toAccess.dim;
+	toReturn.count = 0;
+
+	toReturn.dim_size = malloc(sizeof(int) * toReturn.dim);
+	
+	for (; i < intervalListLength; i++) {
+		boundDiff = intervalList[i].rBound - intervalList[i].lBound;
+		if(boundDiff == 0) {
+			toReturn.dim--;
+		} else {
+			toReturn.count *= boundDiff;
+			toReturn.dim_size[j++] = boundDiff;
+		}
+	}
+
+	toReturn.data = malloc(sizeof(int) * toReturn.count);
+	
+	for (i = 0; i < toReturn.count; i++) {
+
+
+	return toReturn;
 }
+
 
 /*
  * Description:
@@ -119,7 +153,7 @@ Tensor copy_tensor(Tensor tens) {
 
 /*
   Description:
-    Takes a tensor and transposes it (rows and columns are swapped).
+    Takes a tensor and transposes it (rows and columns are swapped)shhdsfsdfjasdfjsdfjasdfjkk.
 
   Assumption:
     The tensors passed in must be <= two dimensions and the returned tensor
