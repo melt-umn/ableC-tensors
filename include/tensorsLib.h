@@ -79,5 +79,6 @@ int trace(Tensor);
 Tensor tensor_trace(Tensor);
 
 void free_tensor(Tensor);
+void free_tensor_dynamic(Tensor *);
 
 void print_tensor(Tensor, char *, int);

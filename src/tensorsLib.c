@@ -91,7 +91,6 @@ Tensor access_tensor(Tensor toAccess, struct Interval * intervalList, int interv
 	int i = 0;
 	int boundDiff = 0;
 
-	Tensor toReturn;
 	toReturn.dim = toAccess.dim;
 	toReturn.count = 0;
 
@@ -109,7 +108,6 @@ Tensor access_tensor(Tensor toAccess, struct Interval * intervalList, int interv
 
 	toReturn.data = malloc(sizeof(int) * toReturn.count);
 	
-	for (i = 0; i < toReturn.count; i++) {
 
 
 	return toReturn;
@@ -856,6 +854,12 @@ Tensor tensor_trace(Tensor tens) {
 void free_tensor(Tensor tens) {
 	free(tens.data);
 	free(tens.dim_size);
+}
+
+void free_tensor_dynamic(Tensor *tens) {
+	free(tens -> data);
+	free(tens -> dim_size);
+	free(tens);
 }
 
 /*
