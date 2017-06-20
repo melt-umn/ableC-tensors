@@ -11,7 +11,7 @@ GRAMMAR_SOURCES=$(shell find $(GRAMMAR_DIRS) -name *.sv -print0 | xargs -0)
 # The C source files.
 C_SOURCES=$(wildcard *.c)
 
-CFLAGS+=-I../include
+CFLAGS+=-I../include -Wall -Wextra -Wpedantic -Werror -std=c11
 LDLIBS+=-lm
 
 all: ableC.jar examples
