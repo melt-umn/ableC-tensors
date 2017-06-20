@@ -1,7 +1,9 @@
-#include "../src/tensorsLib.c"
+#include "tensorsLib.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 //tests different functions written with tensor_combine
-int main (int argc, char **argv) {
+int main () {
 
   int *dataTestOne = malloc(sizeof(int));
   dataTestOne[0] = 9;

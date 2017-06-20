@@ -1,9 +1,11 @@
-#include "../src/tensorsLib.c"
+#include "tensorsLib.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 //tests different functions written with map
 //-- scalar_add, scalar_subtract, scalar_multiply, scalar_divide, scalar_mod
 //also tests one function for tensor_map just to have something :)
-int main (int argc, char **argv) {
+int main () {
 
   int *dataTestOne = malloc(sizeof(int));
   dataTestOne[0] = 9;

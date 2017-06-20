@@ -1,7 +1,9 @@
-#include "../src/tensorsLib.c"
+#include "tensorsLib.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 //a melting pot of different tensor functions
-int main (int argc, char **argv) {
+int main () {
 
 	int intTest = 5;
 	Tensor intToScalarTest = int_to_scalar_tensor(intTest);
@@ -28,7 +30,6 @@ int main (int argc, char **argv) {
 	Tensor dotProductTestTwo = fill_tensor(1,dataTestThree,-666);
 	Tensor crossProductTestOne = fill_tensor(1,dataTestFour,6);
 	Tensor crossProductTestTwo = fill_tensor(1,dataTestFour,2);
-	Tensor tensorCombineTestOne = fill_tensor(2,dataTestOne,2);
 
 	printf("\nIdentity matrix is:\n");
 	Tensor identity = create_identity_tensor(2, 8);

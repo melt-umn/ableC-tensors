@@ -13,18 +13,18 @@ typedef struct {
   int *data;
 } Tensor;
 
-struct Interval{
+typedef struct {
 	int lBound;
 	int rBound;
-	struct Interval * next;
-};
+} Interval;
 
-char delimiters[10] = {',', ';', '/', '-', '!', '@', '#', '%', '^', '&'};
-char delimiters_alternate[10] = {'&', '^', '%', '#', '@', '!', '-', ';', '/', ','};
+extern char delimiters[10];
+extern char delimiters_alternate[10];
 
 // Function calls
 Tensor create_tensor(int,int*,int,int*);
-Tensor access_tensor(Tensor, struct Interval *, int);
+Tensor access_tensor(Tensor,int, Interval, int *, int);
+Tensor access_tensor_vtwo(Tensor,Interval*);
 Tensor copy_tensor(Tensor);
 Tensor transpose(Tensor);
 Tensor create_identity_tensor(int,int);
@@ -32,9 +32,9 @@ Tensor create_identity_tensor_asymmetric(int, int*);
 Tensor fill_tensor(int,int*,int);
 Tensor ones(int,int*);
 Tensor zeros(int,int*);
-Tensor int_to_scalar(int);
+Tensor int_to_scalar_tensor(int);
 
-int scalar_to_int(Tensor);
+int scalar_tensor_to_int(Tensor);
 
 Tensor map(int (*)(int),Tensor);
 Tensor square(Tensor);

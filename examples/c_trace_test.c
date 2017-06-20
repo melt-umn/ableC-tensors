@@ -1,7 +1,9 @@
-#include "../src/tensorsLib.c"
+#include "tensorsLib.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 //tests the trace function
-int main (int argc, char **argv) {
+int main () {
   Tensor idOne = create_identity_tensor(2,3);
   printf("3 x 3 identity tensor is: \n");
   print_tensor(idOne,delimiters,10);

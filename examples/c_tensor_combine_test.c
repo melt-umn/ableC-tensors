@@ -1,7 +1,9 @@
-#include "../src/tensorsLib.c"
+#include "tensorsLib.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 //tests different functions written with tensor_combine
-int main (int argc, char **argv) {
+int main () {
 
   int *dataTestOne = malloc(sizeof(int));
   dataTestOne[0] = 9;
@@ -67,6 +69,6 @@ int main (int argc, char **argv) {
   print_tensor(tensor_elem_multiply(tenFourF,tenFourS),delimiters,10);
   printf("\n\ndiv 0 dim 1's and 9's tensors:\n");
   print_tensor(tensor_elem_divide(tenFourF,tenFourS),delimiters,10);
-  
+
   return 0;
 }

@@ -9,6 +9,9 @@
 #include <errno.h>
 #include <math.h>
 
+char delimiters[10] = {',', ';', '/', '-', '!', '@', '#', '%', '^', '&'};
+char delimiters_alternate[10] = {'&', '^', '%', '#', '@', '!', '-', ';', '/', ','};
+
 /*
  * Description:
  * Creates a Tensor in which each field of the tensor struct is passed in
@@ -79,7 +82,7 @@ Tensor access_tensor(Tensor toAccess, int dimOfInterval, Interval interval, int 
 	}
 
 	return *toReturn;
-}*/
+}
 
 Tensor access_tensor(Tensor toAccess, struct Interval * intervalList, int intervalListLength) {
 	if (intervalListLength != toAccess.dim) {
@@ -111,7 +114,7 @@ Tensor access_tensor(Tensor toAccess, struct Interval * intervalList, int interv
 
 
 	return toReturn;
-}
+}*/
 
 /*
  * Description:
@@ -461,7 +464,6 @@ int lesser_than(int i, int j) {
 */
 Tensor tensor_fold(int (*fun)(int,int), Tensor current, Tensor tens){
 	int i;
-	int count = tens.count;
 	int currentCount = current.count;
 	int *data = tens.data;
 	int currentDim = current.dim;
@@ -504,7 +506,6 @@ Tensor tensor_fold(int (*fun)(int,int), Tensor current, Tensor tens){
 */
 int fold(int (*fun)(int,int), int current, Tensor tens){
 	int i;
-	int count = tens.count;
 	int *data = tens.data;
 
 	for (i = 0; i < tens.count; i++) {
@@ -554,7 +555,7 @@ Tensor tensor_product(Tensor tens) {
  * does not mutate either tensor passed in
 */
 Tensor tensor_combine(int (*fun)(int,int), Tensor tOne, Tensor tTwo) {
-	int i, sum;
+	int i;
 	int dimOne = tOne.dim;
 	int dimTwo = tTwo.dim;
 	int *dimSizeOne = tOne.dim_size;
@@ -717,14 +718,12 @@ int int_dot_product_vtwo(Tensor tOne, Tensor tTwo) {
 		to match that in Matlab.
 */
 Tensor cross_product(Tensor tOne, Tensor tTwo) {
-	int i;
 	int dimOne = tOne.dim;
 	int dimTwo = tTwo.dim;
 	int *dimSizeOne = tOne.dim_size;
 	int *dimSizeTwo = tTwo.dim_size;
 	int *dataOne = tOne.data;
 	int *dataTwo = tTwo.data;
-	int totalCount = tOne.count; //if dimSizeOne == dimSizeTwo, count for each will be same
 
 	int *data;
 	int *dim_size;

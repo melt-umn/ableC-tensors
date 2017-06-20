@@ -1,9 +1,11 @@
-#include "../src/tensorsLib.c"
+#include "tensorsLib.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 //tests different functions written with fold
 //-- max, min, sum, product
 //also tests one function for tensor_fold just to have something :)
-int main (int argc, char **argv) {
+int main () {
 
   int *dataTestOne = malloc(sizeof(int));
   dataTestOne[0] = 9;
@@ -79,7 +81,7 @@ int main (int argc, char **argv) {
 
   Tensor tenFive = create_identity_tensor(2,2);
   printf("\n2 x 2 identity tensor plus 1\n");
-  print_tensor(map(scalar_add,1,tenFive),delimiters,10);
+  print_tensor(increment(tenFive),delimiters,10);
   printf("\n");
 
   printf("2 x 2 id tensor + 1's: \n");
@@ -107,6 +109,6 @@ int main (int argc, char **argv) {
   print_tensor(tensor_sum(tenFive),delimiters,10);
   printf("\n2 x 2 id tensor + 1's product\n");
   print_tensor(tensor_product(tenFive),delimiters,10);
-  
+
   return 0;
 }
