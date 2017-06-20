@@ -74,10 +74,11 @@ Tensor access_tensor_vtwo(Tensor tens, Interval *indices) {
 
     //transfer the data in (j is index of new data, i is index of old data)
     newData = malloc(sizeof(int)*newCount);
-    for (x = indices[0].lBound,j=0; x <= indices[0].rBound; x++) { //row
+	j = 0;
+    for (x = indices[0].lBound; x <= indices[0].rBound; x++) { //row
       for (y = indices[1].lBound; y <= indices[1].rBound;y++) { //col
-        for (z = indices[2].lBound; z <= indices[2].rBound;z++,j++) //depth
-        newData[j] = data[x + y * dim_size[0] + z * dim_size[0] * dim_size[1]];
+        for (z = indices[2].lBound; z <= indices[2].rBound;z++) //depth
+        newData[j++] = data[x + y * dim_size[0] + z * dim_size[0] * dim_size[1]];
       }
     }
   }
