@@ -6,7 +6,7 @@
 
 //assumes indices is same size as tensor dim
 Tensor access_tensor_vtwo(Tensor tens, Interval *indices) {
-  int i,j,k;
+  int x,y,z,j;
 
   int dim = tens.dim;
   int *dim_size = tens.dim_size;
@@ -17,7 +17,6 @@ Tensor access_tensor_vtwo(Tensor tens, Interval *indices) {
   int *newDimSize;
   int newCount;
   int *newData;
-
 // 1 dim:
   if (dim == 1) {
     newDim = 1;
@@ -26,18 +25,18 @@ Tensor access_tensor_vtwo(Tensor tens, Interval *indices) {
     newCount = 1;
 
     //number of elems
-    for (i = 0; i < newDim; i++) {
-      newCount *= newDimSize[i];
+    for (x = 0; x < newDim; x++) {
+      newCount *= newDimSize[x];
     }
 
     //transfer the data in (j is index of new data, i is index of old data)
     newData = malloc(sizeof(int)*newCount);
-    for (i = indices[0].lBound,j=0; i <= indices[0].rBound; i++,j++) {
-      newData[j] = data[i];
+    for (x = indices[0].lBound,j=0; x <= indices[0].rBound; x++,j++) {
+      newData[j] = data[x];
     }
   }
 
-  if (dim == 2) {
+  if (dim == 2) { //2 dim
     newDim = 2;
     newDimSize = malloc(sizeof(int)*newDim);
 
@@ -46,19 +45,42 @@ Tensor access_tensor_vtwo(Tensor tens, Interval *indices) {
     newCount = 1;
 
     //number of elems
-    for (i = 0; i < newDim; i++) {
-      newCount *= newDimSize[i];
+    for (x = 0; x < newDim; x++) {
+      newCount *= newDimSize[x];
     }
 
     //transfer the data in (j is index of new data, i is index of old data)
     newData = malloc(sizeof(int)*newCount);
-    for (i = indices[0].lBound,j=0; i <= indices[0].rBound; i++) {
-      for (k = indices[1].lBound; k <= indices[1].rBound;k++,j++) {
-        newData[j] = data[k + dim_size[0]*i];
+    for (x = indices[0].lBound,j=0; x <= indices[0].rBound; x++) { //row?
+      for (y = indices[1].lBound; y <= indices[1].rBound;y++,j++) { //col?
+        newData[j] = data[y + dim_size[0]*x]; //col + row_size * row
       }
     }
   }
 
+  if (dim == 3) { //3 dim
+    newDim = 3;
+    newDimSize = malloc(sizeof(int)*newDim);
+
+    newDimSize[0] = 1 + indices[0].rBound - indices[0].lBound;
+    newDimSize[1] = 1 + indices[1].rBound - indices[1].lBound;
+    newDimSize[2] = 1 + indices[2].rBound - indices[2].lBound;
+    newCount = 1;
+
+    //number of elems
+    for (x = 0; x < newDim; x++) {
+      newCount *= newDimSize[x];
+    }
+
+    //transfer the data in (j is index of new data, i is index of old data)
+    newData = malloc(sizeof(int)*newCount);
+    for (x = indices[0].lBound,j=0; x <= indices[0].rBound; x++) { //row
+      for (y = indices[1].lBound; y <= indices[1].rBound;y++) { //col
+        for (z = indices[2].lBound; z <= indices[2].rBound;z++,j++) //depth
+        newData[j] = data[x + y * dim_size[0] + z * dim_size[0] * dim_size[1]];
+      }
+    }
+  }
   newTens.dim = newDim;
   newTens.dim_size = newDimSize;
   newTens.count = newCount;
@@ -66,7 +88,6 @@ Tensor access_tensor_vtwo(Tensor tens, Interval *indices) {
 
   return newTens;
 
-// 2 dim:
 
 
 // 3 dim:

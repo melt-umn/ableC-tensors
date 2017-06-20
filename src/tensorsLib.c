@@ -203,8 +203,8 @@ Tensor transpose(Tensor tens) {
 				new_dim_size[0] = dim_size[1];
 				new_dim_size[1] = dim_size[0];
 				//can't just copy the elements for an n x m array :(
-				for (i = 0; i < dim_size[0]; i++) {
-					for (j = 0; j < dim_size[1]; j++) {
+				for (i = 0; i < dim_size[0]; i++) { //col / row
+					for (j = 0; j < dim_size[1]; j++) { //row / col
 						new_data[j+dim_size[1]*i] = data[i + dim_size[0]*j]; //rip math thanks nathan
 					}
 				}

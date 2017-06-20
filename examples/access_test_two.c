@@ -38,6 +38,8 @@ int main() {
   dataTwo[8] = -53;
   Tensor tenTwo = create_tensor(dimTwo,dimSizeTwo,countTwo,dataTwo);
 
+
+
   Interval interTwo;
   interTwo.lBound = 0;
   interTwo.rBound = 1;
@@ -47,6 +49,33 @@ int main() {
   Interval *interListTwo = malloc(sizeof(Interval)*2);
   interListTwo[0] = interTwo;
   interListTwo[1] = interThree;
+
+  int dimThree = 3;
+  int *dimSizeThree = malloc(sizeof(int)*3); //2
+  dimSizeThree[0] = 2;
+  dimSizeThree[1] = 3;
+  dimSizeThree[2] = 4;
+  int countThree = 24;
+  int *dataThree = malloc(sizeof(int)*countThree);
+  for (int i = 1; i <= countThree; i++) {
+    dataThree[i-1] = i;
+  }
+  Tensor tenThree = create_tensor(dimThree,dimSizeThree,countThree,dataThree);
+
+  Interval interFour;
+  interFour.lBound = 1;
+  interFour.rBound = 1;
+  Interval interFive;
+  interFive.lBound = 0;
+  interFive.rBound = 0;
+  Interval interSix;
+  interSix.lBound = 0;
+  interSix.rBound = 0;
+  Interval *interListThree = malloc(sizeof(Interval)*3);
+  interListThree[0] = interFour;
+  interListThree[1] = interFive;
+  interListThree[2] = interSix;
+
 
 	printf("original tensor:\n");
   print_tensor(tenOne,delimiters,10);
@@ -62,5 +91,30 @@ int main() {
 	print_tensor(access_tensor_vtwo(tenTwo,interListTwo),delimiters,10);
   printf("\n\n");
 
+  printf("original tensor:\n");
+  print_tensor(tenThree,delimiters,10);
+  printf("\n\n");
+  printf("accessing from [1][0][0](should be 1)\n");
+  print_tensor(access_tensor_vtwo(tenThree,interListThree),delimiters,10);
+  printf("\n\n");
+
 	return 0;
 }
+//
+// [ 1  4  7
+//  10 13 16
+//  19 22 25]
+//
+// [ 2  5  8
+//  11 14 17
+//  20 23 26]
+//
+// [ 3  6  9
+//  12 15 18
+//  21 24 27]
+//
+// [ 5  8
+//  14 17]
+//
+// [ 6  9
+//  15 18]
