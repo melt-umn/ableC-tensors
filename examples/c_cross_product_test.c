@@ -3,13 +3,10 @@
 #include <stdlib.h>
 
 //tests different functions written with tensor_combine
-int main (int argc, char **argv) {
+int main () {
 
   int *dataTestOne = malloc(sizeof(int));
   dataTestOne[0] = 3;
-
-  Tensor tenOneF = fill_tensor(1,dataTestOne,2);
-  Tensor tenOneS = fill_tensor(1,dataTestOne,5);
 
 
   int dim = 1;

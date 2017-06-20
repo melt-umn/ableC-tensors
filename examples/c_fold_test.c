@@ -5,7 +5,7 @@
 //tests different functions written with fold
 //-- max, min, sum, product
 //also tests one function for tensor_fold just to have something :)
-int main (int argc, char **argv) {
+int main () {
 
   int *dataTestOne = malloc(sizeof(int));
   dataTestOne[0] = 9;

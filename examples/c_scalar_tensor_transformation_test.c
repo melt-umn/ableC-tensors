@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main (int argc, char **argv) {
+int main () {
   int intOne = 5;
   int intTwo = 666;
   int intThree = -12;
@@ -29,7 +29,7 @@ int main (int argc, char **argv) {
   int *dataTestOne = NULL;
 
   int *dataTestTwo;
-  dataTestOne = malloc(sizeof(int));
+  dataTestTwo = malloc(sizeof(int));
   dataTestTwo[0] = 1;
 
   Tensor tenFour = fill_tensor(0,dataTestOne,1);

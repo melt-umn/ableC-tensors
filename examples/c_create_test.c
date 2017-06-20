@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 //create manual tensors boop boop
-int main (int argc, char **argv) {
+int main () {
   int i;
 
   int dimZero = 0;

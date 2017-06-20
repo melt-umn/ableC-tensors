@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 //tests the transpose function (print isn't working yet)
-int main (int argc, char **argv) {
+int main () {
   int *dataTestOne;
   dataTestOne = malloc(sizeof(int)*1);
   dataTestOne[0] = 1;

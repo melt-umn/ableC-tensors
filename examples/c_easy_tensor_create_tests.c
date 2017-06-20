@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 //tests basic tensor creations; fill_tensor(),ones(),zeros()
-int main (int argc, char **argv) {
+int main () {
   int *dataTestOne;
   dataTestOne = malloc(sizeof(int));
   dataTestOne[0] = 1;
