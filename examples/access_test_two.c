@@ -1,5 +1,6 @@
 #include "tensorsLib.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 int main() {
   int dimOne = 1;

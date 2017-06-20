@@ -1,4 +1,6 @@
 #include "tensorsLib.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 //tests different functions written with fold
 //-- max, min, sum, product
@@ -79,7 +81,7 @@ int main (int argc, char **argv) {
 
   Tensor tenFive = create_identity_tensor(2,2);
   printf("\n2 x 2 identity tensor plus 1\n");
-  print_tensor(map(scalar_add,1,tenFive),delimiters,10);
+  print_tensor(increment(tenFive),delimiters,10);
   printf("\n");
 
   printf("2 x 2 id tensor + 1's: \n");

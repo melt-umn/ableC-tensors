@@ -1,4 +1,6 @@
 #include "tensorsLib.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 //tests basic tensor creations; fill_tensor(),ones(),zeros()
 int main (int argc, char **argv) {

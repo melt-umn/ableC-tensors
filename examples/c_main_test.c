@@ -1,4 +1,6 @@
 #include "tensorsLib.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 //a melting pot of different tensor functions
 int main (int argc, char **argv) {

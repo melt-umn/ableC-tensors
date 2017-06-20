@@ -1,4 +1,6 @@
 #include "tensorsLib.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 //tests different functions written with map
 //-- scalar_add, scalar_subtract, scalar_multiply, scalar_divide, scalar_mod

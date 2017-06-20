@@ -1,4 +1,6 @@
 #include "tensorsLib.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 //create manual tensors boop boop
 int main (int argc, char **argv) {

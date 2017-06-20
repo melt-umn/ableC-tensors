@@ -32,9 +32,9 @@ Tensor create_identity_tensor_asymmetric(int, int*);
 Tensor fill_tensor(int,int*,int);
 Tensor ones(int,int*);
 Tensor zeros(int,int*);
-Tensor int_to_scalar(int);
+Tensor int_to_scalar_tensor(int);
 
-int scalar_to_int(Tensor);
+int scalar_tensor_to_int(Tensor);
 
 Tensor map(int (*)(int),Tensor);
 Tensor square(Tensor);

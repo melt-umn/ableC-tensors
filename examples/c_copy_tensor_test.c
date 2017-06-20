@@ -1,4 +1,6 @@
 #include "tensorsLib.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 //tests different functions written with copy
 int main (int argc, char **argv) {
