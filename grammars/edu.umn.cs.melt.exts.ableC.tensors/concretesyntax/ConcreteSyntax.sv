@@ -4,14 +4,14 @@
 
 --start of what was written from edu.umn.cs.melt.exts.ableC.matlab
 
-grammar edu:umn:cs:melt:exts:ableC:arrays:concretesyntax;
+grammar edu:umn:cs:melt:exts:ableC:tensors:concretesyntax;
 
 -- as cnc?
 imports edu:umn:cs:melt:ableC:concretesyntax;
 imports edu:umn:cs:melt:ableC:abstractsyntax;
 imports edu:umn:cs:melt:ableC:abstractsyntax:construction;
 
-imports edu:umn:cs:melt:exts:ableC:arrays:abstractsyntax;
+imports edu:umn:cs:melt:exts:ableC:tensors:abstractsyntax;
 
 imports silver:langutil only ast;
 

@@ -1,9 +1,9 @@
-grammar edu:umn:cs:melt:exts:ableC:arrays;
+grammar edu:umn:cs:melt:exts:ableC:tensors;
 
-exports edu:umn:cs:melt:exts:ableC:arrays:concretesyntax ;
-exports edu:umn:cs:melt:exts:ableC:arrays:abstractsyntax ;
+exports edu:umn:cs:melt:exts:ableC:tensors:concretesyntax ;
+exports edu:umn:cs:melt:exts:ableC:tensors:abstractsyntax ;
 
--- exports zoe:src ;
+-- exports ../src ;
 
 {- Exporting the 'src' directory allows extension users to
    place your extension directory in a directory in which they already
