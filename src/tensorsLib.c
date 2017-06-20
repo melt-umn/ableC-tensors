@@ -81,39 +81,39 @@ Tensor access_tensor(Tensor toAccess, int dimOfInterval, Interval interval, int 
 	return *toReturn;
 }*/
 
-Tensor access_tensor(Tensor toAccess, struct Interval * intervalList, int intervalListLength) {
-	if (intervalListLength != toAccess.dim) {
-		printf("\n\nNot enough intervals specifying the accessing");
-	}
-
-	Tensor toReturn;
-	int j = 0;
-	int i = 0;
-	int boundDiff = 0;
-
-	Tensor toReturn;
-	toReturn.dim = toAccess.dim;
-	toReturn.count = 0;
-
-	toReturn.dim_size = malloc(sizeof(int) * toReturn.dim);
-	
-	for (; i < intervalListLength; i++) {
-		boundDiff = intervalList[i].rBound - intervalList[i].lBound;
-		if(boundDiff == 0) {
-			toReturn.dim--;
-		} else {
-			toReturn.count *= boundDiff;
-			toReturn.dim_size[j++] = boundDiff;
-		}
-	}
-
-	toReturn.data = malloc(sizeof(int) * toReturn.count);
-	
-	for (i = 0; i < toReturn.count; i++) {
-
-
-	return toReturn;
-}
+// Tensor access_tensor(Tensor toAccess, struct Interval * intervalList, int intervalListLength) {
+// 	if (intervalListLength != toAccess.dim) {
+// 		printf("\n\nNot enough intervals specifying the accessing");
+// 	}
+//
+// 	Tensor toReturn;
+// 	int j = 0;
+// 	int i = 0;
+// 	int boundDiff = 0;
+//
+// 	Tensor toReturn;
+// 	toReturn.dim = toAccess.dim;
+// 	toReturn.count = 0;
+//
+// 	toReturn.dim_size = malloc(sizeof(int) * toReturn.dim);
+//
+// 	for (; i < intervalListLength; i++) {
+// 		boundDiff = intervalList[i].rBound - intervalList[i].lBound;
+// 		if(boundDiff == 0) {
+// 			toReturn.dim--;
+// 		} else {
+// 			toReturn.count *= boundDiff;
+// 			toReturn.dim_size[j++] = boundDiff;
+// 		}
+// 	}
+//
+// 	toReturn.data = malloc(sizeof(int) * toReturn.count);
+//
+// 	for (i = 0; i < toReturn.count; i++) {
+//
+//
+// 	return toReturn;
+// }
 
 /*
  * Description:

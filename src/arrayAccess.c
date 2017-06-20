@@ -4,8 +4,6 @@
 #include <errno.h>
 #include <math.h>
 
-
-
 //assumes indices is same size as tensor dim
 Tensor access_tensor_vtwo(Tensor tens, Interval *indices) {
   int i,j,k;
