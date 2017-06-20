@@ -99,7 +99,7 @@ Tensor access_tensor(Tensor toAccess, struct Interval * intervalList, int interv
 	toReturn.count = 0;
 
 	toReturn.dim_size = malloc(sizeof(int) * toReturn.dim);
-	
+
 	for (; i < intervalListLength; i++) {
 		boundDiff = intervalList[i].rBound - intervalList[i].lBound;
 		if(boundDiff == 0) {
@@ -111,7 +111,7 @@ Tensor access_tensor(Tensor toAccess, struct Interval * intervalList, int interv
 	}
 
 	toReturn.data = malloc(sizeof(int) * toReturn.count);
-	
+
 	for (i = 0; i < toReturn.count; i++) {
 
 
@@ -474,6 +474,7 @@ Tensor tensor_fold(int (*fun)(int,int), Tensor current, Tensor tens){
 	if (currentCount == 1) {
 		if (currentDim == 0) { //dim needs to be 0, a [1] tensor will not work
 				int *newData;
+				newData = malloc(sizeof(int));
 				Tensor newTens;
 				newData[0] = currentData[0];
 
