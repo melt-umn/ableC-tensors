@@ -5,23 +5,33 @@ int main(int argc, char **argv) {
 	printf("\n\nAccess Tensor test:\n");
 
 	//Constructing tensor
-
 	int dimSizes[] = {2, 2};
 	int data[] = {1, 2, 3, 4};
+	
+	Tensor test;
+	test.dim = 2;
+	test.data = data;
+	test.dim_size = dimSizes;
+    test.count = 4;	
 
-	Tensor test = {2, dimSizes, 4, data};
+	printf("\n%i", test.dim);
 
 	printf("\n\nConstructed tensor is: \n");
 	print_tensor(test, delimiters, 10);
 	//Tensor constructed
 
 	//Costructing aux data structures for access
-	int dimOfInterval = 1;
-	Interval interval = {0, 1};
-	int accessAlongRemaining[] = {1};
-	int accessAlongRemainingSize = 1;
+	struct Interval *intervalList;
+	struct Interval inOne;
+	struct Interval inTwo;
 
-	print_tensor(access_tensor(test, dimOfInterval, interval, accessAlongRemaining, accessAlongRemainingSize), delimiters, 10);
+	inOne.lBound = 1;
+	inOne.rBound = 1;
+	
+	
+	
+	printf("\n%i", test.dim);
+	print_tensor(access_tensor(test, intervalList, 2), delimiters, 10);
 
 	return 0;
 }
