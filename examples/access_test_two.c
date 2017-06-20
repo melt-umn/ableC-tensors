@@ -20,7 +20,6 @@ int main(int argc, char **argv) {
   Interval *interList = malloc(sizeof(Interval));
   interList[0] = interOne;
 
-
   int dimTwo = 2;
   int *dimSizeTwo = malloc(sizeof(int)*2); //2
   dimSizeTwo[0] = 3;

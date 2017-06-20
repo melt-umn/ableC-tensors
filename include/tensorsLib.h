@@ -13,11 +13,10 @@ typedef struct {
   int *data;
 } Tensor;
 
-struct Interval{
+typedef struct {
 	int lBound;
 	int rBound;
-	struct Interval * next;
-};
+} Interval;
 
 char delimiters[10] = {',', ';', '/', '-', '!', '@', '#', '%', '^', '&'};
 char delimiters_alternate[10] = {'&', '^', '%', '#', '@', '!', '-', ';', '/', ','};

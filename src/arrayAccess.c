@@ -52,8 +52,6 @@ Tensor access_tensor_vtwo(Tensor tens, Interval *indices) {
     newDimSize[1] = 1 + indices[1].rBound - indices[1].lBound;
     newCount = 1;
 
-
-
     //number of elems
     for (i = 0; i < newDim; i++) {
       newCount *= newDimSize[i];
@@ -63,11 +61,10 @@ Tensor access_tensor_vtwo(Tensor tens, Interval *indices) {
     newData = malloc(sizeof(int)*newCount);
     for (i = indices[0].lBound,j=0; i <= indices[0].rBound; i++) {
       for (k = indices[1].lBound; k <= indices[1].rBound;k++,j++) {
-        newData[j] = data[i + dim_size[0]*k];
+        newData[j] = data[k + dim_size[0]*i];
       }
     }
   }
-
 
   newTens.dim = newDim;
   newTens.dim_size = newDimSize;
