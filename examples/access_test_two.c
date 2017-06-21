@@ -41,6 +41,10 @@ int main() {
   dataTwo[11] = -56;
   Tensor tenTwo = create_tensor(dimTwo,dimSizeTwo,countTwo,dataTwo);
 
+  int *intListTwo = malloc(sizeof(int)*2);
+  intListTwo[0] = 1;
+  intListTwo[1] = 0;
+
 
 
   Interval interTwo;

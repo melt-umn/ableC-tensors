@@ -34,91 +34,135 @@ Tensor create_tensor(int dim, int *dim_size, int count, float *data) {
 
 /*
  * Description:
- * This function creates and returns a tensor containing the elements that need to be accessed
- * Takes in the tensor to be accessed, an integer pointer pointing to an array that specifies
- * which dimensions need to be accessed along. An interval is also passed (that for now moves only along the row,
- * but later changes wil allow interval to specify the dimension it needs to go along as well).
- * Passed also is an int containing the length of the accessAlongDims.
+ * Takes a tensor and an integer list and indexes the tensor using that list
  *
-Tensor access_tensor(Tensor toAccess, int dimOfInterval, Interval interval, int * accessAlongRemaining, int accessAlongRemainingSize) {
-	int i = 0;
-	int j = 0;
-	int k = 0;
-	int offset = 0;
+ * Assumption:
+ * Number of dimensions in the tensor matches the length of the index list
+*/
+float float_access_tensor(Tensor tens, int *indices) {
+  int j,currentIndex,currentSum,currentProd,downTo,k;
+  int dim = tens.dim;
+  int *dim_size = tens.dim_size;
+  float *data = tens.data;
 
-	if (accessAlongRemainingSize > toAccess.dim) {
-		printf("\n\nToo many dimensions specified. Tensor cannot be accessed with these parameters");
-		exit(1);
-	} else if (accessAlongRemainingSize < toAccess.dim - 1) {
-		printf("\n\nToo few dimensions specified. Tensor cannot be accessed with these parameters");
-		exit(1);
-	}
+  currentSum = 0;
+  currentIndex = 0;
+  downTo = 0;
 
-	Tensor toReturn;
-	toReturn.count = interval.rBound - interval.lBound + 1;
-	toReturn.data = malloc(toReturn.count * sizeof(int));
-	toReturn.dim = toAccess.dim;
-	toReturn.dim_size = malloc(sizeof(int)*toReturn.dim);
-
-	for (i = 0; i < toReturn.dim; i++) {
-		if(i != dimOfInterval - 1) {
-			toReturn.dim_size[i] = 1;
-		} else {
-			toReturn.dim_size[i] = toReturn.count;
-		}
-	}
-
-	for (i = interval.lBound; i <= interval.rBound; i++) {
-		printf("\n%i", i);
-		offset = 1;
-		for (k = toAccess.dim - 1; k > 0; k--) {
-			if (k != dimOfInterval - 1) {
-				offset *= accessAlongRemaini[accessAlongRemainingSize - k] + toAccess.dim_size[k];
-			} else {
-				offset *= i + toAccess.dim_size[k];
-			}
-			printf("%i", offset);
-		}
-		offset *= accessAlongRemaini[0];
-		printf("\nAt index %i", offset);
-		toReturn.data[j] = toAccess.data[offset];
-		j++;
-	}
-
-	return *toReturn;
+  for (k = 0; k < dim; k++) { //add dim times
+    currentProd = 1; //reset currentProduct
+    //goes from smallest dim_size to smallest_one wanted
+    for (j = dim - 1; j > downTo; j--) {
+      currentProd *= dim_size[j];
+    }
+    downTo++; //won't go as low next time
+    //multiply it by largest index, currentIndex goes up
+    currentProd *= indices[currentIndex++];
+    //add the product to our sum thusfar, last time will be just the smallest index
+    currentSum += currentProd;
+  }
+  return data[currentSum];
 }
 
-Tensor access_tensor(Tensor toAccess, struct Interval * intervalList, int intervalListLength) {
-	if (intervalListLength != toAccess.dim) {
-		printf("\n\nNot enough intervals specifying the accessing");
-	}
+/*
+ * Description:
+ * Takes a tensor and an interval list and indexes the tensor using that list
+ *
+ * Assumption:
+ * Number of dimensions in the tensor matches the length of the interval list
+*/
+Tensor access_tensor_vtwo(Tensor tens, Interval *interIndices) {
+  int k,j,z,flag;
+  int currentChangingDim; //innermost dimension changing
+  int largestChangingDim;
+  int dim = tens.dim;
+  Tensor newTens;
+  int newDim;
+  int *newDimSize;
+  int newCount;
+  float *newData;
+  int *intIndices;
+  flag = 0;
 
-	Tensor toReturn;
-	int j = 0;
-	int i = 0;
-	int boundDiff = 0;
+  newDim = dim; //dims won't change in this version
+  newDimSize = malloc(sizeof(int)*newDim); //malloc space
+  for (k = 0; k < newDim; k++) { //fill it based on bounds (1 + because inclusivity)
+    newDimSize[k] = 1 + interIndices[k].rBound - interIndices[k].lBound;
+  }
+  newCount = 1;
+  for (k = 0; k < newDim; k++) { //total elements is each dim multiplied
+    newCount *= newDimSize[k];
+  }
+  newData = malloc(sizeof(int)*newCount); //need enough memory in data for each element
 
-	toReturn.dim = toAccess.dim;
-	toReturn.count = 0;
+  //assumes every dimension needed in intervals is passed in
+  intIndices = malloc(sizeof(int)*dim);
+  Interval *interIndicesCopy = malloc(sizeof(Interval)*dim);
+  for (k = 0; k < dim; k++) { //copy the interval, keep original for reference
+    interIndicesCopy[k] = interIndices[k];
+  }
+  currentChangingDim = dim - 1; //start with rightmost dimension
+  largestChangingDim = dim - 1; //largset changing dim is also rightmost dimension
+  for (k = 0; k < newCount; k++) { //loop until we get every element
+    //starts with minimum of each interval, lBound changes as this loops
+    printf("indices are: ");
+    for (j = 0; j < dim; j++) {
+      intIndices[j] = interIndicesCopy[j].lBound;
+      printf("%d ",intIndices[j]);
+    }
+    newData[k] = float_access_tensor(tens, intIndices); //find the int at the current indices
+		printf(": %f\n",newData[k]);
+    //changing the farthest element possible to the right
+    if (interIndicesCopy[currentChangingDim].lBound != interIndicesCopy[currentChangingDim].rBound) {
+      interIndicesCopy[currentChangingDim].lBound++; //left bound gets higher
+    } else if (currentChangingDim != largestChangingDim) {
+      printf("current dim %d != largest dim %d\n",currentChangingDim,largestChangingDim);
 
-	toReturn.dim_size = malloc(sizeof(int) * toReturn.dim);
+      currentChangingDim--;
+      while (newDimSize[currentChangingDim] == 1) {
+        //if the dim at that spot is 1, must keep going (otherwise cannot add one to it)
+        //should not overpass largestChangingDim since it does the same thing
+        currentChangingDim--;
+      }
+      while (interIndicesCopy[currentChangingDim].lBound == interIndicesCopy[currentChangingDim].rBound) {
+        //if the dim at that spot is 1, must keep going (otherwise cannot add one to it)
+        //should not overpass largestChangingDim since it does the same thing
+        largestChangingDim--;
+        currentChangingDim--;
+        flag = 1;
+      }
+      for (z = currentChangingDim; z < dim; z++) {
+        //reset all indices from the current one to the last one
+        //(this is the reason we needed a copy)
+        interIndicesCopy[z].lBound = interIndices[z].lBound;
+      }
+      interIndicesCopy[currentChangingDim].lBound += 1;
+      if (flag) {
+        currentChangingDim = dim - 1;
+      }
+      //largest changing index has not changed
+    } else {
+      printf("current dim %d == largest dim %d\n",currentChangingDim,largestChangingDim);
+      //currentChangingDim == largestChangingDim
+      for (z = currentChangingDim; z < dim; z++) {//looking at left most changing
+        //reset all indices from the current one to the last one
+        interIndicesCopy[z].lBound = interIndices[z].lBound;
+      }
+      currentChangingDim = dim - 1; //reset current to right most dimension
+      largestChangingDim--;
+      while (newDimSize[largestChangingDim] == 1) {
+        largestChangingDim--;
+      }
+      interIndicesCopy[largestChangingDim].lBound += 1; //change the first dimension that's greater than 1
+    }
+  }
+  newTens.dim = newDim;
+  newTens.dim_size = newDimSize;
+  newTens.count = newCount;
+  newTens.data = newData;
+  return newTens;
+}
 
-	for (; i < intervalListLength; i++) {
-		boundDiff = intervalList[i].rBound - intervalList[i].lBound;
-		if(boundDiff == 0) {
-			toReturn.dim--;
-		} else {
-			toReturn.count *= boundDiff;
-			toReturn.dim_size[j++] = boundDiff;
-		}
-	}
-
-	toReturn.data = malloc(sizeof(float) * toReturn.count);
-	for (i = 0; i < toReturn.count; i++) {
-
-
-	return toReturn;
-}*/
 
 /*
  * Description:
@@ -593,7 +637,7 @@ Tensor dot_product(Tensor tOne, Tensor tTwo) {
 			}
 		}
 
-		tens.data = &sum; 
+		tens.data = &sum;
 		for (i = 0; i < tOne.count; i++) {
 			sum += tOne.data[i] * tTwo.data[i];
 		}
