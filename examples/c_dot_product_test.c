@@ -34,33 +34,33 @@ int main () {
   printf("1 dim 2's tensor .* 1 dim 5's tensor (Tensor):\n");
   print_tensor(dot_product(tenOneF,tenOneS),delimiters,10);
   printf("\n(Int): ");
-  printf("%d",int_dot_product(tenOneF,tenOneS));
+  printf("%f",float_dot_product(tenOneF,tenOneS));
   printf("\n(Shortcut int): ");
-  printf("%d",int_dot_product_vtwo(tenOneF,tenOneS));
+  printf("%f",float_dot_product_vtwo(tenOneF,tenOneS));
   printf("\n\n\n");
 
   printf("2 dim 666's tensor .* 2 dim 1's tensor (Tensor):\n");
   print_tensor(dot_product(tenTwoF,tenTwoS),delimiters,10);
   printf("\n(Int): ");
-  printf("%d",int_dot_product(tenTwoF,tenTwoS));
+  printf("%f",float_dot_product(tenTwoF,tenTwoS));
   printf("\n(Shortcut int): ");
-  printf("%d",int_dot_product_vtwo(tenTwoF,tenTwoS));
+  printf("%f",float_dot_product_vtwo(tenTwoF,tenTwoS));
   printf("\n\n\n");
 
   printf("3 dim 100's tensor .* 3 dim 101's tensor (Tensor):\n");
   print_tensor(dot_product(tenThreeF,tenThreeS),delimiters,10);
   printf("\n(Int): ");
-  printf("%d",int_dot_product(tenThreeF,tenThreeS));
+  printf("%f",float_dot_product(tenThreeF,tenThreeS));
   printf("\n(Shortcut int): ");
-  printf("%d",int_dot_product_vtwo(tenThreeF,tenThreeS));
+  printf("%f",float_dot_product_vtwo(tenThreeF,tenThreeS));
   printf("\n\n\n");
 
   printf("0 dim 1's tensor .* 0 dim 9's tensor (Tensor):\n");
   print_tensor(dot_product(tenFourF,tenFourS),delimiters,10);
   printf("\n(Int): ");
-  printf("%d",int_dot_product(tenFourF,tenFourS));
+  printf("%f",float_dot_product(tenFourF,tenFourS));
   printf("\n(Shortcut int): ");
-  printf("%d",int_dot_product_vtwo(tenFourF,tenFourS));
+  printf("%f",float_dot_product_vtwo(tenFourF,tenFourS));
   printf("\n");
   return 0;
 }

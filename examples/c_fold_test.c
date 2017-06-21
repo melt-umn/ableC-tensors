@@ -30,39 +30,39 @@ int main () {
   print_tensor(tenOne,delimiters,10);
   printf("\n");
   printf("9 2's tensor max\n");
-  printf("%d",max(tenOne));
+  printf("%f",max(tenOne));
   printf("\n9 2's tensor min\n");
-  printf("%d",min(tenOne));
+  printf("%f",min(tenOne));
   printf("\n9 2's tensor sum\n");
-  printf("%d",sum(tenOne));
+  printf("%f",sum(tenOne));
   printf("\n9 2's tensor product\n");
-  printf("%d",product(tenOne));
+  printf("%f",product(tenOne));
   printf("\n\n\n");
 
   printf("3 x 9 666's tensor: \n");
   print_tensor(tenTwo,delimiters,10);
   printf("\n");
   printf("3 x 9 666's tensor max\n");
-  printf("%d",max(tenTwo));
+  printf("%f",max(tenTwo));
   printf("\n3 x 9 666's tensor min\n");
-  printf("%d",min(tenTwo));
+  printf("%f",min(tenTwo));
   printf("\n3 x 9 666's tensor sum\n");
-  printf("%d",sum(tenTwo));
+  printf("%f",sum(tenTwo));
   printf("\n3 x 9 666's tensor product (overflows)\n");
-  printf("%d",product(tenTwo));
+  printf("%f",product(tenTwo));
   printf("\n\n\n");
 
   printf("2 x 3 x 4 100's tensor: \n");
   print_tensor(tenThree,delimiters,10);
   printf("\n");
   printf("2 x 3 x 4 100's tensor max\n");
-  printf("%d",max(tenThree));
+  printf("%f",max(tenThree));
   printf("\n2 x 3 x 4 100's tensor min\n");
-  printf("%d",min(tenThree));
+  printf("%f",min(tenThree));
   printf("\n2 x 3 x 4 100's tensor sum\n");
-  printf("%d",sum(tenThree));
+  printf("%f",sum(tenThree));
   printf("\n2 x 3 x 4 100's tensor product (overflows)\n");
-  printf("%d",product(tenThree));
+  printf("%f",product(tenThree));
   printf("\n\n\n");
 
 
@@ -70,13 +70,13 @@ int main () {
   print_tensor(tenFour,delimiters,10);
   printf("\n");
   printf("0 dim 1's tensor max\n");
-  printf("%d",max(tenFour));
+  printf("%f",max(tenFour));
   printf("\n9 2's tensor min\n");
-  printf("%d",min(tenFour));
+  printf("%f",min(tenFour));
   printf("\n0 dim 1's tensor sum\n");
-  printf("%d",sum(tenFour));
+  printf("%f",sum(tenFour));
   printf("\n0 dim 1's tensor product\n");
-  printf("%d",product(tenFour));
+  printf("%f",product(tenFour));
   printf("\n\n\n");
 
   Tensor tenFive = create_identity_tensor(2,2);
@@ -88,13 +88,13 @@ int main () {
   print_tensor(tenFive,delimiters,10);
   printf("\n");
   printf("2 x 2 id tensor + 1's max\n");
-  printf("%d",max(tenFive));
+  printf("%f",max(tenFive));
   printf("\n2 x 2 id tensor + 1's min\n");
-  printf("%d",min(tenFive));
+  printf("%f",min(tenFive));
   printf("\n2 x 2 id tensor + 1's sum\n");
-  printf("%d",sum(tenFive));
+  printf("%f",sum(tenFive));
   printf("\n2 x 2 id tensor + 1's product\n");
-  printf("%d",product(tenFive));
+  printf("%f",product(tenFive));
   printf("\n\n\n");
 
   printf("again but with tensor_fold\n\n");

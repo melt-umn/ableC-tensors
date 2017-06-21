@@ -9,7 +9,7 @@ int main () {
   print_tensor(idOne,delimiters,10);
   printf("Trace (Tensor) is:\n");
   print_tensor(tensor_trace(idOne),delimiters,10);
-  printf("Trace (int) is: %d",trace(idOne));
+  printf("Trace (int) is: %f",trace(idOne));
   printf("\n\n");
 
   Tensor idTwo = create_identity_tensor(2,10);
@@ -17,7 +17,7 @@ int main () {
   print_tensor(idTwo,delimiters,10);
   printf("Trace (Tensor) is:\n");
   print_tensor(tensor_trace(idTwo),delimiters,10);
-  printf("Trace (int) is: %d",trace(idTwo));
+  printf("Trace (int) is: %f",trace(idTwo));
   printf("\n\n");
 
   int *dataTest;
@@ -29,7 +29,7 @@ int main () {
   print_tensor(testThree,delimiters,10);
   printf("Trace (Tensor) is:\n");
   print_tensor(tensor_trace(testThree),delimiters,10);
-  printf("Trace (int) is: %d",trace(testThree));
+  printf("Trace (int) is: %f",trace(testThree));
 
   return 0;
 }

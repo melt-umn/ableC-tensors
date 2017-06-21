@@ -9,6 +9,9 @@
 #include <errno.h>
 #include <math.h>
 
+#define FLT_MIN 1.175494e-38
+#define FLT_MAX 3.402823e+38
+
 char delimiters[10] = {',', ';', '/', '-', '!', '@', '#', '%', '^', '&'};
 char delimiters_alternate[10] = {'&', '^', '%', '#', '@', '!', '-', ';', '/', ','};
 
@@ -20,7 +23,7 @@ char delimiters_alternate[10] = {'&', '^', '%', '#', '@', '!', '-', ';', '/', ',
  * Assumption:
  * everything is passed in correctly
 */
-Tensor create_tensor(int dim, int *dim_size, int count, int *data) {
+Tensor create_tensor(int dim, int *dim_size, int count, float *data) {
 	Tensor newTens;
 	newTens.dim = dim;
 	newTens.dim_size = dim_size;
@@ -110,7 +113,7 @@ Tensor access_tensor(Tensor toAccess, struct Interval * intervalList, int interv
 		}
 	}
 
-	toReturn.data = malloc(sizeof(int) * toReturn.count);
+	toReturn.data = malloc(sizeof(float) * toReturn.count);
 	for (i = 0; i < toReturn.count; i++) {
 
 
@@ -130,7 +133,7 @@ Tensor copy_tensor(Tensor tens) {
 	newTens.dim = tens.dim;
 	newTens.count = tens.count;
 
-	newTens.data = malloc(sizeof(int)*newTens.count);
+	newTens.data = malloc(sizeof(float)*newTens.count);
 	newTens.dim_size = malloc(sizeof(int)*newTens.dim);
 
 	for (i = 0; i < tens.count; i++) {
@@ -158,7 +161,7 @@ Tensor transpose(Tensor tens) {
 	Tensor newTens;
 	newTens.count = tens.count;
 	newTens.dim = tens.dim;
-	newTens.data = malloc(sizeof(int)*tens.count); //malloc space for data
+	newTens.data = malloc(sizeof(float)*tens.count); //malloc space for data
 
 	switch(tens.dim) {
 		//scalar tensor returns the tensor (copy)
@@ -222,7 +225,7 @@ Tensor create_identity_tensor(int numDimensions, int dim_len){
 	int i = 0;
 	Tensor tensor;
 	tensor.count = pow(dim_len, numDimensions);
-	tensor.data = malloc(sizeof(int)*tensor.count);
+	tensor.data = malloc(sizeof(float)*tensor.count);
 
 	for (i = 0; i < tensor.count; i++) {
 		if (i % (dim_len + numDimensions - 1) == 0) {
@@ -260,7 +263,7 @@ Tensor create_identity_tensor_asymmetric(int numDimensions, int * dim_len);
  * Assumption:
  * Tensor returned will have the value of the given number in all dimensions
  */
-Tensor fill_tensor(int dim, int *dim_size, int toFill) {
+Tensor fill_tensor(int dim, int *dim_size, float toFill) {
 	int i;
 	Tensor tens;
 	tens.dim = dim;
@@ -271,7 +274,7 @@ Tensor fill_tensor(int dim, int *dim_size, int toFill) {
 		tens.count *= dim_size[i]; //multiply number of elements by the dimensions
 	}
 
-	tens.data = malloc(sizeof(int)*tens.count); //malloc space for each element
+	tens.data = malloc(sizeof(float)*tens.count); //malloc space for each element
 
 	for (i = 0; i < tens.count; i++) {
 		tens.data[i] = toFill; //fill tensor with the given number
@@ -313,9 +316,9 @@ Tensor zeros(int dim, int *dim_size) {
     The returned tensor will have a dim of 0, a dim_size of null, and a count
 		of 1. It's only data will be the given integer.
 */
-Tensor int_to_scalar_tensor(int i) {
-	int *data;
-	data = malloc(sizeof(int));
+Tensor float_to_scalar_tensor(float i) {
+	float *data;
+	data = malloc(sizeof(float));
 
 	Tensor tens;
 
@@ -336,7 +339,7 @@ Tensor int_to_scalar_tensor(int i) {
   Assumption:
     The given tensor must have only one element (count of 1).
 */
-int scalar_tensor_to_int(Tensor a) {
+float scalar_tensor_to_float(Tensor a) {
 	if (a.count == 1) { //should work for tensors with dim_size = [], [1], [1,1,1], etc
 		return a.data[0];
 	} else {
@@ -355,7 +358,7 @@ int scalar_tensor_to_int(Tensor a) {
 		the same shape as the one passed in. Will mutate the tensor itself, will
 		not return a new tensor.
 */
-Tensor map(int (*fun)(int), Tensor tens) {
+Tensor map(float (*fun)(float), Tensor tens) {
 	int i;
 
 	for (i = 0; i < tens.count; i++) {
@@ -373,27 +376,27 @@ Tensor increment(Tensor tens) {
 	return map(plus_one,tens);
 }
 
-int plus_one(int i) {
+float plus_one(float i) {
 	return i + 1;
 }
 
-int scalar_square(int i) {
+float scalar_square(float i) {
 	return i * i;
 }
 
-int scalar_add(int i, int j) {
+float scalar_add(float i, float j) {
 	return i + j;
 }
 
-int scalar_subtract(int i, int j) {
+float scalar_subtract(float i, float j) {
 	return i - j;
 }
 
-int scalar_multiply(int i, int j) {
+float scalar_multiply(float i, float j) {
 	return i * j;
 }
 
-int scalar_divide(int i, int j) {
+float scalar_divide(float i, float j) {
 	if (j != 0) {
 		return i / j;
 	} else {
@@ -402,16 +405,7 @@ int scalar_divide(int i, int j) {
 	}
 }
 
-int scalar_mod(int i, int j) {
-	if (j != 0) {
-		return i % j;
-	} else {
-		printf("Error, cannot scalar divide by zero\n");
-		exit(1);
-	}
-}
-
-int greater_than(int i, int j) {
+float greater_than(float i, float j) {
 	if (i > j) {
 		return i;
 	} else {
@@ -419,7 +413,7 @@ int greater_than(int i, int j) {
 	}
 }
 
-int lesser_than(int i, int j) {
+float lesser_than(float i, float j) {
 	if (i > j) {
 		return j;
 	} else {
@@ -438,28 +432,22 @@ int lesser_than(int i, int j) {
   Assumption:
     The given function must handle integers and will return a scalar Tensor.
 */
-Tensor tensor_fold(int (*fun)(int,int), Tensor current, Tensor tens){
+Tensor tensor_fold(float (*fun)(float,float), Tensor current, Tensor tens){
 	int i;
-	int currentCount = current.count;
-	int *data = tens.data;
-	int currentDim = current.dim;
-	int *currentData = current.data;
 
-	if (currentCount == 1) {
-		if (currentDim == 0) { //dim needs to be 0, a [1] tensor will not work
-				int *newData;
-				newData = malloc(sizeof(int));
+	if (current.count == 1) {
+		if (current.dim == 0) { //dim needs to be 0, a [1] tensor will not work
 				Tensor newTens;
-				newData[0] = currentData[0];
+				newTens.data = malloc(sizeof(float));
+				newTens.data[0] = current.data[0];
 
 				for (i = 0; i < tens.count; i++) {
-					newData[0] = (*fun)(data[i],newData[0]);
+					newTens.data[0] = (*fun)(tens.data[i],newTens.data[0]);
 				}
 
 				newTens.dim = 0;
 				newTens.dim_size = NULL;
 				newTens.count = 1;
-				newTens.data = newData;
 				return newTens;
 		} else {
 			printf("Error, starting data must be scalar array");
@@ -481,7 +469,7 @@ Tensor tensor_fold(int (*fun)(int,int), Tensor current, Tensor tens){
   Assumption:
     The given function must handle integers and will return an integer.
 */
-int fold(int (*fun)(int,int), int current, Tensor tens){
+float fold(float (*fun)(float,float), float current, Tensor tens){
 	int i;
 
 	for (i = 0; i < tens.count; i++) {
@@ -490,36 +478,36 @@ int fold(int (*fun)(int,int), int current, Tensor tens){
 	return current;
 }
 
-int max(Tensor tens) {
-	return fold(greater_than,-2147483648,tens);
+float max(Tensor tens) {
+	return fold(greater_than,FLT_MIN,tens);
 }
 
-int min(Tensor tens) {
-	return fold(lesser_than,2147483647,tens);
+float min(Tensor tens) {
+	return fold(lesser_than,FLT_MAX,tens);
 }
 
-int sum(Tensor tens) {
+float sum(Tensor tens) {
 	return fold(scalar_add,0,tens);
 }
 
-int product(Tensor tens) {
+float product(Tensor tens) {
 	return fold(scalar_multiply,1,tens);
 }
 
 Tensor tensor_max(Tensor tens) {
-	return int_to_scalar_tensor(max(tens));
+	return float_to_scalar_tensor(max(tens));
 }
 
 Tensor tensor_min(Tensor tens) {
-	return int_to_scalar_tensor(min(tens));
+	return float_to_scalar_tensor(min(tens));
 }
 
 Tensor tensor_sum(Tensor tens) {
-	return int_to_scalar_tensor(sum(tens));
+	return float_to_scalar_tensor(sum(tens));
 }
 
 Tensor tensor_product(Tensor tens) {
-	return int_to_scalar_tensor(product(tens));
+	return float_to_scalar_tensor(product(tens));
 }
 
 /*
@@ -530,7 +518,7 @@ Tensor tensor_product(Tensor tens) {
  * two tensors must be the sameshape and the function must deal with ints
  * does not mutate either tensor passed in
 */
-Tensor tensor_combine(int (*fun)(int,int), Tensor tOne, Tensor tTwo) {
+Tensor tensor_combine(float (*fun)(float,float), Tensor tOne, Tensor tTwo) {
 	int i;
 	if (tOne.dim == tTwo.dim) {
 		for (i = 0; i < tOne.dim; i++) {
@@ -542,7 +530,7 @@ Tensor tensor_combine(int (*fun)(int,int), Tensor tOne, Tensor tTwo) {
 
 		Tensor tens;
 		tens.count = tOne.count;
-		tens.data = malloc(sizeof(int)*tOne.count);
+		tens.data = malloc(sizeof(float)*tOne.count);
 		tens.dim = tOne.dim;
 
 		for (i = 0; i < tOne.dim; i++) {
@@ -586,7 +574,8 @@ Tensor tensor_elem_divide(Tensor tOne, Tensor tTwo) {
 		dimensions. The returned tensor will be scalar (zero dimensions).
 */
 Tensor dot_product(Tensor tOne, Tensor tTwo) {
-	int i, sum;
+	int i;
+	float sum;
 
 	//used for return scalar tensor;
 	Tensor tens;
@@ -624,10 +613,11 @@ Tensor dot_product(Tensor tOne, Tensor tTwo) {
     The two tensors passed in must be the same dimensions and cannot be greater
 		than two-dimensional.
 */
-int int_dot_product(Tensor tOne, Tensor tTwo) {
-	//return scalar_tensor_to_int(dot_product(tOne,tTwo)); //wastes memory, but
+float float_dot_product(Tensor tOne, Tensor tTwo) {
+	//return scalar_tensor_to_float(dot_product(tOne,tTwo)); //wastes memory, but
 	//also less code (is it worth it to call it? small amount of wasted time as well)
-	int i, sum;
+	int i;
+	float sum;
 	sum = 0;
 
 	if (tOne.dim == tTwo.dim) {
@@ -656,7 +646,7 @@ int int_dot_product(Tensor tOne, Tensor tTwo) {
     The two tensors passed in must be the same dimensions and cannot be greater
 		than two-dimensional.
 */
-int int_dot_product_vtwo(Tensor tOne, Tensor tTwo) {
+float float_dot_product_vtwo(Tensor tOne, Tensor tTwo) {
 	return sum(tensor_combine(scalar_multiply,tOne,tTwo));
 }
 
@@ -675,7 +665,7 @@ Tensor cross_product(Tensor tOne, Tensor tTwo) {
 	if (tOne.dim == tTwo.dim && tOne.dim == 1) {
 		if (tOne.dim_size[0] == tTwo.dim_size[0] && tOne.dim_size[0] == 3) {
 			tens.dim_size = malloc(sizeof(int));
-			tens.data = malloc(sizeof(int)*3);
+			tens.data = malloc(sizeof(float)*3);
 			tens.dim_size[0] = 3;
 			tens.data[0] = (tOne.data[1] * tTwo.data[2]) - (tOne.data[2] * tTwo.data[1]);
 			tens.data[1] = (tOne.data[2] * tTwo.data[0]) - (tOne.data[0] * tTwo.data[2]);
@@ -721,8 +711,8 @@ Tensor scalar_triple_product(Tensor tOne, Tensor tTwo, Tensor tThree) {
     The tensors passed in must be vectors (dim = 1) with three elements. The
 		result will be the integer calculated.
 */
-int int_scalar_triple_product(Tensor tOne, Tensor tTwo, Tensor tThree) {
-	return int_dot_product(tOne, cross_product(tTwo,tThree));
+float float_scalar_triple_product(Tensor tOne, Tensor tTwo, Tensor tThree) {
+	return float_dot_product(tOne, cross_product(tTwo,tThree));
 	/* Note: the shape checking of the last two tensors should happen during the call
 		 to cross product (which makes sure the size of each is three). Then, because
 		 dot product will make sure the first tensor and the other one are the same
@@ -752,7 +742,7 @@ Tensor vector_triple_product(Tensor tOne, Tensor tTwo, Tensor tThree) {
   Assumption:
     The tensor passed in is a square matrix, shape [n,n]
 */
-int trace(Tensor tens) {
+float trace(Tensor tens) {
 	int i,total;
 
 	if (tens.dim == 2) {
@@ -784,7 +774,7 @@ int trace(Tensor tens) {
 		scalar, dim = 0
 */
 Tensor tensor_trace(Tensor tens) {
-	return int_to_scalar_tensor(trace(tens));
+	return float_to_scalar_tensor(trace(tens));
 }
 
 void free_tensor(Tensor tens) {
@@ -817,7 +807,7 @@ void print_tensor(Tensor input, char * delimiters, int numDelims) {
 	printf("[\n");
 
 	for (; i < input.count; i++) {
-		printf("%i", input.data[i]);
+		printf("%f", input.data[i]);
 		delimiterToPrint = delimiters[0];
 		dimChecker = 1;
 		for(j = 0; j < input.dim - 1; j++) {

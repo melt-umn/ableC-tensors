@@ -30,13 +30,13 @@ int main () {
   int countTwo = 9;
   int countThree = 18;
 
-  int *dataZero = malloc(sizeof(int));
+  float *dataZero = malloc(sizeof(float));
   dataZero[0] = 666;
 
-  int *dataOne = malloc(sizeof(int));
+  float *dataOne = malloc(sizeof(float));
   dataOne[0] = 22;
 
-  int *dataTwo = malloc(sizeof(int)*countTwo);
+  float *dataTwo = malloc(sizeof(float)*countTwo);
   dataTwo[0] = 32;
   dataTwo[1] = 1234;
   dataTwo[2] = 2;
@@ -47,7 +47,7 @@ int main () {
   dataTwo[7] = 13;
   dataTwo[8] = 0;
 
-  int *dataThree = malloc(sizeof(int)*countThree);
+  float *dataThree = malloc(sizeof(float)*countThree);
   for (i = 0; i < countThree; i++) {
     dataThree[i] = i;
   }
