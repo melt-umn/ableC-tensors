@@ -98,7 +98,7 @@ Tensor access_tensor(Tensor toAccess, struct Interval * intervalList, int interv
 	toReturn.count = 0;
 
 	toReturn.dim_size = malloc(sizeof(int) * toReturn.dim);
-	
+
 	for (; i < intervalListLength; i++) {
 		boundDiff = intervalList[i].rBound - intervalList[i].lBound;
 		if(boundDiff == 0) {
@@ -110,7 +110,7 @@ Tensor access_tensor(Tensor toAccess, struct Interval * intervalList, int interv
 	}
 
 	toReturn.data = malloc(sizeof(int) * toReturn.count);
-	
+	for (i = 0; i < toReturn.count; i++) {
 
 
 	return toReturn;
@@ -203,8 +203,8 @@ Tensor transpose(Tensor tens) {
 				new_dim_size[0] = dim_size[1];
 				new_dim_size[1] = dim_size[0];
 				//can't just copy the elements for an n x m array :(
-				for (i = 0; i < dim_size[0]; i++) {
-					for (j = 0; j < dim_size[1]; j++) {
+				for (i = 0; i < dim_size[0]; i++) { //col / row
+					for (j = 0; j < dim_size[1]; j++) { //row / col
 						new_data[j+dim_size[1]*i] = data[i + dim_size[0]*j]; //rip math thanks nathan
 					}
 				}
@@ -472,6 +472,7 @@ Tensor tensor_fold(int (*fun)(int,int), Tensor current, Tensor tens){
 	if (currentCount == 1) {
 		if (currentDim == 0) { //dim needs to be 0, a [1] tensor will not work
 				int *newData;
+				newData = malloc(sizeof(int));
 				Tensor newTens;
 				newData[0] = currentData[0];
 
