@@ -12,6 +12,7 @@
 char delimiters[10] = {',', ';', '/', '-', '!', '@', '#', '%', '^', '&'};
 char delimiters_alternate[10] = {'&', '^', '%', '#', '@', '!', '-', ';', '/', ','};
 
+
 /*
  * Description:
  * Creates a Tensor in which each field of the tensor struct is passed in
