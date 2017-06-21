@@ -90,8 +90,4 @@ Tensor access_tensor_vtwo(Tensor tens, Interval *indices) {
   newTens.data = newData;
 
   return newTens;
-
-
-
-// 3 dim:
 }
