@@ -71,7 +71,7 @@ float float_access_tensor(Tensor tens, int *indices) {
  * Assumption:
  * Number of dimensions in the tensor matches the length of the interval list
 */
-Tensor access_tensor_vtwo(Tensor tens, Interval *interIndices) {
+Tensor access_tensor(Tensor tens, Interval *interIndices) {
   int k,j,z,flag;
   int currentChangingDim; //innermost dimension changing
   int largestChangingDim;
@@ -93,7 +93,7 @@ Tensor access_tensor_vtwo(Tensor tens, Interval *interIndices) {
   for (k = 0; k < newDim; k++) { //total elements is each dim multiplied
     newCount *= newDimSize[k];
   }
-  newData = malloc(sizeof(int)*newCount); //need enough memory in data for each element
+  newData = malloc(sizeof(float)*newCount); //need enough memory in data for each element
 
   //assumes every dimension needed in intervals is passed in
   intIndices = malloc(sizeof(int)*dim);
@@ -117,19 +117,22 @@ Tensor access_tensor_vtwo(Tensor tens, Interval *interIndices) {
       interIndicesCopy[currentChangingDim].lBound++; //left bound gets higher
     } else if (currentChangingDim != largestChangingDim) {
       printf("current dim %d != largest dim %d\n",currentChangingDim,largestChangingDim);
-
-      currentChangingDim--;
+			if (currentChangingDim != 0) {
+				currentChangingDim--;
+			}
       while (newDimSize[currentChangingDim] == 1) {
         //if the dim at that spot is 1, must keep going (otherwise cannot add one to it)
         //should not overpass largestChangingDim since it does the same thing
         currentChangingDim--;
       }
-      while (interIndicesCopy[currentChangingDim].lBound == interIndicesCopy[currentChangingDim].rBound) {
+      while (currentChangingDim != 0 && interIndicesCopy[currentChangingDim].lBound == interIndicesCopy[currentChangingDim].rBound) {
         //if the dim at that spot is 1, must keep going (otherwise cannot add one to it)
         //should not overpass largestChangingDim since it does the same thing
-        largestChangingDim--;
+				if (largestChangingDim == currentChangingDim) {
+					largestChangingDim--;
+					flag = 1;
+				}
         currentChangingDim--;
-        flag = 1;
       }
       for (z = currentChangingDim; z < dim; z++) {
         //reset all indices from the current one to the last one
@@ -150,11 +153,13 @@ Tensor access_tensor_vtwo(Tensor tens, Interval *interIndices) {
       }
       currentChangingDim = dim - 1; //reset current to right most dimension
       largestChangingDim--;
-      while (newDimSize[largestChangingDim] == 1) {
+      while (largestChangingDim > 0 && newDimSize[largestChangingDim] == 1) {
         largestChangingDim--;
       }
-      interIndicesCopy[largestChangingDim].lBound += 1; //change the first dimension that's greater than 1
-    }
+			if (currentChangingDim != 0) {
+				interIndicesCopy[largestChangingDim].lBound += 1; //change the first dimension that's greater than 1			}
+			}
+		}
   }
   newTens.dim = newDim;
   newTens.dim_size = newDimSize;

@@ -6,10 +6,10 @@ Modified by: Ankit Siva, Zoe Wentzel
 
 // Struct definition for Tensor Struct
 typedef struct {
+  float *data; //saves memory if at top
   int dim;
   int *dim_size;
   int count;
-  float *data;
 } Tensor;
 
 typedef struct {
@@ -22,8 +22,7 @@ extern char delimiters_alternate[10];
 
 // Function calls
 Tensor create_tensor(int,int*,int,float*);
-Tensor access_tensor(Tensor,int, Interval, int *, int);
-Tensor access_tensor_vtwo(Tensor,Interval*);
+Tensor access_tensor(Tensor,Interval*);
 float float_access_tensor(Tensor,int*);
 Tensor copy_tensor(Tensor);
 Tensor transpose(Tensor);

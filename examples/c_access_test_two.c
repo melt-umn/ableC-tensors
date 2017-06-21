@@ -88,21 +88,21 @@ int main() {
   print_tensor(tenOne,delimiters,10);
   printf("\n\n");
   printf("accessing from 1 - 3 (should be 1234, 2, 645)\n");
-	print_tensor(access_tensor_vtwo(tenOne,interList),delimiters,10);
+	print_tensor(access_tensor(tenOne,interList),delimiters,10);
   printf("\n\n");
 
   printf("original tensor:\n");
   print_tensor(tenTwo,delimiters,10);
   printf("\n\n");
   printf("accessing from 0 - 1, 0 - 1 (should be 32, 1234 // -6, 23)\n");
-	print_tensor(access_tensor_vtwo(tenTwo,interListTwo),delimiters,10);
+	print_tensor(access_tensor(tenTwo,interListTwo),delimiters,10);
   printf("\n\n");
 
   printf("original tensor:\n");
   print_tensor(tenThree,delimiters,10);
   printf("\n\n");
   printf("accessing from [0-1][1-2][1-2](should be 5 6 8 9 14 15 17 18)\n");
-  print_tensor(access_tensor_vtwo(tenThree,interListThree),delimiters,10);
+  print_tensor(access_tensor(tenThree,interListThree),delimiters,10);
   printf("\n\n");
 
 	return 0;
