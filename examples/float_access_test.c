@@ -8,7 +8,7 @@ int main() {
   int *dimSizeOne = malloc(sizeof(int)); //1
   dimSizeOne[0] = 5;
   int countOne = 5;
-  int *dataOne = malloc(sizeof(int)*countOne);
+  float *dataOne = malloc(sizeof(int)*countOne);
   dataOne[0] = 32;
   dataOne[1] = 1234;
   dataOne[2] = 2;
@@ -24,7 +24,7 @@ int main() {
   dimSizeTwo[0] = 3;
   dimSizeTwo[1] = 3;
   int countTwo = 9;
-  int *dataTwo = malloc(sizeof(int)*countTwo);
+  float *dataTwo = malloc(sizeof(int)*countTwo);
   dataTwo[0] = 32;
   dataTwo[1] = 1234;
   dataTwo[2] = 2;
@@ -48,7 +48,7 @@ int main() {
   dimSizeThree[1] = 3;
   dimSizeThree[2] = 4;
   int countThree = 24;
-  int *dataThree = malloc(sizeof(int)*countThree);
+  float *dataThree = malloc(sizeof(int)*countThree);
   for (int i = 1; i <= countThree; i++) {
     dataThree[i-1] = i;
   }
@@ -64,21 +64,21 @@ int main() {
   print_tensor(tenOne,delimiters,10);
   printf("\n\n");
   printf("accessing [0] (should be 32)\n");
-	printf("%d\n",int_access_tensor(tenOne,intList));
+	printf("%f\n",float_access_tensor(tenOne,intList));
   printf("\n\n");
 
   printf("original tensor:\n");
   print_tensor(tenTwo,delimiters,10);
   printf("\n\n");
   printf("accessing [2][2] (should be -53)\n");
-  printf("%d\n",int_access_tensor(tenTwo,intListTwo));
+  printf("%f\n",float_access_tensor(tenTwo,intListTwo));
   printf("\n\n");
 
   printf("original tensor:\n");
   print_tensor(tenThree,delimiters,10);
   printf("\n\n");
   printf("accessing from [0][1][2] (should be 7))\n");
-  printf("%d\n",int_access_tensor(tenThree,intListThree));
+  printf("%f\n",float_access_tensor(tenThree,intListThree));
   printf("\n\n");
 
 	return 0;

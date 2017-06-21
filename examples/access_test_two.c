@@ -24,10 +24,9 @@ int main() {
   int dimTwo = 2;
   int *dimSizeTwo = malloc(sizeof(int)*2); //2
   dimSizeTwo[0] = 3;
-  float *dataTwo = malloc(sizeof(float)*countTwo);
   dimSizeTwo[1] = 4;
   int countTwo = 12;
-  int *dataTwo = malloc(sizeof(int)*countTwo);
+  float *dataTwo = malloc(sizeof(int)*countTwo);
   dataTwo[0] = 32;
   dataTwo[1] = 1234;
   dataTwo[2] = 2;
