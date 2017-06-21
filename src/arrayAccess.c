@@ -6,7 +6,7 @@
 
 //assumes indices is same size as tensor dim
 Tensor access_tensor_vtwo(Tensor tens, Interval *indices) {
-  int x,y,z,j;
+  int x,y,z,j,n,xi;
 
   int dim = tens.dim;
   int *dim_size = tens.dim_size;
@@ -76,13 +76,44 @@ Tensor access_tensor_vtwo(Tensor tens, Interval *indices) {
 
     //transfer the data in (j is index of new data, i is index of old data)
     newData = malloc(sizeof(int)*newCount);
-	j = 0;
+	  j = 0;
     for (x = indices[0].lBound; x <= indices[0].rBound; x++) { //row
       for (y = indices[1].lBound; y <= indices[1].rBound;y++) { //col
         for (z = indices[2].lBound; z <= indices[2].rBound;z++) //depth
-        newData[j++] = data[x + y * dim_size[0] + z * dim_size[0] * dim_size[1]];
+        newData[j++] = data[z + y * dim_size[2] + x * dim_size[2] * dim_size[1]];
       }
     }
+  }
+
+  else {
+    newDim = dim;
+    newDimSize = malloc(sizeof(int)*newDim);
+    for (i = 0; i < newDim; i++) {
+      newDimSize[i] = 1 + indices[i].rBound - indices[i].lBound;
+    }
+    newCount = 1;
+    for (x = 0; x < newDim; x++) { //total elements is each dim multiplied
+      newCount *= newDimSize[x];
+    }
+    newData = malloc(sizeof(int)*newCount);
+    int currentSum;
+    int currentProd;
+    // for (i = 0; i < newCount; i++) { //index
+      currentSum = 0;
+      for (n = dim - 1; n > 0; n--) { //add
+        xn = newDimSize[n];
+        currentProd = 1;
+        for (j = 0; j < n - 1; j ++) { //prod
+          currentProd *= dim_size[j];
+        }
+        currentSum += currentProd * xn;
+      }
+      sum = currentProd;
+      // newData[i] = currentProd;
+    }
+
+
+
   }
   newTens.dim = newDim;
   newTens.dim_size = newDimSize;
