@@ -5,7 +5,7 @@ Modified by: Ankit Siva, Zoe Wentzel
 *************************************************************/
 
 // Struct definition for Tensor Struct
-
+typedef struct Tensor Tensor;
 typedef struct {
   int dim;
   int *dim_size;
