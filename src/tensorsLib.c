@@ -903,6 +903,7 @@ void print_tensor(Tensor input, char * delimiters, int numDelims) {
 	printf("]\n\n");
 }
 
+/*
 void print_tensor_alternate(Tensor input, char * delimiters, int numDelims) {
 	if(numDelims < input.dim) {
 		printf("Delimiter array has too few delimiters for the current tensor input");
@@ -939,3 +940,4 @@ void print_tensor_alternate(Tensor input, char * delimiters, int numDelims) {
 	}
 	printf("]\n\n");
 }
+*/
