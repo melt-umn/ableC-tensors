@@ -69,13 +69,13 @@ Tensor access_tensor(Tensor toAccess, int dimOfInterval, Interval interval, int 
 		offset = 1;
 		for (k = toAccess.dim - 1; k > 0; k--) {
 			if (k != dimOfInterval - 1) {
-				offset *= accessAlongRemaining[accessAlongRemainingSize - k] + toAccess.dim_size[k];
+				offset *= accessAlongRemaini[accessAlongRemainingSize - k] + toAccess.dim_size[k];
 			} else {
 				offset *= i + toAccess.dim_size[k];
 			}
 			printf("%i", offset);
 		}
-		offset *= accessAlongRemaining[0];
+		offset *= accessAlongRemaini[0];
 		printf("\nAt index %i", offset);
 		toReturn.data[j] = toAccess.data[offset];
 		j++;
@@ -157,7 +157,7 @@ Tensor transpose(Tensor tens) {
 	Tensor newTens;
 	newTens.count = tens.count;
 	newTens.dim = tens.dim;
-	newTens.data = malloc(sizeof(int)*count); //malloc space for data
+	newTens.data = malloc(sizeof(int)*tens.count); //malloc space for data
 
 	switch(tens.dim) {
 		//scalar tensor returns the tensor (copy)
@@ -171,30 +171,30 @@ Tensor transpose(Tensor tens) {
 			newTens.dim = 2;
 			newTens.dim_size = malloc(sizeof(int)*2);
 			newTens.dim_size[0] = 1;
-			newTens.dim_size[1] = dim_size[0];
-			for (i = 0; i < count; i++) { //put all elements in, just need to copy
-				new_data[i] = data[i];
+			newTens.dim_size[1] = tens.dim_size[0];
+			for (i = 0; i < tens.count; i++) { //put all elements in, just need to copy
+				newTens.data[i] = tens.data[i];
 			}
 			break;
 
 		//tensor is two dimensional
 		case 2:
-			if (dim_size[0] == 1) { // 1 x n tensor will become n
+			if (tens.dim_size[0] == 1) { // 1 x n tensor will become n
 				newTens.dim = 1;
 				newTens.dim_size = malloc(sizeof(int));
-				newTens.dim_size[0] = dim_size[1];
-				for (i = 0; i < count; i++) { //put all elements in, just need to copy
-					new_data[i] = data[i];
+				newTens.dim_size[0] = tens.dim_size[1];
+				for (i = 0; i < tens.count; i++) { //put all elements in, just need to copy
+					newTens.data[i] = tens.data[i];
 				}
 			} else { // n x m tensor will become m x n
 				newTens.dim = 2;
 				newTens.dim_size = malloc(sizeof(int)*2);
-				newTens.dim_size[0] = dim_size[1];
-				newTens.dim_size[1] = dim_size[0];
+				newTens.dim_size[0] = tens.dim_size[1];
+				newTens.dim_size[1] = tens.dim_size[0];
 				//can't just copy the elements for an n x m array :(
-				for (i = 0; i < dim_size[0]; i++) { //col / row
-					for (j = 0; j < dim_size[1]; j++) { //row / col
-						new_data[j+dim_size[1]*i] = data[i + dim_size[0]*j]; //rip math thanks nathan
+				for (i = 0; i < newTens.dim_size[0]; i++) { //col / row
+					for (j = 0; j < newTens.dim_size[1]; j++) { //row / col
+						newTens.data[j+newTens.dim_size[1]*i] = tens.data[i + tens.dim_size[0]*j]; //rip math thanks nathan
 					}
 				}
 			}
@@ -260,12 +260,10 @@ Tensor create_identity_tensor_asymmetric(int numDimensions, int * dim_len);
  * Tensor returned will have the value of the given number in all dimensions
  */
 Tensor fill_tensor(int dim, int *dim_size, int toFill) {
-	int i, count;
+	int i;
 	Tensor tens;
 	tens.dim = dim;
 	tens.dim_size = dim_size;
-	tens.data = data;
-	
 	tens.count = 1; //if dim is 0 (scalar), count will still be one
 
 	for (i = 0; i < dim; i++) {
@@ -275,7 +273,7 @@ Tensor fill_tensor(int dim, int *dim_size, int toFill) {
 	tens.data = malloc(sizeof(int)*tens.count); //malloc space for each element
 
 	for (i = 0; i < tens.count; i++) {
-		data[i] = toFill; //fill tensor with the given number
+		tens.data[i] = toFill; //fill tensor with the given number
 	}
 
 
@@ -547,7 +545,7 @@ Tensor tensor_combine(int (*fun)(int,int), Tensor tOne, Tensor tTwo) {
 		tens.dim = tOne.dim;
 
 		for (i = 0; i < tOne.dim; i++) {
-			tens.dim[i] = tOne.dim_size[i];
+			tens.dim_size[i] = tOne.dim_size[i];
 		}
 
 		for (i = 0; i < tens.count; i++) {
@@ -607,7 +605,7 @@ Tensor dot_product(Tensor tOne, Tensor tTwo) {
 
 		tens.data = &sum; 
 		for (i = 0; i < tOne.count; i++) {
-			sum += tOne.data[i] * tTwo.data.g[i];
+			sum += tOne.data[i] * tTwo.data[i];
 		}
 		return tens;
 
@@ -638,8 +636,8 @@ int int_dot_product(Tensor tOne, Tensor tTwo) {
 				exit(1);
 			}
 		}
-		for (i = 0; i < totalCount; i++) {
-			sum += tOne.data[i] * tTwo.data.g[i];
+		for (i = 0; i < tOne.count; i++) {
+			sum += tOne.data[i] * tTwo.data[i];
 		}
 		return sum;
 	} else {
@@ -675,17 +673,15 @@ Tensor cross_product(Tensor tOne, Tensor tTwo) {
 
 	if (tOne.dim == tTwo.dim && tOne.dim == 1) {
 		if (tOne.dim_size[0] == tTwo.dim_size[0] && tOne.dim_size[0] == 3) {
-			Tensor.dim_size = malloc(sizeof(int));
-			Tensor.data = malloc(sizeof(int)*3);
-			dim_size[0] = 3;
-			tens.data[0] = (tOne.data[1] * tTwo.data.g[2]) - (tOne.data[2] * dataTwo[1]);
-			tens.data[1] = (tOne.data[2] * tTwo.data.g[0]) - (tOne.data[0] * dataTwo[2]);
-			tens.data[2] = (tOne.data[0] * tTwo.data.g[1]) - (tOne.data[1] * dataTwo[0]);
+			tens.dim_size = malloc(sizeof(int));
+			tens.data = malloc(sizeof(int)*3);
+			tens.dim_size[0] = 3;
+			tens.data[0] = (tOne.data[1] * tTwo.data[2]) - (tOne.data[2] * tTwo.data[1]);
+			tens.data[1] = (tOne.data[2] * tTwo.data[0]) - (tOne.data[0] * tTwo.data[2]);
+			tens.data[2] = (tOne.data[0] * tTwo.data[1]) - (tOne.data[1] * tTwo.data[0]);
 
 			tens.dim = 1;
-			tens.dim_size = dim_size;
 			tens.count = 3;
-			tens.data = data;
 			return tens;
 		} else {
 			printf("The two tensors have different length of dimensions\n");
