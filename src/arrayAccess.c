@@ -29,8 +29,84 @@ int int_access_tensor(Tensor tens, int *indices) {
   return data[currentSum];
 }
 
+Tensor access_tensor_vtwo(Tensor tens, Interval *interIndices) {
+  int k,j,z;
+  int currentChangingDim; //innermost dimension changing
+  int largestChangingDim;
+  int dim = tens.dim;
+  Tensor newTens;
+  int newDim;
+  int *newDimSize;
+  int newCount;
+  int *newData;
+  int *intIndices;
+
+  newDim = dim; //dims won't change in this version
+  newDimSize = malloc(sizeof(int)*newDim); //malloc space
+  for (k = 0; k < newDim; k++) { //fill it based on bounds (1 + because inclusivity)
+    newDimSize[k] = 1 + interIndices[k].rBound - interIndices[k].lBound;
+  }
+  newCount = 1;
+  for (k = 0; k < newDim; k++) { //total elements is each dim multiplied
+    newCount *= newDimSize[k];
+  }
+  newData = malloc(sizeof(int)*newCount); //need enough memory in data for each element
+
+  //assumes every dimension needed in intervals is passed in
+  intIndices = malloc(sizeof(int)*dim);
+  Interval *interIndicesCopy = malloc(sizeof(Interval)*dim);
+  for (k = 0; k < dim; k++) { //copy the interval, keep original for reference
+    interIndicesCopy[k] = interIndices[k];
+  }
+  currentChangingDim = dim - 1; //start with rightmost dimension
+  largestChangingDim = dim - 1; //largset changing dim is also rightmost dimension
+  for (k = 0; k < newCount; k++) { //loop until we get every element
+    //starts with minimum of each interval, lBound changes as this loops
+    for (j = 0; j < dim; j++) {
+      intIndices[j] = interIndicesCopy[j].lBound;
+    }
+    newData[k] = int_access_tensor(tens, intIndices); //find the int at the current indices
+
+    //changing the farthest element possible to the right
+    if (interIndicesCopy[currentChangingDim].lBound != interIndicesCopy[currentChangingDim].rBound) {
+      interIndicesCopy[currentChangingDim].lBound++; //left bound gets higher
+    } else if (currentChangingDim != largestChangingDim) {
+      for (z = currentChangingDim; z < dim; z++) {
+        //reset all indices from the current one to the last one
+        //(this is the reason we needed a copy)
+        interIndicesCopy[z].lBound = interIndices[z].lBound;
+      }
+      currentChangingDim--;
+      while (newDimSize[currentChangingDim] == 1) {
+        //if the dim at that spot is 1, must keep going (otherwise cannot add one to it)
+        //should not overpass largestChangingDim since it does the same thing
+        currentChangingDim--;
+      }
+      interIndicesCopy[currentChangingDim].lBound += 1;
+      //largest changing index has not changed
+    } else {
+      //currentChangingDim == largestChangingDim
+      for (z = currentChangingDim; z < dim; z++) {//looking at left most changing
+        //reset all indices from the current one to the last one
+        interIndicesCopy[z].lBound = interIndices[z].lBound;
+      }
+      currentChangingDim = dim - 1; //reset current to right most dimension
+      largestChangingDim--;
+      while (newDimSize[largestChangingDim] == 1) {
+        largestChangingDim--;
+      }
+      interIndicesCopy[largestChangingDim].lBound += 1; //change the first dimension that's greater than 1
+    }
+  }
+  newTens.dim = newDim;
+  newTens.dim_size = newDimSize;
+  newTens.count = newCount;
+  newTens.data = newData;
+  return newTens;
+}
+
 //assumes indices is same size as tensor dim
-Tensor access_tensor_vtwo(Tensor tens, Interval *indices) {
+Tensor access_tensor_vthree(Tensor tens, Interval *indices) {
   int x,y,z,j;//,n,xi;
 
   int dim = tens.dim;
