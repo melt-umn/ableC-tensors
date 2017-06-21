@@ -7,7 +7,7 @@ int main() {
   int *dimSizeOne = malloc(sizeof(int)); //1
   dimSizeOne[0] = 5;
   int countOne = 5;
-  int *dataOne = malloc(sizeof(int)*countOne);
+  float *dataOne = malloc(sizeof(float)*countOne);
   dataOne[0] = 32;
   dataOne[1] = 1234;
   dataOne[2] = 2;
@@ -24,6 +24,7 @@ int main() {
   int dimTwo = 2;
   int *dimSizeTwo = malloc(sizeof(int)*2); //2
   dimSizeTwo[0] = 3;
+  float *dataTwo = malloc(sizeof(float)*countTwo);
   dimSizeTwo[1] = 4;
   int countTwo = 12;
   int *dataTwo = malloc(sizeof(int)*countTwo);
@@ -59,7 +60,7 @@ int main() {
   dimSizeThree[1] = 3;
   dimSizeThree[2] = 3;
   int countThree = 27;
-  int *dataThree = malloc(sizeof(int)*countThree);
+  float *dataThree = malloc(sizeof(float)*countThree);
   for (int i = 1; i <= countThree; i++) {
     dataThree[i-1] = i;
   }

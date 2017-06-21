@@ -6,7 +6,7 @@ int main() {
 	//
 	// //Constructing tensor
 	// int dimSizes[] = {2, 2};
-	// int data[] = {1, 2, 3, 4};
+	// float *data[] = {1, 2, 3, 4};
 	//
 	// Tensor test;
 	// test.dim = 2;

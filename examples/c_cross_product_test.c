@@ -5,7 +5,7 @@
 //tests different functions written with tensor_combine
 int main () {
 
-  int *dataTestOne = malloc(sizeof(int));
+  float *dataTestOne = malloc(sizeof(int));
   dataTestOne[0] = 3;
 
 
@@ -16,17 +16,17 @@ int main () {
 
   int count = 3;
 
-  int *dataZero = malloc(sizeof(int)*count);
+  float *dataZero = malloc(sizeof(int)*count);
   dataZero[0] = 666;
   dataZero[1] = 662;
   dataZero[2] = 35;
 
-  int *dataOne = malloc(sizeof(int)*count);
+  float *dataOne = malloc(sizeof(int)*count);
   dataOne[0] = 22;
   dataOne[1] = 1234;
   dataOne[2] = 2;
 
-  int *dataTwo = malloc(sizeof(int)*count);
+  float *dataTwo = malloc(sizeof(int)*count);
   dataTwo[0] = 32;
   dataTwo[1] = 543;
   dataTwo[2] = 65;

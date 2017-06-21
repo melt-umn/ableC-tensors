@@ -5,9 +5,9 @@
 //a melting pot of different tensor functions
 int main () {
 
-	int intTest = 5;
-	Tensor intToScalarTest = int_to_scalar_tensor(intTest);
-	int scalarToIntTest = scalar_tensor_to_int(intToScalarTest);
+	int floatTest = 5;
+	Tensor floatToScalarTest = float_to_scalar_tensor(floatTest);
+	float scalarToFloatTest = scalar_tensor_to_float(floatToScalarTest);
 
 	int *dataTestOne = malloc(sizeof(int) * 2);
 	dataTestOne[0] = 3;
@@ -36,11 +36,11 @@ int main () {
 	print_tensor(identity,delimiters,10);
 	printf("\n");
 
-	printf("intToScalarTest Tensor:\n");
-	print_tensor(intToScalarTest,delimiters,10);
+	printf("floatToScalarTest Tensor:\n");
+	print_tensor(floatToScalarTest,delimiters,10);
 	printf("\n");
 
-	printf("\nThe intTest was %d\n\n",scalarToIntTest);
+	printf("\nThe intTest was %f\n\n",scalarToFloatTest);
 
 	printf("The tensor full of the devil is: \n");
 	print_tensor(fillTensorTest,delimiters,10);
@@ -71,11 +71,11 @@ int main () {
 	printf("\n");
 
 	printf("when dotted together (int):\n");
-	printf("%d",int_dot_product(dotProductTestOne,dotProductTestTwo));
+	printf("%f",float_dot_product(dotProductTestOne,dotProductTestTwo));
 	printf("\n\n");
 
 	printf("when dotted together (int) v2 (tensor combine and fold):\n");
-	printf("%d",int_dot_product_vtwo(dotProductTestOne,dotProductTestTwo));
+	printf("%f",float_dot_product_vtwo(dotProductTestOne,dotProductTestTwo));
 	printf("\n\n");
 
 	printf("first array to cross:\n");
@@ -90,16 +90,16 @@ int main () {
 	print_tensor(cross_product(crossProductTestOne,crossProductTestTwo),delimiters,10);
 	printf("\n");
 
-	printf("[6 6 6] folded sum is: %d", sum(crossProductTestOne));
+	printf("[6 6 6] folded sum is: %f", sum(crossProductTestOne));
 	printf("\n");
 
-	printf("[6 6 6] folded product is: %d", product(crossProductTestOne));
+	printf("[6 6 6] folded product is: %f", product(crossProductTestOne));
 	printf("\n");
 
-	printf("[6 6 6] folded max is: %d", max(crossProductTestOne));
+	printf("[6 6 6] folded max is: %f", max(crossProductTestOne));
 	printf("\n");
 
-	printf("[6 6 6] folded min is: %d", min(crossProductTestOne));
+	printf("[6 6 6] folded min is: %f", min(crossProductTestOne));
 	printf("\n");
 
 	// printf("Access test:\n");

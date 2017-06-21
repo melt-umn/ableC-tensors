@@ -5,7 +5,7 @@
 //tests different functions written with tensor_combine
 int main () {
 
-  int *dataTestOne = malloc(sizeof(int));
+  float *dataTestOne = malloc(sizeof(float));
   dataTestOne[0] = 3;
 
   int dim = 1;
@@ -15,17 +15,17 @@ int main () {
 
   int count = 3;
 
-  int *dataZero = malloc(sizeof(int)*count);
+  float *dataZero = malloc(sizeof(float)*count);
   dataZero[0] = 666;
   dataZero[1] = 662;
   dataZero[2] = 35;
 
-  int *dataOne = malloc(sizeof(int)*count);
+  float *dataOne = malloc(sizeof(float)*count);
   dataOne[0] = 22;
   dataOne[1] = 1234;
   dataOne[2] = 2;
 
-  int *dataTwo = malloc(sizeof(int)*count);
+  float *dataTwo = malloc(sizeof(float)*count);
   dataTwo[0] = 32;
   dataTwo[1] = 543;
   dataTwo[2] = 65;
@@ -36,17 +36,17 @@ int main () {
 
   printf("scalar triple product of: [666 662 35], [22 1234 2], and [32 543 65]:\n");
   print_tensor(scalar_triple_product(tenZero,tenOne,tenTwo),delimiters,10);
-  printf("int version: %d",int_scalar_triple_product(tenZero,tenOne,tenTwo));
+  printf("int version: %f",float_scalar_triple_product(tenZero,tenOne,tenTwo));
   printf("\n\n\n");
 
   printf("scalar triple product of: [22 1234 2], [666 662 35], and [32 543 65]:\n");
   print_tensor(scalar_triple_product(tenOne,tenZero,tenTwo),delimiters,10);
-  printf("int version: %d",int_scalar_triple_product(tenOne,tenZero,tenTwo));
+  printf("int version: %f",float_scalar_triple_product(tenOne,tenZero,tenTwo));
   printf("\n\n\n");
 
   printf("scalar triple product of: [32 543 65], [666 662 35], and [22 1234 2]:\n");
   print_tensor(scalar_triple_product(tenTwo,tenZero,tenOne),delimiters,10);
-  printf("int version: %d",int_scalar_triple_product(tenTwo,tenZero,tenOne));
+  printf("int version: %f",float_scalar_triple_product(tenTwo,tenZero,tenOne));
   printf("\n\n\n\n\n");
 
 

@@ -9,7 +9,7 @@ typedef struct {
   int dim;
   int *dim_size;
   int count;
-  int *data;
+  float *data;
 } Tensor;
 
 typedef struct {
@@ -21,7 +21,7 @@ extern char delimiters[10];
 extern char delimiters_alternate[10];
 
 // Function calls
-Tensor create_tensor(int,int*,int,int*);
+Tensor create_tensor(int,int*,int,float*);
 Tensor access_tensor(Tensor,int, Interval, int *, int);
 Tensor access_tensor_vtwo(Tensor,Interval*);
 int int_access_tensor(Tensor,int*);
@@ -29,53 +29,52 @@ Tensor copy_tensor(Tensor);
 Tensor transpose(Tensor);
 Tensor create_identity_tensor(int,int);
 Tensor create_identity_tensor_asymmetric(int, int*);
-Tensor fill_tensor(int,int*,int);
+Tensor fill_tensor(int,int*,float);
 Tensor ones(int,int*);
 Tensor zeros(int,int*);
-Tensor int_to_scalar_tensor(int);
+Tensor float_to_scalar_tensor(float);
 
-int scalar_tensor_to_int(Tensor);
+float scalar_tensor_to_float(Tensor);
 
-Tensor map(int (*)(int),Tensor);
+Tensor map(float (*)(float),Tensor);
 Tensor square(Tensor);
 Tensor increment(Tensor);
 
-int plus_one(int);
-int scalar_square(int);
-int scalar_add(int,int);
-int scalar_subtract(int,int);
-int scalar_multiply(int,int);
-int scalar_divide(int,int);
-int scalar_mod(int,int);
-int greater_than(int,int);
-int lesser_than(int,int);
+float plus_one(float);
+float scalar_square(float);
+float scalar_add(float,float);
+float scalar_subtract(float,float);
+float scalar_multiply(float,float);
+float scalar_divide(float,float);
+float greater_than(float,float);
+float lesser_than(float,float);
 
-Tensor tensor_fold(int (*)(int,int),Tensor,Tensor);
-int fold(int (*)(int,int),int,Tensor);
-int max(Tensor);
-int min(Tensor);
-int sum(Tensor);
-int product(Tensor);
+Tensor tensor_fold(float (*)(float,float),Tensor,Tensor);
+float fold(float (*)(float,float),float,Tensor);
+float max(Tensor);
+float min(Tensor);
+float sum(Tensor);
+float product(Tensor);
 Tensor tensor_max(Tensor);
 Tensor tensor_min(Tensor);
 Tensor tensor_sum(Tensor);
 Tensor tensor_product(Tensor);
 
-Tensor tensor_combine(int (*)(int,int),Tensor,Tensor);
+Tensor tensor_combine(float (*)(float,float),Tensor,Tensor);
 Tensor tensor_elem_add(Tensor,Tensor);
 Tensor tensor_elem_subtract(Tensor,Tensor);
 Tensor tensor_elem_multiply(Tensor,Tensor);
 Tensor tensor_elem_divide(Tensor,Tensor);
 
 Tensor dot_product(Tensor,Tensor);
-int int_dot_product(Tensor,Tensor);
-int int_dot_product_vtwo(Tensor,Tensor);
+float float_dot_product(Tensor,Tensor);
+float float_dot_product_vtwo(Tensor,Tensor);
 Tensor cross_product(Tensor,Tensor);
 Tensor scalar_triple_product(Tensor,Tensor,Tensor);
-int int_scalar_triple_product(Tensor,Tensor,Tensor);
+float float_scalar_triple_product(Tensor,Tensor,Tensor);
 Tensor vector_triple_product(Tensor,Tensor,Tensor);
 
-int trace(Tensor);
+float trace(Tensor);
 Tensor tensor_trace(Tensor);
 
 void free_tensor(Tensor);
