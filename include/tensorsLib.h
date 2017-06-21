@@ -25,6 +25,7 @@ extern char delimiters_alternate[10];
 Tensor create_tensor(int,int*,int,int*);
 Tensor access_tensor(Tensor,int, Interval, int *, int);
 Tensor access_tensor_vtwo(Tensor,Interval*);
+int int_access_tensor(Tensor,int*);
 Tensor copy_tensor(Tensor);
 Tensor transpose(Tensor);
 Tensor create_identity_tensor(int,int);

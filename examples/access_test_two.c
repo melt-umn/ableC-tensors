@@ -24,8 +24,8 @@ int main() {
   int dimTwo = 2;
   int *dimSizeTwo = malloc(sizeof(int)*2); //2
   dimSizeTwo[0] = 3;
-  dimSizeTwo[1] = 3;
-  int countTwo = 9;
+  dimSizeTwo[1] = 4;
+  int countTwo = 12;
   int *dataTwo = malloc(sizeof(int)*countTwo);
   dataTwo[0] = 32;
   dataTwo[1] = 1234;
@@ -36,6 +36,9 @@ int main() {
   dataTwo[6] = 2341;
   dataTwo[7] = -3123;
   dataTwo[8] = -53;
+  dataTwo[9] = 123;
+  dataTwo[10] = -432;
+  dataTwo[11] = -56;
   Tensor tenTwo = create_tensor(dimTwo,dimSizeTwo,countTwo,dataTwo);
 
 
@@ -87,7 +90,7 @@ int main() {
   printf("original tensor:\n");
   print_tensor(tenTwo,delimiters,10);
   printf("\n\n");
-  printf("accessing from 0 - 1, 0 - 1 (should be 32, 1234 // 645, -6)\n");
+  printf("accessing from 0 - 1, 0 - 1 (should be 32, 1234 // -6, 23)\n");
 	print_tensor(access_tensor_vtwo(tenTwo,interListTwo),delimiters,10);
   printf("\n\n");
 

@@ -4,9 +4,34 @@
 #include <errno.h>
 #include <math.h>
 
+int int_access_tensor(Tensor tens, int *indices) {
+  int j,currentIndex,currentSum,currentProd,downTo,k;
+  int dim = tens.dim;
+  int *dim_size = tens.dim_size;
+  int *data = tens.data;
+
+  currentSum = 0;
+  currentIndex = 0;
+  downTo = 0;
+
+  for (k = 0; k < dim; k++) { //add dim times
+    currentProd = 1; //reset currentProduct
+    //goes from smallest dim_size to smallest_one wanted
+    for (j = dim - 1; j > downTo; j--) {
+      currentProd *= dim_size[j];
+    }
+    downTo++; //won't go as low next time
+    //multiply it by largest index, currentIndex goes up
+    currentProd *= indices[currentIndex++];
+    //add the product to our sum thusfar, last time will be just the smallest index
+    currentSum += currentProd;
+  }
+  return data[currentSum];
+}
+
 //assumes indices is same size as tensor dim
 Tensor access_tensor_vtwo(Tensor tens, Interval *indices) {
-  int x,y,z,j,n,xi;
+  int x,y,z,j;//,n,xi;
 
   int dim = tens.dim;
   int *dim_size = tens.dim_size;
@@ -54,7 +79,7 @@ Tensor access_tensor_vtwo(Tensor tens, Interval *indices) {
     j = 0;
     for (x = indices[0].lBound; x <= indices[0].rBound; x++) { //row?
       for (y = indices[1].lBound; y <= indices[1].rBound;y++) { //col?
-        newData[j] = data[y + dim_size[0]*x]; //col + row_size * row
+        newData[j] = data[y + dim_size[1]*x]; //col + col_size * row
         j++;
       }
     }
@@ -85,36 +110,36 @@ Tensor access_tensor_vtwo(Tensor tens, Interval *indices) {
     }
   }
 
-  else {
-    newDim = dim;
-    newDimSize = malloc(sizeof(int)*newDim);
-    for (i = 0; i < newDim; i++) {
-      newDimSize[i] = 1 + indices[i].rBound - indices[i].lBound;
-    }
-    newCount = 1;
-    for (x = 0; x < newDim; x++) { //total elements is each dim multiplied
-      newCount *= newDimSize[x];
-    }
-    newData = malloc(sizeof(int)*newCount);
-    int currentSum;
-    int currentProd;
-    // for (i = 0; i < newCount; i++) { //index
-      currentSum = 0;
-      for (n = dim - 1; n > 0; n--) { //add
-        xn = newDimSize[n];
-        currentProd = 1;
-        for (j = 0; j < n - 1; j ++) { //prod
-          currentProd *= dim_size[j];
-        }
-        currentSum += currentProd * xn;
-      }
-      sum = currentProd;
-      // newData[i] = currentProd;
-    }
+  // else {
+  //   newDim = dim;
+  //   newDimSize = malloc(sizeof(int)*newDim);
+  //   for (i = 0; i < newDim; i++) {
+  //     newDimSize[i] = 1 + indices[i].rBound - indices[i].lBound;
+  //   }
+  //   newCount = 1;
+  //   for (x = 0; x < newDim; x++) { //total elements is each dim multiplied
+  //     newCount *= newDimSize[x];
+  //   }
+  //   newData = malloc(sizeof(int)*newCount);
+  //   int currentSum;
+  //   int currentProd;
+  //   // for (i = 0; i < newCount; i++) { //index
+  //     currentSum = 0;
+  //     for (n = dim - 1; n > 0; n--) { //add
+  //       xn = newDimSize[n];
+  //       currentProd = 1;
+  //       for (j = 0; j < n - 1; j ++) { //prod
+  //         currentProd *= dim_size[j];
+  //       }
+  //       currentSum += currentProd * xn;
+  //     }
+  //     sum = currentProd;
+  //     // newData[i] = currentProd;
+  //   }
 
 
 
-  }
+  // }
   newTens.dim = newDim;
   newTens.dim_size = newDimSize;
   newTens.count = newCount;
