@@ -20,4 +20,6 @@ marking terminal freeDynamic 'free_dynamic';
 
 marking terminal free 'free';
 
+concrete production free_dynamic
+e::Expr ::= 'free' '(' Tensor ')'
 
