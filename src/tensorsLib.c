@@ -157,7 +157,7 @@ Tensor access_tensor(Tensor tens, Interval *interIndices) {
         largestChangingDim--;
       }
 			if (currentChangingDim != 0) {
-				interIndicesCopy[largestChangingDim].lBound += 1; //change the first dimension that's greater than 1			}
+				interIndicesCopy[largestChangingDim].lBound += 1; //change the first dimension that's greater than 1
 			}
 		}
   }
@@ -971,3 +971,21 @@ void print_tensor_alternate(Tensor input, char * delimiters, int numDelims) {
 	printf("]\n\n");
 }
 */
+
+//For now only works on square matrices
+void LU_Decomp(Tensor toDecompose, Tensor *L, Tensor *U) {
+  int i = 0;
+  int j = 0;
+
+  if (toDecompose.dim != 2 && toDecompose.dim_size[0] == toDecompose.dim_size[1]) {
+    printf("\n\nCannot work on any tensor except those that are 2-dimensional\n\n");
+    exit(1);
+  }
+
+  //In case they hold any data that we shouldn't have
+
+  *L = create_identity_tensor(toDecompose.dim, toDecompose.dim_size[0]);
+  *U = zeros(toDecompose.dim, toDecompose.dim_size);
+
+  print_tensor(toDecompose, delimiters, 10);
+}
