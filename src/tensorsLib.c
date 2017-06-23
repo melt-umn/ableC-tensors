@@ -198,7 +198,7 @@ Tensor copy_tensor(Tensor tens) {
 
 /*
   Description:
-    Takes a tensor and transposes it (rows and columns are swapped)shhdsfsdfjasdfjsdfjasdfjkk.
+    Takes a tensor and transposes it (rows and columns are swapped).
 
   Assumption:
     The tensors passed in must be <= two dimensions and the returned tensor
@@ -209,55 +209,24 @@ Tensor transpose(Tensor tens) {
 
 	Tensor newTens;
 	newTens.count = tens.count;
-	newTens.dim = tens.dim;
 	newTens.data = malloc(sizeof(float)*tens.count); //malloc space for data
 
-	switch(tens.dim) {
-		//scalar tensor returns the tensor (copy)
-		case 0:
-			newTens.data[0] = tens.data[0];
-			newTens.dim_size = NULL;
-			break;
-
-		 // n tensor is equivalent to n x 1, will become 1 x n
-		case 1:
-			newTens.dim = 2;
-			newTens.dim_size = malloc(sizeof(int)*2);
-			newTens.dim_size[0] = 1;
-			newTens.dim_size[1] = tens.dim_size[0];
-			for (i = 0; i < tens.count; i++) { //put all elements in, just need to copy
-				newTens.data[i] = tens.data[i];
+	if (newTens.dim == 2) {
+		newTens.dim = 2;
+		newTens.dim_size = malloc(sizeof(int)*2);
+		newTens.dim_size[0] = tens.dim_size[1];
+		newTens.dim_size[1] = tens.dim_size[0];
+		//can't just copy the elements for an n x m array :(
+		for (i = 0; i < newTens.dim_size[0]; i++) { //col / row
+			for (j = 0; j < newTens.dim_size[1]; j++) { //row / col
+				newTens.data[j+newTens.dim_size[1]*i] = tens.data[i + tens.dim_size[0]*j]; //rip math thanks nathan
 			}
-			break;
-
-		//tensor is two dimensional
-		case 2:
-			if (tens.dim_size[0] == 1) { // 1 x n tensor will become n
-				newTens.dim = 1;
-				newTens.dim_size = malloc(sizeof(int));
-				newTens.dim_size[0] = tens.dim_size[1];
-				for (i = 0; i < tens.count; i++) { //put all elements in, just need to copy
-					newTens.data[i] = tens.data[i];
-				}
-			} else { // n x m tensor will become m x n
-				newTens.dim = 2;
-				newTens.dim_size = malloc(sizeof(int)*2);
-				newTens.dim_size[0] = tens.dim_size[1];
-				newTens.dim_size[1] = tens.dim_size[0];
-				//can't just copy the elements for an n x m array :(
-				for (i = 0; i < newTens.dim_size[0]; i++) { //col / row
-					for (j = 0; j < newTens.dim_size[1]; j++) { //row / col
-						newTens.data[j+newTens.dim_size[1]*i] = tens.data[i + tens.dim_size[0]*j]; //rip math thanks nathan
-					}
-				}
-			}
-			break;
-
-		default:
-			printf("\n\nToo many dimensions to transpose\n\n");
-			exit(1);
+		}
+		return newTens;
+	} else {
+		printf("\n\nToo many dimensions to transpose\n\n");
+		exit(1);
 	}
-	return newTens;
 }
 
 /*
@@ -612,6 +581,92 @@ Tensor tensor_elem_multiply(Tensor tOne, Tensor tTwo) {
 
 Tensor tensor_elem_divide(Tensor tOne, Tensor tTwo) {
 	return tensor_combine(scalar_divide,tOne,tTwo);
+}
+
+Tensor matrix_multiply(Tensor tOne, Tensor tTwo) {
+	int i,j,k,currentCount;
+	int dimOne = tOne.dim;
+	int dimTwo = tTwo.dim;
+	int *dimSizeOne = tOne.dim_size;
+	int *dimSizeTwo = tTwo.dim_size;
+	float *dataOne = tOne.data;
+	float *dataThree;
+
+	int newDim;
+	int *newDimSize;
+	int newCount;
+	float *newData;
+
+	Tensor newTens;
+	Tensor tempOne;
+	Tensor tempTwo;
+
+	//temp tensors are used to pass into dot product
+	int tempOneDim;
+	int *tempOneDimSize;
+	float *tempOneData;
+
+	int tempTwoDim;
+	int *tempTwoDimSize;
+	float *tempTwoData;
+
+	if (dimOne == 2 && dimTwo == 2) { //must be a 2d matrix
+		if (dimSizeOne[1] == dimSizeTwo[0]) { //tensor one is n x m, tensor two is m x p
+			newDim = 2;
+			newDimSize = malloc(sizeof(int)*2);
+			newDimSize[0] = dimSizeOne[0];
+			newDimSize[1] = dimSizeTwo[1]; //new tensor is n x p
+			newCount = dimSizeOne[0] * dimSizeTwo[1];
+			newData = malloc(sizeof(int)*newCount);
+			
+			Tensor tThree = transpose(tTwo); //tThree will now be p x m
+			dataThree = tThree.data;
+
+			tempOneDim = 2;
+			tempOneDimSize = malloc(sizeof(int)*2);
+			tempOneDimSize[0] = 1;
+			tempOneDimSize[1] = dimSizeOne[1];
+			tempOneData = malloc(sizeof(int)*dimSizeOne[1]);
+
+			tempTwoDim = 2;
+			tempTwoDimSize = malloc(sizeof(int)*2);
+			tempTwoDimSize[0] = 1;
+			tempTwoDimSize[1] = dimSizeOne[1];
+			tempTwoData = malloc(sizeof(int)*dimSizeOne[1]);
+
+			currentCount = 0;
+			for (i = 0; i < dimSizeOne[0]; i++) {
+				k = 0;
+				for (j = 0; j < dimSizeTwo[1]; j++) {
+					tempOneData[k] = dataOne[dimSizeOne[0] * j + i];
+					tempTwoData[k++] = dataThree[dimSizeOne[0] * j + i];
+				}
+
+				tempOne.dim = tempOneDim;
+				tempOne.dim_size = tempOneDimSize;
+				tempOne.count = tempOneDimSize[1];
+				tempOne.data = tempOneData;
+
+				tempTwo.dim = tempTwoDim;
+				tempTwo.dim_size = tempTwoDimSize;
+				tempTwo.count = tempTwoDimSize[1];
+				tempTwo.data = tempTwoData;
+
+				newData[currentCount++] = float_dot_product_vtwo(tempOne,tempTwo);
+			}
+			newTens.dim = newDim;
+			newTens.dim_size = newDimSize;
+			newTens.count = newCount;
+			newTens.data = newData;
+			return newTens;
+		} else {
+			printf("Tensors multiplied must be n x m and m x p\n");
+			exit(1);
+		}
+	} else {
+		printf("Tensors multiplied must be two-dimensional\n");
+		exit(1);
+	}
 }
 
 /*
