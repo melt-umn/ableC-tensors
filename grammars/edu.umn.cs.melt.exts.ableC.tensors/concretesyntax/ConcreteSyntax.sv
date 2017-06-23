@@ -17,11 +17,12 @@ marking terminal TensorEnvOpen_t '[.';
 terminal TensorEnvClose_t '.]';
 
 marking terminal create_tensor 'create';
-marking terminal access_tensor 'access';
+marking terminal access_tensor 'access'; --done
+marking terminal float_to_tensor 'float_to_tensor'; --done
 marking terminal copy_tensor 'copy'; --done
 marking terminal transpose 'trans'; --done
 marking terminal identity_tensor 'id'; --done
-marking terminal identity_tensor_asymmetric 'id_as';
+marking terminal identity_tensor_asymmetric 'id_as'; --done
 marking terminal fill_tensor 'fill';
 marking terminal ones 'ones';
 marking terminal zeros 'zeros';
@@ -62,6 +63,17 @@ marking terminal free 'free'; --done
 marking terminal free_dynamic 'free_dynamic'; --done
 marking terminal tensor_print 'print'; --done
 
+concrete production create_c
+e::PrimaryExpr_c ::= 'create' '(' numDim :: AssignExpr_c ',' dimSize :: AssignExpr_c ',' count :: AssignExpr_c ',' data :: AssignExpr_c')'
+{
+  e.ast = create_a(numDim, dimSize, count, data);
+}
+
+concrete production access_c
+e::PrimaryExpr_c ::= 'access' '(' tensor :: AssignExpr_c ',' interval :: AssignExpr_c ')'
+{
+  e.ast = access_a (tensor.ast);
+}
 
 concrete production float_to_scalar_tensor_c
 --not positive AssignExpr_c is the one we want to use (from ableC:concretesyntax)
@@ -87,6 +99,30 @@ concrete production identity_tensor_c
 e::PrimaryExpr_c ::= 'id' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
 {
   e.ast = identity_tensor_a(numDim.ast, sizeDim.ast);
+}
+
+concrete production fill_tensor_c
+e::PrimaryExpr_c ::= 'fill' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ',' toFill :: AssignExpr_c ')'
+{
+  e.ast = fill_tensor_a(numDim.ast, sizeDim.ast, toFill.ast);
+}
+
+concrete production identity_tensor_asymmetric_c
+e::PrimaryExpr_c ::= 'id_as' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
+{
+  e.ast = identity_tensor_assymetric_a(numDim.ast, sizeDim.ast);
+}
+
+concrete production ones_c
+e::PrimaryExpr_c ::= 'ones' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
+{
+  e.ast = ones_a(numDim.ast, sizeDim.ast);
+}
+
+concrete production zeros_c
+e::PrimaryExpr_c ::= 'zeros' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
+{
+  e.ast = zeros_a(numDim.ast, sizeDim.ast);
 }
 
 concrete production scalar_tensor_to_float
@@ -257,3 +293,4 @@ e::PrimaryExpr_c ::= 'print' '(' value :: AssignExpr_c ')'
   ppConcat
   e.ast = print_tensor_a(value.ast);
 }
+
