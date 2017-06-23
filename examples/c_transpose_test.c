@@ -4,13 +4,23 @@
 
 //tests the transpose function (print isn't working yet)
 int main () {
-  int *dataTestOne;
-  dataTestOne = malloc(sizeof(int)*1);
-  dataTestOne[0] = 1;
+  int dim = 2;
+  
+  int *dimSizeOne = malloc(sizeof(int)*2); //3 x 3
+  dimSizeOne[0] = 3;
+  dimSizeOne[1] = 3;
+  int countOne = 9;
+  float dataOne[9] = {9, 10, 21, 32, 53, 12, 43, 4, 10};
+  Tensor tenOne = create_tensor(dim,dimSizeOne,countOne,dataOne);
 
-  int *dataTestTwo;
-  dataTestTwo = malloc(sizeof(int)*1);
-  dataTestTwo[0] = 3;
+
+  int *dimSizeTwo = malloc(sizeof(int)*2); //3 x 5
+  dimSizeTwo[0] = 3;
+  dimSizeTwo[1] = 5;
+  int countTwo = 15;
+  float dataTwo[15] = {12, 43, 65, 34, 23, 6, 7, 2, 45, 20, 40, 21, 65, 7, 69};
+  Tensor tenTwo = create_tensor(dim,dimSizeTwo,countTwo,dataTwo);
+
 
   int *dataTestThree;
   dataTestThree = malloc(sizeof(int)*2);
@@ -22,28 +32,20 @@ int main () {
   dataTestFour[0] = 1;
   dataTestFour[1] = 6;
 
-  int *dataTestFive;
-  dataTestFive = malloc(sizeof(int)*3);
-  dataTestFive[0] = 3;
-  dataTestFive[1] = 4;
-  dataTestFive[2] = 5;
-
-  Tensor fillOne = fill_tensor(0,dataTestOne,666);
-  printf("0 dim 666 tensor is: \n");
-  print_tensor(fillOne,delimiters,10);
+  printf("first tensor is: \n");
+  print_tensor(tenOne,delimiters,10);
   printf("\n");
-  printf("0 dim 666 transposed tensor is: \n");
-  print_tensor(transpose(fillOne),delimiters,10);
+  printf("first tensor transposed is: \n");
+  print_tensor(transpose(tenOne),delimiters,10);
   printf("\n\n");
 
-
-  Tensor fillTwo = fill_tensor(1,dataTestTwo,666);
-  printf("3 x 1 666 tensor is: \n");
-  print_tensor(fillTwo,delimiters,10);
+  printf("second tensor is: \n");
+  print_tensor(tenTwo,delimiters,10);
   printf("\n");
-  printf("3 x 1 666 transposed tensor is: \n");
-  print_tensor(transpose(fillTwo),delimiters,10);
+  printf("second tensor transposed is: \n");
+  print_tensor(transpose(tenTwo),delimiters,10);
   printf("\n\n");
+
 
   Tensor fillThree = ones(2,dataTestThree);
   printf("2 x 5 ones tensor is: \n");
@@ -61,12 +63,6 @@ int main () {
   print_tensor(transpose(fillFour),delimiters,10);
   printf("\n\n");
 
-  Tensor fillFive = fill_tensor(3,dataTestFive,666);
-  printf("3 x 4 x 5 666 tensor is: \n");
-  print_tensor(fillFive,delimiters,10);
-  printf("\n");
-  printf("3 x 4 x 5 666 tranposed tensor (should break) is: \n");
-  print_tensor(transpose(fillFive),delimiters,10);
 
   return 0;
 }

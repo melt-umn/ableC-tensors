@@ -205,21 +205,21 @@ Tensor copy_tensor(Tensor tens) {
 		will have the same dimensions, but swapped. Does NOT mutate the actual tensor.
 */
 Tensor transpose(Tensor tens) {
-	int i,j;
+	int i,j,currentCount;
 
 	Tensor newTens;
 	newTens.count = tens.count;
 	newTens.data = malloc(sizeof(float)*tens.count); //malloc space for data
 
-	if (newTens.dim == 2) {
+	if (tens.dim == 2) {
 		newTens.dim = 2;
 		newTens.dim_size = malloc(sizeof(int)*2);
 		newTens.dim_size[0] = tens.dim_size[1];
 		newTens.dim_size[1] = tens.dim_size[0];
-		//can't just copy the elements for an n x m array :(
+		currentCount = 0;
 		for (i = 0; i < newTens.dim_size[0]; i++) { //col / row
 			for (j = 0; j < newTens.dim_size[1]; j++) { //row / col
-				newTens.data[j+newTens.dim_size[1]*i] = tens.data[i + tens.dim_size[0]*j]; //rip math thanks nathan
+				newTens.data[currentCount++] = tens.data[i + tens.dim_size[1]*j]; //fixed transpose :D
 			}
 		}
 		return newTens;
@@ -550,6 +550,7 @@ Tensor tensor_combine(float (*fun)(float,float), Tensor tOne, Tensor tTwo) {
 		tens.count = tOne.count;
 		tens.data = malloc(sizeof(float)*tOne.count);
 		tens.dim = tOne.dim;
+		tens.dim_size = malloc(sizeof(float)*tOne.dim);
 
 		for (i = 0; i < tOne.dim; i++) {
 			tens.dim_size[i] = tOne.dim_size[i];
@@ -583,8 +584,8 @@ Tensor tensor_elem_divide(Tensor tOne, Tensor tTwo) {
 	return tensor_combine(scalar_divide,tOne,tTwo);
 }
 
-Tensor matrix_multiply(Tensor tOne, Tensor tTwo) {
-	int i,j,k,currentCount;
+Tensor tensor_multiply(Tensor tOne, Tensor tTwo) {
+	int i,j,k,z,currentCount;
 	int dimOne = tOne.dim;
 	int dimTwo = tTwo.dim;
 	int *dimSizeOne = tOne.dim_size;
@@ -602,11 +603,11 @@ Tensor matrix_multiply(Tensor tOne, Tensor tTwo) {
 	Tensor tempTwo;
 
 	//temp tensors are used to pass into dot product
-	int tempOneDim;
+	// int tempOneDim;
 	int *tempOneDimSize;
 	float *tempOneData;
 
-	int tempTwoDim;
+	// int tempTwoDim;
 	int *tempTwoDimSize;
 	float *tempTwoData;
 
@@ -618,41 +619,39 @@ Tensor matrix_multiply(Tensor tOne, Tensor tTwo) {
 			newDimSize[1] = dimSizeTwo[1]; //new tensor is n x p
 			newCount = dimSizeOne[0] * dimSizeTwo[1];
 			newData = malloc(sizeof(int)*newCount);
-			
+
 			Tensor tThree = transpose(tTwo); //tThree will now be p x m
 			dataThree = tThree.data;
 
-			tempOneDim = 2;
 			tempOneDimSize = malloc(sizeof(int)*2);
 			tempOneDimSize[0] = 1;
 			tempOneDimSize[1] = dimSizeOne[1];
 			tempOneData = malloc(sizeof(int)*dimSizeOne[1]);
 
-			tempTwoDim = 2;
 			tempTwoDimSize = malloc(sizeof(int)*2);
 			tempTwoDimSize[0] = 1;
 			tempTwoDimSize[1] = dimSizeOne[1];
 			tempTwoData = malloc(sizeof(int)*dimSizeOne[1]);
 
 			currentCount = 0;
-			for (i = 0; i < dimSizeOne[0]; i++) {
-				k = 0;
-				for (j = 0; j < dimSizeTwo[1]; j++) {
-					tempOneData[k] = dataOne[dimSizeOne[0] * j + i];
-					tempTwoData[k++] = dataThree[dimSizeOne[0] * j + i];
+			for (i = 0; i < dimSizeOne[0]; i++) { //choose row
+				for (j = 0; j < dimSizeTwo[1]; j++) { //choose "column"
+					k = 0;
+					for (z = 0; z < dimSizeOne[1]; z++) { //choose element
+						tempOneData[k] = dataOne[dimSizeOne[1] * i + z];
+						tempTwoData[k++] = dataThree[dimSizeOne[1] * j + z];
+					}
+					tempOne.dim = 2;
+					tempOne.dim_size = tempOneDimSize;
+					tempOne.count = dimSizeOne[1];
+					tempOne.data = tempOneData;
+
+					tempTwo.dim = 2;
+					tempTwo.dim_size = tempTwoDimSize;
+					tempTwo.count = dimSizeOne[1];
+					tempTwo.data = tempTwoData;
+					newData[currentCount++] = float_dot_product_vtwo(tempOne,tempTwo);
 				}
-
-				tempOne.dim = tempOneDim;
-				tempOne.dim_size = tempOneDimSize;
-				tempOne.count = tempOneDimSize[1];
-				tempOne.data = tempOneData;
-
-				tempTwo.dim = tempTwoDim;
-				tempTwo.dim_size = tempTwoDimSize;
-				tempTwo.count = tempTwoDimSize[1];
-				tempTwo.data = tempTwoData;
-
-				newData[currentCount++] = float_dot_product_vtwo(tempOne,tempTwo);
 			}
 			newTens.dim = newDim;
 			newTens.dim_size = newDimSize;

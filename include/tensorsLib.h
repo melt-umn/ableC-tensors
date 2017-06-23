@@ -65,6 +65,7 @@ Tensor tensor_elem_subtract(Tensor,Tensor);
 Tensor tensor_elem_multiply(Tensor,Tensor);
 Tensor tensor_elem_divide(Tensor,Tensor);
 
+Tensor tensor_multiply(Tensor,Tensor);
 Tensor dot_product(Tensor,Tensor);
 float float_dot_product(Tensor,Tensor);
 float float_dot_product_vtwo(Tensor,Tensor);
