@@ -8,69 +8,72 @@ imports edu:umn:cs:melt:ableC:abstractsyntax:construction;
 imports edu:umn:cs:melt:exts:ableC:tensors:abstractsyntax;
 
 imports silver:langutil only ast;
+imports silver:langutil:pp;
+imports silver:langutil;
 
 --lol idk how to reference pointers? so avoiding all the equations that use pointers lol
 --also not sure how location works and where it's needed, so i'm not using it anywhere yet
-nonterminal Tensor with pp, 
+nonterminal Tensor with pp; 
 
 marking terminal TensorEnvOpen_t '[.';
 terminal TensorEnvClose_t '.]';
 
-marking terminal create_tensor 'create';
-marking terminal access_tensor 'access'; --done
-marking terminal float_to_tensor 'float_to_tensor'; --done
-marking terminal copy_tensor 'copy'; --done
-marking terminal transpose 'trans'; --done
-marking terminal identity_tensor 'id'; --done
-marking terminal identity_tensor_asymmetric 'id_as'; --done
-marking terminal fill_tensor 'fill';
-marking terminal ones 'ones';
-marking terminal zeros 'zeros';
-marking terminal tensor_to_float 'ten_to_float'; --done
+{-marking terminal Create_tensor 'create';
+marking terminal Access_tensor 'access'; --done
+marking terminal Float_to_tensor 'float_to_tensor'; --done
+marking terminal Copy_tensor 'copy'; --done
+marking terminal Transpose 'trans'; --done
+marking terminal Identity_tensor 'id'; --done
+marking terminal Identity_tensor_asymmetric 'id_as'; --done
+marking terminal Fill_tensor 'fill';-}
+marking terminal Ones 'ones';
+{-
+marking terminal Zeros 'zeros';
+marking terminal Tensor_to_float 'ten_to_float'; --done
 
-marking terminal map_tensor 'map';
-marking terminal square_all 'square'; --done
-marking terminal increment 'inc'; --done
+marking terminal Map_tensor 'map';
+marking terminal Square_all 'square'; --done
+marking terminal Increment 'inc'; --done
 
-marking terminal fold 'fold';
-marking terminal max 'max'; --done
-marking terminal min 'min'; --done
-marking terminal sum 'sum'; --done
-marking terminal product 'prod'; --done
-marking terminal tensor_max 'ten_max'; --done
-marking terminal tensor_min 'ten_min'; --done
-marking terminal tensor_sum 'ten_sum'; --done
-marking terminal tensor_product 'ten_prod'; --done
+marking terminal Fold 'fold';
+marking terminal Max 'max'; --done
+marking terminal Min 'min'; --done
+marking terminal Sum 'sum'; --done
+marking terminal Product 'prod'; --done
+marking terminal Tensor_max 'ten_max'; --done
+marking terminal Tensor_min 'ten_min'; --done
+marking terminal Tensor_sum 'ten_sum'; --done
+marking terminal Tensor_product 'ten_prod'; --done
 
-marking terminal tensor_combine 'tensor_combine';
-marking terminal tensor_elem_add 'tensor_elem_add'; --done
-marking terminal tensor_elem_subtract 'tensor_elem_subtract'; --done
-marking terminal tensor_elem_multiply 'tensor_elem_multiply'; --done
-marking terminal tensor_elem_divide 'tensor_elem_divide'; --done
+marking terminal Tensor_combine 'tensor_combine';
+marking terminal Tensor_elem_add 'tensor_elem_add'; --done
+marking terminal Tensor_elem_subtract 'tensor_elem_subtract'; --done
+marking terminal Tensor_elem_multiply 'tensor_elem_multiply'; --done
+marking terminal Tensor_elem_divide 'tensor_elem_divide'; --done
 
-marking terminal dot_product 'dot'; --done
-marking terminal float_dot_product 'float_dot'; --done
-marking terminal float_dot_product_vtwo 'float_dot_vtwo'; --done
-marking terminal cross_product 'cross'; --done
-marking terminal scalar_triple_product 'scalar_triple_product'; --done
-marking terminal float_scalar_triple_product 'float_triple_product'; --done
-marking terminal vector_triple_product 'vector_triple_product'; --done
+marking terminal Dot_product 'dot'; --done
+marking terminal Float_dot_product 'float_dot'; --done
+marking terminal Float_dot_product_vtwo 'float_dot_vtwo'; --done
+marking terminal Cross_product 'cross'; --done
+marking terminal Scalar_triple_product 'scalar_triple_product'; --done
+marking terminal Float_scalar_triple_product 'float_triple_product'; --done
+marking terminal Vector_triple_product 'vector_triple_product'; --done
 
-marking terminal trace 'trace'; --done
-marking terminal tensor_trace 'tensor_trace'; --done
+marking terminal Trace 'trace'; --done
+marking terminal Tensor_trace 'tensor_trace'; --done
 
-marking terminal free 'free'; --done
-marking terminal free_dynamic 'free_dynamic'; --done
-marking terminal tensor_print 'print'; --done
+marking terminal Free 'free'; --done
+marking terminal Free_dynamic 'free_dynamic'; --done
+marking terminal Tensor_print 'print'; --done
 
 concrete production create_c
-e::PrimaryExpr_c ::= 'create' '(' numDim :: AssignExpr_c ',' dimSize :: AssignExpr_c ',' count :: AssignExpr_c ',' data :: AssignExpr_c')'
+e::Expr_c ::= 'create' '(' numDim :: AssignExpr_c ',' dimSize :: AssignExpr_c ',' count :: AssignExpr_c ',' data :: AssignExpr_c')'
 {
   e.ast = create_a(numDim, dimSize, count, data);
 }
 
 concrete production access_c
-e::PrimaryExpr_c ::= 'access' '(' tensor :: AssignExpr_c ',' interval :: AssignExpr_c ')'
+e::Expr_c ::= 'access' '(' tensor :: AssignExpr_c ',' interval :: AssignExpr_c ')'
 {
   e.ast = access_a (tensor.ast);
 }
@@ -78,49 +81,49 @@ e::PrimaryExpr_c ::= 'access' '(' tensor :: AssignExpr_c ',' interval :: AssignE
 concrete production float_to_scalar_tensor_c
 --not positive AssignExpr_c is the one we want to use (from ableC:concretesyntax)
 --will ask Eric about this, but using this for all floats for now :)
-e::PrimaryExpr_c ::= '[.' value :: AssignExpr_c '.]'
+e::Expr_c ::= '[.' value :: AssignExpr_c '.]'
 {
   e.ast = float_to_scalar_tensor_a (value.ast, location = left.location);
 }
 
 concrete production copy_tensor_c
-e::PrimaryExpr_c ::= 'copy' '(' value :: AssignExpr_c ')';
+e::Expr_c ::= 'copy' '(' value :: AssignExpr_c ')'
 {
   e.ast = copy_tensor_a(value.ast);
 }
 
 concrete production transpose_tensor_c
-e::PrimaryExpr_c ::= 'trans' '(' value :: AssignExpr_c ')';
+e::Expr_c ::= 'trans' '(' value :: AssignExpr_c ')'
 {
   e.ast = tranpose_tensor_a(value.ast);
 }
 
 concrete production identity_tensor_c
-e::PrimaryExpr_c ::= 'id' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
+e::Expr_c ::= 'id' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
 {
   e.ast = identity_tensor_a(numDim.ast, sizeDim.ast);
 }
 
 concrete production fill_tensor_c
-e::PrimaryExpr_c ::= 'fill' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ',' toFill :: AssignExpr_c ')'
+e::Expr_c ::= 'fill' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ',' toFill :: AssignExpr_c ')'
 {
   e.ast = fill_tensor_a(numDim.ast, sizeDim.ast, toFill.ast);
 }
 
 concrete production identity_tensor_asymmetric_c
-e::PrimaryExpr_c ::= 'id_as' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
+e::Expr_c ::= 'id_as' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
 {
   e.ast = identity_tensor_assymetric_a(numDim.ast, sizeDim.ast);
 }
-
+-}
 concrete production ones_c
-e::PrimaryExpr_c ::= 'ones' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
+e::Expr_c ::= 'ones' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
 {
   e.ast = ones_a(numDim.ast, sizeDim.ast);
 }
-
+{-
 concrete production zeros_c
-e::PrimaryExpr_c ::= 'zeros' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
+e::Expr_c ::= 'zeros' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
 {
   e.ast = zeros_a(numDim.ast, sizeDim.ast);
 }
@@ -132,13 +135,13 @@ e::AssignExpr_c ::= 'ten_to_float' '(' value :: AssignExpr_c ')'
 }
 
 concrete production square_c
-e::PrimaryExpr_c ::= 'square' '(' value :: AssignExpr_c ')'
+e::Expr_c ::= 'square' '(' value :: AssignExpr_c ')'
 {
   e.ast = square_a(value.ast);
 }
 
 concrete production increment_c
-e::PrimaryExpr_c ::= 'inc' '(' value :: AssignExpr_c ')'
+e::Expr_c ::= 'inc' '(' value :: AssignExpr_c ')'
 {
   e.ast = increment_a(value.ast);
 }
@@ -168,55 +171,55 @@ e::AssignExpr_c ::= 'prod' '(' value :: AssignExpr_c ')'
 }
 
 concrete production tensor_max_c
-e::PrimaryExpr_c ::= 'ten_max' '(' value :: AssignExpr_c ')'
+e::Expr_c ::= 'ten_max' '(' value :: AssignExpr_c ')'
 {
   e.ast = tensor_max_a(value.ast);
 }
 
 concrete production tensor_min_c
-e::PrimaryExpr_c ::= 'ten_min' '(' value :: AssignExpr_c ')'
+e::Expr_c ::= 'ten_min' '(' value :: AssignExpr_c ')'
 {
   e.ast = tensor_min_a(value.ast);
 }
 
 concrete production tensor_sum_c
-e::PrimaryExpr_c ::= 'ten_sum' '(' value :: AssignExpr_c ')'
+e::Expr_c ::= 'ten_sum' '(' value :: AssignExpr_c ')'
 {
   e.ast = tensor_sum_a(value.ast);
 }
 
 concrete production tensor_product_c
-e::PrimaryExpr_c ::= 'ten_prod' '(' value :: AssignExpr_c ')'
+e::Expr_c ::= 'ten_prod' '(' value :: AssignExpr_c ')'
 {
   e.ast = tensor_product_a(value.ast);
 }
 
 concrete production tensor_elem_add_c
-e::PrimaryExpr_c ::= 'tensor_elem_add' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c ')'
+e::Expr_c ::= 'tensor_elem_add' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c ')'
 {
   e.ast = tensor_elem_add_a(valueOne.ast,valueTwo.ast);
 }
 
 concrete production tensor_elem_subtract_c
-e::PrimaryExpr_c ::= 'tensor_elem_subtract' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c ')'
+e::Expr_c ::= 'tensor_elem_subtract' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c ')'
 {
   e.ast = tensor_elem_subtract_a(valueOne.ast,valueTwo.ast);
 }
 
 concrete production tensor_elem_multiply_c
-e::PrimaryExpr_c ::= 'tensor_elem_multiply' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c ')'
+e::Expr_c ::= 'tensor_elem_multiply' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c ')'
 {
   e.ast = tensor_elem_multiply_a(valueOne.ast,valueTwo.ast);
 }
 
 concrete production tensor_elem_divide_c
-e::PrimaryExpr_c ::= 'tensor_elem_divide' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c ')'
+e::Expr_c ::= 'tensor_elem_divide' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c ')'
 {
   e.ast = tensor_elem_divide_a(valueOne.ast,valueTwo.ast);
 }
 
 concrete production dot_product_c
-e::PrimaryExpr_c ::= 'dot' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c ')'
+e::Expr_c ::= 'dot' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c ')'
 {
   e.ast = dot_product_a(valueOne.ast,valueTwo.ast);
 }
@@ -234,27 +237,27 @@ e::AssignExpr_c ::= 'float_dot_vtwo' '(' valueOne :: AssignExpr_c ',' valueTwo :
 }
 
 concrete production cross_product_c
-e::PrimaryExpr_c ::= 'cross' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c ')'
+e::Expr_c ::= 'cross' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c ')'
 {
   e.ast = cross_product_a(valueOne.ast,valueTwo.ast);
 }
 
 concrete production scalar_triple_product_c
-e::PrimaryExpr_c ::= 'scalar_triple_product' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c,
+e::Expr_c ::= 'scalar_triple_product' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c ','
                       valueThree :: AssignExpr_c ')'
 {
   e.ast = scalar_triple_product_a(valueOne.ast,valueTwo.ast,valueThree.ast);
 }
 
 concrete production float_scalar_triple_product_c
-e::AssignExpr_c ::= 'float_triple_product' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c,
+e::AssignExpr_c ::= 'float_triple_product' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c ','
                       valueThree :: AssignExpr_c ')'
 {
   e.ast = float_scalar_triple_product_a(valueOne.ast,valueTwo.ast,valueThree.ast);
 }
 
 concrete production vector_triple_product_c
-e::PrimaryExpr_c ::= 'vector_triple_product' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c,
+e::Expr_c ::= 'vector_triple_product' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c ','
                       valueThree :: AssignExpr_c ')'
 {
   e.ast = vector_triple_product_a(valueOne.ast,valueTwo.ast,valueThree.ast);
@@ -262,35 +265,34 @@ e::PrimaryExpr_c ::= 'vector_triple_product' '(' valueOne :: AssignExpr_c ',' va
 
 
 concrete production trace_c
-e::PrimaryExpr_c ::= 'trace' '(' value :: AssignExpr_c ')'
+e::Expr_c ::= 'trace' '(' value :: AssignExpr_c ')'
 {
   e.ast = trace_a(value.ast);
 }
 
 concrete production tensor_trace_c
-e::PrimaryExpr_c ::= 'tensor_trace' '(' value :: AssignExpr_c ')'
+e::Expr_c ::= 'tensor_trace' '(' value :: AssignExpr_c ')'
 {
   e.ast = tensor_trace_a(value.ast);
 }
 
 --no return type, not sure what to put?
 concrete production free_tensor_c
-e::PrimaryExpr_c ::= 'free' '(' value :: AssignExpr_c ')'
+e::Expr_c ::= 'free' '(' value :: AssignExpr_c ')'
 {
   e.ast = free_tensor_a(value.ast);
 }
 
 concrete production free_tensor_dynamic_c
-e::PrimaryExpr_c ::= 'free_dynamic' '(' value :: AssignExpr_c ')'
+e::Expr_c ::= 'free_dynamic' '(' value :: AssignExpr_c ')'
 {
   e.ast = free_tensor_dynamic_a(value.ast);
 }
 
 concrete production print_tensor_c
 --not sure how a tensor should be, using this since it's used in matlab concretesyntax
-e::PrimaryExpr_c ::= 'print' '(' value :: AssignExpr_c ')'
+e::Expr_c ::= 'print' '(' value :: AssignExpr_c ')'
 {
-  ppConcat
   e.ast = print_tensor_a(value.ast);
 }
-
+-}
