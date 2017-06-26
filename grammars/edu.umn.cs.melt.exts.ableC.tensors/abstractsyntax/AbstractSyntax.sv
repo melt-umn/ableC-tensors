@@ -14,3 +14,9 @@ e::Expr ::= numDim :: Expr sizeDim :: Expr
   numDim.env = e.env;
   sizeDim.env = e.env;
 }
+
+abstract production print_tensor_a
+e::Expr ::= tensor :: Expr{
+  forwards to txtExpr("print_tensor(" ++ show(80, tensor.pp) ++ ", delimiters, 10)", location = txtLoc("ableC-tensors"));
+  tensor.env = e.env;
+}
