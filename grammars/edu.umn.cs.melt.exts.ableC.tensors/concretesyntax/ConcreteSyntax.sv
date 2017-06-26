@@ -24,7 +24,7 @@ marking terminal Transpose 'trans'; --done
 marking terminal Identity_tensor 'id'; --done
 marking terminal Identity_tensor_asymmetric 'id_as'; --done
 marking terminal Fill_tensor 'fill';-}
-marking terminal Ones 'ones' lexer classes {Ckeyword};
+marking terminal Ones '1s' lexer classes {Ckeyword};
 {-
 marking terminal Zeros 'zeros';
 marking terminal Tensor_to_float 'ten_to_float'; --done
@@ -115,7 +115,7 @@ e::Expr_c ::= 'id_as' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
 }
 -}
 concrete production ones_c
-e::Expr_c ::= 'ones' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
+e::Expr_c ::= '1s' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
 {
   e.ast = ones_a(numDim.ast, sizeDim.ast, location = txtLoc("ableC-tensors"));
 }
