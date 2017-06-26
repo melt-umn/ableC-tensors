@@ -7,13 +7,11 @@ imports edu:umn:cs:melt:ableC:abstractsyntax:construction;
 
 imports edu:umn:cs:melt:exts:ableC:tensors:abstractsyntax;
 
-imports silver:langutil only ast;
 imports silver:langutil:pp;
 imports silver:langutil;
 
 --lol idk how to reference pointers? so avoiding all the equations that use pointers lol
 --also not sure how location works and where it's needed, so i'm not using it anywhere yet
-nonterminal Tensor with pp; 
 
 marking terminal TensorEnvOpen_t '[.';
 terminal TensorEnvClose_t '.]';
@@ -119,7 +117,7 @@ e::Expr_c ::= 'id_as' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
 concrete production ones_c
 e::Expr_c ::= 'ones' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
 {
-  e.ast = ones_a(numDim.ast, sizeDim.ast);
+  e.ast = ones_a(numDim.ast, sizeDim.ast, location = txtLoc("ableC-tensors"));
 }
 {-
 concrete production zeros_c
