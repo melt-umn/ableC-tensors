@@ -1,4 +1,4 @@
-#include "../include/tensorsLib.h"
+#include "tensorsLib.h"
 
 int main(int argc, char **argv) {
 	int sizeDim[2] = {2, 2};

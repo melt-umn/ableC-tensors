@@ -36,7 +36,7 @@ examples: $(C_SOURCES:.c=.out)
 	gcc $(LDFLAGS) -o $@ $^ $(LDLIBS)
 
 %.o: %.c
-	gcc -c $(CFLAGS) -o $@ $^
+	$(CC) -c $(CFLAGS) -o $@ $^
 
 %.c: ableC.jar %.xc
 	java -jar ableC.jar $< $@

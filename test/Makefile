@@ -3,7 +3,7 @@ ABLEC_BASE?=../../../ableC
 EXTS_BASE?=../../../extensions
 
 # The jar file to built
-ABLEC_JAR=ableC.jar
+ABLEC_JAR=../examples/ableC.jar
 # The artifact specification grammar to compile
 ARTIFACT=artifact
 # All directories containing grammars that may be included
@@ -38,9 +38,9 @@ LDLIBS=$(addprefix -L, $(LIB_DIRS))
 
 all: $(ABLEC_JAR) $(C_FILES) $(OBJECTS) $(EXECUTABLES) $(TESTS)
 
-$(ABLEC_JAR): $(GRAMMAR_SOURCES)
-	touch $(wildcard $(ARTIFACT)/*.sv)
-	silver -o $(ABLEC_JAR) $(SVFLAGS) $(ARTIFACT)
+.PHONY: $(ABLEC_JAR)
+$(ABLEC_JAR):
+	make -C $(dir $(ABLEC_JAR)) ableC.jar
 
 %.c: %.xc $(ABLEC_JAR)
 	java -jar $(ABLEC_JAR) $< $(XCFLAGS)
