@@ -24,7 +24,7 @@ marking terminal Transpose 'trans'; --done
 marking terminal Identity_tensor 'id'; --done
 marking terminal Identity_tensor_asymmetric 'id_as'; --done
 marking terminal Fill_tensor 'fill';-}
-marking terminal Ones 'ones';
+marking terminal Ones 'ones' lexer classes {Ckeyword};
 {-
 marking terminal Zeros 'zeros';
 marking terminal Tensor_to_float 'ten_to_float'; --done

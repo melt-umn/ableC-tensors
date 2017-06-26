@@ -7,7 +7,7 @@ grammar well_definedness;
 
 import edu:umn:cs:melt:ableC:concretesyntax as cst;
 import edu:umn:cs:melt:ableC:drivers:compile;
-import edu:umn:cs:melt:exts:ableC:tables;
+import edu:umn:cs:melt:exts:ableC:tensors;
 
 parser extendedParser :: cst:Root {
   edu:umn:cs:melt:ableC:concretesyntax;
