@@ -973,7 +973,7 @@ void print_tensor_alternate(Tensor input, char * delimiters, int numDelims) {
 */
 
 //For now only works on square matrices
-void LU_Decomp(Tensor toDecompose, Tensor *L, Tensor *U) {
+/*void LU_Decomp(Tensor toDecompose, Tensor *L, Tensor *U) {
   int i = 0;
   int j = 0;
 
@@ -988,4 +988,4 @@ void LU_Decomp(Tensor toDecompose, Tensor *L, Tensor *U) {
   *U = zeros(toDecompose.dim, toDecompose.dim_size);
 
   print_tensor(toDecompose, delimiters, 10);
-}
+}*/

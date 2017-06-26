@@ -11,7 +11,7 @@ import edu:umn:cs:melt:exts:ableC:tables;
 
 parser extendedParser :: cst:Root {
   edu:umn:cs:melt:ableC:concretesyntax;
-  edu:umn:cs:melt:exts:ableC:tables;
+  edu:umn:cs:melt:exts:ableC:tensors;
 } 
 
 function main
