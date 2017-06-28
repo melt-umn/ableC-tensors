@@ -20,9 +20,11 @@ e::Expr ::= numDim :: Expr sizeDim :: Expr
 }
 -}
 
+--check type of float in here probably? if it isn't a float we want to raise an error instead of passing it to the function
 abstract production float_to_scalar_tensor_a
-e::Expr ::= float :: Expr l = Location{
-	forwards to floatToScalarTensor(float, l);
+e::Expr ::= float :: Expr
+{
+	forwards to floatToScalarTensor(float, e.location);
 }
 
 {-
@@ -35,8 +37,10 @@ e::Expr ::= tensor :: Expr{
 }
 -}
 
+--matlab splits up the c calls as functions, seperate from the abstract productions
+--do we wish to do this as well? :) 
 function floatToScalarTensor
-Expr ::= float :: Expr loc = Location
+Expr ::= float :: Expr l :: Location
 {
 	return 
 		directCallExpr(
