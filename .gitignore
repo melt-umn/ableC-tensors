@@ -14,5 +14,7 @@ build.xml
 *.so
 *.orig
 *.dSYM/
+!test/*.xc
+!test/Makefile
 example/*.c
 tensorsLib

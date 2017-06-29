@@ -30,10 +30,7 @@ e::Expr ::= float :: Expr
 abstract production print_tensor_a
 e::Expr ::= tensor :: Expr
 {
-  forwards to directCallExpr (
-    name("print_tensor", location = txtLoc("ableC-tensors")), consExpr(tensor, nilExpr()),
-    location = txtLoc ("ableC-tensors")
-  );
+  forwards to txtExpr("print_tensor(" ++ show(80, tensor.pp) ++ ", delimiters, 10)", location = txtLoc("ableC-tensors"));
   tensor.env = e.env;
 }
 
