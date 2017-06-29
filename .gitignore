@@ -4,6 +4,7 @@
 # Ignore dotfiles, except .gitignore
 .*
 !.gitignore
+
 # Ignore artifacts.
 build.xml
 *.a
@@ -14,7 +15,13 @@ build.xml
 *.so
 *.orig
 *.dSYM/
+
+#Ignore everything except for the Makefile and the .xc files
+test/*
 !test/*.xc
 !test/Makefile
-example/*.c
-tensorsLib
+
+#Ignore everything except for the Makefile and the .xc files
+example/*
+!example/*.xc
+!example/Makefile
