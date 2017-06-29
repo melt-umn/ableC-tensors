@@ -7,18 +7,16 @@ imports silver:langutil:pp;
 imports silver:langutil;
 imports edu:umn:cs:melt:ableC:abstractsyntax:env;
 
---i changed it to just float_to_scalar_tensor_a to begin with since that's the one most similar to matlab
---when i try to make, it can't find the function for some reason. i'm not sure why, but it makes me sad. :(
 
 abstract production ones_a
 e::Expr ::= numDim :: Expr sizeDim :: Expr
 {
   forwards to directCallExpr(
     name(
-    "ones", 
+    "ones",
     location = txtLoc("ableC-tensors")),
     consExpr (
-      numDim, 
+      numDim,
       consExpr(
         sizeDim,
         nilExpr()
@@ -45,12 +43,12 @@ e::Expr ::= float :: Expr
   forwards to floatToScalarTensor(float, e.location);
 }
 
---matlab splits up the c calls as functions, seperate from the abstract productions
+--matlab splits up the c calls as functions, separate from the abstract productions
 --do we wish to do this as well? :) 
 function floatToScalarTensor
 Expr ::= float :: Expr l :: Location
 {
-  return 
+  return
     directCallExpr(
       name("float_to_scalar_tensor", location = l),
       consExpr (float, nilExpr()),
