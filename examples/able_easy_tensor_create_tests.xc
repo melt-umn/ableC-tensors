@@ -9,7 +9,7 @@ int main() {
 
   Tensor fillThree = ones(2,dataTestThree);
   printf("2 x 5 ones tensor is: \n");
-  print_tensor(fillThree,delimiters,10);
+  print(fillThree,delimiters,10);
   printf("\n");
 
   return 0;
