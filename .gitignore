@@ -23,5 +23,6 @@ test/*
 
 #Ignore everything except for the Makefile and the .xc files
 example/*
+example/able_*.c
 !example/*.xc
 !example/Makefile
