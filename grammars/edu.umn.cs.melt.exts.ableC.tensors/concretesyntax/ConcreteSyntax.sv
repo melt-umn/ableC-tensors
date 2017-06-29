@@ -1,6 +1,5 @@
 grammar edu:umn:cs:melt:exts:ableC:tensors:concretesyntax;
 
---this is definitely wrong based on where things go now
 imports edu:umn:cs:melt:ableC:concretesyntax;
 imports edu:umn:cs:melt:ableC:abstractsyntax;
 imports edu:umn:cs:melt:ableC:abstractsyntax:construction;
@@ -10,22 +9,20 @@ imports edu:umn:cs:melt:exts:ableC:tensors:abstractsyntax;
 imports silver:langutil:pp;
 imports silver:langutil;
 
---lol idk how to reference pointers? so avoiding all the equations that use pointers lol
---also not sure how location works and where it's needed, so i'm not using it anywhere yet
-
 marking terminal TensorEnvOpen_t '[.';
 terminal TensorEnvClose_t '.]';
 
 {-marking terminal Create_tensor 'create';
 marking terminal Access_tensor 'access'; --done
+-}
 marking terminal Float_to_tensor 'float_to_tensor'; --done
+{-
 marking terminal Copy_tensor 'copy'; --done
 marking terminal Transpose 'trans'; --done
 marking terminal Identity_tensor 'id'; --done
 marking terminal Identity_tensor_asymmetric 'id_as'; --done
-marking terminal Fill_tensor 'fill';-}
+marking terminal Fill_tensor 'fill';
 marking terminal Ones 'onesss' lexer classes {Ckeyword};
-{-
 marking terminal Zeros 'zeros';
 marking terminal Tensor_to_float 'ten_to_float'; --done
 
@@ -62,9 +59,7 @@ marking terminal Tensor_trace 'tensor_trace'; --done
 
 marking terminal Free 'free'; --done
 marking terminal Free_dynamic 'free_dynamic'; --done
--}
 marking terminal Tensor_print 'printt' lexer classes {Ckeyword}; --done
-{-
 concrete production create_c
 e::Expr_c ::= 'create' '(' numDim :: AssignExpr_c ',' dimSize :: AssignExpr_c ',' count :: AssignExpr_c ',' data :: AssignExpr_c')'
 {
@@ -76,15 +71,13 @@ e::Expr_c ::= 'access' '(' tensor :: AssignExpr_c ',' interval :: AssignExpr_c '
 {
   e.ast = access_a (tensor.ast);
 }
-
+-}
 concrete production float_to_scalar_tensor_c
---not positive AssignExpr_c is the one we want to use (from ableC:concretesyntax)
---will ask Eric about this, but using this for all floats for now :)
-e::Expr_c ::= '[.' value :: AssignExpr_c '.]'
+e::PrimaryExpr_c ::= left :: TensorEnvOpen_t value :: AssignExpr_c '.]'
 {
-  e.ast = float_to_scalar_tensor_a (value.ast, location = left.location);
+  e.ast = float_to_scalar_tensor_a(value.ast, location = left.location);
 }
-
+{-
 concrete production copy_tensor_c
 e::Expr_c ::= 'copy' '(' value :: AssignExpr_c ')'
 {
@@ -114,13 +107,11 @@ e::Expr_c ::= 'id_as' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
 {
   e.ast = identity_tensor_assymetric_a(numDim.ast, sizeDim.ast);
 }
--}
 concrete production ones_c
 e::AssignExpr_c ::= 'onesss' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
 {
   e.ast = ones_a(numDim.ast, sizeDim.ast, location = txtLoc("ableC-tensors"));
 }
-{-
 concrete production zeros_c
 e::Expr_c ::= 'zeros' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
 {
@@ -287,10 +278,10 @@ e::Expr_c ::= 'free_dynamic' '(' value :: AssignExpr_c ')'
 {
   e.ast = free_tensor_dynamic_a(value.ast);
 }
--}
 concrete production print_tensor_c
 --not sure how a tensor should be, using this since it's used in matlab concretesyntax
 e::AssignExpr_c ::= 'printt' '(' value :: AssignExpr_c ')'
 {
   e.ast = print_tensor_a(value.ast, location = txtLoc("ableC-tensors"));
 }
+-}
