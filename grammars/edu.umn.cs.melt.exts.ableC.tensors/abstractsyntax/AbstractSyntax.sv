@@ -16,9 +16,11 @@ e::Expr ::= numDim :: Expr sizeDim :: Expr
 }
 
 abstract production print_tensor_a
-e::Expr ::= tensor :: Expr{
+e::Expr ::= tensor :: Expr
+{
   forwards to directCallExpr (
-    name(ones), tensor
+    name("print_tensor", location = txtLoc("ableC-tensors")), consExpr(tensor, nilExpr()),
+    location = txtLoc ("ableC-tensors")
   );
   tensor.env = e.env;
 }
