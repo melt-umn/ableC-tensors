@@ -22,7 +22,9 @@ marking terminal Transpose 'trans'; --done
 marking terminal Identity_tensor 'id'; --done
 marking terminal Identity_tensor_asymmetric 'id_as'; --done
 marking terminal Fill_tensor 'fill';
+-}
 marking terminal Ones 'onesss' lexer classes {Ckeyword};
+{-
 marking terminal Zeros 'zeros';
 marking terminal Tensor_to_float 'ten_to_float'; --done
 
@@ -59,7 +61,9 @@ marking terminal Tensor_trace 'tensor_trace'; --done
 
 marking terminal Free 'free'; --done
 marking terminal Free_dynamic 'free_dynamic'; --done
+-}
 marking terminal Tensor_print 'printt' lexer classes {Ckeyword}; --done
+{-
 concrete production create_c
 e::Expr_c ::= 'create' '(' numDim :: AssignExpr_c ',' dimSize :: AssignExpr_c ',' count :: AssignExpr_c ',' data :: AssignExpr_c')'
 {
@@ -107,11 +111,13 @@ e::Expr_c ::= 'id_as' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
 {
   e.ast = identity_tensor_assymetric_a(numDim.ast, sizeDim.ast);
 }
+-}
 concrete production ones_c
 e::AssignExpr_c ::= 'onesss' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
 {
   e.ast = ones_a(numDim.ast, sizeDim.ast, location = txtLoc("ableC-tensors"));
 }
+{-
 concrete production zeros_c
 e::Expr_c ::= 'zeros' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
 {
@@ -278,10 +284,10 @@ e::Expr_c ::= 'free_dynamic' '(' value :: AssignExpr_c ')'
 {
   e.ast = free_tensor_dynamic_a(value.ast);
 }
+-}
 concrete production print_tensor_c
 --not sure how a tensor should be, using this since it's used in matlab concretesyntax
 e::AssignExpr_c ::= 'printt' '(' value :: AssignExpr_c ')'
 {
   e.ast = print_tensor_a(value.ast, location = txtLoc("ableC-tensors"));
 }
--}
