@@ -50,7 +50,11 @@ int main() {
   printf("3 x 4 x 5 666 tensor is: \n");
   printT(fillFive);
 
-
+  freeT(fillOne);
+  freeT(fillTwo);
+  freeT(fillThree);
+  freeT(fillFour);
+  freeT(fillFive);
 
   return 0;
 }
