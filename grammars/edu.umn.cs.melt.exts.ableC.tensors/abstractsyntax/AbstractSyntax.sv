@@ -10,25 +10,65 @@ imports edu:umn:cs:melt:ableC:abstractsyntax:env;
 abstract production copy_tensor_a
 e::Expr ::= tensor :: Expr
 {
-  e.ast = copy_tensor_a(value.ast, location = e.location);
+  forwards to directCallExpr(
+    name(
+      "copy_tensor",
+      location = e.location
+    ),
+    consExpr(tensor,
+      nilExpr()
+    ),
+     location = e.location
+  );
 }
 
 abstract production transpose_tensor_a
 e::Expr ::= tensor :: Expr
 {
-  e.ast = transpose_tensor_a(value.ast, location = e.location);
+  forwards to directCallExpr(
+    name(
+      "transpose",
+      location = e.location
+    ),
+    consExpr(tensor,
+      nilExpr()
+    ),
+     location = e.location
+  );
 }
 
 abstract production identity_tensor_a
 e::Expr ::= numDim :: Expr sizeDim :: Expr
 {
-  e.ast = identity_tensor_a(numDim.ast, sizeDim.ast, location = e.location);
+  forwards to directCallExpr(
+    name(
+     "create_identity_tensor",
+     location = loc
+    ),
+    consExpr(numDim,
+      consExpr(sizeDim,
+        nilExpr()
+      )
+    ),
+    location = loc
+  );
 }
 
 abstract production identity_tensor_asymmetric_a
 e::Expr ::=  numDim :: Expr dimArr :: Expr
 {
-  e.ast = identity_tensor_asymmetric_a(numDim.ast, sizeDim.ast, location = e.location);
+  forwards to directCallExpr(
+    name(
+     "create_identity_tensor_asymmetric",
+     location = loc
+    ),
+    consExpr(numDim,
+      consExpr(dimArr,
+        nilExpr()
+      )
+    ),
+    location = loc
+  );
 }
 
 abstract production fill_tensor_a
@@ -88,25 +128,63 @@ e::Expr ::= numDim :: Expr sizeDim :: Expr
 abstract production map_a
 e::Expr ::= fun :: Expr tensor :: Expr
 {
-	e.ast = map_a(fun.ast, tensor.ast, location = e.location);
+  forwards to directCallExpr(
+    name(
+     "map",
+     location = loc
+    ),
+    consExpr(fun,
+      consExpr(tensor,
+        nilExpr()
+      )
+    ),
+    location = loc
+  );
 }
 
 abstract production square_a
 e::Expr ::= tensor :: Expr
 {
-  e.ast = square_a(value.ast, location = e.location);
+  forwards to directCallExpr(
+    name(
+      "square",
+      location = e.location
+    ),
+    consExpr(tensor,
+      nilExpr()
+    ),
+     location = e.location
+  );
 }
 
 abstract production increment_a
 e::Expr ::= tensor :: Expr 
 {
-  e.ast = increment_a(value.ast, location = e.location);
+  forwards to directCallExpr(
+    name(
+      "increment",
+      location = e.location
+    ),
+    consExpr(tensor,
+      nilExpr()
+    ),
+     location = e.location
+  );
 }
 
 abstract production free_tensor_a
 e::Expr ::= tensor :: Expr
 {
-  e.ast = free_tensor_a(value.ast, location = e.location);
+  forwards to directCallExpr(
+    name(
+      "free_tensor",
+      location = e.location
+    ),
+    consExpr(tensor,
+      nilExpr()
+    ),
+     location = e.location
+  );
 }
 
 abstract production free_tensor_dynamic_a
@@ -114,7 +192,7 @@ e::Expr ::= tensor :: Expr
 {
   forwards to directCallExpr(
     name(
-      "free_dynamic",
+      "free_tensor_dynamic",
       location = e.location
     ),
     consExpr(tensor,
