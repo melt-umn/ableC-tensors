@@ -22,7 +22,7 @@ test/*
 !test/Makefile
 
 #Ignore everything except for the Makefile and the .xc files
-example/*
-example/able_*.c
-!example/*.xc
-!example/Makefile
+examples/*
+examples/able_*.c
+!examples/*.xc
+!examples/Makefile
