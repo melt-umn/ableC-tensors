@@ -110,7 +110,7 @@ Tensor access_tensor(Tensor tens, Interval *interIndices) {
       intIndices[j] = interIndicesCopy[j].lBound;
       printf("%d ",intIndices[j]);
     }
-    newData[k] = float_access_tensor(tens, intIndices); //find the int at the current indices
+    newData[k] = float_access_tensor(tens, intIndices); //find the int at the current indice
 		printf(": %f\n",newData[k]);
     //changing the farthest element possible to the right
     if (interIndicesCopy[currentChangingDim].lBound != interIndicesCopy[currentChangingDim].rBound) {
@@ -931,6 +931,10 @@ void print_tensor(Tensor input, char * delimiters, int numDelims) {
 		printf("%i, ",  input.dim_size[i]);
 	}
 	printf("]\n\n");
+}
+
+void print_tensor_compact(Tensor input) {
+  print_tensor(input, delimiters, 10);
 }
 
 /*

@@ -12,8 +12,9 @@ e::Expr ::= numDim :: Expr sizeDim :: Expr
 {
   forwards to directCallExpr(
     name(
-    "ones",
-    location = txtLoc("ableC-tensors")),
+     "ones",
+     location = txtLoc("ableC-tensors")
+    ),
     consExpr (
       numDim,
       consExpr(
@@ -28,7 +29,17 @@ e::Expr ::= numDim :: Expr sizeDim :: Expr
 abstract production print_tensor_a
 e::Expr ::= tensor :: Expr
 {
-  forwards to txtExpr("print_tensor(" ++ show(80, tensor.pp) ++ ", delimiters, 10)", location = txtLoc("ableC-tensors"));
+  forwards to directCallExpr(
+    name(
+      "print_tensor_compact",
+      location = e.location
+    ),
+    consExpr(
+      tensor,
+      nilExpr()
+    ),
+     location = e.location
+  );
 }
 
 --i changed it to just float_to_scalar_tensor_a to begin with since that's the one most similar to matlab
