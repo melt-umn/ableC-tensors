@@ -7,24 +7,60 @@ imports silver:langutil:pp;
 imports silver:langutil;
 imports edu:umn:cs:melt:ableC:abstractsyntax:env;
 
+abstract production fill_tensor_a
+e::Expr ::= numDim :: Expr sizeDim :: Expr toFill :: Expr
+{
+  forwards to directCallExpr(
+    name(
+     "fill_tensor",
+     location = loc
+    ),
+    consExpr(numDim,
+      consExpr(sizeDim,
+		consExpr(toFill,
+ 	       nilExpr()
+		)
+      )
+    ),
+    location = loc
+  );
+}
+
+
 abstract production ones_a
 e::Expr ::= numDim :: Expr sizeDim :: Expr
 {
   forwards to directCallExpr(
     name(
      "ones",
-     location = txtLoc("ableC-tensors")
+     location = loc
     ),
-    consExpr (
-      numDim,
-      consExpr(
-        sizeDim,
+    consExpr(numDim,
+      consExpr(sizeDim,
         nilExpr()
       )
     ),
-    location = txtLoc("ableC-tensors")
+    location = loc
   );
 }
+
+abstract production zeros_a
+e::Expr ::= numDim :: Expr sizeDim :: Expr
+{
+  forwards to directCallExpr(
+    name(
+     "zeros",
+     location = loc
+    ),
+    consExpr(numDim,
+      consExpr(sizeDim,
+        nilExpr()
+      )
+    ),
+    location = loc
+  );
+}
+
 
 abstract production print_tensor_a
 e::Expr ::= tensor :: Expr
@@ -34,16 +70,13 @@ e::Expr ::= tensor :: Expr
       "print_tensor_compact",
       location = e.location
     ),
-    consExpr(
-      tensor,
+    consExpr(tensor,
       nilExpr()
     ),
      location = e.location
   );
 }
 
---i changed it to just float_to_scalar_tensor_a to begin with since that's the one most similar to matlab
---when i try to make, it can't find the function for some reason. i'm not sure why, but it makes me sad. :(
 --check type of float in here probably? if it isn't a float we want to raise an error instead of passing it to the function
 abstract production float_to_scalar_tensor_a
 e::Expr ::= float :: Expr
@@ -63,3 +96,5 @@ Expr ::= float :: Expr l :: Location
       location = l
     );
 }
+
+global loc::Location = txtLoc("ableC-tensors");
