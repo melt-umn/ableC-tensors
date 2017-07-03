@@ -172,6 +172,36 @@ e::Expr ::= tensor :: Expr
   );
 }
 
+abstract production trace_a
+e::Expr ::= tensor :: Expr
+{
+  forwards to directCallExpr(
+    name(
+      "trace",
+      location = e.location
+    ),
+    consExpr(tensor,
+      nilExpr()
+    ),
+     location = e.location
+  );
+}
+
+abstract production tensor_trace_a
+e::Expr ::= tensor :: Expr
+{
+  forwards to directCallExpr(
+    name(
+      "tensor_trace",
+      location = e.location
+    ),
+    consExpr(tensor,
+      nilExpr()
+    ),
+     location = e.location
+  );
+}
+
 abstract production free_tensor_a
 e::Expr ::= tensor :: Expr
 {

@@ -56,10 +56,11 @@ marking terminal Cross_product 'cross' lexer classes {Ckeyword}; --done
 marking terminal Scalar_triple_product 'scalar_triple_product' lexer classes {Ckeyword}; --done
 marking terminal Float_scalar_triple_product 'float_triple_product' lexer classes {Ckeyword}; --done
 marking terminal Vector_triple_product 'vector_triple_product' lexer classes {Ckeyword}; --done
-
-marking terminal Trace 'trace' lexer classes {Ckeyword}; --done
-marking terminal Tensor_trace 'tensor_trace' lexer classes {Ckeyword}; --done
 -}
+
+marking terminal Trace 'traceT' lexer classes {Ckeyword}; --done
+marking terminal Tensor_trace 'tensor_traceT' lexer classes {Ckeyword}; --done
+
 marking terminal Free 'freeT' lexer classes {Ckeyword}; --done
 marking terminal Free_dynamic 'free_dynamic' lexer classes {Ckeyword}; --done
 marking terminal Tensor_print 'printT' lexer classes {Ckeyword}; --done
@@ -268,22 +269,21 @@ e::AssignExpr_c ::= 'vector_triple_product' '(' valueOne :: AssignExpr_c ',' val
 {
   e.ast = vector_triple_product_a(valueOne.ast,valueTwo.ast,valueThree.ast, location = e.location);
 }
-
+-}
 
 
 concrete production trace_c
-e::AssignExpr_c ::= 'trace' '(' value :: AssignExpr_c ')'
+e::AssignExpr_c ::= 'traceT' '(' value :: AssignExpr_c ')'
 {
   e.ast = trace_a(value.ast, location = e.location);
 }
 
 concrete production tensor_trace_c
-e::AssignExpr_c ::= 'tensor_trace' '(' value :: AssignExpr_c ')'
+e::AssignExpr_c ::= 'tensor_traceT' '(' value :: AssignExpr_c ')'
 {
   e.ast = tensor_trace_a(value.ast, location = e.location);
 }
 
--}
 concrete production free_tensor_c
 e::AssignExpr_c ::= 'freeT' '(' value :: AssignExpr_c ')'
 {
