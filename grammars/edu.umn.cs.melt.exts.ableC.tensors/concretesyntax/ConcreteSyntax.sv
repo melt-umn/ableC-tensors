@@ -31,7 +31,7 @@ marking terminal Tensor_to_float 'ten_to_float' lexer classes {Ckeyword}; --done
 marking terminal Map_tensor 'mapT' lexer classes {Ckeyword};
 marking terminal Square_all 'squareT' lexer classes {Ckeyword}; --done
 marking terminal Increment 'inc' lexer classes {Ckeyword}; --done
-{-
+
 marking terminal Fold 'foldT' lexer classes {Ckeyword};
 marking terminal Tensor_fold 'ten_foldT' lexer classes {Ckeyword};
 marking terminal Max 'maxT' lexer classes {Ckeyword}; --done
@@ -57,7 +57,6 @@ marking terminal Cross_product 'cross' lexer classes {Ckeyword}; --done
 marking terminal Scalar_triple_product 'scalar_triple_productT' lexer classes {Ckeyword}; --done
 marking terminal Float_scalar_triple_product 'float_triple_productT' lexer classes {Ckeyword}; --done
 marking terminal Vector_triple_product 'vector_triple_productT' lexer classes {Ckeyword}; --done
--}
 
 marking terminal Trace 'traceT' lexer classes {Ckeyword}; --done
 marking terminal Tensor_trace 'tensor_traceT' lexer classes {Ckeyword}; --done
@@ -153,7 +152,6 @@ e::AssignExpr_c ::= 'inc' '(' value :: AssignExpr_c ')'
   e.ast = increment_a(value.ast, location = e.location);
 }
 
-{-
 concrete production fold_c
 e::AssignExpr_c ::= 'foldT' '(' fun :: AssignExpr_c ',' valueStart :: AssignExpr_c ',' ten :: AssignExpr_c ')'
 {
@@ -169,49 +167,49 @@ e::AssignExpr_c ::= 'ten_foldT' '(' fun :: AssignExpr_c ',' tensorStart :: Assig
 concrete production max_c
 e::AssignExpr_c ::= 'maxT' '(' tensor :: AssignExpr_c ')'
 {
-  e.ast = max_a(value.ast, location = e.location);
+  e.ast = max_a(tensor.ast, location = e.location);
 }
 
 concrete production min_c
 e::AssignExpr_c ::= 'minT' '(' tensor :: AssignExpr_c ')'
 {
-  e.ast = min_a(value.ast, location = e.location);
+  e.ast = min_a(tensor.ast, location = e.location);
 }
 
 concrete production sum_c
 e::AssignExpr_c ::= 'sumT' '(' tensor :: AssignExpr_c ')'
 {
-  e.ast = sum_a(value.ast, location = e.location);
+  e.ast = sum_a(tensor.ast, location = e.location);
 }
 
 concrete production product_c
 e::AssignExpr_c ::= 'prodT' '(' tensor :: AssignExpr_c ')'
 {
-  e.ast = product_a(value.ast, location = e.location);
+  e.ast = product_a(tensor.ast, location = e.location);
 }
 
 concrete production tensor_max_c
 e::AssignExpr_c ::= 'ten_max' '(' tensor :: AssignExpr_c ')'
 {
-  e.ast = tensor_max_a(value.ast, location = e.location);
+  e.ast = tensor_max_a(tensor.ast, location = e.location);
 }
 
 concrete production tensor_min_c
 e::AssignExpr_c ::= 'ten_min' '(' tensor :: AssignExpr_c ')'
 {
-  e.ast = tensor_min_a(value.ast, location = e.location);
+  e.ast = tensor_min_a(tensor.ast, location = e.location);
 }
 
 concrete production tensor_sum_c
 e::AssignExpr_c ::= 'ten_sum' '(' tensor :: AssignExpr_c ')'
 {
-  e.ast = tensor_sum_a(value.ast, location = e.location);
+  e.ast = tensor_sum_a(tensor.ast, location = e.location);
 }
 
 concrete production tensor_product_c
 e::AssignExpr_c ::= 'ten_prod' '(' tensor :: AssignExpr_c ')'
 {
-  e.ast = tensor_product_a(value.ast, location = e.location);
+  e.ast = tensor_product_a(tensor.ast, location = e.location);
 }
 
 concrete production tensor_combine_c
@@ -285,17 +283,15 @@ concrete production float_scalar_triple_product_c
 e::AssignExpr_c ::= 'float_triple_productT' '(' tenOne :: AssignExpr_c ',' tenTwo :: AssignExpr_c ','
                       tenThree :: AssignExpr_c ')'
 {
-  e.ast = float_scalar_triple_product_a(valueOne.ast,valueTwo.ast,valueThree.ast, location = e.location);
+  e.ast = float_scalar_triple_product_a(tenOne.ast,tenTwo.ast,tenThree.ast, location = e.location);
 }
 
 concrete production vector_triple_product_c
 e::AssignExpr_c ::= 'vector_triple_productT' '(' tenOne :: AssignExpr_c ',' tenTwo :: AssignExpr_c ','
                       tenThree :: AssignExpr_c ')'
 {
-  e.ast = vector_triple_product_a(tenOne.astteneTwo.ast,tenThree.ast, location = e.location);
+  e.ast = vector_triple_product_a(tenOne.ast,tenTwo.ast,tenThree.ast, location = e.location);
 }
--}
-
 
 concrete production trace_c
 e::AssignExpr_c ::= 'traceT' '(' value :: AssignExpr_c ')'
