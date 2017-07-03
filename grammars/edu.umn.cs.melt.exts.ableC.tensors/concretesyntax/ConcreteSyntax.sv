@@ -16,7 +16,6 @@ terminal TensorEnvClose_t '.]';
 {-marking terminal Create_tensor 'create' lexer classes {Ckeyword};
 marking terminal Access_tensor 'access' lexer classes {Ckeyword}; --done
 -}
-marking terminal Float_to_tensor 'float_to_tensor' lexer classes {Ckeyword}; --done
 
 marking terminal Copy_tensor 'copy' lexer classes {Ckeyword}; --done
 marking terminal Transpose 'trans' lexer classes {Ckeyword}; --done
@@ -26,17 +25,19 @@ marking terminal Identity_tensor_asymmetric 'id_as' lexer classes {Ckeyword}; --
 marking terminal Fill_tensor 'fill' lexer classes {Ckeyword};
 marking terminal Ones 'onesT' lexer classes {Ckeyword};
 marking terminal Zeros 'zerosT' lexer classes {Ckeyword};
+marking terminal Float_to_tensor 'float_to_tensor' lexer classes {Ckeyword}; --done
+
 marking terminal Tensor_to_float 'ten_to_float' lexer classes {Ckeyword}; --done
 
 marking terminal Map_tensor 'mapT' lexer classes {Ckeyword};
-marking terminal Square_all 'square' lexer classes {Ckeyword}; --done
+marking terminal Square_all 'squareT' lexer classes {Ckeyword}; --done
 marking terminal Increment 'inc' lexer classes {Ckeyword}; --done
 {-
 marking terminal Fold 'fold' lexer classes {Ckeyword};
 marking terminal Max 'maxT' lexer classes {Ckeyword}; --done
 marking terminal Min 'minT' lexer classes {Ckeyword}; --done
 marking terminal Sum 'sumT' lexer classes {Ckeyword}; --done
-marking terminal Product 'prod' lexer classes {Ckeyword}; --done
+marking terminal Product 'prodT' lexer classes {Ckeyword}; --done
 marking terminal Tensor_max 'ten_max' lexer classes {Ckeyword}; --done
 marking terminal Tensor_min 'ten_min' lexer classes {Ckeyword}; --done
 marking terminal Tensor_sum 'ten_sum' lexer classes {Ckeyword}; --done
@@ -139,7 +140,7 @@ e::AssignExpr_c ::= 'mapT' '(' fun :: AssignExpr_c ',' tensor :: AssignExpr_c  '
 }
 
 concrete production square_c
-e::AssignExpr_c ::= 'square' '(' value :: AssignExpr_c ')'
+e::AssignExpr_c ::= 'squareT' '(' value :: AssignExpr_c ')'
 {
   e.ast = square_a(value.ast, location = e.location);
 }
@@ -170,7 +171,7 @@ e::AssignExpr_c ::= 'sumT' '(' value :: AssignExpr_c ')'
 }
 
 concrete production product_c
-e::AssignExpr_c ::= 'prod' '(' value :: AssignExpr_c ')'
+e::AssignExpr_c ::= 'prodT' '(' value :: AssignExpr_c ')'
 {
   e.ast = product_a(value.ast, location = e.location);
 }
