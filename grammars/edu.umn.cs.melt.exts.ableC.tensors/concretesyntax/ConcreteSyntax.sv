@@ -13,9 +13,8 @@ imports silver:langutil;
 marking terminal TensorEnvOpen_t '[.';
 terminal TensorEnvClose_t '.]';
 
-{-marking terminal Create_tensor 'create' lexer classes {Ckeyword};
+marking terminal Create_tensor 'create' lexer classes {Ckeyword};
 marking terminal Access_tensor 'access' lexer classes {Ckeyword}; --done
--}
 
 marking terminal Copy_tensor 'copy' lexer classes {Ckeyword}; --done
 marking terminal Transpose 'trans' lexer classes {Ckeyword}; --done
@@ -65,7 +64,7 @@ marking terminal Free 'freeT' lexer classes {Ckeyword}; --done
 marking terminal Free_dynamic 'free_dynamic' lexer classes {Ckeyword}; --done
 marking terminal Tensor_print 'printT' lexer classes {Ckeyword}; --done
 
-{-
+
 concrete production create_c
 e::AssignExpr_c ::= 'create' '(' numDim :: AssignExpr_c ',' dimSize :: AssignExpr_c ',' count :: AssignExpr_c ',' data :: AssignExpr_c')'
 {
@@ -75,9 +74,9 @@ e::AssignExpr_c ::= 'create' '(' numDim :: AssignExpr_c ',' dimSize :: AssignExp
 concrete production access_c
 e::AssignExpr_c ::= 'access' '(' tensor :: AssignExpr_c ',' interval :: AssignExpr_c ')'
 {
-  e.ast = access_a (tensor.ast, location = e.location);
+  e.ast = access_a (tensor.ast, interval.ast, location = e.location);
 }
--}
+
 concrete production float_to_scalar_tensor_c
 e::PrimaryExpr_c ::= left :: TensorEnvOpen_t value :: AssignExpr_c '.]'
 {

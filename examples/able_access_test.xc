@@ -1,4 +1,4 @@
-#include "../src/tensorsLib.c"
+#include "../include/tensorsLib.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -13,7 +13,7 @@ int main() {
   dataOne[2] = 2;
   dataOne[3] = 645;
   dataOne[4] = -6;
-  Tensor tenOne = create_tensor(dimOne,dimSizeOne,countOne,dataOne);
+  Tensor tenOne = create(dimOne,dimSizeOne,countOne,dataOne);
 
   Interval interOne;
   interOne.lBound = 1;
@@ -39,13 +39,11 @@ int main() {
   dataTwo[9] = 123;
   dataTwo[10] = -432;
   dataTwo[11] = -56;
-  Tensor tenTwo = create_tensor(dimTwo,dimSizeTwo,countTwo,dataTwo);
+  Tensor tenTwo = create(dimTwo,dimSizeTwo,countTwo,dataTwo);
 
   int *intListTwo = malloc(sizeof(int)*2);
   intListTwo[0] = 1;
   intListTwo[1] = 0;
-
-
 
   Interval interTwo;
   interTwo.lBound = 0;
@@ -67,7 +65,7 @@ int main() {
   for (int i = 1; i <= countThree; i++) {
     dataThree[i-1] = i;
   }
-  Tensor tenThree = create_tensor(dimThree,dimSizeThree,countThree,dataThree);
+  Tensor tenThree = create(dimThree,dimSizeThree,countThree,dataThree);
 
   Interval interFour;
   interFour.lBound = 0;
@@ -83,48 +81,26 @@ int main() {
   interListThree[1] = interFive;
   interListThree[2] = interSix;
 
-
 	printf("original tensor:\n");
-  print_tensor(tenOne,delimiters,10);
+  printT(tenOne);
   printf("\n\n");
   printf("accessing from 1 - 3 (should be 1234, 2, 645)\n");
-	print_tensor(access_tensor(tenOne,interList),delimiters,10);
+	printT(access_tensor(tenOne,interList));
   printf("\n\n");
 
   printf("original tensor:\n");
-  print_tensor(tenTwo,delimiters,10);
+  printT(tenTwo);
   printf("\n\n");
   printf("accessing from 0 - 1, 0 - 1 (should be 32, 1234 // -6, 23)\n");
-	print_tensor(access_tensor(tenTwo,interListTwo),delimiters,10);
+	printT(access_tensor(tenTwo,interListTwo));
   printf("\n\n");
 
   printf("original tensor:\n");
-  print_tensor(tenThree,delimiters,10);
+  printT(tenThree);
   printf("\n\n");
   printf("accessing from [0-1][1-2][1-2](should be 5 6 8 9 14 15 17 18)\n");
-  print_tensor(access_tensor(tenThree,interListThree),delimiters,10);
+  printT(access_tensor(tenThree,interListThree));
   printf("\n\n");
 
 	return 0;
 }
-
-//  1  4  7
-// 10 13 16
-// 19 22 25
-//
-//  2  5  8
-// 11 14 17
-// 20 23 26
-//
-//  3  6  9
-// 12 15 18
-// 21 24 27
-//
-// [0][1][1] --> 5
-// [0][1][2] --> 6
-// [0][2][1] --> 8
-// [0][2][2] --> 9
-// [1][1][1] --> 14
-// [1][1][2] --> 15
-// [1][2][1] --> 17
-// [1][2][2] --> 18

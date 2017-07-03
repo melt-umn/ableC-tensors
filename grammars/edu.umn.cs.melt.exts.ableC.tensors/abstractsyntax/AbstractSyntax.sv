@@ -7,6 +7,44 @@ imports silver:langutil:pp;
 imports silver:langutil;
 imports edu:umn:cs:melt:ableC:abstractsyntax:env;
 
+abstract production create_a
+e::Expr ::= numDim :: Expr dimSize :: Expr count :: Expr data :: Expr
+{
+  forwards to directCallExpr(
+    name(
+     "create_tensor",
+     location = loc
+    ),
+    consExpr(numDim,
+      consExpr(dimSize,
+		    consExpr(count,
+          consExpr(data,
+ 	          nilExpr()
+          )
+		    )
+      )
+    ),
+    location = loc
+  );
+}
+
+abstract production access_a
+e::Expr ::= tensor :: Expr interval :: Expr
+{
+  forwards to directCallExpr(
+    name(
+     "access_tensor",
+     location = loc
+    ),
+    consExpr(tensor,
+      consExpr(interval,
+        nilExpr()
+      )
+    ),
+    location = loc
+  );
+}
+
 abstract production copy_tensor_a
 e::Expr ::= tensor :: Expr
 {
@@ -81,9 +119,9 @@ e::Expr ::= numDim :: Expr sizeDim :: Expr toFill :: Expr
     ),
     consExpr(numDim,
       consExpr(sizeDim,
-		consExpr(toFill,
+		    consExpr(toFill,
  	       nilExpr()
-		)
+		    )
       )
     ),
     location = loc

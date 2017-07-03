@@ -29,7 +29,7 @@ int main () {
   print_tensor(testThree,delimiters,10);
   printf("Trace (Tensor) is:\n");
   print_tensor(tensor_trace(testThree),delimiters,10);
-  printf("Trace (int) is: %f",trace(testThree));
+  printf("Trace (int) is: %f\n",trace(testThree));
 
   return 0;
 }
