@@ -28,25 +28,25 @@ marking terminal Ones 'onesT' lexer classes {Ckeyword};
 marking terminal Zeros 'zerosT' lexer classes {Ckeyword};
 marking terminal Tensor_to_float 'ten_to_float' lexer classes {Ckeyword}; --done
 
-marking terminal Map_tensor 'map' lexer classes {Ckeyword};
+marking terminal Map_tensor 'mapT' lexer classes {Ckeyword};
 marking terminal Square_all 'square' lexer classes {Ckeyword}; --done
 marking terminal Increment 'inc' lexer classes {Ckeyword}; --done
 {-
 marking terminal Fold 'fold' lexer classes {Ckeyword};
-marking terminal Max 'max' lexer classes {Ckeyword}; --done
-marking terminal Min 'min' lexer classes {Ckeyword}; --done
-marking terminal Sum 'sum' lexer classes {Ckeyword}; --done
+marking terminal Max 'maxT' lexer classes {Ckeyword}; --done
+marking terminal Min 'minT' lexer classes {Ckeyword}; --done
+marking terminal Sum 'sumT' lexer classes {Ckeyword}; --done
 marking terminal Product 'prod' lexer classes {Ckeyword}; --done
 marking terminal Tensor_max 'ten_max' lexer classes {Ckeyword}; --done
 marking terminal Tensor_min 'ten_min' lexer classes {Ckeyword}; --done
 marking terminal Tensor_sum 'ten_sum' lexer classes {Ckeyword}; --done
 marking terminal Tensor_product 'ten_prod' lexer classes {Ckeyword}; --done
 
-marking terminal Tensor_combine 'tensor_combine' lexer classes {Ckeyword};
-marking terminal Tensor_elem_add 'tensor_elem_add' lexer classes {Ckeyword}; --done
-marking terminal Tensor_elem_subtract 'tensor_elem_subtract' lexer classes {Ckeyword}; --done
-marking terminal Tensor_elem_multiply 'tensor_elem_multiply' lexer classes {Ckeyword}; --done
-marking terminal Tensor_elem_divide 'tensor_elem_divide' lexer classes {Ckeyword}; --done
+marking terminal Tensor_combine 'ten_combine' lexer classes {Ckeyword};
+marking terminal Tensor_elem_add 'ten_elem_add' lexer classes {Ckeyword}; --done
+marking terminal Tensor_elem_subtract 'ten_elem_subtract' lexer classes {Ckeyword}; --done
+marking terminal Tensor_elem_multiply 'ten_elem_multiply' lexer classes {Ckeyword}; --done
+marking terminal Tensor_elem_divide 'tenselem_divide' lexer classes {Ckeyword}; --done
 
 marking terminal Dot_product 'dot' lexer classes {Ckeyword}; --done
 marking terminal Float_dot_product 'float_dot' lexer classes {Ckeyword}; --done
@@ -133,7 +133,7 @@ e::AssignExpr_c ::= 'ten_to_float' '(' value :: AssignExpr_c ')'
 -}
 
 concrete production map_c
-e::AssignExpr_c ::= 'map' '(' fun :: AssignExpr_c ',' tensor :: AssignExpr_c  ')'
+e::AssignExpr_c ::= 'mapT' '(' fun :: AssignExpr_c ',' tensor :: AssignExpr_c  ')'
 {
 	e.ast = map_a(fun.ast, tensor.ast, location = e.location);
 }
@@ -152,19 +152,19 @@ e::AssignExpr_c ::= 'inc' '(' value :: AssignExpr_c ')'
 
 {-
 concrete production max_c
-e::AssignExpr_c ::= 'max' '(' value :: AssignExpr_c ')'
+e::AssignExpr_c ::= 'maxT' '(' value :: AssignExpr_c ')'
 {
   e.ast = max_a(value.ast, location = e.location);
 }
 
 concrete production min_c
-e::AssignExpr_c ::= 'min' '(' value :: AssignExpr_c ')'
+e::AssignExpr_c ::= 'minT' '(' value :: AssignExpr_c ')'
 {
   e.ast = min_a(value.ast, location = e.location);
 }
 
 concrete production sum_c
-e::AssignExpr_c ::= 'sum' '(' value :: AssignExpr_c ')'
+e::AssignExpr_c ::= 'sumT' '(' value :: AssignExpr_c ')'
 {
   e.ast = sum_a(value.ast, location = e.location);
 }
