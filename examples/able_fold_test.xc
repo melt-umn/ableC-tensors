@@ -102,13 +102,13 @@ int main () {
   printT(tenFive);
   printf("\n");
   printf("2 x 2 id tensor + 1's max\n");
-  printT(tensor_max(tenFive));
+  printT(ten_max(tenFive));
   printf("\n2 x 2 id tensor + 1's min\n");
-  printT(tensor_min(tenFive));
+  printT(ten_min(tenFive));
   printf("\n2 x 2 id tensor + 1's sum\n");
-  printT(tensor_sum(tenFive));
+  printT(ten_sum(tenFive));
   printf("\n2 x 2 id tensor + 1's product\n");
-  printT(tensor_prod(tenFive));
+  printT(ten_prod(tenFive));
 
   return 0;
 }

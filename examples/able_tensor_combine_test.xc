@@ -68,7 +68,7 @@ int main () {
   printf("\n\nmul 0 dim 1's and 9's tensors:\n");
   printT(ten_elem_multiply(tenFourF,tenFourS));
   printf("\n\ndiv 0 dim 1's and 9's tensors:\n");
-  printT(ter_elem_divide(tenFourF,tenFourS));
+  printT(ten_elem_divide(tenFourF,tenFourS));
 
   return 0;
 }
