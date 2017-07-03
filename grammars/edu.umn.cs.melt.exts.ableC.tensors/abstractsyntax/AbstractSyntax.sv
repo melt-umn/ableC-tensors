@@ -210,6 +210,144 @@ e::Expr ::= tensor :: Expr
   );
 }
 
+abstract production fold_a
+e::Expr ::= fun :: Expr tenStart :: Expr tensor :: Expr
+{
+  e.ast = fold_a(fun.ast, tenStart.ast, ten.ast, location = e.location);
+}
+
+abstract production tensor_fold_a
+e::Expr ::= fun :: Expr valueStart :: Expr tensor :: Expr
+{
+  e.ast = tensor_fold_a(fun.ast, valueStart.ast, ten.ast, location = e.location);
+}
+
+abstract production max_a
+e::Expr ::= tensor :: Expr
+{
+  e.ast = max_a(value.ast, location = e.location);
+}
+
+abstract production min_a
+e::Expr ::= tensor :: Expr
+{
+  e.ast = min_a(value.ast, location = e.location);
+}
+
+abstract production sum_a
+e::Expr ::= tensor :: Expr
+{
+  e.ast = sum_a(value.ast, location = e.location);
+}
+
+abstract production product_a
+e::Expr ::= value :: Expr
+{
+  e.ast = product_a(value.ast, location = e.location);
+}
+
+abstract production tensor_max_a
+e::Expr ::= value :: Expr
+{
+  e.ast = tensor_max_a(value.ast, location = e.location);
+}
+
+abstract production tensor_min_a
+e::Expr ::= value :: Expr
+{
+  e.ast = tensor_min_a(value.ast, location = e.location);
+}
+
+abstract production tensor_sum_a
+e::Expr ::= value :: Expr
+{
+  e.ast = tensor_sum_a(value.ast, location = e.location);
+}
+
+abstract production tensor_product_a
+e::Expr ::= value :: Expr
+{
+  e.ast = tensor_product_a(value.ast, location = e.location);
+}
+
+abstract production tensor_combine_a
+e::Expr ::= tenOne :: Expr tenTwo :: Expr
+{
+  e.ast = tensor_combine_a(tenOne.ast,tenTwo.ast, location = e.location);
+}
+
+abstract production tensor_elem_add_a
+e::Expr ::= valueOne :: Expr valueTwo :: Expr
+{
+  e.ast = tensor_elem_add_a(valueOne.ast,valueTwo.ast, location = e.location);
+}
+
+abstract production tensor_elem_subtract_a
+e::Expr ::= valueOne :: Expr valueTwo :: Expr
+{
+  e.ast = tensor_elem_subtract_a(valueOne.ast,valueTwo.ast, location = e.location);
+}
+
+abstract production tensor_elem_multiply_a
+e::Expr ::= valueOne :: Expr valueTwo :: Expr
+{
+  e.ast = tensor_elem_multiply_a(valueOne.ast,valueTwo.ast, location = e.location);
+}
+
+abstract production tensor_elem_divide_a
+e::Expr ::= valueOne :: Expr valueTwo :: Expr
+{
+  e.ast = tensor_elem_divide_a(valueOne.ast,valueTwo.ast, location = e.location);
+}
+
+abstract production tensor_multiply_a
+e::Expr ::= tenOne :: Expr tenTwo :: Expr
+{
+  e.ast = tensor_multiply_a(tenOne.ast,tenTwo.ast, location = e.location);
+}
+
+abstract production dot_product_a
+e::Expr ::= valueOne :: Expr valueTwo :: Expr
+{
+  e.ast = dot_product_a(valueOne.ast,valueTwo.ast, location = e.location);
+}
+
+abstract production float_dot_product_a
+e::Expr ::= valueOne :: Expr valueTwo :: Expr
+{
+  e.ast = float_dot_product_a(valueOne.ast,valueTwo.ast, location = e.location);
+}
+
+abstract production float_dot_product_vtwo_a
+e::Expr ::= valueOne :: Expr valueTwo :: Expr
+{
+  e.ast = float_dot_product_vtwo_a(valueOne.ast,valueTwo.ast, location = e.location);
+}
+
+abstract production cross_product_a
+e::Expr ::= valueOne :: Expr valueTwo :: Expr
+{
+  e.ast = cross_product_a(valueOne.ast,valueTwo.ast, location = e.location);
+}
+
+abstract production scalar_triple_product_a
+e::Expr ::= valueOne :: Expr valueTwo :: Expr valueThree :: Expr
+{
+  e.ast = scalar_triple_product_a(valueOne.ast,valueTwo.ast,valueThree.ast, location = e.location);
+}
+
+abstract production float_scalar_triple_product_a
+e::Expr ::= valueOne :: Expr valueTwo :: Expr valueThree :: Expr
+{
+  e.ast = float_scalar_triple_product_a(valueOne.ast,valueTwo.ast,valueThree.ast, location = e.location);
+}
+
+abstract production vector_triple_product_a
+e::Expr ::= valueOne :: Expr valueTwo :: Expr valueThree :: Expr
+{
+  e.ast = vector_triple_product_a(valueOne.ast,valueTwo.ast,valueThree.ast, location = e.location);
+}
+
 abstract production trace_a
 e::Expr ::= tensor :: Expr
 {

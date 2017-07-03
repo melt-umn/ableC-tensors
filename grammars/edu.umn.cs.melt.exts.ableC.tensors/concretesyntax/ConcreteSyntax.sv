@@ -24,7 +24,7 @@ marking terminal Identity_tensor_asymmetric 'id_as' lexer classes {Ckeyword}; --
 marking terminal Fill_tensor 'fill' lexer classes {Ckeyword};
 marking terminal Ones 'onesT' lexer classes {Ckeyword};
 marking terminal Zeros 'zerosT' lexer classes {Ckeyword};
-marking terminal Float_to_tensor 'float_to_tensor' lexer classes {Ckeyword}; --done
+marking terminal Float_to_tensor 'float_to_ten' lexer classes {Ckeyword}; --done
 
 marking terminal Tensor_to_float 'ten_to_float' lexer classes {Ckeyword}; --done
 
@@ -32,7 +32,8 @@ marking terminal Map_tensor 'mapT' lexer classes {Ckeyword};
 marking terminal Square_all 'squareT' lexer classes {Ckeyword}; --done
 marking terminal Increment 'inc' lexer classes {Ckeyword}; --done
 {-
-marking terminal Fold 'fold' lexer classes {Ckeyword};
+marking terminal Fold 'foldT' lexer classes {Ckeyword};
+marking terminal Tensor_fold 'ten_foldT' lexer classes {Ckeyword};
 marking terminal Max 'maxT' lexer classes {Ckeyword}; --done
 marking terminal Min 'minT' lexer classes {Ckeyword}; --done
 marking terminal Sum 'sumT' lexer classes {Ckeyword}; --done
@@ -48,7 +49,7 @@ marking terminal Tensor_elem_subtract 'ten_elem_subtract' lexer classes {Ckeywor
 marking terminal Tensor_elem_multiply 'ten_elem_multiply' lexer classes {Ckeyword}; --done
 marking terminal Tensor_elem_divide 'ten_elem_divide' lexer classes {Ckeyword}; --done
 
-marking terminal Tensor_multiply 'ten_multiply' lexer classes {Ckeyword};
+marking terminal Tensor_multiply 'ten_multiply' lexer classes {Ckeyword}; --done
 marking terminal Dot_product 'dot' lexer classes {Ckeyword}; --done
 marking terminal Float_dot_product 'float_dot' lexer classes {Ckeyword}; --done
 marking terminal Float_dot_product_vtwo 'float_dot_vtwo' lexer classes {Ckeyword}; --done
@@ -79,7 +80,7 @@ e::AssignExpr_c ::= 'access' '(' tensor :: AssignExpr_c ',' interval :: AssignEx
 }
 
 concrete production float_to_scalar_tensor_c
-e::PrimaryExpr_c ::= left :: TensorEnvOpen_t value :: AssignExpr_c '.]'
+e::PrimaryExpr_c ::= '[.' value :: AssignExpr_c '.]'
 {
   e.ast = float_to_scalar_tensor_a(value.ast, location = e.location);
 }
@@ -153,6 +154,18 @@ e::AssignExpr_c ::= 'inc' '(' value :: AssignExpr_c ')'
 }
 
 {-
+concrete production fold_c
+e::AssignExpr_c ::= 'foldT' '(' fun :: AssignExpr_c ',' tenStart :: AssignExpr_c ',' ten :: AssignExpr_c ')'
+{
+  e.ast = fold_a(fun.ast, tenStart.ast, ten.ast, location = e.location);
+}
+
+concrete production tensor_fold_c
+e::AssignExpr_c ::= 'ten_foldT' '(' fun :: AssignExpr_c ',' valueStart :: AssignExpr_c ',' ten :: AssignExpr_c ')'
+{
+  e.ast = tensor_fold_a(fun.ast, valueStart.ast, ten.ast, location = e.location);
+}
+
 concrete production max_c
 e::AssignExpr_c ::= 'maxT' '(' value :: AssignExpr_c ')'
 {
@@ -199,6 +212,12 @@ concrete production tensor_product_c
 e::AssignExpr_c ::= 'ten_prod' '(' value :: AssignExpr_c ')'
 {
   e.ast = tensor_product_a(value.ast, location = e.location);
+}
+
+concrete production tensor_combine_c
+e::AssignExpr_c ::= 'ten_combine' '(' tenOne :: AssignExpr_c ',' tenTwo :: AssignExpr_c ')'
+{
+  e.ast = tensor_combine_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
 
 concrete production tensor_elem_add_c
