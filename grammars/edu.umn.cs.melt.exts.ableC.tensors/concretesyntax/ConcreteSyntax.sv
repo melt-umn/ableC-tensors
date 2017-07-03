@@ -14,56 +14,56 @@ marking terminal TensorEnvOpen_t '[.';
 terminal TensorEnvClose_t '.]';
 
 marking terminal Create_tensor 'create' lexer classes {Ckeyword};
-marking terminal Access_tensor 'access' lexer classes {Ckeyword}; --done
+marking terminal Access_tensor 'access' lexer classes {Ckeyword};
 
-marking terminal Copy_tensor 'copy' lexer classes {Ckeyword}; --done
-marking terminal Transpose 'trans' lexer classes {Ckeyword}; --done
-marking terminal Identity_tensor 'id' lexer classes {Ckeyword}; --done
-marking terminal Identity_tensor_asymmetric 'id_as' lexer classes {Ckeyword}; --done
+marking terminal Copy_tensor 'copy' lexer classes {Ckeyword};
+marking terminal Transpose 'trans' lexer classes {Ckeyword};
+marking terminal Identity_tensor 'id' lexer classes {Ckeyword};
+marking terminal Identity_tensor_asymmetric 'id_as' lexer classes {Ckeyword};
 
 marking terminal Fill_tensor 'fill' lexer classes {Ckeyword};
 marking terminal Ones 'onesT' lexer classes {Ckeyword};
 marking terminal Zeros 'zerosT' lexer classes {Ckeyword};
-marking terminal Float_to_tensor 'float_to_ten' lexer classes {Ckeyword}; --done
+marking terminal Float_to_tensor 'float_to_ten' lexer classes {Ckeyword};
 
-marking terminal Tensor_to_float 'ten_to_float' lexer classes {Ckeyword}; --done
+marking terminal Tensor_to_float 'ten_to_float' lexer classes {Ckeyword};
 
 marking terminal Map_tensor 'mapT' lexer classes {Ckeyword};
-marking terminal Square_all 'squareT' lexer classes {Ckeyword}; --done
-marking terminal Increment 'inc' lexer classes {Ckeyword}; --done
+marking terminal Square_all 'squareT' lexer classes {Ckeyword};
+marking terminal Increment 'inc' lexer classes {Ckeyword};
 
 marking terminal Fold 'foldT' lexer classes {Ckeyword};
 marking terminal Tensor_fold 'ten_foldT' lexer classes {Ckeyword};
-marking terminal Max 'maxT' lexer classes {Ckeyword}; --done
-marking terminal Min 'minT' lexer classes {Ckeyword}; --done
-marking terminal Sum 'sumT' lexer classes {Ckeyword}; --done
-marking terminal Product 'prodT' lexer classes {Ckeyword}; --done
-marking terminal Tensor_max 'ten_max' lexer classes {Ckeyword}; --done
-marking terminal Tensor_min 'ten_min' lexer classes {Ckeyword}; --done
-marking terminal Tensor_sum 'ten_sum' lexer classes {Ckeyword}; --done
-marking terminal Tensor_product 'ten_prod' lexer classes {Ckeyword}; --done
+marking terminal Max 'maxT' lexer classes {Ckeyword};
+marking terminal Min 'minT' lexer classes {Ckeyword};
+marking terminal Sum 'sumT' lexer classes {Ckeyword};
+marking terminal Product 'prodT' lexer classes {Ckeyword};
+marking terminal Tensor_max 'ten_max' lexer classes {Ckeyword};
+marking terminal Tensor_min 'ten_min' lexer classes {Ckeyword};
+marking terminal Tensor_sum 'ten_sum' lexer classes {Ckeyword};
+marking terminal Tensor_product 'ten_prod' lexer classes {Ckeyword};
 
 marking terminal Tensor_combine 'ten_combine' lexer classes {Ckeyword};
-marking terminal Tensor_elem_add 'ten_elem_add' lexer classes {Ckeyword}; --done
-marking terminal Tensor_elem_subtract 'ten_elem_subtract' lexer classes {Ckeyword}; --done
-marking terminal Tensor_elem_multiply 'ten_elem_multiply' lexer classes {Ckeyword}; --done
-marking terminal Tensor_elem_divide 'ten_elem_divide' lexer classes {Ckeyword}; --done
+marking terminal Tensor_elem_add 'ten_elem_add' lexer classes {Ckeyword};
+marking terminal Tensor_elem_subtract 'ten_elem_subtract' lexer classes {Ckeyword};
+marking terminal Tensor_elem_multiply 'ten_elem_multiply' lexer classes {Ckeyword};
+marking terminal Tensor_elem_divide 'ten_elem_divide' lexer classes {Ckeyword};
 
-marking terminal Tensor_multiply 'ten_multiply' lexer classes {Ckeyword}; --done
-marking terminal Dot_product 'dot' lexer classes {Ckeyword}; --done
-marking terminal Float_dot_product 'float_dot' lexer classes {Ckeyword}; --done
-marking terminal Float_dot_product_vtwo 'float_dot_vtwo' lexer classes {Ckeyword}; --done
-marking terminal Cross_product 'cross' lexer classes {Ckeyword}; --done
-marking terminal Scalar_triple_product 'scalar_triple_productT' lexer classes {Ckeyword}; --done
-marking terminal Float_scalar_triple_product 'float_triple_productT' lexer classes {Ckeyword}; --done
-marking terminal Vector_triple_product 'vector_triple_productT' lexer classes {Ckeyword}; --done
+marking terminal Tensor_multiply 'ten_multiply' lexer classes {Ckeyword};
+marking terminal Dot_product 'dot' lexer classes {Ckeyword};
+marking terminal Float_dot_product 'float_dot' lexer classes {Ckeyword};
+marking terminal Float_dot_product_vtwo 'float_dot_vtwo' lexer classes {Ckeyword};
+marking terminal Cross_product 'cross' lexer classes {Ckeyword};
+marking terminal Scalar_triple_product 'scalar_triple_productT' lexer classes {Ckeyword};
+marking terminal Float_scalar_triple_product 'float_triple_productT' lexer classes {Ckeyword};
+marking terminal Vector_triple_product 'vector_triple_productT' lexer classes {Ckeyword};
 
-marking terminal Trace 'traceT' lexer classes {Ckeyword}; --done
-marking terminal Tensor_trace 'tensor_traceT' lexer classes {Ckeyword}; --done
+marking terminal Trace 'traceT' lexer classes {Ckeyword};
+marking terminal Tensor_trace 'tensor_traceT' lexer classes {Ckeyword};
 
-marking terminal Free 'freeT' lexer classes {Ckeyword}; --done
-marking terminal Free_dynamic 'free_dynamic' lexer classes {Ckeyword}; --done
-marking terminal Tensor_print 'printT' lexer classes {Ckeyword}; --done
+marking terminal Free 'freeT' lexer classes {Ckeyword};
+marking terminal Free_dynamic 'free_dynamic' lexer classes {Ckeyword};
+marking terminal Tensor_print 'printT' lexer classes {Ckeyword};
 
 
 concrete production create_c
