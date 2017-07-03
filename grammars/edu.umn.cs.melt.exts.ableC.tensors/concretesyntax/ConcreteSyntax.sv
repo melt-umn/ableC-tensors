@@ -68,7 +68,7 @@ marking terminal Tensor_print 'printT' lexer classes {Ckeyword}; --done
 concrete production create_c
 e::AssignExpr_c ::= 'create' '(' numDim :: AssignExpr_c ',' dimSize :: AssignExpr_c ',' count :: AssignExpr_c ',' data :: AssignExpr_c')'
 {
-  e.ast = create_a(numDim.ast, dimSize.ast, count.ast, data.ast);
+  e.ast = create_a(numDim.ast, dimSize.ast, count.ast, data.ast, location = e.location);
 }
 
 concrete production access_c
