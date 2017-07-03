@@ -46,15 +46,16 @@ marking terminal Tensor_combine 'ten_combine' lexer classes {Ckeyword};
 marking terminal Tensor_elem_add 'ten_elem_add' lexer classes {Ckeyword}; --done
 marking terminal Tensor_elem_subtract 'ten_elem_subtract' lexer classes {Ckeyword}; --done
 marking terminal Tensor_elem_multiply 'ten_elem_multiply' lexer classes {Ckeyword}; --done
-marking terminal Tensor_elem_divide 'tenselem_divide' lexer classes {Ckeyword}; --done
+marking terminal Tensor_elem_divide 'ten_elem_divide' lexer classes {Ckeyword}; --done
 
+marking terminal Tensor_multiply 'ten_multiply' lexer classes {Ckeyword};
 marking terminal Dot_product 'dot' lexer classes {Ckeyword}; --done
 marking terminal Float_dot_product 'float_dot' lexer classes {Ckeyword}; --done
 marking terminal Float_dot_product_vtwo 'float_dot_vtwo' lexer classes {Ckeyword}; --done
 marking terminal Cross_product 'cross' lexer classes {Ckeyword}; --done
-marking terminal Scalar_triple_product 'scalar_triple_product' lexer classes {Ckeyword}; --done
-marking terminal Float_scalar_triple_product 'float_triple_product' lexer classes {Ckeyword}; --done
-marking terminal Vector_triple_product 'vector_triple_product' lexer classes {Ckeyword}; --done
+marking terminal Scalar_triple_product 'scalar_triple_productT' lexer classes {Ckeyword}; --done
+marking terminal Float_scalar_triple_product 'float_triple_productT' lexer classes {Ckeyword}; --done
+marking terminal Vector_triple_product 'vector_triple_productT' lexer classes {Ckeyword}; --done
 -}
 
 marking terminal Trace 'traceT' lexer classes {Ckeyword}; --done
@@ -201,27 +202,33 @@ e::AssignExpr_c ::= 'ten_prod' '(' value :: AssignExpr_c ')'
 }
 
 concrete production tensor_elem_add_c
-e::AssignExpr_c ::= 'tensor_elem_add' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c ')'
+e::AssignExpr_c ::= 'ten_elem_add' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c ')'
 {
   e.ast = tensor_elem_add_a(valueOne.ast,valueTwo.ast, location = e.location);
 }
 
 concrete production tensor_elem_subtract_c
-e::AssignExpr_c ::= 'tensor_elem_subtract' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c ')'
+e::AssignExpr_c ::= 'ten_elem_subtract' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c ')'
 {
   e.ast = tensor_elem_subtract_a(valueOne.ast,valueTwo.ast, location = e.location);
 }
 
 concrete production tensor_elem_multiply_c
-e::AssignExpr_c ::= 'tensor_elem_multiply' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c ')'
+e::AssignExpr_c ::= 'ten_elem_multiply' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c ')'
 {
   e.ast = tensor_elem_multiply_a(valueOne.ast,valueTwo.ast, location = e.location);
 }
 
 concrete production tensor_elem_divide_c
-e::AssignExpr_c ::= 'tensor_elem_divide' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c ')'
+e::AssignExpr_c ::= 'ten_elem_divide' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c ')'
 {
   e.ast = tensor_elem_divide_a(valueOne.ast,valueTwo.ast, location = e.location);
+}
+
+concrete production tensor_multiply_c
+e::AssignExpr_c ::= 'ten_multiply' '(' tenOne :: AssignExpr_c ',' tenTwo :: AssignExpr_c ')'
+{
+  e.ast = tensor_multiply_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
 
 concrete production dot_product_c
@@ -249,21 +256,21 @@ e::AssignExpr_c ::= 'cross' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignE
 }
 
 concrete production scalar_triple_product_c
-e::AssignExpr_c ::= 'scalar_triple_product' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c ','
+e::AssignExpr_c ::= 'scalar_triple_productT' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c ','
                       valueThree :: AssignExpr_c ')'
 {
   e.ast = scalar_triple_product_a(valueOne.ast,valueTwo.ast,valueThree.ast, location = e.location);
 }
 
 concrete production float_scalar_triple_product_c
-e::AssignExpr_c ::= 'float_triple_product' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c ','
+e::AssignExpr_c ::= 'float_triple_productT' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c ','
                       valueThree :: AssignExpr_c ')'
 {
   e.ast = float_scalar_triple_product_a(valueOne.ast,valueTwo.ast,valueThree.ast, location = e.location);
 }
 
 concrete production vector_triple_product_c
-e::AssignExpr_c ::= 'vector_triple_product' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c ','
+e::AssignExpr_c ::= 'vector_triple_productT' '(' valueOne :: AssignExpr_c ',' valueTwo :: AssignExpr_c ','
                       valueThree :: AssignExpr_c ')'
 {
   e.ast = vector_triple_product_a(valueOne.ast,valueTwo.ast,valueThree.ast, location = e.location);

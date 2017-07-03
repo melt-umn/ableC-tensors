@@ -108,15 +108,12 @@ Tensor access_tensor(Tensor tens, Interval *interIndices) {
     printf("indices are: ");
     for (j = 0; j < dim; j++) {
       intIndices[j] = interIndicesCopy[j].lBound;
-      printf("%d ",intIndices[j]);
     }
     newData[k] = float_access_tensor(tens, intIndices); //find the int at the current indice
-		printf(": %f\n",newData[k]);
     //changing the farthest element possible to the right
     if (interIndicesCopy[currentChangingDim].lBound != interIndicesCopy[currentChangingDim].rBound) {
       interIndicesCopy[currentChangingDim].lBound++; //left bound gets higher
     } else if (currentChangingDim != largestChangingDim) {
-      printf("current dim %d != largest dim %d\n",currentChangingDim,largestChangingDim);
 			if (currentChangingDim != 0) {
 				currentChangingDim--;
 			}
@@ -145,7 +142,6 @@ Tensor access_tensor(Tensor tens, Interval *interIndices) {
       }
       //largest changing index has not changed
     } else {
-      printf("current dim %d == largest dim %d\n",currentChangingDim,largestChangingDim);
       //currentChangingDim == largestChangingDim
       for (z = currentChangingDim; z < dim; z++) {//looking at left most changing
         //reset all indices from the current one to the last one

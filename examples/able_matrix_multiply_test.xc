@@ -1,4 +1,4 @@
-#include "tensorsLib.h"
+#include "../include/tensorsLib.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -33,40 +33,40 @@ int main () {
   float dataThree[20] = {1, 3, 6, 2, 12, 64, 29, 5, 39, 492, 42, 45, 65, 23, 56, 23, 12, 45, 12, 34};
   float dataFour[8] = {666, 555, 444, 333, 222, 111, 45, 2};
 
-  Tensor tenOne = create_tensor(dim,dimSizeOne,countOne,dataOne);
-  Tensor tenTwo = create_tensor(dim,dimSizeTwo,countTwo,dataTwo);
-  Tensor tenThree = create_tensor(dim,dimSizeThree,countThree,dataThree);
-  Tensor tenFour = create_tensor(dim,dimSizeFour,countFour,dataFour);
+  Tensor tenOne = create(dim,dimSizeOne,countOne,dataOne);
+  Tensor tenTwo = create(dim,dimSizeTwo,countTwo,dataTwo);
+  Tensor tenThree = create(dim,dimSizeThree,countThree,dataThree);
+  Tensor tenFour = create(dim,dimSizeFour,countFour,dataFour);
 
   printf("tenOne is: \n");
-  print_tensor(tenOne,delimiters,10);
+  printT(tenOne);
   printf("\n\n\n");
 
   printf("tenTwo is: \n");
-  print_tensor(tenTwo,delimiters,10);
+  printT(tenTwo);
   printf("\n\n\n");
 
   printf("tenTwo transposed is: \n");
-  print_tensor(transpose(tenTwo),delimiters,10);
+  printT(trans(tenTwo));
   printf("\n\n\n");
 
   printf("tenThree is: \n");
-  print_tensor(tenThree,delimiters,10);
+  printT(tenThree);
   printf("\n");
 
   printf("tenFour is: \n");
-  print_tensor(tenFour,delimiters,10);
+  printT(tenFour);
   printf("\n\n\n");
 
-  print_tensor(tensor_multiply(tenOne,tenTwo),delimiters,10);
+  printT(ten_multiply(tenOne,tenTwo));
   printf("\n\n\n");
 
   printf("tenTwo * tenThree is: \n");
-  print_tensor(tensor_multiply(tenTwo,tenThree),delimiters,10);
+  printT(ten_multiply(tenTwo,tenThree));
   printf("\n\n\n");
 
   printf("tenThree * tenFour is: \n");
-  print_tensor(tensor_multiply(tenThree,tenFour),delimiters,10);
+  printT(ten_multiply(tenThree,tenFour));
 
   return 0;
 }
