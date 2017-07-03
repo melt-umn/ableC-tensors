@@ -70,7 +70,7 @@ e::Expr ::=  numDim :: Expr dimArr :: Expr
     location = loc
   );
 }
-{-
+
 abstract production fill_tensor_a
 e::Expr ::= numDim :: Expr sizeDim :: Expr toFill :: Expr
 {
@@ -89,7 +89,7 @@ e::Expr ::= numDim :: Expr sizeDim :: Expr toFill :: Expr
     location = loc
   );
 }
--}
+
 
 abstract production ones_a
 e::Expr ::= numDim :: Expr sizeDim :: Expr
