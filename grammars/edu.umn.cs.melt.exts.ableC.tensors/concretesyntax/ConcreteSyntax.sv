@@ -23,7 +23,7 @@ marking terminal Identity_tensor 'id' lexer classes {Ckeyword}; --done
 marking terminal Identity_tensor_asymmetric 'id_as' lexer classes {Ckeyword}; --done
 
 marking terminal Fill_tensor 'fill' lexer classes {Ckeyword};
-marking terminal Ones 'ones' lexer classes {Ckeyword};
+marking terminal Ones 'onesT' lexer classes {Ckeyword};
 marking terminal Zeros 'zerosT' lexer classes {Ckeyword};
 marking terminal Float_to_tensor 'float_to_tensor' lexer classes {Ckeyword}; --done
 
@@ -114,7 +114,7 @@ e::AssignExpr_c ::= 'fill' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_
 }
 
 concrete production ones_c
-e::AssignExpr_c ::= 'ones' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
+e::AssignExpr_c ::= 'onesT' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
 {
   e.ast = ones_a(numDim.ast, sizeDim.ast, location = e.location);
 }
