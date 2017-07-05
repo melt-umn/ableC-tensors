@@ -163,6 +163,21 @@ e::Expr ::= numDim :: Expr sizeDim :: Expr
   );
 }
 
+abstract production scalar_tensor_to_float_a
+e::Expr ::= tensor :: Expr
+{
+  forwards to directCallExpr(
+    name(
+      "scalar_tensor_to_float",
+      location = loc
+    ),
+    consExpr(tensor,
+      nilExpr()
+    ),
+    location = loc
+  );
+}
+
 abstract production map_a
 e::Expr ::= fun :: Expr tensor :: Expr
 {

@@ -126,13 +126,18 @@ e::AssignExpr_c ::= 'zerosT' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExp
   e.ast = zeros_a(numDim.ast, sizeDim.ast, location = e.location);
 }
 
-{-
+concrete production float_to_scalar_tensor_fun_c
+e::AssignExpr_c ::= 'float_to_ten' '(' value :: AssignExpr_c ')'
+{
+  e.ast = float_to_scalar_tensor_a(value.ast, location = e.location);
+}
+
 concrete production scalar_tensor_to_float_c
 e::AssignExpr_c ::= 'ten_to_float' '(' value :: AssignExpr_c ')'
 {
   e.ast = scalar_tensor_to_float_a(value.ast, location = e.location);
 }
--}
+
 
 concrete production map_c
 e::AssignExpr_c ::= 'mapT' '(' fun :: AssignExpr_c ',' tensor :: AssignExpr_c  ')'
