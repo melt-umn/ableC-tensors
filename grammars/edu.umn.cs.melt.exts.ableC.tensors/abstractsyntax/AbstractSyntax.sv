@@ -51,12 +51,12 @@ e::Expr ::= tensor :: Expr
   forwards to directCallExpr(
     name(
       "copy_tensor",
-      location = e.location
+      location = loc
     ),
     consExpr(tensor,
       nilExpr()
     ),
-     location = e.location
+     location = loc
   );
 }
 
@@ -66,12 +66,12 @@ e::Expr ::= tensor :: Expr
   forwards to directCallExpr(
     name(
       "transpose",
-      location = e.location
+      location = loc
     ),
     consExpr(tensor,
       nilExpr()
     ),
-     location = e.location
+     location = loc
   );
 }
 
@@ -163,6 +163,44 @@ e::Expr ::= numDim :: Expr sizeDim :: Expr
   );
 }
 
+{-
+abstract production float_to_scalar_tensor_a
+e::Expr ::= float :: Expr
+{
+  local localErrors::[Message] =
+    (if float.typerep.isArithmeticType && !float.typerep.isIntegerType
+    then [err(float.location,s"Tensor element must have float type (got ${showType(float.typerep)})")]
+    else []);
+  local fwrd::Expr =
+    directCallExpr(
+      name(
+        "float_to_scalar_tensor", location = loc
+      ),
+      consExpr(float,
+        nilExpr()
+      ),
+      location = loc
+    );
+  forwards to mkErrorCheck(localErrors, fwrd);
+}
+-}
+
+abstract production float_to_scalar_tensor_a
+e::Expr ::= float :: Expr
+{
+  forwards to directCallExpr(
+    name(
+      "float_to_scalar_tensor",
+      location = loc
+    ),
+    consExpr (float,
+      nilExpr()
+    ),
+    location = loc
+  );
+}
+-}
+
 abstract production scalar_tensor_to_float_a
 e::Expr ::= tensor :: Expr
 {
@@ -201,12 +239,12 @@ e::Expr ::= tensor :: Expr
   forwards to directCallExpr(
     name(
       "square",
-      location = e.location
+      location = loc
     ),
     consExpr(tensor,
       nilExpr()
     ),
-     location = e.location
+     location = loc
   );
 }
 
@@ -216,12 +254,12 @@ e::Expr ::= tensor :: Expr
   forwards to directCallExpr(
     name(
       "increment",
-      location = e.location
+      location = loc
     ),
     consExpr(tensor,
       nilExpr()
     ),
-     location = e.location
+     location = loc
   );
 }
 
@@ -269,12 +307,12 @@ e::Expr ::= tensor :: Expr
   forwards to directCallExpr(
     name(
       "max",
-      location = e.location
+      location = loc
     ),
     consExpr(tensor,
       nilExpr()
     ),
-     location = e.location
+     location = loc
   );
 }
 
@@ -284,12 +322,12 @@ e::Expr ::= tensor :: Expr
   forwards to directCallExpr(
     name(
       "min",
-      location = e.location
+      location = loc
     ),
     consExpr(tensor,
       nilExpr()
     ),
-     location = e.location
+     location = loc
   );
 }
 
@@ -299,12 +337,12 @@ e::Expr ::= tensor :: Expr
   forwards to directCallExpr(
     name(
       "sum",
-      location = e.location
+      location = loc
     ),
     consExpr(tensor,
       nilExpr()
     ),
-     location = e.location
+     location = loc
   );
 }
 
@@ -314,12 +352,12 @@ e::Expr ::= tensor :: Expr
   forwards to directCallExpr(
     name(
       "product",
-      location = e.location
+      location = loc
     ),
     consExpr(tensor,
       nilExpr()
     ),
-     location = e.location
+     location = loc
   );
 }
 
@@ -329,12 +367,12 @@ e::Expr ::= tensor :: Expr
   forwards to directCallExpr(
     name(
       "tensor_max",
-      location = e.location
+      location = loc
     ),
     consExpr(tensor,
       nilExpr()
     ),
-     location = e.location
+     location = loc
   );
 }
 
@@ -344,12 +382,12 @@ e::Expr ::= tensor :: Expr
   forwards to directCallExpr(
     name(
       "tensor_min",
-      location = e.location
+      location = loc
     ),
     consExpr(tensor,
       nilExpr()
     ),
-     location = e.location
+     location = loc
   );
 }
 
@@ -359,12 +397,12 @@ e::Expr ::= tensor :: Expr
   forwards to directCallExpr(
     name(
       "tensor_sum",
-      location = e.location
+      location = loc
     ),
     consExpr(tensor,
       nilExpr()
     ),
-     location = e.location
+     location = loc
   );
 }
 
@@ -374,12 +412,12 @@ e::Expr ::= tensor :: Expr
   forwards to directCallExpr(
     name(
       "tensor_product",
-      location = e.location
+      location = loc
     ),
     consExpr(tensor,
       nilExpr()
     ),
-     location = e.location
+     location = loc
   );
 }
 
@@ -618,12 +656,12 @@ e::Expr ::= tensor :: Expr
   forwards to directCallExpr(
     name(
       "trace",
-      location = e.location
+      location = loc
     ),
     consExpr(tensor,
       nilExpr()
     ),
-     location = e.location
+     location = loc
   );
 }
 
@@ -633,12 +671,12 @@ e::Expr ::= tensor :: Expr
   forwards to directCallExpr(
     name(
       "tensor_trace",
-      location = e.location
+      location = loc
     ),
     consExpr(tensor,
       nilExpr()
     ),
-     location = e.location
+     location = loc
   );
 }
 
@@ -648,12 +686,12 @@ e::Expr ::= tensor :: Expr
   forwards to directCallExpr(
     name(
       "free_tensor",
-      location = e.location
+      location = loc
     ),
     consExpr(tensor,
       nilExpr()
     ),
-     location = e.location
+     location = loc
   );
 }
 
@@ -663,12 +701,12 @@ e::Expr ::= tensor :: Expr
   forwards to directCallExpr(
     name(
       "free_tensor_dynamic",
-      location = e.location
+      location = loc
     ),
     consExpr(tensor,
       nilExpr()
     ),
-     location = e.location
+     location = loc
   );
 }
 
@@ -678,33 +716,13 @@ e::Expr ::= tensor :: Expr
   forwards to directCallExpr(
     name(
       "print_tensor_compact",
-      location = e.location
+      location = loc
     ),
     consExpr(tensor,
       nilExpr()
     ),
-     location = e.location
+     location = loc
   );
-}
-
---check type of float in here probably? if it isn't a float we want to raise an error instead of passing it to the function
-abstract production float_to_scalar_tensor_a
-e::Expr ::= float :: Expr
-{
-  forwards to floatToScalarTensor(float, e.location);
-}
-
---matlab splits up the c calls as functions, separate from the abstract productions
---do we wish to do this as well? :)
-function floatToScalarTensor
-Expr ::= float :: Expr l :: Location
-{
-  return
-    directCallExpr(
-      name("float_to_scalar_tensor", location = l),
-      consExpr (float, nilExpr()),
-      location = l
-    );
 }
 
 global loc::Location = txtLoc("ableC-tensors");

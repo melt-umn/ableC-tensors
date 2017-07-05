@@ -42,6 +42,6 @@ examples: $(C_SOURCES:.c=.out)
 	java -jar ableC.jar $< $@
 
 clean:
-	rm -f *~ *.i *.o *.out *.test *.jar *.copperdump.html build.xml
+	rm -f *~ *.i *.o *.c *.out *.test *.jar *.copperdump.html build.xml
 
 .PHONY: all clean
