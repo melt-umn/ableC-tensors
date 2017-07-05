@@ -36,19 +36,19 @@ int main () {
   Tensor tenTwo = create(dim,dimSize,count,dataTwo);
 
   printf("[666 662 35] x* [22 1234 2]:\n");
-  printT(cross(tenZero,tenOne));
+  printT(tenZero x* tenOne);
   printf("\n\n\n");
 
   printf("[22 1234 2] x* [666 662 35]:\n");
-  printT(cross(tenOne,tenZero));
+  printT(tenOne x* tenZero);
   printf("\n\n\n");
 
   printf("[666 662 35] x* [32 543 65]:\n");
-  printT(cross(tenZero,tenTwo));
+  printT(tenZer x* ,tenTwo);
   printf("\n\n\n");
 
   printf("[22 1234 2] x* [32 543 65]:\n");
-  printT(cross(tenOne,tenTwo));
+  printT(tenOne x* tenTwo);
   printf("\n\n\n");
 
   return 0;

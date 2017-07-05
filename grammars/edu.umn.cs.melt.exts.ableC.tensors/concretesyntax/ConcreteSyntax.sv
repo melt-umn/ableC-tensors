@@ -254,7 +254,7 @@ e::AssignExpr_c ::= 'ten_multiply' '(' tenOne :: AssignExpr_c ',' tenTwo :: Assi
 }
 
 concrete production dot_product_c
-e::AssignExpr_c ::= '.*' '(' tenOne :: AssignExpr_c ',' tenTwo :: AssignExpr_c ')'
+e::AssignExpr_c ::= tenOne :: AssignExpr_c '.*' tenTwo :: AssignExpr_c
 {
   e.ast = dot_product_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
@@ -272,7 +272,7 @@ e::AssignExpr_c ::= 'float_dot_vtwo' '(' tenOne :: AssignExpr_c ',' tenTwo :: As
 }
 
 concrete production cross_product_c
-e::AssignExpr_c ::= 'x*' '(' tenOne :: AssignExpr_c ',' tenTwo :: AssignExpr_c ')'
+e::AssignExpr_c ::=  tenOne :: AssignExpr_c 'x*' tenTwo :: AssignExpr_c
 {
   e.ast = cross_product_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
