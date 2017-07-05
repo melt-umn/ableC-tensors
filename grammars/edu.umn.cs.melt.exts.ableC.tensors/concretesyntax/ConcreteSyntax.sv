@@ -53,7 +53,7 @@ marking terminal Tensor_multiply 'ten_multiply' lexer classes {Ckeyword};
 marking terminal Dot_product '.*' lexer classes {Ckeyword};
 marking terminal Float_dot_product 'float_dot' lexer classes {Ckeyword};
 marking terminal Float_dot_product_vtwo 'float_dot_vtwo' lexer classes {Ckeyword};
-marking terminal Cross_product 'x*' lexer classes {Ckeyword};
+marking terminal Cross_product 'cross' lexer classes {Ckeyword};
 marking terminal Scalar_triple_product 'scalar_triple_productT' lexer classes {Ckeyword};
 marking terminal Float_scalar_triple_product 'float_triple_productT' lexer classes {Ckeyword};
 marking terminal Vector_triple_product 'vector_triple_productT' lexer classes {Ckeyword};
@@ -272,7 +272,7 @@ e::AssignExpr_c ::= 'float_dot_vtwo' '(' tenOne :: AssignExpr_c ',' tenTwo :: As
 }
 
 concrete production cross_product_c
-e::AssignExpr_c ::=  tenOne :: AssignExpr_c 'x*' tenTwo :: AssignExpr_c
+e::AssignExpr_c ::= 'cross' '(' tenOne :: AssignExpr_c ',' tenTwo :: AssignExpr_c ')'
 {
   e.ast = cross_product_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
