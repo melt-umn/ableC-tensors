@@ -118,6 +118,7 @@ e::Expr ::=  numDim :: Expr dimArr :: Expr
     location = generate_location(e.location, module_name)
   );
 }
+-}
 
 abstract production fill_tensor_a
 e::Expr ::= numDim :: Expr sizeDim :: Expr toFill :: Expr
@@ -137,7 +138,6 @@ e::Expr ::= numDim :: Expr sizeDim :: Expr toFill :: Expr
     location = generate_location(e.location, module_name)
   );
 }
--}
 
 abstract production ones_a
 e::Expr ::= numDim :: Expr sizeDim :: Expr
