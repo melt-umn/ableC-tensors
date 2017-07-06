@@ -291,11 +291,13 @@ e::PrimaryExpr_c ::= 'float_dot_vtwo' '(' tenOne :: AssignExpr_c ',' tenTwo :: A
   e.ast = float_dot_product_vtwo_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
 
+{-
 concrete production cross_product_c
 e::PrimaryExpr_c ::= tenOne :: AssignExpr_c 'x*' tenTwo :: AssignExpr_c
 {
   e.ast = cross_product_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
+-}
 
 {-
 concrete production scalar_triple_product_c
