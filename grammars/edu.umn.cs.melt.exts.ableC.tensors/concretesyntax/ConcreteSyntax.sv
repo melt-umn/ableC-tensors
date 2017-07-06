@@ -67,8 +67,9 @@ marking terminal Tensor_trace 'tensor_traceT' lexer classes {Ckeyword};
 
 marking terminal Free 'freeT' lexer classes {Ckeyword};
 marking terminal Free_dynamic 'free_dynamic' lexer classes {Ckeyword};
-marking terminal Tensor_print 'printT' lexer classes {Ckeyword};
 -}
+marking terminal Tensor_print 'printT' lexer classes {Ckeyword};
+
 
 {-
 concrete production create_c
@@ -344,10 +345,10 @@ e::PrimaryExpr_c ::= 'free_dynamic' '(' value :: AssignExpr_c ')'
 {
   e.ast = free_tensor_dynamic_a(value.ast, location = e.location);
 }
+-}
 
 concrete production print_tensor_c
 e::PrimaryExpr_c ::= 'printT' '(' value :: AssignExpr_c ')'
 {
   e.ast = print_tensor_a(value.ast, location = e.location);
 }
--}

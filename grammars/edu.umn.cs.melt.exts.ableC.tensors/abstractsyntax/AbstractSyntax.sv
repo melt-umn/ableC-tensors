@@ -699,6 +699,7 @@ e::Expr ::= tensor :: Expr
      location = generate_location(e.location, module_name)
   );
 }
+-}
 
 abstract production print_tensor_a
 e::Expr ::= tensor :: Expr
@@ -714,4 +715,3 @@ e::Expr ::= tensor :: Expr
      location = generate_location(e.location, module_name)
   );
 }
--}
