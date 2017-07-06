@@ -78,19 +78,19 @@ marking terminal Tensor_print 'printT' lexer classes {Ckeyword};
 -}
 
 
-concrete production AssignExpr_c
+concrete production assignExpr_c
 e::AssignExpr_c ::= t::TensorExpr
 {
   e.ast = t.ast;
 }
 
-concrete production TensorExpr
+concrete production tensorExpr_c
 e::TensorExpr ::= t::TensorCross_Expr
 {
   e.ast = t.ast;
 }
 
-concrete production TensorCross_Expr
+concrete production tensorCross_Expr_c
 e::TensorCross_Expr ::= t::TensorDot_Expr
 {
   e.ast = t.ast;
