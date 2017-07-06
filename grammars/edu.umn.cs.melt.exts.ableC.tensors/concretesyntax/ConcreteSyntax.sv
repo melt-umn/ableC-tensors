@@ -1,4 +1,4 @@
-AssignExpr_cAssignExpr_cgrammar edu:umn:cs:melt:exts:ableC:tensors:concretesyntax;
+grammar edu:umn:cs:melt:exts:ableC:tensors:concretesyntax;
 
 imports edu:umn:cs:melt:ableC:concretesyntax;
 imports edu:umn:cs:melt:ableC:abstractsyntax;
