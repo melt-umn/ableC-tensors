@@ -28,7 +28,6 @@ marking terminal Zeros 'zerosT' lexer classes {Ckeyword};
 marking terminal Float_to_tensor 'float_to_ten' lexer classes {Ckeyword};
 marking terminal Tensor_to_float 'ten_to_float' lexer classes {Ckeyword};
 
-
 marking terminal Map_tensor 'mapT' lexer classes {Ckeyword};
 marking terminal Square_all 'squareT' lexer classes {Ckeyword};
 marking terminal Increment 'inc' lexer classes {Ckeyword};
@@ -45,7 +44,7 @@ marking terminal Tensor_sum 'ten_sum' lexer classes {Ckeyword};
 marking terminal Tensor_product 'ten_prod' lexer classes {Ckeyword};
 
 marking terminal Tensor_combine 'ten_combine' lexer classes {Ckeyword};
-marking terminal Tensor_elem_add 'ten_elem_add' lexer classes {Ckeyword};
+--marking terminal Tensor_elem_add 'ten_elem_add' lexer classes {Ckeyword};
 marking terminal Tensor_elem_subtract 'ten_elem_subtract' lexer classes {Ckeyword};
 marking terminal Tensor_elem_multiply 'ten_elem_multiply' lexer classes {Ckeyword};
 marking terminal Tensor_elem_divide 'ten_elem_divide' lexer classes {Ckeyword};
@@ -230,13 +229,13 @@ e::PrimaryExpr_c ::= 'ten_combine' '(' tenOne :: AssignExpr_c ',' tenTwo :: Assi
 {
   e.ast = tensor_combine_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
-
+{-
 concrete production tensor_elem_add_c
 e::PrimaryExpr_c ::= 'ten_elem_add' '(' tenOne :: AssignExpr_c ',' tenTwo :: AssignExpr_c ')'
 {
   e.ast = tensor_elem_add_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
-
+-}
 concrete production tensor_elem_subtract_c
 e::PrimaryExpr_c ::= 'ten_elem_subtract' '(' tenOne :: AssignExpr_c ',' tenTwo :: AssignExpr_c ')'
 {
