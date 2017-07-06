@@ -9,9 +9,9 @@ imports edu:umn:cs:melt:exts:ableC:tensors:abstractsyntax;
 imports silver:langutil:pp;
 imports silver:langutil;
 
-nonterminal Tensor_Expr with ast<Expr>, location;
-nonterminal Tensor_Cross with ast<Expr>, location;
-nonterminal Tensor_Dot with ast<Expr>, location;
+nonterminal TensorExpr with ast<Expr>, location;
+nonterminal TensorCross_Expr with ast<Expr>, location;
+nonterminal TensorDot_Expr with ast<Expr>, location;
 
 marking terminal TensorEnvOpen_t '[.';
 terminal TensorEnvClose_t '.]';
@@ -79,19 +79,19 @@ marking terminal Tensor_print 'printT' lexer classes {Ckeyword};
 
 
 concrete production AssignExpr_c
-e::AssignExpr_c ::= t::Tensor_Expr
+e::AssignExpr_c ::= t::TensorExpr
 {
   e.ast = t.ast;
 }
 
-concrete production Tensor_Expr
-e::Tensor_Expr ::= t::Tensor_Cross
+concrete production TensorExpr
+e::Tensor_Expr ::= t::TensorCross_Expr
 {
   e.ast = t.ast;
 }
 
-concrete production Tensor_Cross
-e::Tensor_Cross ::= t::Tensor_Dot
+concrete production TensorCross_Expr
+e::TensorCross_Expr ::= t::TensorDot_Expr
 {
   e.ast = t.ast;
 }
@@ -105,7 +105,7 @@ e::Tensor_Expr ::= 'create' '(' numDim :: AssignExpr_c ',' dimSize :: AssignExpr
 }
 
 concrete production access_c
-e::Tensor_Expr ::= 'access' '(' tensor :: AssignExpr_c ',' interval :: AssignExpr_c ')'
+e::TensorExpr ::= 'access' '(' tensor :: AssignExpr_c ',' interval :: AssignExpr_c ')'
 {
   e.ast = access_a (tensor.ast, interval.ast, location = e.location);
 }
@@ -161,7 +161,7 @@ e::Tensor_Expr ::= 'zerosT' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr
 }
 
 concrete production float_to_scalar_tensor_fun_c
-e::Tensor_Expr ::= 'float_to_ten' '(' value :: AssignExpr_c ')'
+e::TensorExpr ::= 'float_to_ten' '(' value :: AssignExpr_c ')'
 {
   e.ast = float_to_scalar_tensor_a(value.ast, location = e.location);
 }
@@ -289,7 +289,7 @@ e::Tensor_Expr ::= 'ten_multiply' '(' tenOne :: Tensor_Expr ',' tenTwo :: Tensor
 -}
 
 concrete production dot_product_c
-e::Tensor_Dot ::= tenOne :: Tensor_Dot '.*' tenTwo :: Tensor_Cross
+e::TensorDot_Expr ::= tenOne :: TensorDot_Expr '.*' tenTwo :: TensorCrossExpr
 {
   e.ast = dot_product_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
@@ -308,7 +308,7 @@ e::AssignExpr_c ::= 'float_dot_vtwo' '(' tenOne :: Tensor_Expr ',' tenTwo :: Ten
 }
 -}
 concrete production cross_product_c
-e::Tensor_Cross ::= 'cross' '(' tenOne :: Tensor_Cross ',' tenTwo :: Tensor_Expr ')'
+e::TensorCross_Expr ::= 'cross' '(' tenOne :: TensorCross_Expr ',' tenTwo :: TensorExpr ')'
 {
   e.ast = cross_product_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
