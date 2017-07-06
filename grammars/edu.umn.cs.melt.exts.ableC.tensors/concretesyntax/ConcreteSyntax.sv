@@ -167,7 +167,7 @@ e::TensorExpr ::= 'float_to_ten' '(' value :: AssignExpr_c ')'
 }
 -}
 concrete production scalar_tensor_to_float_c
-e::AssignExpr_c ::= 'ten_to_float' '(' value :: Tensor_Dot ')'
+e::AssignExpr_c ::= 'ten_to_float' '(' value :: TensorDot_Expr ')'
 {
   e.ast = scalar_tensor_to_float_a(value.ast, location = e.location);
 }
@@ -289,7 +289,7 @@ e::TensorExpr ::= 'ten_multiply' '(' tenOne :: TensorExpr ',' tenTwo :: TensorEx
 -}
 
 concrete production dot_product_c
-e::TensorDot_Expr ::= tenOne :: TensorDot_Expr '.*' tenTwo :: TensorCrossExpr
+e::TensorDot_Expr ::= tenOne :: TensorDot_Expr '.*' tenTwo :: TensorCross_Expr
 {
   e.ast = dot_product_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
