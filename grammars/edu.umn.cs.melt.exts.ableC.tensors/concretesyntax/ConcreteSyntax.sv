@@ -12,6 +12,7 @@ imports silver:langutil;
 nonterminal TensorExpr with ast<Expr>, location;
 nonterminal TensorCross_Expr with ast<Expr>, location;
 nonterminal TensorDot_Expr with ast<Expr>, location;
+nonterminal TensorLiteral_Expr with ast<Expr>,location;
 
 marking terminal TensorEnvOpen_t '[.';
 terminal TensorEnvClose_t '.]';
@@ -96,6 +97,12 @@ e::TensorCross_Expr ::= t::TensorDot_Expr
   e.ast = t.ast;
 }
 
+concrete production tensorDot_Expr_c
+e::TensorDot_Expr ::= t::TensorLiteral_Expr
+{
+  e.ast = t.ast;
+}
+
 {-
 concrete production create_c
 e::TensorExpr ::= 'create' '(' numDim :: AssignExpr_c ',' dimSize :: AssignExpr_c ',' count :: AssignExpr_c ',' data :: AssignExpr_c')'
@@ -111,7 +118,7 @@ e::TensorExpr ::= 'access' '(' tensor :: AssignExpr_c ',' interval :: AssignExpr
 -}
 
 concrete production float_to_scalar_tensor_c
-e::TensorDot_Expr ::= '[.' value :: AssignExpr_c '.]'
+e::TensorLiteral_Expr ::= '[.' value :: AssignExpr_c '.]'
 {
   e.ast = float_to_scalar_tensor_a(value.ast, location = e.location);
 }
@@ -288,7 +295,7 @@ e::TensorExpr ::= 'ten_multiply' '(' tenOne :: TensorExpr ',' tenTwo :: TensorEx
 -}
 
 concrete production dot_product_c
-e::TensorDot_Expr ::= tenOne :: TensorDot_Expr '.*' tenTwo :: TensorCross_Expr
+e::TensorDot_Expr ::= tenOne :: TensorLiteral_Expr '.*' tenTwo :: TensorDot_Expr
 {
   e.ast = dot_product_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
@@ -306,11 +313,13 @@ e::AssignExpr_c ::= 'float_dot_vtwo' '(' tenOne :: TensorExpr ',' tenTwo :: Tens
   e.ast = float_dot_product_vtwo_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
 -}
+
 concrete production cross_product_c
-e::TensorCross_Expr ::= 'cross' '(' tenOne :: TensorCross_Expr ',' tenTwo :: TensorExpr ')'
+e::TensorCross_Expr ::= 'cross' '(' tenOne :: TensorDot_Expr ',' tenTwo :: TensorCross_Expr ')'
 {
   e.ast = cross_product_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
+
 {-
 concrete production scalar_triple_product_c
 e::TensorExpr ::= 'scalar_triple_productT' '(' tenOne :: TensorExpr ',' tenTwo :: TensorExpr ','
