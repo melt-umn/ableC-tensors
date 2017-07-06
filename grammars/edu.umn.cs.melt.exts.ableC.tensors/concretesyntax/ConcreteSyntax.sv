@@ -85,7 +85,7 @@ e::AssignExpr_c ::= t::TensorExpr
 }
 
 concrete production TensorExpr
-e::Tensor_Expr ::= t::TensorCross_Expr
+e::TensorExpr ::= t::TensorCross_Expr
 {
   e.ast = t.ast;
 }
@@ -99,7 +99,7 @@ e::TensorCross_Expr ::= t::TensorDot_Expr
 
 {-
 concrete production create_c
-e::Tensor_Expr ::= 'create' '(' numDim :: AssignExpr_c ',' dimSize :: AssignExpr_c ',' count :: AssignExpr_c ',' data :: AssignExpr_c')'
+e::TensorExpr ::= 'create' '(' numDim :: AssignExpr_c ',' dimSize :: AssignExpr_c ',' count :: AssignExpr_c ',' data :: AssignExpr_c')'
 {
   e.ast = create_a(numDim.ast, dimSize.ast, count.ast, data.ast, location = e.location);
 }
@@ -112,50 +112,50 @@ e::TensorExpr ::= 'access' '(' tensor :: AssignExpr_c ',' interval :: AssignExpr
 -}
 
 concrete production float_to_scalar_tensor_c
-e::Tensor_Expr ::= '[.' value :: AssignExpr_c '.]'
+e::TensorExpr ::= '[.' value :: AssignExpr_c '.]'
 {
   e.ast = float_to_scalar_tensor_a(value.ast, location = e.location);
 }
 
 {-
 concrete production copy_tensor_c
-e::Tensor_Expr ::= 'copy' '(' value :: Tensor_Expr ')'
+e::TensorExpr ::= 'copy' '(' value :: TensorExpr ')'
 {
   e.ast = copy_tensor_a(value.ast, location = e.location);
 }
 
 concrete production transpose_tensor_c
-e::Tensor_Expr ::= 'trans' '(' value :: Tensor_Expr ')'
+e::TensorExpr ::= 'trans' '(' value :: TensorExpr ')'
 {
   e.ast = transpose_tensor_a(value.ast, location = e.location);
 }
 
 concrete production identity_tensor_c
-e::Tensor_Expr ::= 'id' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
+e::TensorExpr ::= 'id' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
 {
   e.ast = identity_tensor_a(numDim.ast, sizeDim.ast, location = e.location);
 }
 
 concrete production identity_tensor_asymmetric_c
-e::Tensor_Expr ::= 'id_as' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
+e::TensorExpr ::= 'id_as' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
 {
   e.ast = identity_tensor_asymmetric_a(numDim.ast, sizeDim.ast, location = e.location);
 }
 
 concrete production fill_tensor_c
-e::Tensor_Expr ::= 'fill' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ',' toFill :: AssignExpr_c ')'
+e::TensorExpr ::= 'fill' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ',' toFill :: AssignExpr_c ')'
 {
   e.ast = fill_tensor_a(numDim.ast, sizeDim.ast, toFill.ast, location = e.location);
 }
 
 concrete production ones_c
-e::Tensor_Expr ::= 'onesT' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
+e::TensorExpr ::= 'onesT' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
 {
   e.ast = ones_a(numDim.ast, sizeDim.ast, location = e.location);
 }
 
 concrete production zeros_c
-e::Tensor_Expr ::= 'zerosT' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
+e::TensorExpr ::= 'zerosT' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
 {
   e.ast = zeros_a(numDim.ast, sizeDim.ast, location = e.location);
 }
@@ -174,115 +174,115 @@ e::AssignExpr_c ::= 'ten_to_float' '(' value :: Tensor_Dot ')'
 {-
 
 concrete production map_c
-e::Tensor_Expr ::= 'mapT' '(' fun :: AssignExpr_c ',' tensor :: Tensor_Expr  ')'
+e::TensorExpr ::= 'mapT' '(' fun :: AssignExpr_c ',' tensor :: TensorExpr  ')'
 {
 	e.ast = map_a(fun.ast, tensor.ast, location = e.location);
 }
 
 concrete production square_c
-e::Tensor_Expr ::= 'squareT' '(' value :: Tensor_Expr ')'
+e::TensorExpr ::= 'squareT' '(' value :: TensorExpr ')'
 {
   e.ast = square_a(value.ast, location = e.location);
 }
 
 concrete production increment_c
-e::Tensor_Expr ::= 'inc' '(' value :: Tensor_Expr ')'
+e::TensorExpr ::= 'inc' '(' value :: TensorExpr ')'
 {
   e.ast = increment_a(value.ast, location = e.location);
 }
 
 concrete production fold_c
-e::Tensor_Expr ::= 'foldT' '(' fun :: AssignExpr_c ',' valueStart :: AssignExpr_c ',' ten :: Tensor_Expr ')'
+e::TensorExpr ::= 'foldT' '(' fun :: AssignExpr_c ',' valueStart :: AssignExpr_c ',' ten :: TensorExpr ')'
 {
   e.ast = fold_a(fun.ast, valueStart.ast, ten.ast, location = e.location);
 }
 
 concrete production tensor_fold_c
-e::Tensor_Expr ::= 'ten_foldT' '(' fun :: AssignExpr_c ',' tensorStart :: Tensor_Expr ',' ten :: Tensor_Expr ')'
+e::TensorExpr ::= 'ten_foldT' '(' fun :: AssignExpr_c ',' tensorStart :: TensorExpr ',' ten :: TensorExpr ')'
 {
   e.ast = tensor_fold_a(fun.ast, tensorStart.ast, ten.ast, location = e.location);
 }
 
 concrete production max_c
-e::AssignExpr_c ::= 'maxT' '(' tensor :: Tensor_Expr ')'
+e::AssignExpr_c ::= 'maxT' '(' tensor :: TensorExpr ')'
 {
   e.ast = max_a(tensor.ast, location = e.location);
 }
 
 concrete production min_c
-e::AssignExpr_c ::= 'minT' '(' tensor :: Tensor_Expr ')'
+e::AssignExpr_c ::= 'minT' '(' tensor :: TensorExpr ')'
 {
   e.ast = min_a(tensor.ast, location = e.location);
 }
 
 concrete production sum_c
-e::AssignExpr_c ::= 'sumT' '(' tensor :: Tensor_Expr ')'
+e::AssignExpr_c ::= 'sumT' '(' tensor :: TensorExpr ')'
 {
   e.ast = sum_a(tensor.ast, location = e.location);
 }
 
 concrete production product_c
-e::AssignExpr_c ::= 'prodT' '(' tensor :: Tensor_Expr ')'
+e::AssignExpr_c ::= 'prodT' '(' tensor :: TensorExpr ')'
 {
   e.ast = product_a(tensor.ast, location = e.location);
 }
 
 concrete production tensor_max_c
-e::Tensor_Expr ::= 'ten_max' '(' tensor :: Tensor_Expr ')'
+e::TensorExpr ::= 'ten_max' '(' tensor :: TensorExpr ')'
 {
   e.ast = tensor_max_a(tensor.ast, location = e.location);
 }
 
 concrete production tensor_min_c
-e::Tensor_Expr ::= 'ten_min' '(' tensor :: Tensor_Expr ')'
+e::TensorExpr ::= 'ten_min' '(' tensor :: TensorExpr ')'
 {
   e.ast = tensor_min_a(tensor.ast, location = e.location);
 }
 
 concrete production tensor_sum_c
-e::Tensor_Expr ::= 'ten_sum' '(' tensor :: Tensor_Expr ')'
+e::TensorExpr ::= 'ten_sum' '(' tensor :: TensorExpr ')'
 {
   e.ast = tensor_sum_a(tensor.ast, location = e.location);
 }
 
 concrete production tensor_product_c
-e::Tensor_Expr ::= 'ten_prod' '(' tensor :: Tensor_Expr ')'
+e::TensorExpr ::= 'ten_prod' '(' tensor :: TensorExpr ')'
 {
   e.ast = tensor_product_a(tensor.ast, location = e.location);
 }
 
 concrete production tensor_combine_c
-e::Tensor_Expr ::= 'ten_combine' '(' tenOne :: Tensor_Expr ',' tenTwo :: Tensor_Expr ')'
+e::TensorExpr ::= 'ten_combine' '(' tenOne :: TensorExpr ',' tenTwo :: TensorExpr ')'
 {
   e.ast = tensor_combine_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
 
 concrete production tensor_elem_add_c
-e::Tensor_Expr ::= 'ten_elem_add' '(' tenOne :: Tensor_Expr ',' tenTwo :: Tensor_Expr ')'
+e::TensorExpr ::= 'ten_elem_add' '(' tenOne :: TensorExpr ',' tenTwo :: TensorExpr ')'
 {
   e.ast = tensor_elem_add_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
 
 concrete production tensor_elem_subtract_c
-e::Tensor_Expr ::= 'ten_elem_subtract' '(' tenOne :: Tensor_Expr ',' tenTwo :: Tensor_Expr ')'
+e::TensorExpr ::= 'ten_elem_subtract' '(' tenOne :: TensorExpr ',' tenTwo :: TensorExpr ')'
 {
   e.ast = tensor_elem_subtract_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
 
 concrete production tensor_elem_multiply_c
-e::Tensor_Expr ::= 'ten_elem_multiply' '(' tenOne :: Tensor_Expr ',' tenTwo :: Tensor_Expr ')'
+e::TensorExpr ::= 'ten_elem_multiply' '(' tenOne :: TensorExpr ',' tenTwo :: TensorExpr ')'
 {
   e.ast = tensor_elem_multiply_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
 
 concrete production tensor_elem_divide_c
-e::Tensor_Expr ::= 'ten_elem_divide' '(' tenOne :: Tensor_Expr ',' tenTwo :: Tensor_Expr ')'
+e::TensorExpr ::= 'ten_elem_divide' '(' tenOne :: TensorExpr ',' tenTwo :: TensorExpr ')'
 {
   e.ast = tensor_elem_divide_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
 
 concrete production tensor_multiply_c
-e::Tensor_Expr ::= 'ten_multiply' '(' tenOne :: Tensor_Expr ',' tenTwo :: Tensor_Expr ')'
+e::TensorExpr ::= 'ten_multiply' '(' tenOne :: TensorExpr ',' tenTwo :: TensorExpr ')'
 {
   e.ast = tensor_multiply_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
@@ -296,13 +296,13 @@ e::TensorDot_Expr ::= tenOne :: TensorDot_Expr '.*' tenTwo :: TensorCrossExpr
 
 {-
 concrete production float_dot_product_c
-e::AssignExpr_c ::= 'float_dot' '(' tenOne :: Tensor_Expr ',' tenTwo :: Tensor_Expr ')'
+e::AssignExpr_c ::= 'float_dot' '(' tenOne :: TensorExpr ',' tenTwo :: TensorExpr ')'
 {
   e.ast = float_dot_product_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
 
 concrete production float_dot_product_vtwo_c
-e::AssignExpr_c ::= 'float_dot_vtwo' '(' tenOne :: Tensor_Expr ',' tenTwo :: Tensor_Expr ')'
+e::AssignExpr_c ::= 'float_dot_vtwo' '(' tenOne :: TensorExpr ',' tenTwo :: TensorExpr ')'
 {
   e.ast = float_dot_product_vtwo_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
@@ -314,40 +314,40 @@ e::TensorCross_Expr ::= 'cross' '(' tenOne :: TensorCross_Expr ',' tenTwo :: Ten
 }
 {-
 concrete production scalar_triple_product_c
-e::Tensor_Expr ::= 'scalar_triple_productT' '(' tenOne :: Tensor_Expr ',' tenTwo :: Tensor_Expr ','
-                      tenThree :: Tensor_Expr ')'
+e::TensorExpr ::= 'scalar_triple_productT' '(' tenOne :: TensorExpr ',' tenTwo :: TensorExpr ','
+                      tenThree :: TensorExpr ')'
 {
   e.ast = scalar_triple_product_a(tenOne.ast,tenTwo.ast,tenThree.ast, location = e.location);
 }
 
 concrete production float_scalar_triple_product_c
-e::AssignExpr_c ::= 'float_triple_productT' '(' tenOne :: Tensor_Expr ',' tenTwo :: Tensor_Expr ','
-                      tenThree :: Tensor_Expr ')'
+e::AssignExpr_c ::= 'float_triple_productT' '(' tenOne :: TensorExpr ',' tenTwo :: TensorExpr ','
+                      tenThree :: TensorExpr ')'
 {
   e.ast = float_scalar_triple_product_a(tenOne.ast,tenTwo.ast,tenThree.ast, location = e.location);
 }
 
 concrete production vector_triple_product_c
-e::Tensor_Expr ::= 'vector_triple_productT' '(' tenOne :: Tensor_Expr ',' tenTwo :: Tensor_Expr ','
-                      tenThree :: Tensor_Expr ')'
+e::TensorExpr ::= 'vector_triple_productT' '(' tenOne :: TensorExpr ',' tenTwo :: TensorExpr ','
+                      tenThree :: TensorExpr ')'
 {
   e.ast = vector_triple_product_a(tenOne.ast,tenTwo.ast,tenThree.ast, location = e.location);
 }
 
 concrete production trace_c
-e::Tensor_Expr ::= 'traceT' '(' value :: Tensor_Expr ')'
+e::TensorExpr ::= 'traceT' '(' value :: TensorExpr ')'
 {
   e.ast = trace_a(value.ast, location = e.location);
 }
 
 concrete production tensor_trace_c
-e::Tensor_Expr ::= 'tensor_traceT' '(' value :: Tensor_Expr ')'
+e::TensorExpr ::= 'tensor_traceT' '(' value :: TensorExpr ')'
 {
   e.ast = tensor_trace_a(value.ast, location = e.location);
 }
 
 concrete production free_tensor_c
-e::Tensor_Expr ::= 'freeT' '(' value :: Tensor_Expr ')'
+e::TensorExpr ::= 'freeT' '(' value :: TensorExpr ')'
 {
   e.ast = free_tensor_a(value.ast, location = e.location);
 }
@@ -359,7 +359,7 @@ e::AssignExpr_c ::= 'free_dynamic' '(' value :: AssignExpr_c ')'
 }
 
 concrete production print_tensor_c
-e::AssignExpr_c ::= 'printT' '(' value :: Tensor_Expr ')'
+e::AssignExpr_c ::= 'printT' '(' value :: TensorExpr ')'
 {
   e.ast = print_tensor_a(value.ast, location = e.location);
 }
