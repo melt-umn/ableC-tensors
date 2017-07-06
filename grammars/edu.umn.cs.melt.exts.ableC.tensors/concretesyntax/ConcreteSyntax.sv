@@ -100,8 +100,8 @@ e::TensorDot_Expr ::= t::TensorLiteral_Expr
   e.ast = t.ast;
 }
 
-concrete production tensorLiteral_Expr
-e::TensorLiteral_Expr ::= t::UnaryExpr_c
+concrete production tensorLiteral_Expr_c
+e::TensorLiteral_Expr ::= t::ConstantExpr_c
 {
   e.ast = t.ast;
 }
