@@ -4,7 +4,6 @@ imports edu:umn:cs:melt:ableC:concretesyntax;
 imports edu:umn:cs:melt:ableC:abstractsyntax;
 imports edu:umn:cs:melt:ableC:abstractsyntax:construction;
 
-
 imports edu:umn:cs:melt:exts:ableC:tensors:abstractsyntax;
 
 imports silver:langutil:pp;
@@ -327,3 +326,12 @@ e::AssignExpr_c ::= 'printT' '(' value :: AssignExpr_c ')'
 {
   e.ast = print_tensor_a(value.ast, location = e.location);
 }
+
+--Experimental tensor literal creation
+{-
+concrete production tensor_literal_c
+e::Expr_c ::= '[.' tSeq :: TensorSeq '.]'
+{
+  e.ast = tensor_literal_a(tSeq.ast, location = e.location);
+}
+-}
