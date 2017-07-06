@@ -96,6 +96,12 @@ e::TensorCross_Expr ::= t::TensorDot_Expr
   e.ast = t.ast;
 }
 
+concrete production tensorDot_Expr_c
+e::TensorDot_Expr ::= t::Expr_c
+{
+  e.ast = t.ast;
+}
+
 
 {-
 concrete production create_c
@@ -112,7 +118,7 @@ e::TensorExpr ::= 'access' '(' tensor :: AssignExpr_c ',' interval :: AssignExpr
 -}
 
 concrete production float_to_scalar_tensor_c
-e::TensorExpr ::= '[.' value :: AssignExpr_c '.]'
+e::TensorDot_Expr ::= '[.' value :: AssignExpr_c '.]'
 {
   e.ast = float_to_scalar_tensor_a(value.ast, location = e.location);
 }
