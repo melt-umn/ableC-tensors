@@ -40,19 +40,19 @@ int main () {
   printf("2 dim 666's tensor .* 2 dim 1's tensor (Tensor):\n");
   printT(tenTwoF .* tenTwoS);
   printf("\n(Int): ");
-  printf("%f",float_dot(tenTwoF,tenTwoS));
+  printf("%f",tenTwoF f.* tenTwoS );
   printf("\n\n\n");
 
   printf("3 dim 100's tensor .* 3 dim 101's tensor (Tensor):\n");
   printT(tenThreeF .* tenThreeS);
   printf("\n(Int): ");
-  printf("%f",float_dot(tenThreeF,tenThreeS));
+  printf("%f",tenThreeF f.* tenThreeS);
   printf("\n\n\n");
 
   printf("0 dim 1's tensor .* 0 dim 9's tensor (Tensor):\n");
   printT(tenFourF .* tenFourS);
   printf("\n(Int): ");
-  printf("%f",float_dot(tenFourF,tenFourS));
+  printf("%f",tenFourF f.* tenFourS);
   printf("\n");
   return 0;
 }
