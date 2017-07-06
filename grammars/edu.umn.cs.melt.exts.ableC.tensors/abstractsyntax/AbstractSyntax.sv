@@ -717,19 +717,3 @@ e::Expr ::= tensor :: Expr
   );
 }
 -}
-
---Experimental
-abstract production tensor_literal_a
-e::Expr ::= tens_seq::TensorSeq
-{
-
-}
-
-abstract production tensorSeq
-tSeq::TensorSeq ::= e::Expr
-{
-  tSeq.ast = case e of
-    | tensorLiteral(ts) -> ts.ast
-    | _ -> leaf(ts.ast)
-  end;
-}
