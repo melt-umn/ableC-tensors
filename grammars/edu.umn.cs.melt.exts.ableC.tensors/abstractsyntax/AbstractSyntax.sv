@@ -128,7 +128,6 @@ e::Expr ::= numDim :: Expr sizeDim :: Expr toFill :: Expr
   );
 }
 
-
 abstract production ones_a
 e::Expr ::= numDim :: Expr sizeDim :: Expr
 {
@@ -707,4 +706,6 @@ Expr ::= float :: Expr l :: Location
     );
 }
 
+abstract production generate_location
+loc::Location ::= 
 global loc::Location = txtLoc("ableC-tensors");
