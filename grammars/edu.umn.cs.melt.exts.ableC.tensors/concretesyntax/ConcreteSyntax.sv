@@ -167,7 +167,7 @@ e::TensorExpr ::= 'zerosT' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_
 }
 
 concrete production float_to_scalar_tensor_fun_c
-e::TensorExpr ::= 'float_to_ten' '(' value :: AssignExpr_c ')'
+e::TensorDot_Expr ::= 'float_to_ten' '(' value :: AssignExpr_c ')'
 {
   e.ast = float_to_scalar_tensor_a(value.ast, location = e.location);
 }
