@@ -34,7 +34,7 @@ int main () {
   printf("1 dim 2's tensor .* 1 dim 5's tensor (Tensor):\n");
   printT(tenOneF .* tenOneS);
   printf("\n(Int): ");
-  printf("%f",float_dot(tenOneF,tenOneS));
+  printf("%f",tenOneF f.* tenOneS);
   printf("\n\n\n");
 
   printf("2 dim 666's tensor .* 2 dim 1's tensor (Tensor):\n");
