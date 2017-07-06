@@ -25,16 +25,12 @@ marking terminal Copy_tensor 'copy' lexer classes {Ckeyword};
 marking terminal Transpose 'trans' lexer classes {Ckeyword};
 marking terminal Identity_tensor 'id' lexer classes {Ckeyword};
 marking terminal Identity_tensor_asymmetric 'id_as' lexer classes {Ckeyword};
-
+-}
 marking terminal Fill_tensor 'fill' lexer classes {Ckeyword};
--}
 marking terminal Ones 'onesT' lexer classes {Ckeyword};
-{-
 marking terminal Zeros 'zerosT' lexer classes {Ckeyword};
--}
 
 marking terminal Float_to_tensor 'float_to_ten' lexer classes {Ckeyword};
-
 marking terminal Tensor_to_float 'ten_to_float' lexer classes {Ckeyword};
 
 {-
@@ -149,13 +145,12 @@ e::TensorExpr ::= 'id_as' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c
 {
   e.ast = identity_tensor_asymmetric_a(numDim.ast, sizeDim.ast, location = e.location);
 }
-
+-}
 concrete production fill_tensor_c
-e::TensorExpr ::= 'fill' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ',' toFill :: AssignExpr_c ')'
+e::TensorDot_Expr ::= 'fill' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ',' toFill :: AssignExpr_c ')'
 {
   e.ast = fill_tensor_a(numDim.ast, sizeDim.ast, toFill.ast, location = e.location);
 }
--}
 
 concrete production ones_c
 e::TensorDot_Expr ::= 'onesT' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
@@ -163,9 +158,8 @@ e::TensorDot_Expr ::= 'onesT' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignEx
   e.ast = ones_a(numDim.ast, sizeDim.ast, location = e.location);
 }
 
-{-
 concrete production zeros_c
-e::TensorExpr ::= 'zerosT' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
+e::TensorDot_Expr ::= 'zerosT' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ')'
 {
   e.ast = zeros_a(numDim.ast, sizeDim.ast, location = e.location);
 }
@@ -175,14 +169,14 @@ e::TensorDot_Expr ::= 'float_to_ten' '(' value :: AssignExpr_c ')'
 {
   e.ast = float_to_scalar_tensor_a(value.ast, location = e.location);
 }
--}
+
 concrete production scalar_tensor_to_float_c
 e::AssignExpr_c ::= 'ten_to_float' '(' value :: TensorDot_Expr ')'
 {
   e.ast = scalar_tensor_to_float_a(value.ast, location = e.location);
 }
-{-
 
+{-
 concrete production map_c
 e::TensorExpr ::= 'mapT' '(' fun :: AssignExpr_c ',' tensor :: TensorExpr  ')'
 {

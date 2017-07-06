@@ -156,7 +156,6 @@ e::Expr ::= numDim :: Expr sizeDim :: Expr
   );
 }
 
-{-
 
 abstract production zeros_a
 e::Expr ::= numDim :: Expr sizeDim :: Expr
@@ -175,8 +174,6 @@ e::Expr ::= numDim :: Expr sizeDim :: Expr
   );
 }
 
--}
-
 abstract production float_to_scalar_tensor_a
 e::Expr ::= float :: Expr
 {
@@ -191,7 +188,6 @@ e::Expr ::= float :: Expr
     location = generate_location(e.location, module_name)
   );
 }
-
 
 abstract production scalar_tensor_to_float_a
 e::Expr ::= tensor :: Expr
