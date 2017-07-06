@@ -7,6 +7,7 @@ imports silver:langutil:pp;
 imports silver:langutil;
 imports edu:umn:cs:melt:ableC:abstractsyntax:env;
 
+{-
 abstract production create_a
 e::Expr ::= numDim :: Expr dimSize :: Expr count :: Expr data :: Expr
 {
@@ -162,26 +163,6 @@ e::Expr ::= numDim :: Expr sizeDim :: Expr
   );
 }
 
-{-
-abstract production float_to_scalar_tensor_a
-e::Expr ::= float :: Expr
-{
-  local localErrors::[Message] =
-    (if float.typerep.isArithmeticType && !float.typerep.isIntegerType
-    then [err(float.location,s"Tensor element must have float type (got ${showType(float.typerep)})")]
-    else []);
-  local fwrd::Expr =
-    directCallExpr(
-      name(
-        "float_to_scalar_tensor", location = loc
-      ),
-      consExpr(float,
-        nilExpr()
-      ),
-      location = loc
-    );
-  forwards to mkErrorCheck(localErrors, fwrd);
-}
 -}
 
 abstract production float_to_scalar_tensor_a
@@ -214,6 +195,8 @@ e::Expr ::= tensor :: Expr
     location = loc
   );
 }
+
+{-
 
 abstract production map_a
 e::Expr ::= fun :: Expr tensor :: Expr
@@ -521,6 +504,7 @@ e::Expr ::= tenOne :: Expr tenTwo :: Expr
     location = loc
   );
 }
+-}
 
 abstract production dot_product_a
 e::Expr ::= tenOne :: Expr tenTwo :: Expr
@@ -539,6 +523,7 @@ e::Expr ::= tenOne :: Expr tenTwo :: Expr
   );
 }
 
+{-
 abstract production float_dot_product_a
 e::Expr ::= tenOne :: Expr tenTwo :: Expr
 {
@@ -573,7 +558,7 @@ e::Expr ::= tenOne :: Expr tenTwo :: Expr
     location = loc
   );
 }
-
+-}
 
 abstract production cross_product_a
 e::Expr ::= tenOne :: Expr tenTwo :: Expr
@@ -591,7 +576,7 @@ e::Expr ::= tenOne :: Expr tenTwo :: Expr
     location = loc
   );
 }
-
+{-
 abstract production scalar_triple_product_a
 e::Expr ::= tenOne :: Expr tenTwo :: Expr tenThree :: Expr
 {
@@ -723,5 +708,6 @@ e::Expr ::= tensor :: Expr
      location = loc
   );
 }
+-}
 
 global loc::Location = builtinLoc("ableC-tensors");
