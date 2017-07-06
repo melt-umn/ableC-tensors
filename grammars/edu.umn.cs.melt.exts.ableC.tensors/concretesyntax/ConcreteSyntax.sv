@@ -72,7 +72,6 @@ concrete production tensorexpr_to_assignexpr
 e::AssignExpr_c ::= t::Tensor_Expr
 {
   e.ast = t.ast;
-  e.location = t.location;
 }
 
 
@@ -80,7 +79,6 @@ concrete production tensordot_to_tensorexpr
 e::AssignExpr_c ::= t::Tensor_Dot
 {
   e.ast = t.ast;
-  e.location = t.location;
 }
 
 concrete production create_c
