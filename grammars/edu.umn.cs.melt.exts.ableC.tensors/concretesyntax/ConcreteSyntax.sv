@@ -13,14 +13,14 @@ marking terminal TensorEnvOpen_t '[.';
 terminal TensorEnvClose_t '.]';
 
 marking terminal Create_tensor 'create' lexer classes {Ckeyword};
-{-
+
 marking terminal Access_tensor 'access' lexer classes {Ckeyword};
 
 marking terminal Copy_tensor 'copy' lexer classes {Ckeyword};
 marking terminal Transpose 'trans' lexer classes {Ckeyword};
 marking terminal Identity_tensor 'id' lexer classes {Ckeyword};
 marking terminal Identity_tensor_asymmetric 'id_as' lexer classes {Ckeyword};
--}
+
 marking terminal Fill_tensor 'fill' lexer classes {Ckeyword};
 marking terminal Ones 'onesT' lexer classes {Ckeyword};
 marking terminal Zeros 'zerosT' lexer classes {Ckeyword};
@@ -28,7 +28,7 @@ marking terminal Zeros 'zerosT' lexer classes {Ckeyword};
 marking terminal Float_to_tensor 'float_to_ten' lexer classes {Ckeyword};
 marking terminal Tensor_to_float 'ten_to_float' lexer classes {Ckeyword};
 
-{-
+
 marking terminal Map_tensor 'mapT' lexer classes {Ckeyword};
 marking terminal Square_all 'squareT' lexer classes {Ckeyword};
 marking terminal Increment 'inc' lexer classes {Ckeyword};
@@ -51,12 +51,12 @@ marking terminal Tensor_elem_multiply 'ten_elem_multiply' lexer classes {Ckeywor
 marking terminal Tensor_elem_divide 'ten_elem_divide' lexer classes {Ckeyword};
 
 marking terminal Tensor_multiply 'ten_multiply' lexer classes {Ckeyword};
--}
+
 terminal Dot_product '.*' lexer classes {Csymbol};
 terminal Float_dot_product 'f.*' lexer classes {Ckeyword};
 
 terminal Cross_product 'x*' lexer classes {Csymbol};
-{-
+
 marking terminal Scalar_triple_product 'scalar_triple_productT' lexer classes {Ckeyword};
 marking terminal Float_scalar_triple_product 'float_triple_productT' lexer classes {Ckeyword};
 marking terminal Vector_triple_product 'vector_triple_productT' lexer classes {Ckeyword};
@@ -66,7 +66,7 @@ marking terminal Tensor_trace 'tensor_traceT' lexer classes {Ckeyword};
 
 marking terminal Free 'freeT' lexer classes {Ckeyword};
 marking terminal Free_dynamic 'free_dynamic' lexer classes {Ckeyword};
--}
+
 marking terminal Tensor_print 'printT' lexer classes {Ckeyword};
 
 
@@ -77,13 +77,13 @@ e::PrimaryExpr_c ::= 'create' '(' numDim :: AssignExpr_c ',' dimSize :: AssignEx
 }
 
 
-{-
+
 concrete production access_c
 e::PrimaryExpr_c ::= 'access' '(' tensor :: AssignExpr_c ',' interval :: AssignExpr_c ')'
 {
   e.ast = access_a (tensor.ast, interval.ast, location = e.location);
 }
--}
+
 
 concrete production float_to_scalar_tensor_c
 e::PrimaryExpr_c ::= '[.' value :: AssignExpr_c '.]'
@@ -91,7 +91,7 @@ e::PrimaryExpr_c ::= '[.' value :: AssignExpr_c '.]'
   e.ast = float_to_scalar_tensor_a(value.ast, location = e.location);
 }
 
-{-
+
 concrete production copy_tensor_c
 e::PrimaryExpr_c ::= 'copy' '(' value :: AssignExpr_c ')'
 {
@@ -115,7 +115,7 @@ e::PrimaryExpr_c ::= 'id_as' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExp
 {
   e.ast = identity_tensor_asymmetric_a(numDim.ast, sizeDim.ast, location = e.location);
 }
--}
+
 concrete production fill_tensor_c
 e::PrimaryExpr_c ::= 'fill' '(' numDim :: AssignExpr_c ',' sizeDim :: AssignExpr_c ',' toFill :: AssignExpr_c ')'
 {
@@ -146,7 +146,7 @@ e::PrimaryExpr_c ::= 'ten_to_float' '(' value :: AssignExpr_c ')'
   e.ast = scalar_tensor_to_float_a(value.ast, location = e.location);
 }
 
-{-
+
 concrete production map_c
 e::PrimaryExpr_c ::= 'mapT' '(' fun :: AssignExpr_c ',' tensor :: AssignExpr_c  ')'
 {
@@ -260,7 +260,7 @@ e::PrimaryExpr_c ::= 'ten_multiply' '(' tenOne :: AssignExpr_c ',' tenTwo :: Ass
 {
   e.ast = tensor_multiply_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
--}
+
 
 concrete productions top::AdditiveOp_c
 | '.*'
@@ -275,7 +275,7 @@ concrete productions top::AddMulNoneOp_c
   { top.ast = cross_product_a(top.leftExpr, top.rightExpr,
     location = top.location); }
 
-{-
+
 concrete production scalar_triple_product_c
 e::PrimaryExpr_c ::= 'scalar_triple_productT' '(' tenOne :: AssignExpr_c ',' tenTwo :: AssignExpr_c ','
                       tenThree :: AssignExpr_c ')'
@@ -320,7 +320,7 @@ e::PrimaryExpr_c ::= 'free_dynamic' '(' value :: AssignExpr_c ')'
 {
   e.ast = free_tensor_dynamic_a(value.ast, location = e.location);
 }
--}
+
 
 concrete production print_tensor_c
 e::PrimaryExpr_c ::= 'printT' '(' value :: AssignExpr_c ')'

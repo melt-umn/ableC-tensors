@@ -49,7 +49,6 @@ int main () {
 
   printf("[22 1234 2] x* [32 543 65]:\n");
   printT(tenOne x* tenTwo);
-  printf("\n\n\n");
 
   return 0;
 }

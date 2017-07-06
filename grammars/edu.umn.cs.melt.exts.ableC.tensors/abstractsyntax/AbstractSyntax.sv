@@ -37,7 +37,7 @@ e::Expr ::= numDim :: Expr dimSize :: Expr count :: Expr data :: Expr
   );
 }
 
-{-
+
 abstract production access_a
 e::Expr ::= tensor :: Expr interval :: Expr
 {
@@ -118,7 +118,7 @@ e::Expr ::=  numDim :: Expr dimArr :: Expr
     location = generate_location(e.location, module_name)
   );
 }
--}
+
 
 abstract production fill_tensor_a
 e::Expr ::= numDim :: Expr sizeDim :: Expr toFill :: Expr
@@ -204,7 +204,7 @@ e::Expr ::= tensor :: Expr
   );
 }
 
-{-
+
 
 abstract production map_a
 e::Expr ::= fun :: Expr tensor :: Expr
@@ -512,7 +512,7 @@ e::Expr ::= tenOne :: Expr tenTwo :: Expr
     location = generate_location(e.location, module_name)
   );
 }
--}
+
 
 abstract production dot_product_a
 e::Expr ::= tenOne :: Expr tenTwo :: Expr
@@ -565,7 +565,7 @@ e::Expr ::= tenOne :: Expr tenTwo :: Expr
     location = generate_location(e.location, module_name)
   );
 }
-{-
+
 abstract production scalar_triple_product_a
 e::Expr ::= tenOne :: Expr tenTwo :: Expr tenThree :: Expr
 {
@@ -682,7 +682,7 @@ e::Expr ::= tensor :: Expr
      location = generate_location(e.location, module_name)
   );
 }
--}
+
 
 abstract production print_tensor_a
 e::Expr ::= tensor :: Expr
