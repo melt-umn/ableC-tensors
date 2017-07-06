@@ -9,7 +9,7 @@ imports edu:umn:cs:melt:exts:ableC:tensors:abstractsyntax;
 imports silver:langutil:pp;
 imports silver:langutil;
 
-nonterminal Tensor_Expr with ast<Expr>, location;
+--nonterminal Tensor_Expr with ast<Expr>, location;
 nonterminal Tensor_Dot with ast<Expr>, location;
 
 marking terminal TensorEnvOpen_t '[.';
@@ -67,13 +67,15 @@ marking terminal Free 'freeT' lexer classes {Ckeyword};
 marking terminal Free_dynamic 'free_dynamic' lexer classes {Ckeyword};
 marking terminal Tensor_print 'printT' lexer classes {Ckeyword};
 
+{-
 concrete production tensorexpr_to_assignexpr
 e::AssignExpr_c ::= t::Tensor_Expr
 {
 }
+-}
 
 concrete production tensordot_to_tensorexpr
-e::Tensor_Expr ::= t::Tensor_Dot
+e::AssignExpr_c ::= t::Tensor_Dot
 {
 }
 
@@ -267,7 +269,7 @@ e::AssignExpr_c ::= 'ten_multiply' '(' tenOne :: AssignExpr_c ',' tenTwo :: Assi
 }
 
 concrete production dot_product_c
-e::Tensor_Dot ::= tenOne :: Tensor_Dot '.*' tenTwo :: Tensor_Expr
+e::Tensor_Dot ::= tenOne :: Tensor_Dot '.*' tenTwo :: AssignExpr_c
 {
   e.ast = dot_product_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
