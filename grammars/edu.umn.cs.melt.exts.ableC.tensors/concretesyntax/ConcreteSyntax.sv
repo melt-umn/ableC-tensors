@@ -9,6 +9,8 @@ imports edu:umn:cs:melt:exts:ableC:tensors:abstractsyntax;
 imports silver:langutil:pp;
 imports silver:langutil;
 
+nonterminal TensorSeq with ast, location;
+
 marking terminal TensorEnvOpen_t '[.';
 terminal TensorEnvClose_t '.]';
 
@@ -328,10 +330,15 @@ e::AssignExpr_c ::= 'printT' '(' value :: AssignExpr_c ')'
 }
 
 --Experimental tensor literal creation
-{-
 concrete production tensor_literal_c
 e::Expr_c ::= '[.' tSeq :: TensorSeq '.]'
 {
-  e.ast = tensor_literal_a(tSeq.ast, location = e.location);
+  e.ast = tensor_literal_a(tSeq, location = e.location);
 }
--}
+
+concrete production tensorSeq
+tSeq::TensorSeq ::= e::Expr_c
+| tSeq :: TensorSeq ::= e::Expr_c ',' anotherTSeq::TensorSeq
+{
+  t.ast = e.ast;
+} 
