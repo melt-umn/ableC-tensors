@@ -9,7 +9,7 @@ imports edu:umn:cs:melt:exts:ableC:tensors:abstractsyntax;
 imports silver:langutil:pp;
 imports silver:langutil;
 
-nonterminal Tensor_DOT;
+nonterminal Tensor_DOT with ast;
 
 marking terminal TensorEnvOpen_t '[.';
 terminal TensorEnvClose_t '.]';
