@@ -531,7 +531,6 @@ e::Expr ::= tenOne :: Expr tenTwo :: Expr
   );
 }
 
-{-
 abstract production float_dot_product_a
 e::Expr ::= tenOne :: Expr tenTwo :: Expr
 {
@@ -565,7 +564,7 @@ e::Expr ::= tenOne :: Expr tenTwo :: Expr
     location = generate_location(e.location, module_name)
   );
 }
--}
+
 
 abstract production cross_product_a
 e::Expr ::= tenOne :: Expr tenTwo :: Expr
