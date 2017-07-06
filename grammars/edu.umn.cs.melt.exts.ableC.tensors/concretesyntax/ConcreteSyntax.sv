@@ -9,6 +9,8 @@ imports edu:umn:cs:melt:exts:ableC:tensors:abstractsyntax;
 imports silver:langutil:pp;
 imports silver:langutil;
 
+nonterminal Tensor_DOT;
+
 marking terminal TensorEnvOpen_t '[.';
 terminal TensorEnvClose_t '.]';
 
@@ -253,7 +255,7 @@ e::AssignExpr_c ::= 'ten_multiply' '(' tenOne :: AssignExpr_c ',' tenTwo :: Assi
 }
 
 concrete production dot_product_c
-e::AssignExpr_c ::= tenOne :: AssignExpr_c '.*' tenTwo :: AssignExpr_c
+e::Tensor_DOT ::= tenOne :: Tensor_DOT '.*' tenTwo :: AssignExpr_c
 {
   e.ast = dot_product_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
