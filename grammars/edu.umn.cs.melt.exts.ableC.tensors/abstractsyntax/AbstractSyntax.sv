@@ -548,23 +548,6 @@ e::Expr ::= tenOne :: Expr tenTwo :: Expr
   );
 }
 
-abstract production float_dot_product_vtwo_a
-e::Expr ::= tenOne :: Expr tenTwo :: Expr
-{
-  forwards to directCallExpr(
-    name(
-     "float_dot_product_vtwo",
-     location = generate_location(e.location, module_name)
-    ),
-    consExpr(tenOne,
-      consExpr(tenTwo,
-        nilExpr()
-      )
-    ),
-    location = generate_location(e.location, module_name)
-  );
-}
-
 
 abstract production cross_product_a
 e::Expr ::= tenOne :: Expr tenTwo :: Expr

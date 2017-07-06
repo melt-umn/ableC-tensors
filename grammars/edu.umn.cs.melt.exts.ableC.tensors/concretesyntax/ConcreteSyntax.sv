@@ -53,10 +53,9 @@ marking terminal Tensor_elem_divide 'ten_elem_divide' lexer classes {Ckeyword};
 marking terminal Tensor_multiply 'ten_multiply' lexer classes {Ckeyword};
 -}
 terminal Dot_product '.*' lexer classes {Csymbol};
-marking terminal Float_dot_product 'float_dot' lexer classes {Ckeyword};
-marking terminal Float_dot_product_vtwo 'float_dot_vtwo' lexer classes {Ckeyword};
+terminal Float_dot_product 'f.*' lexer classes {Ckeyword};
 
-terminal Cross_product 'x*' lexer classes {Ckeyword};
+terminal Cross_product 'x*' lexer classes {Csymbol};
 {-
 marking terminal Scalar_triple_product 'scalar_triple_productT' lexer classes {Ckeyword};
 marking terminal Float_scalar_triple_product 'float_triple_productT' lexer classes {Ckeyword};
@@ -266,39 +265,14 @@ concrete productions top::AdditiveOp_c
 | '.*'
   { top.ast = dot_product_a(top.leftExpr, top.rightExpr,
     location = top.location); }
+| 'f.*'
+  { top.ast = float_dot_product_a(top.leftExpr, top.rightExpr,
+    location = top.location); }
 
 concrete productions top::AddMulNoneOp_c
 | 'x*'
   { top.ast = cross_product_a(top.leftExpr, top.rightExpr,
     location = top.location); }
-
-{-
-concrete production dot_product_c
-e::PrimaryExpr_c ::= tenOne :: AssignExpr_c '.*' tenTwo :: AssignExpr_c
-{
-  e.ast = dot_product_a(tenOne.ast,tenTwo.ast, location = e.location);
-}
--}
-
-concrete production float_dot_product_c
-e::PrimaryExpr_c ::= 'float_dot' '(' tenOne :: AssignExpr_c ',' tenTwo :: AssignExpr_c ')'
-{
-  e.ast = float_dot_product_a(tenOne.ast,tenTwo.ast, location = e.location);
-}
-
-concrete production float_dot_product_vtwo_c
-e::PrimaryExpr_c ::= 'float_dot_vtwo' '(' tenOne :: AssignExpr_c ',' tenTwo :: AssignExpr_c ')'
-{
-  e.ast = float_dot_product_vtwo_a(tenOne.ast,tenTwo.ast, location = e.location);
-}
-
-{-
-concrete production cross_product_c
-e::PrimaryExpr_c ::= tenOne :: AssignExpr_c 'x*' tenTwo :: AssignExpr_c
-{
-  e.ast = cross_product_a(tenOne.ast,tenTwo.ast, location = e.location);
-}
--}
 
 {-
 concrete production scalar_triple_product_c
