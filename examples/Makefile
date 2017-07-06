@@ -9,7 +9,7 @@ GRAMMAR_DIRS=$(ABLEC_BASE) $(EXTS_BASE)/ableC-tensors/grammars
 GRAMMAR_SOURCES=$(shell find $(GRAMMAR_DIRS) -name *.sv -print0 | xargs -0)
 
 # The C source files.
-C_SOURCES=$(wildcard *.c)
+XC_SOURCES=$(wildcard *.xc)
 
 CFLAGS+=-I../include -Wall -Wextra -Wpedantic -Werror -std=c11
 LDLIBS+=-lm
@@ -30,7 +30,7 @@ ableC.jar: $(GRAMMAR_SOURCES)
 ../src/libTensorsLib.so:
 	@cd ../src && make libTensorsLib.so
 
-examples: $(C_SOURCES:.c=.out)
+examples: $(XC_SOURCES:.xc=.out)
 
 %.out: %.o ../src/libTensorsLib.a
 	gcc $(LDFLAGS) -o $@ $^ $(LDLIBS)
@@ -38,10 +38,10 @@ examples: $(C_SOURCES:.c=.out)
 %.o: %.c
 	$(CC) -c $(CFLAGS) -o $@ $^
 
-%.c: ableC.jar %.xc
-	java -jar ableC.jar $< $@
+%.c: %.xc ableC.jar
+	java -jar ableC.jar $<
 
 clean:
-	rm -f *~ *.i *.o *.out *.test *.jar *.copperdump.html build.xml
+	rm -f *~ *.i *.o *.c *.out *.test *.jar *.copperdump.html build.xml
 
 .PHONY: all clean
