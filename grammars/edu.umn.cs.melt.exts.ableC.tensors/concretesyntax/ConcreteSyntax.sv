@@ -4,7 +4,6 @@ imports edu:umn:cs:melt:ableC:concretesyntax;
 imports edu:umn:cs:melt:ableC:abstractsyntax;
 imports edu:umn:cs:melt:ableC:abstractsyntax:construction;
 
-
 imports edu:umn:cs:melt:exts:ableC:tensors:abstractsyntax;
 
 imports silver:langutil:pp;
@@ -50,7 +49,7 @@ marking terminal Tensor_elem_multiply 'ten_elem_multiply' lexer classes {Ckeywor
 marking terminal Tensor_elem_divide 'ten_elem_divide' lexer classes {Ckeyword};
 
 marking terminal Tensor_multiply 'ten_multiply' lexer classes {Ckeyword};
-marking terminal Dot_product 'dot' lexer classes {Ckeyword};
+terminal Dot_product '.*' lexer classes {Csymbol};
 marking terminal Float_dot_product 'float_dot' lexer classes {Ckeyword};
 marking terminal Float_dot_product_vtwo 'float_dot_vtwo' lexer classes {Ckeyword};
 marking terminal Cross_product 'cross' lexer classes {Ckeyword};
@@ -254,7 +253,7 @@ e::AssignExpr_c ::= 'ten_multiply' '(' tenOne :: AssignExpr_c ',' tenTwo :: Assi
 }
 
 concrete production dot_product_c
-e::AssignExpr_c ::= 'dot' '(' tenOne :: AssignExpr_c ',' tenTwo :: AssignExpr_c ')'
+e::AssignExpr_c ::= tenOne :: AssignExpr_c '.*' tenTwo :: AssignExpr_c
 {
   e.ast = dot_product_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
