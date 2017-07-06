@@ -94,7 +94,7 @@ e::TensorCross_Expr ::= t::TensorDot_Expr
 }
 
 concrete production tensorDot_Expr_c
-e::TensorDot_Expr ::= t::ConditionalExpr_c
+e::TensorDot_Expr ::= t::PrimaryExpr_c
 {
   e.ast = t.ast;
 }
@@ -115,7 +115,7 @@ e::TensorExpr ::= 'access' '(' tensor :: AssignExpr_c ',' interval :: AssignExpr
 -}
 
 concrete production float_to_scalar_tensor_c
-e::ConditionalExpr_c ::= '[.' value :: AssignExpr_c '.]'
+e::PrimaryExpr_c ::= '[.' value :: AssignExpr_c '.]'
 {
   e.ast = float_to_scalar_tensor_a(value.ast, location = e.location);
 }
@@ -292,19 +292,19 @@ e::TensorExpr ::= 'ten_multiply' '(' tenOne :: TensorExpr ',' tenTwo :: TensorEx
 -}
 
 concrete production dot_product_c
-e::TensorDot_Expr ::= tenOne :: ConditionalExpr_c '.*' tenTwo :: TensorDot_Expr
+e::TensorDot_Expr ::= tenOne :: PrimaryExpr_c '.*' tenTwo :: TensorDot_Expr
 {
   e.ast = dot_product_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
 
 concrete production float_dot_product_c
-e::TensorDot_Expr ::= 'float_dot' '(' tenOne :: ConditionalExpr_c ',' tenTwo :: TensorDot_Expr ')'
+e::TensorDot_Expr ::= 'float_dot' '(' tenOne :: PrimaryExpr_c ',' tenTwo :: TensorDot_Expr ')'
 {
   e.ast = float_dot_product_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
 
 concrete production float_dot_product_vtwo_c
-e::TensorDot_Expr ::= 'float_dot_vtwo' '(' tenOne :: ConditionalExpr_c ',' tenTwo :: TensorDot_Expr ')'
+e::TensorDot_Expr ::= 'float_dot_vtwo' '(' tenOne :: PrimaryExpr_c ',' tenTwo :: TensorDot_Expr ')'
 {
   e.ast = float_dot_product_vtwo_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
