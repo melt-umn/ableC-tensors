@@ -745,7 +745,4 @@ Expr ::= float :: Expr l :: Location
     );
 }
 
-abstract production generate_location
-loc::Location ::= 
-
-global loc::Location = txtLoc("ableC-tensors");
+global loc::Location = builtinLoc("ableC-tensors");
