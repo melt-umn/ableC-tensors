@@ -9,9 +9,6 @@ imports edu:umn:cs:melt:ableC:abstractsyntax:env;
 
 global module_name::String = "ableC-tensors";
 
-nonterminal Leaf with location, value;
-nonterminal Elem with location;
-
 abstract production generate_location
 generated::Location ::= original::Location module_name::String
 {
