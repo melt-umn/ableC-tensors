@@ -76,7 +76,7 @@ e::AssignExpr_c ::= t::Tensor_Expr
 
 
 concrete production tensordot_to_tensorexpr
-e::AssignExpr_c ::= t::Tensor_Dot
+e::Tensor_Expr ::= t::Tensor_Dot
 {
   e.ast = t.ast;
 }
