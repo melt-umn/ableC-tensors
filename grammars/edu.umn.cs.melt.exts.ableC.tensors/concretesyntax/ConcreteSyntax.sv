@@ -10,6 +10,7 @@ imports silver:langutil:pp;
 imports silver:langutil;
 
 nonterminal Tensor_Expr with ast<Expr>, location;
+nonterminal Tensor_Cross with ast<Expr>, location;
 nonterminal Tensor_Dot with ast<Expr>, location;
 
 marking terminal TensorEnvOpen_t '[.';
@@ -69,14 +70,19 @@ marking terminal Tensor_print 'printT' lexer classes {Ckeyword};
 
 
 concrete production tensorexpr_to_assignexpr
-e::Tensor_Expr ::= t::Tensor_Expr
+e::AssignExpr_c ::= t::Tensor_Expr
 {
   e.ast = t.ast;
 }
 
+concrete production tensorcross_to_tensorexpr
+e::Tensor_Expr ::= t::Tensor_Cross
+{
+  e.ast = t.ast;
+}
 
-concrete production tensordot_to_tensorexpr
-e::Tensor_Expr ::= t::Tensor_Dot
+concrete production tensordot_to_tensorcross
+e::Tensor_Cross ::= t::Tensor_Dot
 {
   e.ast = t.ast;
 }
@@ -269,7 +275,7 @@ e::Tensor_Expr ::= 'ten_multiply' '(' tenOne :: Tensor_Expr ',' tenTwo :: Tensor
 }
 
 concrete production dot_product_c
-e::Tensor_Dot ::= tenOne :: Tensor_Dot '.*' tenTwo :: Tensor_Expr
+e::Tensor_Dot ::= tenOne :: Tensor_Dot '.*' tenTwo :: Tensor_Cross
 {
   e.ast = dot_product_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
@@ -287,7 +293,7 @@ e::AssignExpr_c ::= 'float_dot_vtwo' '(' tenOne :: Tensor_Expr ',' tenTwo :: Ten
 }
 
 concrete production cross_product_c
-e::Tensor_Expr ::= 'cross' '(' tenOne :: Tensor_Expr ',' tenTwo :: Tensor_Expr ')'
+e::Tensor_Cross ::= 'cross' '(' tenOne :: Tensor_Cross ',' tenTwo :: Tensor_Expr ')'
 {
   e.ast = cross_product_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
