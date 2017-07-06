@@ -100,6 +100,12 @@ e::TensorDot_Expr ::= t::TensorLiteral_Expr
   e.ast = t.ast;
 }
 
+concrete production tensorLiteral_Expr
+e::TensorLiteral_Expr ::= t::UnaryExpr_c
+{
+  e.ast = t.ast;
+}
+
 {-
 concrete production create_c
 e::TensorExpr ::= 'create' '(' numDim :: AssignExpr_c ',' dimSize :: AssignExpr_c ',' count :: AssignExpr_c ',' data :: AssignExpr_c')'
