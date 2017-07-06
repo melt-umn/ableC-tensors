@@ -137,6 +137,7 @@ e::Expr ::= numDim :: Expr sizeDim :: Expr toFill :: Expr
     location = generate_location(e.location, module_name)
   );
 }
+-}
 
 abstract production ones_a
 e::Expr ::= numDim :: Expr sizeDim :: Expr
@@ -154,6 +155,8 @@ e::Expr ::= numDim :: Expr sizeDim :: Expr
     location = generate_location(e.location, module_name)
   );
 }
+
+{-
 
 abstract production zeros_a
 e::Expr ::= numDim :: Expr sizeDim :: Expr
