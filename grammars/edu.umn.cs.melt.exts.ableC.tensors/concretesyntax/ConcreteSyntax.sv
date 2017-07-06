@@ -96,6 +96,8 @@ e::Tensor_Cross ::= t::Tensor_Dot
   e.ast = t.ast;
 }
 
+
+{-
 concrete production create_c
 e::Tensor_Expr ::= 'create' '(' numDim :: AssignExpr_c ',' dimSize :: AssignExpr_c ',' count :: AssignExpr_c ',' data :: AssignExpr_c')'
 {
@@ -107,13 +109,13 @@ e::Tensor_Expr ::= 'access' '(' tensor :: AssignExpr_c ',' interval :: AssignExp
 {
   e.ast = access_a (tensor.ast, interval.ast, location = e.location);
 }
-
+-}
 concrete production float_to_scalar_tensor_c
 e::Tensor_Expr ::= '[.' value :: AssignExpr_c '.]'
 {
   e.ast = float_to_scalar_tensor_a(value.ast, location = e.location);
 }
-
+{-
 concrete production copy_tensor_c
 e::Tensor_Expr ::= 'copy' '(' value :: Tensor_Expr ')'
 {
@@ -161,13 +163,13 @@ e::Tensor_Expr ::= 'float_to_ten' '(' value :: AssignExpr_c ')'
 {
   e.ast = float_to_scalar_tensor_a(value.ast, location = e.location);
 }
-
+-}
 concrete production scalar_tensor_to_float_c
 e::AssignExpr_c ::= 'ten_to_float' '(' value :: Tensor_Expr ')'
 {
   e.ast = scalar_tensor_to_float_a(value.ast, location = e.location);
 }
-
+{-
 
 concrete production map_c
 e::Tensor_Expr ::= 'mapT' '(' fun :: AssignExpr_c ',' tensor :: Tensor_Expr  ')'
@@ -282,13 +284,13 @@ e::Tensor_Expr ::= 'ten_multiply' '(' tenOne :: Tensor_Expr ',' tenTwo :: Tensor
 {
   e.ast = tensor_multiply_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
-
+-}
 concrete production dot_product_c
 e::Tensor_Dot ::= tenOne :: Tensor_Dot '.*' tenTwo :: Tensor_Cross
 {
   e.ast = dot_product_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
-
+{-
 concrete production float_dot_product_c
 e::AssignExpr_c ::= 'float_dot' '(' tenOne :: Tensor_Expr ',' tenTwo :: Tensor_Expr ')'
 {
@@ -300,13 +302,13 @@ e::AssignExpr_c ::= 'float_dot_vtwo' '(' tenOne :: Tensor_Expr ',' tenTwo :: Ten
 {
   e.ast = float_dot_product_vtwo_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
-
+-}
 concrete production cross_product_c
 e::Tensor_Cross ::= 'cross' '(' tenOne :: Tensor_Cross ',' tenTwo :: Tensor_Expr ')'
 {
   e.ast = cross_product_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
-
+{-
 concrete production scalar_triple_product_c
 e::Tensor_Expr ::= 'scalar_triple_productT' '(' tenOne :: Tensor_Expr ',' tenTwo :: Tensor_Expr ','
                       tenThree :: Tensor_Expr ')'
@@ -357,3 +359,4 @@ e::AssignExpr_c ::= 'printT' '(' value :: Tensor_Expr ')'
 {
   e.ast = print_tensor_a(value.ast, location = e.location);
 }
+-}
