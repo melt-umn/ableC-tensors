@@ -588,24 +588,24 @@ Tensor tensor_elem_divide(Tensor tOne, Tensor tTwo) {
 	return tensor_combine(scalar_divide,tOne,tTwo);
 }
 
-Tensor tensor_equals(Tensor tOne, Tensor tTwo) {
+bool tensor_equals(Tensor tOne, Tensor tTwo) {
 	int i;
 	int *dimSizeOne = tOne.dim_size;
 	int *dimSizeTwo = tTwo.dim_size;
 	if (tOne.dim == tTwo.dim) { //make sure # of dimensions are same
 		for (i = 0; i < tOne.dim; i++) { //make sure size of dimensions are same
 			if (dimSizeOne[i] != dimSizeTwo[i]) {
-				return 0;
+				return false;
 			}
 		}
 		for (i = 0; i < tOne.count; i++) { //make sure each element in the same
 			if (tOne.data[i] != tTwo.data[i]) {
-				return 0;
+				return false;
 			}
 		}
-		return 1;
+		return true;
 	} else {
-		return 0;
+		return false;
 	}
 }
 

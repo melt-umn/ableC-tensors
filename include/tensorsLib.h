@@ -3,6 +3,7 @@
 Created by: Nguyen Nguyen
 Modified by: Ankit Siva, Zoe Wentzel
 *************************************************************/
+#include <stdbool.h>
 
 // Struct definition for Tensor Struct
 typedef struct __attribute__((refId("edu:umn:cs:melt:exts:ableC:tensors:tensors"),
@@ -68,7 +69,7 @@ Tensor tensor_elem_subtract(Tensor,Tensor);
 Tensor tensor_elem_multiply(Tensor,Tensor);
 Tensor tensor_elem_divide(Tensor,Tensor);
 
-Tensor tensor_equals(Tensor,Tensor);
+bool tensor_equals(Tensor,Tensor);
 
 Tensor tensor_multiply(Tensor,Tensor);
 Tensor dot_product(Tensor,Tensor);
