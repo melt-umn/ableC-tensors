@@ -38,7 +38,7 @@ int main () {
   printf("\n\nmul 1 dim 2's and 5's tensors:\n");
   printT(tenOneF * tenOneS);
   printf("\n\ndiv 1 dim 2's and 5's tensors:\n");
-  printT(tenOn / F,tenOneS);
+  printT(tenOneF /tenOneS);
   printf("\n\n\n");
 
   printf("\nadd 2 dim 666's and 1's tensors:\n");
@@ -48,7 +48,7 @@ int main () {
   printf("\n\nmul 2 dim 666's and 1's tensors:\n");
   printT(tenTwoF * tenTwoS);
   printf("\n\ndiv 2 dim 666's and 1's tensors:\n");
-  printT(tenTw / F,tenTwoS);
+  printT(tenTwoF / tenTwoS);
   printf("\n\n\n");
 
   printf("\nadd 3 dim 100's and 101's tensors:\n");
@@ -68,7 +68,7 @@ int main () {
   printf("\n\nmul 0 dim 1's and 9's tensors:\n");
   printT(tenFourF * tenFourS);
   printf("\n\ndiv 0 dim 1's and 9's tensors:\n");
-  printT(tenFour / ,tenFourS);
+  printT(tenFourF / tenFourS);
 
   return 0;
 }
