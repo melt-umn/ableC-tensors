@@ -45,7 +45,7 @@ marking terminal Tensor_product 'ten_prod' lexer classes {Ckeyword};
 
 marking terminal Tensor_combine 'ten_combine' lexer classes {Ckeyword};
 
-marking terminal Tensor_multiply 'ten_multiply' lexer classes {Ckeyword};
+marking terminal Tensor_multiply '**' lexer classes {Ckeyword};
 
 terminal Dot_product '.*' lexer classes {Csymbol};
 terminal Float_dot_product 'f.*' lexer classes {Ckeyword};
@@ -239,7 +239,7 @@ concrete productions top::AddMulNoneOp_c
   { top.ast = cross_product_a(top.leftExpr, top.rightExpr,
     location = top.location); }
 | '**'
-  { e.ast = tensor_multiply_a(tenOne.ast,tenTwo.ast,
+  { e.ast = tensor_multiply_a(top.leftExpr,top.rightExpr,
     location = e.location); }
 
 
