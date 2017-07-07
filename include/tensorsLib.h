@@ -3,6 +3,7 @@
 Created by: Nguyen Nguyen
 Modified by: Ankit Siva, Zoe Wentzel
 *************************************************************/
+#include <stdbool.h>
 
 // Struct definition for Tensor Struct
 typedef struct __attribute__((refId("edu:umn:cs:melt:exts:ableC:tensors:tensors"),
@@ -12,8 +13,6 @@ typedef struct __attribute__((refId("edu:umn:cs:melt:exts:ableC:tensors:tensors"
   int *dim_size;
   int count;
 } Tensor;
-
-#include <stdbool.h>
 
 typedef struct {
 	int lBound;
