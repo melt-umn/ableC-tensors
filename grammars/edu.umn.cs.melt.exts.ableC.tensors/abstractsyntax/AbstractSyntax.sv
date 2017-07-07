@@ -11,7 +11,7 @@ imports silver:langutil:pp;
 imports silver:langutil;
 
 
-global module_name::String = "ableC-tensors";
+global module_name::String = "tensors";
 
 abstract production generate_location
 generated::Location ::= original::Location module_name::String
