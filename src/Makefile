@@ -8,6 +8,9 @@ LDLIBS+=-lm
 # Flags to ensure good style.
 CFLAGS+=-Wall -Wextra -Wpedantic -Werror -std=c11
 
+# Don't bother us about refId.
+CFLAGS+=-Wno-error=attributes -Wno-attributes
+
 # The C source and object files.
 C_SOURCES=$(wildcard *.c)
 C_OBJECTS=$(C_SOURCES:.c=.o)
