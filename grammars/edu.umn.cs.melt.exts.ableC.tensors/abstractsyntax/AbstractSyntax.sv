@@ -27,9 +27,7 @@ Maybe<(Expr ::= Expr Location)> ::= l::Type env::Decorated Env
 {
   overloads <-
     [pair(
-       pair(
-         "edu:umn:cs:melt:exts:ableC:tensors:tensors",
-         "edu:umn:cs:melt:exts:ableC:tensors:tensors"),
+      "edu:umn:cs:melt:exts:ableC:tensors:tensors"),
        \ lhs::Expr loc::Location -> tensor_elem_negate_a(lhs, location=loc))];
 }
 
