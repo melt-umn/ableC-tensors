@@ -595,17 +595,17 @@ Tensor tensor_equals(Tensor tOne, Tensor tTwo) {
 	if (tOne.dim == tTwo.dim) { //make sure # of dimensions are same
 		for (i = 0; i < tOne.dim; i++) { //make sure size of dimensions are same
 			if (dimSizeOne[i] != dimSizeTwo[i]) {
-				return false;
+				return 0;
 			}
 		}
 		for (i = 0; i < tOne.count; i++) { //make sure each element in the same
 			if (tOne.data[i] != tTwo.data[i]) {
-				return false;
+				return 0;
 			}
 		}
-		return true;
+		return 1;
 	} else {
-		return false;
+		return 0;
 	}
 }
 
