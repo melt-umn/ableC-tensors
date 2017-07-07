@@ -44,10 +44,6 @@ marking terminal Tensor_sum 'ten_sum' lexer classes {Ckeyword};
 marking terminal Tensor_product 'ten_prod' lexer classes {Ckeyword};
 
 marking terminal Tensor_combine 'ten_combine' lexer classes {Ckeyword};
---marking terminal Tensor_elem_add 'ten_elem_add' lexer classes {Ckeyword};
-marking terminal Tensor_elem_subtract 'ten_elem_subtract' lexer classes {Ckeyword};
-marking terminal Tensor_elem_multiply 'ten_elem_multiply' lexer classes {Ckeyword};
-marking terminal Tensor_elem_divide 'ten_elem_divide' lexer classes {Ckeyword};
 
 marking terminal Tensor_multiply 'ten_multiply' lexer classes {Ckeyword};
 
@@ -228,30 +224,6 @@ concrete production tensor_combine_c
 e::PrimaryExpr_c ::= 'ten_combine' '(' tenOne :: AssignExpr_c ',' tenTwo :: AssignExpr_c ')'
 {
   e.ast = tensor_combine_a(tenOne.ast,tenTwo.ast, location = e.location);
-}
-{-
-concrete production tensor_elem_add_c
-e::PrimaryExpr_c ::= 'ten_elem_add' '(' tenOne :: AssignExpr_c ',' tenTwo :: AssignExpr_c ')'
-{
-  e.ast = tensor_elem_add_a(tenOne.ast,tenTwo.ast, location = e.location);
-}
--}
-concrete production tensor_elem_subtract_c
-e::PrimaryExpr_c ::= 'ten_elem_subtract' '(' tenOne :: AssignExpr_c ',' tenTwo :: AssignExpr_c ')'
-{
-  e.ast = tensor_elem_subtract_a(tenOne.ast,tenTwo.ast, location = e.location);
-}
-
-concrete production tensor_elem_multiply_c
-e::PrimaryExpr_c ::= 'ten_elem_multiply' '(' tenOne :: AssignExpr_c ',' tenTwo :: AssignExpr_c ')'
-{
-  e.ast = tensor_elem_multiply_a(tenOne.ast,tenTwo.ast, location = e.location);
-}
-
-concrete production tensor_elem_divide_c
-e::PrimaryExpr_c ::= 'ten_elem_divide' '(' tenOne :: AssignExpr_c ',' tenTwo :: AssignExpr_c ')'
-{
-  e.ast = tensor_elem_divide_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
 
 concrete production tensor_multiply_c

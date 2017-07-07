@@ -20,6 +20,8 @@ generated::Location ::= original::Location module_name::String
   forwards to original;
 }
 
+
+--next functions are overloaded tensor functions
 aspect function ovrld:getAddOpOverload
 Maybe<(Expr ::= Expr Expr Location)> ::= l::Type r::Type env::Decorated Env
 {
@@ -30,6 +32,42 @@ Maybe<(Expr ::= Expr Expr Location)> ::= l::Type r::Type env::Decorated Env
          "edu:umn:cs:melt:exts:ableC:tensors:tensors"),
        \ lhs::Expr rhs::Expr loc::Location -> tensor_elem_add_a(lhs, rhs, location=loc))];
 }
+
+aspect function ovrld:getSubOpOverload
+Maybe<(Expr ::= Expr Expr Location)> ::= l::Type r::Type env::Decorated Env
+{
+  overloads <-
+    [pair(
+       pair(
+         "edu:umn:cs:melt:exts:ableC:tensors:tensors",
+         "edu:umn:cs:melt:exts:ableC:tensors:tensors"),
+       \ lhs::Expr rhs::Expr loc::Location -> tensor_elem_sub_a(lhs, rhs, location=loc))];
+}
+
+
+--might wish to change this to reference normal tensor multiplication instead
+aspect function ovrld:getMulOpOverload
+Maybe<(Expr ::= Expr Expr Location)> ::= l::Type r::Type env::Decorated Env
+{
+  overloads <-
+    [pair(
+       pair(
+         "edu:umn:cs:melt:exts:ableC:tensors:tensors",
+         "edu:umn:cs:melt:exts:ableC:tensors:tensors"),
+       \ lhs::Expr rhs::Expr loc::Location -> tensor_elem_mul_a(lhs, rhs, location=loc))];
+}
+
+aspect function ovrld:getDivOpOverload
+Maybe<(Expr ::= Expr Expr Location)> ::= l::Type r::Type env::Decorated Env
+{
+  overloads <-
+    [pair(
+       pair(
+         "edu:umn:cs:melt:exts:ableC:tensors:tensors",
+         "edu:umn:cs:melt:exts:ableC:tensors:tensors"),
+       \ lhs::Expr rhs::Expr loc::Location -> tensor_elem_div_a(lhs, rhs, location=loc))];
+}
+
 
 abstract production create_a
 e::Expr ::= numDim :: Expr dimSize :: Expr count :: Expr data :: Expr
@@ -462,7 +500,7 @@ e::Expr ::= tenOne :: Expr tenTwo :: Expr
   );
 }
 
-abstract production tensor_elem_subtract_a
+abstract production tensor_elem_sub_a
 e::Expr ::= tenOne :: Expr tenTwo :: Expr
 {
   forwards to directCallExpr(
@@ -479,7 +517,7 @@ e::Expr ::= tenOne :: Expr tenTwo :: Expr
   );
 }
 
-abstract production tensor_elem_multiply_a
+abstract production tensor_elem_mul_a
 e::Expr ::= tenOne :: Expr tenTwo :: Expr
 {
   forwards to directCallExpr(
@@ -496,7 +534,7 @@ e::Expr ::= tenOne :: Expr tenTwo :: Expr
   );
 }
 
-abstract production tensor_elem_divide_a
+abstract production tensor_elem_div_a
 e::Expr ::= tenOne :: Expr tenTwo :: Expr
 {
   forwards to directCallExpr(
