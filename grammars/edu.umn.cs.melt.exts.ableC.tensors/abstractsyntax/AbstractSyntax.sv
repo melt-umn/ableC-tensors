@@ -1,13 +1,14 @@
 grammar edu:umn:cs:melt:exts:ableC:tensors:abstractsyntax;
 
 imports edu:umn:cs:melt:ableC:abstractsyntax;
-imports edu:umn:cs:melt:ableC:concretesyntax;
 imports edu:umn:cs:melt:ableC:abstractsyntax:construction;
+imports edu:umn:cs:melt:ableC:abstractsyntax:substitution;
+imports edu:umn:cs:melt:ableC:abstractsyntax:env;
+imports edu:umn:cs:melt:ableC:abstractsyntax:overload as ovrld;
+
+imports edu:umn:cs:melt:ableC:concretesyntax;
 imports silver:langutil:pp;
 imports silver:langutil;
-imports edu:umn:cs:melt:ableC:abstractsyntax:env;
-imports edu:umn:cs:melt:ableC:abstractsyntax:substitution;
-imports edu:umn:cs:melt:ableC:abstractsyntax:overload as ovrld;
 
 
 global module_name::String = "ableC-tensors";
@@ -25,8 +26,8 @@ Maybe<(Expr ::= Expr Expr Location)> ::= l::Type r::Type env::Decorated Env
   overloads <-
     [pair(
        pair(
-         "edu:umn:cs:melt:exts:ableC:tensor:tensor",
-         "edu:umn:cs:melt:exts:ableC:tensor:tensor"),
+         "edu:umn:cs:melt:exts:ableC:tensors:tensors",
+         "edu:umn:cs:melt:exts:ableC:tensors:tensors"),
        \ lhs::Expr rhs::Expr loc::Location -> tensor_elem_add_a(lhs, rhs, location=loc))];
 }
 
