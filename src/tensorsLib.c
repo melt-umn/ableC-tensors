@@ -390,8 +390,16 @@ Tensor increment(Tensor tens) {
 	return map(plus_one,tens);
 }
 
+Tensor negate(Tensor tens) {
+	return map(times_netagive_one,tens);
+}
+
 float plus_one(float i) {
 	return i + 1;
+}
+
+float times_negative_one(float i) {
+	return i * -1;
 }
 
 float scalar_square(float i) {

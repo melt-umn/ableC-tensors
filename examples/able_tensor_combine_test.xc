@@ -70,5 +70,11 @@ int main () {
   printf("\n\ndiv 0 dim 1's and 9's tensors:\n");
   printT(tenFourF / tenFourS);
 
+  printf("\n\nsome tensors negated:\n");
+  printT(-tenThreeF);
+  printT(-tenThreeS);
+  printT(-tenFourF);
+  printT(-tenFourS);
+
   return 0;
 }

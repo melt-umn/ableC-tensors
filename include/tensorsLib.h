@@ -39,6 +39,7 @@ float scalar_tensor_to_float(Tensor);
 Tensor map(float (*)(float),Tensor);
 Tensor square(Tensor);
 Tensor increment(Tensor);
+Tensor negate(Tensor);
 
 float plus_one(float);
 float scalar_square(float);

@@ -22,6 +22,17 @@ generated::Location ::= original::Location module_name::String
 
 
 --next functions are overloaded tensor functions
+aspect function ovrld:getNegativeOpOverload
+Maybe<(Expr ::= Expr Location)> ::= l::Type env::Decorated Env
+{
+  overloads <-
+    [pair(
+       pair(
+         "edu:umn:cs:melt:exts:ableC:tensors:tensors",
+         "edu:umn:cs:melt:exts:ableC:tensors:tensors"),
+       \ lhs::Expr loc::Location -> tensor_elem_negate_a(lhs, rhs, location=loc))];
+}
+
 aspect function ovrld:getAddOpOverload
 Maybe<(Expr ::= Expr Expr Location)> ::= l::Type r::Type env::Decorated Env
 {
@@ -297,6 +308,21 @@ e::Expr ::= tensor :: Expr
   forwards to directCallExpr(
     name(
       "increment",
+      location = generate_location(e.location, module_name)
+    ),
+    consExpr(tensor,
+      nilExpr()
+    ),
+     location = generate_location(e.location, module_name)
+  );
+}
+
+abstract production negate_a
+e::Expr ::= tensor :: Expr
+{
+  forwards to directCallExpr(
+    name(
+      "negate",
       location = generate_location(e.location, module_name)
     ),
     consExpr(tensor,
