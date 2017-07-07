@@ -42,6 +42,7 @@ Tensor increment(Tensor);
 Tensor negate(Tensor);
 
 float plus_one(float);
+float times_netagive_one(float);
 float scalar_square(float);
 float scalar_add(float,float);
 float scalar_subtract(float,float);
@@ -66,6 +67,8 @@ Tensor tensor_elem_add(Tensor,Tensor);
 Tensor tensor_elem_subtract(Tensor,Tensor);
 Tensor tensor_elem_multiply(Tensor,Tensor);
 Tensor tensor_elem_divide(Tensor,Tensor);
+
+Tensor tensor_equals(Tensor,Tensor);
 
 Tensor tensor_multiply(Tensor,Tensor);
 Tensor dot_product(Tensor,Tensor);

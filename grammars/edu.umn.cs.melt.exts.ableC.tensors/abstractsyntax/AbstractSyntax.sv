@@ -31,6 +31,17 @@ Maybe<(Expr ::= Expr Location)> ::= l::Type env::Decorated Env
        \ lhs::Expr loc::Location -> tensor_elem_negate_a(lhs, location=loc))];
 }
 
+aspect function ovrld:getEqualsOpOverload
+Maybe<(Expr ::= Expr Expr Location)> ::= l::Type r::Type env::Decorated Env
+{
+  overloads <-
+    [pair(
+       pair(
+         "edu:umn:cs:melt:exts:ableC:tensors:tensors",
+         "edu:umn:cs:melt:exts:ableC:tensors:tensors"),
+       \ lhs::Expr rhs::Expr loc::Location -> tensor_equals_a(lhs, rhs, location=loc))];
+}
+
 aspect function ovrld:getAddOpOverload
 Maybe<(Expr ::= Expr Expr Location)> ::= l::Type r::Type env::Decorated Env
 {
@@ -564,6 +575,23 @@ e::Expr ::= tenOne :: Expr tenTwo :: Expr
   forwards to directCallExpr(
     name(
      "tensor_elem_divide",
+     location = generate_location(e.location, module_name)
+    ),
+    consExpr(tenOne,
+      consExpr(tenTwo,
+        nilExpr()
+      )
+    ),
+    location = generate_location(e.location, module_name)
+  );
+}
+
+abstract production tensor_equals_a
+e::Expr ::= tenOne :: Expr tenTwo :: Expr
+{
+  forwards to directCallExpr(
+    name(
+     "tensor_equals",
      location = generate_location(e.location, module_name)
     ),
     consExpr(tenOne,
