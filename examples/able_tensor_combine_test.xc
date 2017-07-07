@@ -34,41 +34,41 @@ int main () {
   printf("\nadd 1 dim 2's and 5's tensors:\n");
   printT(tenOneF + tenOneS);
   printf("\n\nsub 1 dim 2's and 5's tensors:\n");
-  printT(ten_elem_subtract(tenOneF,tenOneS));
+  printT(tenOneF - tenOneS);
   printf("\n\nmul 1 dim 2's and 5's tensors:\n");
-  printT(ten_elem_multiply(tenOneF,tenOneS));
+  printT(tenOneF * tenOneS);
   printf("\n\ndiv 1 dim 2's and 5's tensors:\n");
-  printT(ten_elem_divide(tenOneF,tenOneS));
+  printT(tenOn / F,tenOneS);
   printf("\n\n\n");
 
   printf("\nadd 2 dim 666's and 1's tensors:\n");
   printT(tenTwoF + tenTwoS);
   printf("\n\nsub 2 dim 666's and 1's tensors:\n");
-  printT(ten_elem_subtract(tenTwoF,tenTwoS));
+  printT(tenTwoF - tenTwoS);
   printf("\n\nmul 2 dim 666's and 1's tensors:\n");
-  printT(ten_elem_multiply(tenTwoF,tenTwoS));
+  printT(tenTwoF * tenTwoS);
   printf("\n\ndiv 2 dim 666's and 1's tensors:\n");
-  printT(ten_elem_divide(tenTwoF,tenTwoS));
+  printT(tenTw / F,tenTwoS);
   printf("\n\n\n");
 
   printf("\nadd 3 dim 100's and 101's tensors:\n");
   printT(tenThreeF + tenThreeS);
   printf("\n\nsub 3 dim 100's and 101's tensors:\n");
-  printT(ten_elem_subtract(tenThreeF,tenThreeS));
+  printT(tenThreeF - tenThreeS);
   printf("\n\nmul 3 dim 100's and 101's tensors:\n");
-  printT(ten_elem_multiply(tenThreeF,tenThreeS));
+  printT(tenThreeF * tenThreeS);
   printf("\n\ndiv 3 dim 100's and 101's tensors:\n");
-  printT(ten_elem_divide(tenThreeF,tenThreeS));
+  printT(tenThreeF / tenThreeS);
   printf("\n\n\n");
 
   printf("\nadd 0 dim 1's and 9's tensors:\n");
   printT(tenFourF + tenFourS);
   printf("\n\nsub 0 dim 1's and 9's tensors:\n");
-  printT(ten_elem_subtract(tenFourF,tenFourS));
+  printT(tenFourF - tenFourS);
   printf("\n\nmul 0 dim 1's and 9's tensors:\n");
-  printT(ten_elem_multiply(tenFourF,tenFourS));
+  printT(tenFourF * tenFourS);
   printf("\n\ndiv 0 dim 1's and 9's tensors:\n");
-  printT(ten_elem_divide(tenFourF,tenFourS));
+  printT(tenFour / ,tenFourS);
 
   return 0;
 }
