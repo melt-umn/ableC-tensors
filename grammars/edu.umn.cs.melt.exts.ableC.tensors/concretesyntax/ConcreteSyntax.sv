@@ -239,8 +239,8 @@ concrete productions top::AddMulNoneOp_c
   { top.ast = cross_product_a(top.leftExpr, top.rightExpr,
     location = top.location); }
 | '**'
-  { e.ast = tensor_multiply_a(top.leftExpr,top.rightExpr,
-    location = e.location); }
+  { top.ast = tensor_multiply_a(top.leftExpr,top.rightExpr,
+    location = top.location); }
 
 
 concrete production scalar_triple_product_c
