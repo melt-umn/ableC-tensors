@@ -317,7 +317,7 @@ e::Expr ::= tensor :: Expr
   );
 }
 
-abstract production negate_a
+abstract production tensor_elem_negate_a
 e::Expr ::= tensor :: Expr
 {
   forwards to directCallExpr(
