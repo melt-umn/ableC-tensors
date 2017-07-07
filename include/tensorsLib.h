@@ -43,7 +43,7 @@ Tensor increment(Tensor);
 Tensor negate(Tensor);
 
 float plus_one(float);
-float times_netagive_one(float);
+float times_negative_one(float);
 float scalar_square(float);
 float scalar_add(float,float);
 float scalar_subtract(float,float);
