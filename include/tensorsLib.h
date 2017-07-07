@@ -5,7 +5,8 @@ Modified by: Ankit Siva, Zoe Wentzel
 *************************************************************/
 
 // Struct definition for Tensor Struct
-typedef struct {
+typedef struct __attribute__((refId("edu:umn:cs:melt:exts:ableC:tensors:tensors"),
+                      module("edu:umn:cs:melt:exts:ableC:tensors:tensors"))) Tensor {
   float *data; //saves memory if at top
   int dim;
   int *dim_size;
