@@ -391,7 +391,7 @@ Tensor increment(Tensor tens) {
 }
 
 Tensor negate(Tensor tens) {
-	return map(times_netagive_one,tens);
+	return map(times_negative_one,tens);
 }
 
 float plus_one(float i) {
