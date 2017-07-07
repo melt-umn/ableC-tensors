@@ -10,8 +10,5 @@ top::BaseTypeExpr ::= q::Qualifiers
 abstract production tensorType
 top::Type ::= q::Qualifiers
 {
-  forwards to
-  tagType(
-    q,
-    refIdTagType(structSEU(), "_tensors_s", s"edu:umn:cs:melt:exts:ableC:tensors:tensors"));
+  top.module = "edu:umn:cs:melt:exts:ableC:tensors:tensors";
 }
