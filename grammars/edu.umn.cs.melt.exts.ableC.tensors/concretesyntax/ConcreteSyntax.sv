@@ -226,13 +226,6 @@ e::PrimaryExpr_c ::= 'ten_combine' '(' tenOne :: AssignExpr_c ',' tenTwo :: Assi
   e.ast = tensor_combine_a(tenOne.ast,tenTwo.ast, location = e.location);
 }
 
-concrete production tensor_multiply_c
-e::PrimaryExpr_c ::= 'ten_multiply' '(' tenOne :: AssignExpr_c ',' tenTwo :: AssignExpr_c ')'
-{
-  e.ast = tensor_multiply_a(tenOne.ast,tenTwo.ast, location = e.location);
-}
-
-
 concrete productions top::AdditiveOp_c
 | '.*'
   { top.ast = dot_product_a(top.leftExpr, top.rightExpr,
@@ -245,6 +238,9 @@ concrete productions top::AddMulNoneOp_c
 | 'x*'
   { top.ast = cross_product_a(top.leftExpr, top.rightExpr,
     location = top.location); }
+| '**'
+  { e.ast = tensor_multiply_a(tenOne.ast,tenTwo.ast,
+    location = e.location); }
 
 
 concrete production scalar_triple_product_c
