@@ -32,35 +32,27 @@ int main () {
   Tensor tenFourS = fill(0,dataTestFour,9);
 
   printf("1 dim 2's tensor .* 1 dim 5's tensor (Tensor):\n");
-  printT(dot(tenOneF,tenOneS));
+  printT(tenOneF .* tenOneS);
   printf("\n(Int): ");
-  printf("%f",float_dot(tenOneF,tenOneS));
-  printf("\n(Shortcut int): ");
-  printf("%f",float_dot_vtwo(tenOneF,tenOneS));
+  printf("%f",tenOneF f.* tenOneS);
   printf("\n\n\n");
 
   printf("2 dim 666's tensor .* 2 dim 1's tensor (Tensor):\n");
-  printT(dot(tenTwoF,tenTwoS));
+  printT(tenTwoF .* tenTwoS);
   printf("\n(Int): ");
-  printf("%f",float_dot(tenTwoF,tenTwoS));
-  printf("\n(Shortcut int): ");
-  printf("%f",float_dot_vtwo(tenTwoF,tenTwoS));
+  printf("%f",tenTwoF f.* tenTwoS );
   printf("\n\n\n");
 
   printf("3 dim 100's tensor .* 3 dim 101's tensor (Tensor):\n");
-  printT(dot(tenThreeF,tenThreeS));
+  printT(tenThreeF .* tenThreeS);
   printf("\n(Int): ");
-  printf("%f",float_dot(tenThreeF,tenThreeS));
-  printf("\n(Shortcut int): ");
-  printf("%f",float_dot_vtwo(tenThreeF,tenThreeS));
+  printf("%f",tenThreeF f.* tenThreeS);
   printf("\n\n\n");
 
   printf("0 dim 1's tensor .* 0 dim 9's tensor (Tensor):\n");
-  printT(dot(tenFourF,tenFourS));
+  printT(tenFourF .* tenFourS);
   printf("\n(Int): ");
-  printf("%f",float_dot(tenFourF,tenFourS));
-  printf("\n(Shortcut int): ");
-  printf("%f",float_dot_vtwo(tenFourF,tenFourS));
+  printf("%f",tenFourF f.* tenFourS);
   printf("\n");
   return 0;
 }
