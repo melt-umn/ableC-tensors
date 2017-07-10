@@ -83,7 +83,7 @@ concrete productions top::TensorTypes_c
 | --empty tensor
 -}
 
-concrete productions nil_tensor_c
+concrete production nil_tensor_c
 e::PrimaryExpr ::= '[.' '.]'
 {
   e.ast = nil_tensor_a(location = e.location);
