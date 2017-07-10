@@ -22,7 +22,6 @@ nonterminal Tensor with dimLength, dimensions, numData, data;
 
 global module_name::String = "tensors";
 
-
 abstract production generate_location
 generated::Location ::= original::Location module_name::String
 {
@@ -98,6 +97,34 @@ Maybe<(Expr ::= Expr Expr Location)> ::= l::Type r::Type env::Decorated Env
        \ lhs::Expr rhs::Expr loc::Location -> tensor_elem_div_a(lhs, rhs, location=loc))];
 }
 
+{-
+abstract production cons_tensor_a
+e::Expr ::= elem :: Expr rest :: Expr
+{
+
+}
+-}
+
+abstract production nil_tensor_a
+e::Expr ::=
+{
+  forwards to directCallExpr(
+    name(
+     "create_tensor",
+     location = generate_location(e.location, module_name)
+    ),
+    consExpr(0,
+      consExpr(null,
+        consExpr(0,
+          consExpr(null,
+            nilExpr()
+          )
+        )
+      )
+    ),
+    location = generate_location(e.location, module_name)
+  );
+}
 
 abstract production create_a
 e::Expr ::= numDim :: Expr dimSize :: Expr count :: Expr data :: Expr

@@ -64,6 +64,37 @@ marking terminal Free_dynamic 'free_dynamic' lexer classes {Ckeyword};
 
 marking terminal Tensor_print 'printT' lexer classes {Ckeyword};
 
+{-
+-- Mirrors TypeNames_c
+-- Can't use TypeNames_c due to constraints on adding new terminals to host follow sets
+nonterminal TensorTypes_c with ast<AssignExpr_c>;
+
+concrete production tensor_creation_c --only works for 1d tensors
+e::PrimaryExpr_c ::= '[.' t :: TensorTypeNames_c '.]'
+{
+  e.ast = tensor_creation_c(t.ast, location = e.location);
+}
+
+concrete productions top::TensorTypes_c
+| h::AssignExpr_c ',' t::TupleTypes_c --two or more tensor elements
+    { top.ast = cons_tensor_a(h.ast, t.ast); }
+| h::AssignExpr_c --one tensor element
+    { top.ast = cons_tensor_a(h.ast, nilTypeName()); }
+| --empty tensor
+-}
+
+concrete productions nil_tensor_c
+e::PrimaryExpr ::= '[.' '.]'
+{
+  e.ast = nil_tensor_a(location = e.location);
+}
+
+concrete production float_to_scalar_tensor_c
+e::PrimaryExpr_c ::= '[.' value :: AssignExpr_c '.]'
+{
+  e.ast = float_to_scalar_tensor_a(value.ast, location = e.location);
+}
+
 
 concrete production create_c
 e::PrimaryExpr_c ::= 'create' '(' numDim :: AssignExpr_c ',' dimSize :: AssignExpr_c ',' count :: AssignExpr_c ',' data :: AssignExpr_c')'
@@ -72,18 +103,10 @@ e::PrimaryExpr_c ::= 'create' '(' numDim :: AssignExpr_c ',' dimSize :: AssignEx
 }
 
 
-
 concrete production access_c
 e::PrimaryExpr_c ::= 'access' '(' tensor :: AssignExpr_c ',' interval :: AssignExpr_c ')'
 {
   e.ast = access_a (tensor.ast, interval.ast, location = e.location);
-}
-
-
-concrete production float_to_scalar_tensor_c
-e::PrimaryExpr_c ::= '[.' value :: AssignExpr_c '.]'
-{
-  e.ast = float_to_scalar_tensor_a(value.ast, location = e.location);
 }
 
 
