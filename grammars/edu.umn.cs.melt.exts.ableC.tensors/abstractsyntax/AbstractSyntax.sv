@@ -9,8 +9,12 @@ imports edu:umn:cs:melt:ableC:abstractsyntax:env;
 
 global module_name::String = "ableC-tensors";
 
-nonterminal Leaf with location, value;
-nonterminal Elem with location;
+synthesized attribute dimLength :: Integer;
+synthesized attribute dimensions :: Expr;
+synthesized attribute numData :: Integer;
+synthesized attribute data :: Expr; 
+
+nonterminal Tensor with dimLength, dimensions, numData, data;
 
 abstract production generate_location
 generated::Location ::= original::Location module_name::String
@@ -756,18 +760,33 @@ Expr ::= float :: Expr l :: Location
 }
 
 --Experimental
-abstract production tensor_literal_a
-e::Expr ::= tens_seq::TensorSeq
-{
-   
-}
+{-
+abstract production tensor_cons
+connedTensSeq::TensorSeq ::= tensSeq1::TensorSeq  tensSeq2::TensorSeq
+{}
 
-abstract production tensorSeq
-tSeq::TensorSeq ::= e::Expr
+abstract production tensorSeq_to_expr
+expr::Expr ::= tensorSeq::TensorSeq
+{}
+
+abstract production tensor_to_tensorSeq
+tensorSeq::TensorSeq ::= tensor::Tensor  tensorSeq::TensorSeq
+{}
+
+abstract production expr_to_tensor
+tensor::Tensor ::= expr::Expr
 {
-  tSeq.ast = case e of
-    | tensorLiteral(ts) -> ts.ast
-    | _ -> leaf(ts.ast)
-  end;
+  local tensType :: Type;
+
+  mkDeclGeneral(
+    "tensor", 
+    tensType, 
+    tensor.location
+  );
+
+  Tensor.numDim = expr.numDim;
+  Tensor.dimensions = expr.dimensions;
+  Tensor.numData = expr.numData;
+  Tensor.data = expr.data;
 }
-    
+-}

@@ -330,10 +330,11 @@ e::AssignExpr_c ::= 'printT' '(' value :: AssignExpr_c ')'
 }
 
 --Experimental tensor literal creation
+{-
 concrete production tensor_literal_c
 e::Expr_c ::= '[.' tSeq :: TensorSeq '.]'
 {
-  e.ast = tensor_literal_a(tSeq, location = e.location);
+  e.ast = expr_to_tensor(e.ast);
 }
 
 concrete production tensorSeq
@@ -342,3 +343,4 @@ tSeq::TensorSeq ::= e::Expr_c
 {
   t.ast = e.ast;
 } 
+-}
