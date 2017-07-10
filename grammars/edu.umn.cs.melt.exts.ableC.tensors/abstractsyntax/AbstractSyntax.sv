@@ -110,18 +110,10 @@ e::Expr ::=
 {
   forwards to directCallExpr(
     name(
-     "create_tensor",
+     "empty_tensor",
      location = generate_location(e.location, module_name)
     ),
-    consExpr(0,
-      consExpr(null,
-        consExpr(0,
-          consExpr(null,
-            nilExpr()
-          )
-        )
-      )
-    ),
+    nilExpr(),
     location = generate_location(e.location, module_name)
   );
 }

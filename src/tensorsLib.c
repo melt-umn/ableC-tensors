@@ -15,7 +15,9 @@
 char delimiters[10] = {',', ';', '/', '-', '!', '@', '#', '%', '^', '&'};
 char delimiters_alternate[10] = {'&', '^', '%', '#', '@', '!', '-', ';', '/', ','};
 
-
+Tensor empty_tensor() {
+	return create_tensor(0,NULL,0,NULL);
+}
 /*
  * Description:
  * Creates a Tensor in which each field of the tensor struct is passed in

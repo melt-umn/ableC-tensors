@@ -23,6 +23,7 @@ extern char delimiters[10];
 extern char delimiters_alternate[10];
 
 // Function calls
+Tensor empty_tensor();
 Tensor create_tensor(int,int*,int,float*);
 Tensor access_tensor(Tensor,Interval*);
 float float_access_tensor(Tensor,int*);
