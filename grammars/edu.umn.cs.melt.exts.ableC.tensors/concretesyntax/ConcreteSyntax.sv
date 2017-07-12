@@ -79,8 +79,9 @@ concrete productions top::TensorTypes_c
 | h::AssignExpr_c ',' t::TupleTypes_c --two or more tensor elements
     { top.ast = cons_tensor_a(h.ast, t.ast); }
 | h::AssignExpr_c --one tensor element
-    { top.ast = cons_tensor_a(h.ast, nilTypeName()); }
+    { top.ast = cons_tensor_a(h.ast, nil_tensor_a()); }
 | --empty tensor
+    { top.ast = nil_tensor_a(h.ast);}
 -}
 
 concrete production nil_tensor_c
