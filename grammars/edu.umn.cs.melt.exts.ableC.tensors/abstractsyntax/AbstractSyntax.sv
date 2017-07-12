@@ -107,7 +107,7 @@ e::Expr ::= leftBound :: Expr rightBound :: Expr
      location = generate_location(e.location, module_name)
     ),
     consExpr(leftBound,
-      consExpr(rightBoun,
+      consExpr(rightBound,
         nilExpr()
       )
     ),
