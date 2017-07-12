@@ -9,8 +9,12 @@ imports edu:umn:cs:melt:exts:ableC:tensors:abstractsyntax;
 imports silver:langutil:pp;
 imports silver:langutil;
 
+marking terminal intervalEnvOpen_t '<.';
+terminal intervalEnvClose_t '.>';
+
 marking terminal TensorEnvOpen_t '[.';
 terminal TensorEnvClose_t '.]';
+--i assume a star exists? and the dash?
 
 marking terminal Create_tensor 'create' lexer classes {Ckeyword};
 
@@ -96,6 +100,25 @@ e::PrimaryExpr_c ::= '[.' value :: AssignExpr_c '.]'
   e.ast = float_to_scalar_tensor_a(value.ast, location = e.location);
 }
 
+concrete productions top::PrimaryExpr_c
+| '<.' oneDim :: AssignExpr_c '.>'
+  { e.ast = create_interval_double_bound_a(oneDim.ast, oneDim.ast,
+    location = top.location) }
+| '<.' leftDim :: AssignExpr_c '-' rightDim :: AssignExpr_c '.>'
+  { e.ast = create_interval_double_bound_a(leftDim.ast, rightDim.ast,
+    location = top.location) }
+| '<.' leftDim :: AssignExpr_c '-' '*' '.>'
+  { e.ast = create_interval_left_bound_a(leftDim.ast,
+    location = top.location) }
+| '<.' '*' '.>'
+  { e.ast = create_interval_no_bound_a(location = top.location) }
+
+--rest of these are technically useless but will add for consistency
+
+| '<.' '*' '-' rightDim :: AssignExpr_c '.>'
+  { e.ast = create_interval_right_bound_a(rightDim.ast, location = top.location) }
+| '<.' '*' '-' '*' '.>'
+  { e.ast = create_interval_no_bound_a(location = top.location) }
 
 concrete production create_c
 e::PrimaryExpr_c ::= 'create' '(' numDim :: AssignExpr_c ',' dimSize :: AssignExpr_c ',' count :: AssignExpr_c ',' data :: AssignExpr_c')'

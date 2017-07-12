@@ -97,13 +97,68 @@ Maybe<(Expr ::= Expr Expr Location)> ::= l::Type r::Type env::Decorated Env
        \ lhs::Expr rhs::Expr loc::Location -> tensor_elem_div_a(lhs, rhs, location=loc))];
 }
 
-{-
-abstract production cons_tensor_a
-e::Expr ::= elem :: Expr rest :: Expr
-{
 
+abstract production create_interval_double_bound_a
+e::Expr ::= leftBound :: Expr rightBound :: Expr
+{
+  forwards to directCallExpr(
+    name(
+     "create_interval_double_bound",
+     location = generate_location(e.location, module_name)
+    ),
+    consExpr(leftBound,
+      consExpr(rightBoun,
+        nilExpr()
+      )
+    ),
+    location = generate_location(e.location, module_name)
+  );
 }
--}
+
+
+abstract production create_interval_left_bound_a
+e::Expr ::= leftBound :: Expr
+{
+  forwards to directCallExpr(
+    name(
+      "create_interval_left_bound",
+      location = generate_location(e.location, module_name)
+    ),
+    consExpr(leftBound,
+      nilExpr()
+    ),
+     location = generate_location(e.location, module_name)
+  );
+}
+
+abstract production create_interval_right_bound_a
+e::Expr ::= rightBound :: Expr
+{
+  forwards to directCallExpr(
+    name(
+      "create_interval_right_bound",
+      location = generate_location(e.location, module_name)
+    ),
+    consExpr(rightBound,
+      nilExpr()
+    ),
+     location = generate_location(e.location, module_name)
+  );
+}
+
+abstract production create_interval_no_bound_a
+e::Expr ::=
+{
+  forwards to directCallExpr(
+    name(
+     "create_interval_no_bound",
+     location = generate_location(e.location, module_name)
+    ),
+    nilExpr(),
+    location = generate_location(e.location, module_name)
+  );
+}
+
 
 abstract production nil_tensor_a
 e::Expr ::=

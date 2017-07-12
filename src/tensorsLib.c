@@ -85,7 +85,6 @@ Interval create_interval_left_bound(int left) {
 	}
 }
 
-
 /*
  * Description:
  * Creates an interval given only a right bound (right bound must be 0 or greater)
@@ -103,6 +102,19 @@ Interval create_interval_right_bound(int right) {
 		exit(1);
 	}
 }
+
+/*
+ * Description:
+ * Creates an interval given no bounds
+ *
+ * Assumption:
+ * This will return an interval with a left bound of 0 and a rightbound of
+ * -1, which represents the furthermost right index of the Tensor.
+*/
+Interval create_interval_no_bound() {
+	return create_interval_double_bound(0,-1,1);
+}
+
 
 
 Tensor empty_tensor() {

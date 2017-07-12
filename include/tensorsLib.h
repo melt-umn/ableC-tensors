@@ -25,6 +25,7 @@ extern char delimiters_alternate[10];
 Interval create_interval_double_bound(int,int,int);
 Interval create_interval_left_bound(int);
 Interval create_interval_right_bound(int);
+Interval create_interval_no_bound(int);
 
 // Function calls
 Tensor empty_tensor();
