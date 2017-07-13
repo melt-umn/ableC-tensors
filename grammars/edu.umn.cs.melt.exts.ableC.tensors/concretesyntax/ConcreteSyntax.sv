@@ -111,7 +111,7 @@ concrete productions top::PrimaryExpr_c
   { e.ast = create_interval_left_bound_a(leftDim.ast,
     location = top.location); }
 | '<.' '*' '.>'
-  { e.ast = create_interval_no_bound_a(location = top.location) }
+  { e.ast = create_interval_no_bound_a(location = top.location); }
 
 --rest of these are technically useless but will add for consistency
 
