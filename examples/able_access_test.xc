@@ -15,9 +15,7 @@ int main() {
   dataOne[4] = -6;
   Tensor tenOne = create(dimOne,dimSizeOne,countOne,dataOne);
 
-  Interval interOne;
-  interOne.lBound = 1;
-  interOne.rBound = 3;
+  Interval interOne = <. 1 - 3 .>;
   Interval *interList = malloc(sizeof(Interval));
   interList[0] = interOne;
 
@@ -45,12 +43,8 @@ int main() {
   intListTwo[0] = 1;
   intListTwo[1] = 0;
 
-  Interval interTwo;
-  interTwo.lBound = 0;
-  interTwo.rBound = 1;
-  Interval interThree;
-  interThree.lBound = 0;
-  interThree.rBound = 1;
+  Interval interTwo = <. 0 - 1 .>;
+  Interval interThree = <. 0 - 1 .>;
   Interval *interListTwo = malloc(sizeof(Interval)*2);
   interListTwo[0] = interTwo;
   interListTwo[1] = interThree;
@@ -67,15 +61,9 @@ int main() {
   }
   Tensor tenThree = create(dimThree,dimSizeThree,countThree,dataThree);
 
-  Interval interFour;
-  interFour.lBound = 0;
-  interFour.rBound = 1;
-  Interval interFive;
-  interFive.lBound = 1;
-  interFive.rBound = 2;
-  Interval interSix;
-  interSix.lBound = 1;
-  interSix.rBound = 2;
+  Interval interFour = <. 0 - 1 .>;
+  Interval interFive = <. 1 - 2 .>;
+  Interval interSix = <. 1 - 2 .>;
   Interval *interListThree = malloc(sizeof(Interval)*3);
   interListThree[0] = interFour;
   interListThree[1] = interFive;
