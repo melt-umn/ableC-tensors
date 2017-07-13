@@ -9,10 +9,8 @@ imports edu:umn:cs:melt:exts:ableC:tensors:abstractsyntax;
 imports silver:langutil:pp;
 imports silver:langutil;
 
-{-
 marking terminal IntervalEnvOpen_t '<.';
 terminal IntervalEnvClose_t '.>';
--}
 
 marking terminal TensorEnvOpen_t '[.';
 terminal TensorEnvClose_t '.]';
