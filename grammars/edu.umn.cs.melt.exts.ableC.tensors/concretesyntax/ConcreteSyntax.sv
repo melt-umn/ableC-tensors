@@ -120,7 +120,6 @@ concrete productions top::PrimaryExpr_c
   { top.ast = create_interval_right_bound_a(rightDim.ast, location = top.location); }
 | '<.' '*' '-' '-' '*' '.>'
   { top.ast = create_interval_no_bound_a(location = top.location); }
--}
 
 concrete production create_c
 e::PrimaryExpr_c ::= 'create' '(' numDim :: AssignExpr_c ',' dimSize :: AssignExpr_c ',' count :: AssignExpr_c ',' data :: AssignExpr_c')'
