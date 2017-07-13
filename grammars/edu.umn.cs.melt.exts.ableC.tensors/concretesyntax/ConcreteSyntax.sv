@@ -105,7 +105,7 @@ concrete productions top::PrimaryExpr_c
 | '<.' oneDim :: AssignExpr_c '.>'
   { top.ast = create_interval_double_bound_a(oneDim.ast, oneDim.ast,
     location = top.location); }
-| '<.' leftDim :: AssignExpr_c '-' '-'' rightDim :: AssignExpr_c '.>'
+| '<.' leftDim :: AssignExpr_c '-' '-' rightDim :: AssignExpr_c '.>'
   { top.ast = create_interval_double_bound_a(leftDim.ast, rightDim.ast,
     location = top.location); }
 | '<.' leftDim :: AssignExpr_c '-' '-' '*' '.>'
