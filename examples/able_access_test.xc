@@ -15,13 +15,13 @@ int main() {
   dataOne[4] = -6;
   Tensor tenOne = create(dimOne,dimSizeOne,countOne,dataOne);
 
-  Interval testOne = <. 1 .>;
+  //Interval testOne = <. 1 .>;
   Interval testTwo = <. * .>;
-  Interval testThree = <. 1 .-. * .>;
-  Interval interOne = <. 1 .-. 3 .>;
+  //Interval testThree = <. 1 .-. * .>;
+  //Interval interOne = <. 1 .-. 3 .>;
   Interval *interList = malloc(sizeof(Interval));
-  interList[0] = interOne;
-
+  interList[0] = testTwo;
+/*
   int dimTwo = 2;
   int *dimSizeTwo = malloc(sizeof(int)*2); //2
   dimSizeTwo[0] = 3;
@@ -71,14 +71,14 @@ int main() {
   interListThree[0] = interFour;
   interListThree[1] = interFive;
   interListThree[2] = interSix;
-
+*/
 	printf("original tensor:\n");
   printT(tenOne);
   printf("\n\n");
   printf("accessing from 1 - 3 (should be 1234, 2, 645)\n");
 	printT(access_tensor(tenOne,interList));
   printf("\n\n");
-
+/*
   printf("original tensor:\n");
   printT(tenTwo);
   printf("\n\n");
@@ -92,6 +92,6 @@ int main() {
   printf("accessing from [0-1][1-2][1-2](should be 5 6 8 9 14 15 17 18)\n");
   printT(access_tensor(tenThree,interListThree));
   printf("\n\n");
-
+*/
 	return 0;
 }
