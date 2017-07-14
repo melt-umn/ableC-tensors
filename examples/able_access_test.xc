@@ -15,10 +15,15 @@ int main() {
   dataOne[4] = -6;
   Tensor tenOne = create(dimOne,dimSizeOne,countOne,dataOne);
 
-  //Interval testOne = <. 1 .>;
-  //Interval testTwo = <. * .>;
-  //Interval testThree = <. 1 .-. * .>;
-  //Interval interOne = <. 1 .-. 3 .>;
+  Interval testOne = <. 1 .>;
+  Interval testTwo = <. * .>;
+  Interval testThree = <. 1 .-. * .>;
+  Interval testFour = <. 1 .-. 3 .>;
+  Interval testOneT = inter_both_bound(1,1);
+  Interval testTwoT = inter_no_bound();
+  Interval testThreeT = inter_left_bound(1);
+  Interval testFourT = inter_both_bound(1,3);
+
   Interval testTwo;
   testTwo.lBound = 0;
   testTwo.rBound = 4;
