@@ -16,9 +16,12 @@ int main() {
   Tensor tenOne = create(dimOne,dimSizeOne,countOne,dataOne);
 
   //Interval testOne = <. 1 .>;
-  Interval testTwo = <. * .>;
+  //Interval testTwo = <. * .>;
   //Interval testThree = <. 1 .-. * .>;
   //Interval interOne = <. 1 .-. 3 .>;
+  Interval testTwo;
+  testTwo.lHand = 0;
+  testTwo.rHand = 4;
   Interval *interList = malloc(sizeof(Interval));
   interList[0] = testTwo;
 /*
