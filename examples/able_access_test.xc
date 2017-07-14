@@ -20,8 +20,8 @@ int main() {
   //Interval testThree = <. 1 .-. * .>;
   //Interval interOne = <. 1 .-. 3 .>;
   Interval testTwo;
-  testTwo.lHand = 0;
-  testTwo.rHand = 4;
+  testTwo.lBound = 0;
+  testTwo.rBound = 4;
   Interval *interList = malloc(sizeof(Interval));
   interList[0] = testTwo;
 /*
