@@ -15,6 +15,9 @@ int main() {
   dataOne[4] = -6;
   Tensor tenOne = create(dimOne,dimSizeOne,countOne,dataOne);
 
+  Interval testOne = <. 1 .>;
+  Interval testTwo = <. * .>;
+  Interval testThree = <. 1 - * .>;
   Interval interOne = <. 1 .-. 3 .>;
   Interval *interList = malloc(sizeof(Interval));
   interList[0] = interOne;
