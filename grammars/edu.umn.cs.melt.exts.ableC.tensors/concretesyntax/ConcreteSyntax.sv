@@ -129,26 +129,26 @@ concrete productions top::PrimaryExpr_c
 concrete production create_interval_double_bound_c
 e::PrimaryExpr_c ::= 'inter_both_bound' '(' left::AssignExpr_c ',' right::AssignExpr_c ')'
 {
-  top.ast = create_interval_double_bound_a(left.ast, right.ast,
-    location = top.location);
+  e.ast = create_interval_double_bound_a(left.ast, right.ast,
+    location = e.location);
 }
 
 concrete production create_interval_left_bound_c
 e::PrimaryExpr_c ::= 'inter_left_bound' '(' left::AssignExpr_c ')'
 {
-  top.ast = create_interval_left_bound_a(left.ast, location = top.location);
+  e.ast = create_interval_left_bound_a(left.ast, location = e.location);
 }
 
 concrete production create_interval_right_bound_c
 e::PrimaryExpr_c ::= 'inter_right_bound' '(' right::AssignExpr_c ')'
 {
-  top.ast = create_interval_double_bound_a(right.ast, location = top.location);
+  e.ast = create_interval_double_bound_a(right.ast, location = e.location);
 }
 
 concrete production create_interval_no_bound_c
 e::PrimaryExpr_c ::= 'inter_no_bound' '(' ')'
 {
-  top.ast = create_interval_no_bound_a(location = top.location);
+  e.ast = create_interval_no_bound_a(location = e.location);
 }
 
 concrete production create_c
