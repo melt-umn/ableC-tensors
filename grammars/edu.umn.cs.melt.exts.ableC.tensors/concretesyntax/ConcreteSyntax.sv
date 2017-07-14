@@ -118,7 +118,7 @@ concrete productions top::PrimaryExpr_c
 --rest of these are technically useless but will add for consistency
 | '<.' '*' '.-.' rightDim :: AssignExpr_c '.>'
   { top.ast = create_interval_right_bound_a(rightDim.ast, location = top.location); }
-| '<.' '*' '.-. '*' '.>'
+| '<.' '*' '.-.' '*' '.>'
   { top.ast = create_interval_no_bound_a(location = top.location); }
 
 concrete production create_c
