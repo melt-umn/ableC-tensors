@@ -142,7 +142,7 @@ e::PrimaryExpr_c ::= 'inter_left_bound' '(' left::AssignExpr_c ')'
 concrete production create_interval_right_bound_c
 e::PrimaryExpr_c ::= 'inter_right_bound' '(' right::AssignExpr_c ')'
 {
-  e.ast = create_interval_double_bound_a(right.ast, location = e.location);
+  e.ast = create_interval_right_bound_a(right.ast, location = e.location);
 }
 
 concrete production create_interval_no_bound_c
