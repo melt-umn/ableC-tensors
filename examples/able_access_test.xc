@@ -24,11 +24,11 @@ int main() {
   Interval testThreeT = inter_left_bound(1);
   Interval testFourT = inter_both_bound(1,3);
 
-  Interval testTwo;
-  testTwo.lBound = 0;
-  testTwo.rBound = 4;
+  Interval testTwoV;
+  testTwoV.lBound = 0;
+  testTwoV.rBound = 4;
   Interval *interList = malloc(sizeof(Interval));
-  interList[0] = testTwo;
+  interList[0] = testTwoV;
 /*
   int dimTwo = 2;
   int *dimSizeTwo = malloc(sizeof(int)*2); //2
