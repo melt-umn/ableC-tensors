@@ -11,6 +11,7 @@ imports silver:langutil;
 
 marking terminal IntervalEnvOpen_t '<.';
 terminal IntervalEnvClose_t '.>';
+marking terminal StartIntervalList '<.>';
 terminal Between '.-.';
 
 marking terminal TensorEnvOpen_t '[.';
@@ -128,13 +129,11 @@ e::PrimaryExpr_c ::= 'create' '(' numDim :: AssignExpr_c ',' dimSize :: AssignEx
   e.ast = create_a(numDim.ast, dimSize.ast, count.ast, data.ast, location = e.location);
 }
 
-
 concrete production access_c
 e::PrimaryExpr_c ::= 'access' '(' tensor :: AssignExpr_c ',' interval :: AssignExpr_c ')'
 {
   e.ast = access_a (tensor.ast, interval.ast, location = e.location);
 }
-
 
 concrete production copy_tensor_c
 e::PrimaryExpr_c ::= 'copy' '(' value :: AssignExpr_c ')'
@@ -289,6 +288,11 @@ concrete productions top::AddMulNoneOp_c
     location = top.location); }
 | '**'
   { top.ast = tensor_multiply_a(top.leftExpr,top.rightExpr,
+    location = top.location); }
+
+concrete production top::AddMulRightOp_c
+| '<.>'
+  { top.ast = access_a(top.leftExpr, top.rightExpr,
     location = top.location); }
 
 
