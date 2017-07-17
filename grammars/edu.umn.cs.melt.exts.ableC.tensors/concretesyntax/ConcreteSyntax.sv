@@ -12,11 +12,6 @@ imports silver:langutil;
 marking terminal IntervalEnvOpen_t '<.';
 terminal IntervalEnvClose_t '.>';
 terminal Between '.-.';
-marking terminal Inter_both_bound 'inter_both_bound' lexer classes {Ckeyword};
-marking terminal Inter_left_bound 'inter_left_bound' lexer classes {Ckeyword};
-marking terminal Inter_right_bound 'inter_right_bound' lexer classes {Ckeyword};
-marking terminal Inter_no_bound 'inter_no_bound' lexer classes {Ckeyword};
-
 
 marking terminal TensorEnvOpen_t '[.';
 terminal TensorEnvClose_t '.]';
@@ -126,30 +121,6 @@ concrete productions top::PrimaryExpr_c
 | '<.' '*' '.-.' '*' '.>'
   { top.ast = create_interval_no_bound_a(location = top.location); }
 
-concrete production create_interval_double_bound_c
-e::PrimaryExpr_c ::= 'inter_both_bound' '(' left::AssignExpr_c ',' right::AssignExpr_c ')'
-{
-  e.ast = create_interval_double_bound_a(left.ast, right.ast,
-    location = e.location);
-}
-
-concrete production create_interval_left_bound_c
-e::PrimaryExpr_c ::= 'inter_left_bound' '(' left::AssignExpr_c ')'
-{
-  e.ast = create_interval_left_bound_a(left.ast, location = e.location);
-}
-
-concrete production create_interval_right_bound_c
-e::PrimaryExpr_c ::= 'inter_right_bound' '(' right::AssignExpr_c ')'
-{
-  e.ast = create_interval_right_bound_a(right.ast, location = e.location);
-}
-
-concrete production create_interval_no_bound_c
-e::PrimaryExpr_c ::= 'inter_no_bound' '(' ')'
-{
-  e.ast = create_interval_no_bound_a(location = e.location);
-}
 
 concrete production create_c
 e::PrimaryExpr_c ::= 'create' '(' numDim :: AssignExpr_c ',' dimSize :: AssignExpr_c ',' count :: AssignExpr_c ',' data :: AssignExpr_c')'
