@@ -290,7 +290,7 @@ concrete productions top::AddMulNoneOp_c
   { top.ast = tensor_multiply_a(top.leftExpr,top.rightExpr,
     location = top.location); }
 
-concrete production top::AddMulRightOp_c
+concrete productions top::AddMulRightOp_c
 | '<.>'
   { top.ast = access_a(top.leftExpr, top.rightExpr,
     location = top.location); }
