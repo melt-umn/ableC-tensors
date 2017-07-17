@@ -184,14 +184,6 @@ Tensor access_tensor(Tensor tens, Interval *interIndices) {
 
   newDim = dim; //dims won't change in this version
   newDimSize = malloc(sizeof(int)*newDim); //malloc space
-  for (k = 0; k < newDim; k++) { //fill it based on bounds (1 + because inclusivity)
-    newDimSize[k] = 1 + interIndices[k].rBound - interIndices[k].lBound;
-  }
-  newCount = 1;
-  for (k = 0; k < newDim; k++) { //total elements is each dim multiplied
-    newCount *= newDimSize[k];
-  }
-  newData = malloc(sizeof(float)*newCount); //need enough memory in data for each element
 
 	// whenever the rBound of interIndices is 0, it needs to change to the
 	// dim - 1 of the corresponding dimension of the tensor. An rBound of -1
@@ -201,6 +193,17 @@ Tensor access_tensor(Tensor tens, Interval *interIndices) {
 			interIndices[k].rBound = tens.dim_size[k] - 1;
 		}
 	}
+
+  for (k = 0; k < newDim; k++) { //fill it based on bounds (1 + because inclusivity)
+    newDimSize[k] = 1 + interIndices[k].rBound - interIndices[k].lBound;
+  }
+  newCount = 1;
+  for (k = 0; k < newDim; k++) { //total elements is each dim multiplied
+    newCount *= newDimSize[k];
+  }
+  newData = malloc(sizeof(float)*newCount); //need enough memory in data for each element
+
+
 
   //assumes every dimension needed in intervals is passed in
   intIndices = malloc(sizeof(int)*dim);
