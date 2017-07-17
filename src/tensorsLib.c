@@ -18,52 +18,44 @@ char delimiters_alternate[10] = {'&', '^', '%', '#', '@', '!', '-', ';', '/', ',
 
 /*
  * Description:
- * Creates an interval given a left and right bound, as well as a valid bit
- * (needs to be 0 or 1). If the valid bit is zero, left and right dimensions
- * must both be 0 or greater. If it is one, then the right dimension can be
- * -1, which means the user wishes to index to the rightmost value of the array.
- * This valid bit is necessary to make sure users don't just try to index to the
- * -1'th spot of the array themselves (other negatives are not allowed).
+ * Creates an interval given a left and right bound. Left and right dimensions
+ * must both be 0 or greater. This function should only be called by other functions
+ * and not by the user correctly. If the user calls it, no error checking is given.
  *
  * Assumption:
- * The valid bit must be one or zero and the left int must be zero or greater.
- * If the valid bit is zero, the left int must be less than or equal to the right int.
- * Otherwise, the right int must be -1.
+ * The left boundary must be zero or greater. The right boundary must either be
+ * greater than the left boundary or equal to negative one—if it is negative one,
+ * it represents the furthermost right index of the tensor it is used with.
 */
-Interval create_interval_double_bound(int left, int right, int valid) {
+Interval create_interval_double_bound_hidden(int left, int right) {
 	Interval inter;
-	if (valid == 0) { //check to see if valid bit is 0
-		if (left >= 0) { //left bound must be zero or greater
-			if (left <= right) { //right bound must be greater or equal to left bound
-				inter.lBound = left;
-				inter.rBound = right;
-			} else {
-				printf("\n\nLeft interval index must be less than or equal to right interval index\n\n");
-				exit(1);
-			}
-		} else {
-			printf("\n\nInterval dimensions must be positive\n\n");
-			exit(1);
-		}
-	} else if  (valid == 1) { //check to see if valid bit is 1
-		if (left >= 0) { //left bound must be zero or greater
-			if (right == -1) { //right bound must be -1
-				inter.lBound = left;
-				inter.rBound = right;
+	inter.lBound = left;
+	inter.rBound = right;
+	return inter;
+}
 
-			} else {
-				printf("\n\nRight interval index must be -1 if valid bit is 1\n\n");
-				exit(1);
-			}
+/*
+ * Description:
+ * Creates an interval given only a left bound (left bound must be 0 or greater)
+ *
+ * Assumption:
+ * Left bound must be 0 or greater — is checked for — and within range of the
+ * Tensor it will be used on (not checked at interval creation). In addition,
+ * the lack of right bound assumes user wishes to stop indexing at the furthermost
+ * right index.
+*/
+Interval create_interval_double_bound(int left, int right) {
+	if (left >= 0) { //left bound must be zero or greater
+		if (left <= right) { //right bound must be greater or equal to left bound
+			return create_interval_double_bound_hidden(left,right);
 		} else {
-			printf("\n\nLeft interval dimension must be positive\n\n");
+			printf("\n\nLeft interval index must be less than or equal to right interval index\n\n");
 			exit(1);
 		}
 	} else {
-		printf("\n\nValid bit must be 0 or 1\n\n");
+		printf("\n\nInterval dimensions must be positive\n\n");
 		exit(1);
 	}
-	return inter;
 }
 
 /*
@@ -78,7 +70,7 @@ Interval create_interval_double_bound(int left, int right, int valid) {
 */
 Interval create_interval_left_bound(int left) {
 	if (left >= 0) {
-		return create_interval_double_bound(left,-1, 1);
+		return create_interval_double_bound_hidden(left,-1);
 	} else {
 		printf("\n\nInterval dimensions must be positive\n\n");
 		exit(1);
@@ -96,7 +88,7 @@ Interval create_interval_left_bound(int left) {
 */
 Interval create_interval_right_bound(int right) {
 	if (right >= 0) {
-		return create_interval_double_bound(0, right, 0);
+		return create_interval_double_bound_hidden(0, right);
 	} else {
 		printf("\n\nInterval dimensions must be positive\n\n");
 		exit(1);
@@ -112,7 +104,7 @@ Interval create_interval_right_bound(int right) {
  * -1, which represents the furthermost right index of the Tensor.
 */
 Interval create_interval_no_bound() {
-	return create_interval_double_bound(0,-1,1);
+	return create_interval_double_bound_hidden(0,-1);
 }
 
 
