@@ -198,7 +198,7 @@ Tensor access_tensor(Tensor tens, Interval *interIndices) {
 	// represents going to the rightmost boundary of the tensor
 	for (k = 0; k < dim; k++) {
 		if (interIndices[k].rBound == -1) {
-			interIndices[k].rBound = tens.dimSize[k] - 1;
+			interIndices[k].rBound = tens.dim_size[k] - 1;
 		}
 	}
 
