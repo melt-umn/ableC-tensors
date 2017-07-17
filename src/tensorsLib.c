@@ -163,6 +163,8 @@ float float_access_tensor(Tensor tens, int *indices) {
 /*
  * Description:
  * Takes a tensor and an interval list and indexes the tensor using that list
+ * If the right bound of an index is -1, it represents the right most index
+ * in that field of the tensor (negative indices, like Python, not allowed here).
  *
  * Assumption:
  * Number of dimensions in the tensor matches the length of the interval list
@@ -191,6 +193,15 @@ Tensor access_tensor(Tensor tens, Interval *interIndices) {
   }
   newData = malloc(sizeof(float)*newCount); //need enough memory in data for each element
 
+	// whenever the rBound of interIndices is 0, it needs to change to the
+	// dim - 1 of the corresponding dimension of the tensor. An rBound of -1
+	// represents going to the rightmost boundary of the tensor
+	for (k = 0; k < dim; k++) {
+		if (interIndices[k].rBound == -1) {
+			interIndices[k].rBound = tens.dimSize[k] - 1;
+		}
+	}
+
   //assumes every dimension needed in intervals is passed in
   intIndices = malloc(sizeof(int)*dim);
   Interval *interIndicesCopy = malloc(sizeof(Interval)*dim);
@@ -201,7 +212,6 @@ Tensor access_tensor(Tensor tens, Interval *interIndices) {
   largestChangingDim = dim - 1; //largset changing dim is also rightmost dimension
   for (k = 0; k < newCount; k++) { //loop until we get every element
     //starts with minimum of each interval, lBound changes as this loops
-    printf("indices are: ");
     for (j = 0; j < dim; j++) {
       intIndices[j] = interIndicesCopy[j].lBound;
     }
