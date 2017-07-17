@@ -71,7 +71,8 @@ int main() {
 
   Interval interFour = <. 0 .-. 1 .>;
   Interval interFive = <. 1 .-. 2 .>;
-  Interval interSix = <. 1 .-. * .>;
+  Interval interSix = inter_left_bound(1);
+  //Interval interSix = <. 1 .-. * .>;
   Interval *interListThree = malloc(sizeof(Interval)*3);
   interListThree[0] = interFour;
   interListThree[1] = interFive;
