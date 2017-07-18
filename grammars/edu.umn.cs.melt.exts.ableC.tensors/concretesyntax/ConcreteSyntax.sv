@@ -90,17 +90,17 @@ concrete productions top::TensorTypes_c
     { top.ast = nil_tensor_a(h.ast);}
 -}
 
-concrete production nil_tensor_c
-e::PrimaryExpr_c ::= '[.' '.]'
-{
-  e.ast = nil_tensor_a(location = e.location);
-}
-
-concrete production float_to_scalar_tensor_c
-e::PrimaryExpr_c ::= '[.' value :: AssignExpr_c '.]'
-{
-  e.ast = float_to_scalar_tensor_a(value.ast, location = e.location);
-}
+--concrete production nil_tensor_c
+--e::PrimaryExpr_c ::= '[.' '.]'
+--{
+--  e.ast = nil_tensor_a(location = e.location);
+--}
+--
+--concrete production float_to_scalar_tensor_c
+--e::PrimaryExpr_c ::= '[.' value :: AssignExpr_c '.]'
+--{
+--  e.ast = float_to_scalar_tensor_a(value.ast, location = e.location);
+--}
 
 
 concrete productions top::PrimaryExpr_c
@@ -348,18 +348,25 @@ e::PrimaryExpr_c ::= 'printT' '(' value :: AssignExpr_c ')'
   e.ast = print_tensor_a(value.ast, location = e.location);
 }
 
+nonterminal TensorSeq with location, ast<Expr>;
+
 --Experimental tensor literal creation
-{-
 concrete production tensor_literal_c
-e::Expr_c ::= '[.' tSeq :: TensorSeq '.]'
+e::AssignExpr_c ::= '[.' tSeq :: TensorSeq '.]'
 {
-  e.ast = expr_to_tensor(e.ast);
+--  e.ast = expr_to_tensor(e.ast);
+  e.ast = txtExpr("/* tensor_literal_c */", location=e.location);
 }
 
-concrete production tensorSeq
-tSeq::TensorSeq ::= e::Expr_c
-| tSeq :: TensorSeq ::= e::Expr_c ',' anotherTSeq::TensorSeq
-{
-  t.ast = e.ast;
-}
--}
+concrete productions tSeq::TensorSeq
+| e::AssignExpr_c
+  {
+--  t.ast = e.ast;
+    tSeq.ast = txtExpr("/* tensorSeq */", location=e.location);
+  }
+| e::AssignExpr_c ',' anotherTSeq::TensorSeq
+  {
+--  t.ast = e.ast;
+    tSeq.ast = txtExpr("/* tensorSeq */", location=e.location);
+  }
+
