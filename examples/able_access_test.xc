@@ -15,12 +15,6 @@ int main() {
   dataOne[4] = -6;
   Tensor tenOne = create(dimOne,dimSizeOne,countOne,dataOne);
 
-  Interval interOne;
-  interOne.lBound = 1;
-  interOne.rBound = 3;
-  Interval *interList = malloc(sizeof(Interval));
-  interList[0] = interOne;
-
   int dimTwo = 2;
   int *dimSizeTwo = malloc(sizeof(int)*2); //2
   dimSizeTwo[0] = 3;
@@ -41,20 +35,6 @@ int main() {
   dataTwo[11] = -56;
   Tensor tenTwo = create(dimTwo,dimSizeTwo,countTwo,dataTwo);
 
-  int *intListTwo = malloc(sizeof(int)*2);
-  intListTwo[0] = 1;
-  intListTwo[1] = 0;
-
-  Interval interTwo;
-  interTwo.lBound = 0;
-  interTwo.rBound = 1;
-  Interval interThree;
-  interThree.lBound = 0;
-  interThree.rBound = 1;
-  Interval *interListTwo = malloc(sizeof(Interval)*2);
-  interListTwo[0] = interTwo;
-  interListTwo[1] = interThree;
-
   int dimThree = 3;
   int *dimSizeThree = malloc(sizeof(int)*3); //2
   dimSizeThree[0] = 3;
@@ -67,39 +47,44 @@ int main() {
   }
   Tensor tenThree = create(dimThree,dimSizeThree,countThree,dataThree);
 
-  Interval interFour;
-  interFour.lBound = 0;
-  interFour.rBound = 1;
-  Interval interFive;
-  interFive.lBound = 1;
-  interFive.rBound = 2;
-  Interval interSix;
-  interSix.lBound = 1;
-  interSix.rBound = 2;
+  Interval interOne = <. * .>;
+  Interval *interList = malloc(sizeof(Interval));
+  interList[0] = interOne;
+
+  Interval interTwo = <. 0 .-. 1 .>;
+  Interval interThree = <. * .-. 1 .>;
+  Interval *interListTwo = malloc(sizeof(Interval)*2);
+  interListTwo[0] = interTwo;
+  interListTwo[1] = interThree;
+
+  Interval interFour = <. 0 .-. 1 .>;
+  Interval interFive = <. 1 .-. 2 .>;
+  Interval interSix = <. 1 .-. * .>;
   Interval *interListThree = malloc(sizeof(Interval)*3);
   interListThree[0] = interFour;
   interListThree[1] = interFive;
   interListThree[2] = interSix;
 
+
 	printf("original tensor:\n");
   printT(tenOne);
   printf("\n\n");
-  printf("accessing from 1 - 3 (should be 1234, 2, 645)\n");
-	printT(access_tensor(tenOne,interList));
+  printf("accessing from 0 - 4 (should be 32, 1234, 2, 645, -6)\n");
+	printT(tenOne<.>interList);
   printf("\n\n");
 
   printf("original tensor:\n");
   printT(tenTwo);
   printf("\n\n");
   printf("accessing from 0 - 1, 0 - 1 (should be 32, 1234 // -6, 23)\n");
-	printT(access_tensor(tenTwo,interListTwo));
+	printT(tenTwo<.>interListTwo);
   printf("\n\n");
 
   printf("original tensor:\n");
   printT(tenThree);
   printf("\n\n");
   printf("accessing from [0-1][1-2][1-2](should be 5 6 8 9 14 15 17 18)\n");
-  printT(access_tensor(tenThree,interListThree));
+  printT(tenThree<.>interListThree);
   printf("\n\n");
 
 	return 0;

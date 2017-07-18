@@ -3,9 +3,11 @@
 Created by: Nguyen Nguyen
 Modified by: Ankit Siva, Zoe Wentzel
 *************************************************************/
+#include <stdbool.h>
 
 // Struct definition for Tensor Struct
-typedef struct {
+typedef struct __attribute__((refId("edu:umn:cs:melt:exts:ableC:tensors:tensors"),
+                      module("edu:umn:cs:melt:exts:ableC:tensors:tensors"))) Tensor {
   float *data; //saves memory if at top
   int dim;
   int *dim_size;
@@ -20,7 +22,15 @@ typedef struct {
 extern char delimiters[10];
 extern char delimiters_alternate[10];
 
+Interval create_interval_double_bound_hidden(int,int);
+Interval create_interval_double_bound(int,int);
+Interval create_interval_left_bound(int);
+Interval create_interval_right_bound(int);
+Interval create_interval_no_bound();
+
+
 // Function calls
+Tensor empty_tensor();
 Tensor create_tensor(int,int*,int,float*);
 Tensor access_tensor(Tensor,Interval*);
 float float_access_tensor(Tensor,int*);
@@ -38,8 +48,10 @@ float scalar_tensor_to_float(Tensor);
 Tensor map(float (*)(float),Tensor);
 Tensor square(Tensor);
 Tensor increment(Tensor);
+Tensor negate(Tensor);
 
 float plus_one(float);
+float times_negative_one(float);
 float scalar_square(float);
 float scalar_add(float,float);
 float scalar_subtract(float,float);
@@ -64,6 +76,8 @@ Tensor tensor_elem_add(Tensor,Tensor);
 Tensor tensor_elem_subtract(Tensor,Tensor);
 Tensor tensor_elem_multiply(Tensor,Tensor);
 Tensor tensor_elem_divide(Tensor,Tensor);
+
+bool tensor_equals(Tensor,Tensor);
 
 Tensor tensor_multiply(Tensor,Tensor);
 Tensor dot_product(Tensor,Tensor);

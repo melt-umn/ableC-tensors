@@ -58,15 +58,15 @@ int main () {
   printT(tenFour);
   printf("\n\n\n");
 
-  printT(ten_multiply(tenOne,tenTwo));
+  printT(tenOne ** tenTwo);
   printf("\n\n\n");
 
   printf("tenTwo * tenThree is: \n");
-  printT(ten_multiply(tenTwo,tenThree));
+  printT(tenTwo ** tenThree);
   printf("\n\n\n");
 
   printf("tenThree * tenFour is: \n");
-  printT(ten_multiply(tenThree,tenFour));
+  printT(tenThree ** tenFour);
 
   return 0;
 }

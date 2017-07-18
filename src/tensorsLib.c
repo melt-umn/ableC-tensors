@@ -18,6 +18,102 @@ char delimiters_alternate[10] = {'&', '^', '%', '#', '@', '!', '-', ';', '/', ',
 
 /*
  * Description:
+ * Creates an interval given a left and right bound. Left and right dimensions
+ * must both be 0 or greater. This function should only be called by other functions
+ * and not by the user correctly. If the user calls it, no error checking is given.
+ *
+ * Assumption:
+ * The left boundary must be zero or greater. The right boundary must either be
+ * greater than the left boundary or equal to negative one—if it is negative one,
+ * it represents the furthermost right index of the tensor it is used with.
+*/
+Interval create_interval_double_bound_hidden(int left, int right) {
+	Interval inter;
+	inter.lBound = left;
+	inter.rBound = right;
+	return inter;
+}
+
+/*
+ * Description:
+ * Creates an interval given only a left bound (left bound must be 0 or greater)
+ *
+ * Assumption:
+ * Left bound must be 0 or greater — is checked for — and within range of the
+ * Tensor it will be used on (not checked at interval creation). In addition,
+ * the lack of right bound assumes user wishes to stop indexing at the furthermost
+ * right index.
+*/
+Interval create_interval_double_bound(int left, int right) {
+	if (left >= 0) { //left bound must be zero or greater
+		if (left <= right) { //right bound must be greater or equal to left bound
+			return create_interval_double_bound_hidden(left,right);
+		} else {
+			printf("\n\nLeft interval index must be less than or equal to right interval index\n\n");
+			exit(1);
+		}
+	} else {
+		printf("\n\nInterval dimensions must be positive\n\n");
+		exit(1);
+	}
+}
+
+/*
+ * Description:
+ * Creates an interval given only a left bound (left bound must be 0 or greater)
+ *
+ * Assumption:
+ * Left bound must be 0 or greater — is checked for — and within range of the
+ * Tensor it will be used on (not checked at interval creation). In addition,
+ * the lack of right bound assumes user wishes to stop indexing at the furthermost
+ * right index.
+*/
+Interval create_interval_left_bound(int left) {
+	if (left >= 0) {
+		return create_interval_double_bound_hidden(left,-1);
+	} else {
+		printf("\n\nInterval dimensions must be positive\n\n");
+		exit(1);
+	}
+}
+
+/*
+ * Description:
+ * Creates an interval given only a right bound (right bound must be 0 or greater)
+ *
+ * Assumption:
+ * Right bound must be 0 or greater — is checked for — and within range of the
+ * Tensor it will be used on (not checked at interval creation). In addition,
+ * the lack of left bound assumes user wishes to start the left bound at 0.
+*/
+Interval create_interval_right_bound(int right) {
+	if (right >= 0) {
+		return create_interval_double_bound_hidden(0, right);
+	} else {
+		printf("\n\nInterval dimensions must be positive\n\n");
+		exit(1);
+	}
+}
+
+/*
+ * Description:
+ * Creates an interval given no bounds
+ *
+ * Assumption:
+ * This will return an interval with a left bound of 0 and a rightbound of
+ * -1, which represents the furthermost right index of the Tensor.
+*/
+Interval create_interval_no_bound() {
+	return create_interval_double_bound_hidden(0,-1);
+}
+
+
+
+Tensor empty_tensor() {
+	return create_tensor(0,NULL,0,NULL);
+}
+/*
+ * Description:
  * Creates a Tensor in which each field of the tensor struct is passed in
  *
  * Assumption:
@@ -67,6 +163,8 @@ float float_access_tensor(Tensor tens, int *indices) {
 /*
  * Description:
  * Takes a tensor and an interval list and indexes the tensor using that list
+ * If the right bound of an index is -1, it represents the right most index
+ * in that field of the tensor (negative indices, like Python, not allowed here).
  *
  * Assumption:
  * Number of dimensions in the tensor matches the length of the interval list
@@ -86,6 +184,16 @@ Tensor access_tensor(Tensor tens, Interval *interIndices) {
 
   newDim = dim; //dims won't change in this version
   newDimSize = malloc(sizeof(int)*newDim); //malloc space
+
+	// whenever the rBound of interIndices is 0, it needs to change to the
+	// dim - 1 of the corresponding dimension of the tensor. An rBound of -1
+	// represents going to the rightmost boundary of the tensor
+	for (k = 0; k < dim; k++) {
+		if (interIndices[k].rBound == -1) {
+			interIndices[k].rBound = tens.dim_size[k] - 1;
+		}
+	}
+
   for (k = 0; k < newDim; k++) { //fill it based on bounds (1 + because inclusivity)
     newDimSize[k] = 1 + interIndices[k].rBound - interIndices[k].lBound;
   }
@@ -94,6 +202,8 @@ Tensor access_tensor(Tensor tens, Interval *interIndices) {
     newCount *= newDimSize[k];
   }
   newData = malloc(sizeof(float)*newCount); //need enough memory in data for each element
+
+
 
   //assumes every dimension needed in intervals is passed in
   intIndices = malloc(sizeof(int)*dim);
@@ -105,7 +215,6 @@ Tensor access_tensor(Tensor tens, Interval *interIndices) {
   largestChangingDim = dim - 1; //largset changing dim is also rightmost dimension
   for (k = 0; k < newCount; k++) { //loop until we get every element
     //starts with minimum of each interval, lBound changes as this loops
-    printf("indices are: ");
     for (j = 0; j < dim; j++) {
       intIndices[j] = interIndicesCopy[j].lBound;
     }
@@ -390,8 +499,16 @@ Tensor increment(Tensor tens) {
 	return map(plus_one,tens);
 }
 
+Tensor negate(Tensor tens) {
+	return map(times_negative_one,tens);
+}
+
 float plus_one(float i) {
 	return i + 1;
+}
+
+float times_negative_one(float i) {
+	return i * -1;
 }
 
 float scalar_square(float i) {
@@ -578,6 +695,27 @@ Tensor tensor_elem_multiply(Tensor tOne, Tensor tTwo) {
 
 Tensor tensor_elem_divide(Tensor tOne, Tensor tTwo) {
 	return tensor_combine(scalar_divide,tOne,tTwo);
+}
+
+bool tensor_equals(Tensor tOne, Tensor tTwo) {
+	int i;
+	int *dimSizeOne = tOne.dim_size;
+	int *dimSizeTwo = tTwo.dim_size;
+	if (tOne.dim == tTwo.dim) { //make sure # of dimensions are same
+		for (i = 0; i < tOne.dim; i++) { //make sure size of dimensions are same
+			if (dimSizeOne[i] != dimSizeTwo[i]) {
+				return false;
+			}
+		}
+		for (i = 0; i < tOne.count; i++) { //make sure each element in the same
+			if (tOne.data[i] != tTwo.data[i]) {
+				return false;
+			}
+		}
+		return true;
+	} else {
+		return false;
+	}
 }
 
 Tensor tensor_multiply(Tensor tOne, Tensor tTwo) {

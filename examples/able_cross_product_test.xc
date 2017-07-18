@@ -24,17 +24,18 @@ int main () {
   Tensor tenZero = create(dim,dimSize,count,dataZero);
   Tensor tenOne = create(dim,dimSize,count,dataOne);
   Tensor tenTwo = create(dim,dimSize,count,dataTwo);
-	printf("([666 662 35] x* [22 1234 2]:\n");
-  printT(cross(tenZero, tenOne));
+
+  printf("([666 662 35] x* [22 1234 2]:\n");
+  printT(tenZero x* tenOne);
   printf("\n\n\n");
   printf("([22 1234 2] x* [666 662 35]:\n");
-  printT(cross(tenOne, tenZero));
+  printT(tenOne x* tenZero);
   printf("\n\n\n");
   printf("([666 662 35] x* [32 543 65]:\n");
-  printT(cross(tenTwo, tenTwo));
+  printT(tenTwo x* tenTwo);
   printf("\n\n\n");
   printf("[22 1234 2] x* [32 543 65]:\n");
-  printT(cross(tenOne, tenTwo));
-  printf("\n\n\n");
+  printT(tenOne x* tenTwo);
+
   return 0;
 }
