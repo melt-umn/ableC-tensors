@@ -938,6 +938,7 @@ e::Expr ::= tensor::Tensor
 nonterminal Tensor with numDim;
 
 synthesized attribute numDim :: Integer;
+inherited attribute count :: Integer;
 
 abstract production consTensor
 tensor::Tensor ::= e::Expr ts::Tensor
@@ -947,6 +948,7 @@ tensor::Tensor ::= e::Expr ts::Tensor
       tensorLiteral(t) -> t.numDim + 1
     | _                -> 1
     end;
+    tensor.count = e.count + ts.count;
 }
 
 abstract production nilTensor
