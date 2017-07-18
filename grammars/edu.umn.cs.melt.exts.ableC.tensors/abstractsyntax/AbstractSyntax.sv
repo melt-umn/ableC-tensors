@@ -922,3 +922,17 @@ tensor::Tensor ::= expr::Expr
   Tensor.data = expr.data;
 }
 -}
+
+abstract production tensorLiteral
+e::Expr ::= tensors::[Tensor]
+{
+  forwards to txtExpr("/* tensorLiteral */", location=e.location);
+}
+
+nonterminal Tensor;
+
+abstract production tensor
+tensor::Tensor ::=
+{
+}
+
