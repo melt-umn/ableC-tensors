@@ -950,8 +950,8 @@ abstract production consTensor
 tensor::Tensor ::= e::Expr ts::Tensor
 {
   tensor.numDim = e.numDim + 1;
-  tensor.dimSize = e.dimSize ++ ts.dimSize;
   tensor.count = e.count + ts.count;
+  tensor.dimSize = e.dimSize ++ ts.dimSize;
   tensor.data = [];
 
   tensor.errors := e.errors ++ ts.errors;
@@ -961,12 +961,14 @@ tensor::Tensor ::= e::Expr ts::Tensor
            toString(tensor.numDim) ++ "d and " ++ toString(ts.numDim) ++ "d")]
     else [];
 
+{-
   tensor.errors <-
     if length(tensor.dimSize) != tensor.numDim
     then [err(e.location, "tensor dimSize length " ++
             toString(length(tensor.dimSize)) ++ " does not match numDim " ++
             toString(tensor.numDim))]
     else [];
+-}
 }
 
 abstract production singletonTensor
