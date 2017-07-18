@@ -10,8 +10,6 @@ imports edu:umn:cs:melt:ableC:concretesyntax;
 imports silver:langutil:pp;
 imports silver:langutil;
 
-global MODULE_NAME :: String = "edu:umn:cs:melt:exts:ableC:tensors";
-
 {-
 synthesized attribute dimLength :: Integer;
 synthesized attribute dimensions :: Expr;
@@ -928,30 +926,31 @@ abstract production tensorLiteral
 e::Expr ::= tensor::Tensor
 {
   e.numDim = tensor.numDim;
-  e.count = tensor.count + 1;
+  e.dimSize = tensor.dimSize;
+  e.count = tensor.count;
 
-  local numDim :: Expr = mkIntConst(tensor.numDim, builtinLoc(MODULE_NAME));
-  local dimSize :: Expr = mkIntConst(0, builtinLoc(MODULE_NAME));
-  local count :: Expr = mkIntConst(e.count, builtinLoc(MODULE_NAME));
-  local data :: Expr = mkIntConst(0, builtinLoc(MODULE_NAME));
+  local numDim :: Expr = mkIntConst(tensor.numDim, generate_location(e.location, module_name));
+  local dimSize :: Expr = mkDimSizeExpr(tensor.dimSize, generate_location(e.location, module_name));
+  local count :: Expr = mkIntConst(tensor.count, generate_location(e.location, module_name));
+  local data :: Expr = mkIntConst(0, generate_location(e.location, module_name));
 
   forwards to
     if null(tensor.errors)
-    then create_a(numDim, dimSize, count, data, location=builtinLoc(MODULE_NAME))
+    then create_a(numDim, dimSize, count, data, location=generate_location(e.location, module_name))
     else errorExpr(tensor.errors, location=e.location);
 }
 
 nonterminal Tensor with numDim, dimSize, count, data, errors, env;
 synthesized attribute numDim :: Integer occurs on Expr;
-synthesized attribute dimSize :: [Integer];
+synthesized attribute dimSize :: [Integer] occurs on Expr;
 synthesized attribute count :: Integer occurs on Expr;
-synthesized attribute data :: [Integer];
+synthesized attribute data :: [Float];
 
 abstract production consTensor
 tensor::Tensor ::= e::Expr ts::Tensor
 {
   tensor.numDim = e.numDim + 1;
-  tensor.dimSize = [];
+  tensor.dimSize = e.dimSize ++ ts.dimSize;
   tensor.count = e.count + ts.count;
   tensor.data = [];
 
@@ -961,14 +960,22 @@ tensor::Tensor ::= e::Expr ts::Tensor
     then [err(e.location, "tensor dimensions do not match: " ++
            toString(tensor.numDim) ++ "d and " ++ toString(ts.numDim) ++ "d")]
     else [];
+
+  tensor.errors <-
+    if length(tensor.dimSize) != tensor.numDim
+    then [err(e.location, "tensor dimSize length " ++
+            toString(length(tensor.dimSize)) ++ " does not match numDim " ++
+            toString(tensor.numDim))]
+    else [];
 }
 
 abstract production singletonTensor
 tensor::Tensor ::= e::Expr
 {
   tensor.numDim = e.numDim + 1;
-  tensor.dimSize = [];
-  tensor.count = e.count + 1;
+--  tensor.dimSize = [e.dimSize + 1];
+  tensor.dimSize = e.dimSize;
+  tensor.count = e.count;
   tensor.data = [];
   tensor.errors := [];
 }
@@ -977,6 +984,87 @@ aspect default production
 e::Expr ::=
 {
   e.numDim = 0;
-  e.count = 0;
+  e.count = 1;
+  e.dimSize = [0];
+}
+
+-- e.g. ({ int *__dimsize_tmp9 = malloc(1*sizeof(int)); __dimsize_tmp9[0] = 3; __dimsize_tmp9; })
+function mkDimSizeExpr
+Expr ::= dimSize::[Integer] l::Location
+{
+  local tmpName :: Name = name("__dimsize_tmp" ++ toString(genInt()), location=l);
+  return
+    stmtExpr(
+      foldStmt([
+        declStmt(
+          variableDecls(
+            [],
+            nilAttribute(),
+            typeModifierTypeExpr(
+              directTypeExpr(builtinType(nilQualifier(), signedType(intType()))),
+              pointerTypeExpr(nilQualifier(), baseTypeExpr())
+            ),
+            foldDeclarator([
+              declarator(
+                tmpName, baseTypeExpr(), nilAttribute(),
+                justInitializer(
+                  exprInitializer(
+                    directCallExpr(
+                      name("malloc", location = l),
+                      foldExpr([
+                        binaryOpExpr(
+                          mkIntConst(length(dimSize), l),
+                          numOp(mulOp(location=l), location=l),
+                          unaryExprOrTypeTraitExpr(
+                            sizeofOp(location=l),
+                            typeNameExpr(
+                              typeName(
+                                directTypeExpr(
+                                  builtinType(nilQualifier(), signedType(intType()))
+                                ),
+                                baseTypeExpr()
+                              )
+                            ),
+                            location=l
+                          ),
+                          location=l
+                        )
+                      ]),
+                      location=l
+                    )
+                  )
+                )
+              )
+            ])
+          )
+        )
+      ] ++ mkDimSizeAssign(dimSize, tmpName, 0, l)),
+      declRefExpr(tmpName, location=l),
+      location=l
+    );
+}
+
+function mkDimSizeAssign
+[Stmt] ::= dimSize::[Integer] tmpName::Name count::Integer l::Location
+{
+  return
+    if null(dimSize)
+    then []
+    else
+      cons(
+        exprStmt(
+          binaryOpExpr(
+            arraySubscriptExpr(
+              declRefExpr(tmpName, location=l),
+              mkIntConst(count, l),
+              location=l
+            ),
+            assignOp(eqOp(location=l), location=l),
+            mkIntConst(head(dimSize), l),
+            location=l
+          )
+        ),
+        mkDimSizeAssign(tail(dimSize), tmpName, count+1, l)
+      );
 }
 
