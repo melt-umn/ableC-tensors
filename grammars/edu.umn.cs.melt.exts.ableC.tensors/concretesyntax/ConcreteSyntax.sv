@@ -348,25 +348,21 @@ e::PrimaryExpr_c ::= 'printT' '(' value :: AssignExpr_c ')'
   e.ast = print_tensor_a(value.ast, location = e.location);
 }
 
-nonterminal TensorSeq with location, ast<Expr>;
-nonterminal ExprSeq with location, ast<Expr>;
-
 --Experimental tensor literal creation
 concrete production tensor_literal_c
-e::AssignExpr_c ::= '[.' tSeq :: TensorSeq '.]'
+e::AssignExpr_c ::= '[.' tSeq :: TensorSeq_c '.]'
 {
---  e.ast = expr_to_tensor(e.ast);
-  e.ast = txtExpr("/* tensor_literal_c */", location=e.location);
+  e.ast = tensorLiteral(tSeq.ast, location=e.location);
 }
 
-concrete productions tSeq::TensorSeq
+nonterminal TensorSeq_c with location, ast<[Tensor]>;
+
+concrete productions tSeq::TensorSeq_c
 | e::AssignExpr_c
   {
---  t.ast = e.ast;
-    tSeq.ast = txtExpr("/* tensorSeq */", location=e.location);
+    tSeq.ast = [tensor()];
   }
-| e::AssignExpr_c ',' anotherTSeq::TensorSeq
+| e::AssignExpr_c ',' anotherTSeq::TensorSeq_c
   {
---  t.ast = e.ast;
-    tSeq.ast = txtExpr("/* tensorSeq */", location=e.location);
+    tSeq.ast = cons(tensor(), anotherTSeq.ast);
   }
