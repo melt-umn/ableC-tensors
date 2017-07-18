@@ -927,31 +927,54 @@ tensor::Tensor ::= expr::Expr
 abstract production tensorLiteral
 e::Expr ::= tensor::Tensor
 {
+  e.numDim = tensor.numDim;
+
   local numDim :: Expr = mkIntConst(tensor.numDim, builtinLoc(MODULE_NAME));
   local dimSize :: Expr = mkIntConst(0, builtinLoc(MODULE_NAME));
-  local count :: Expr = mkIntConst(0, builtinLoc(MODULE_NAME));
+  local count :: Expr = mkIntConst(tensor.count, builtinLoc(MODULE_NAME));
   local data :: Expr = mkIntConst(0, builtinLoc(MODULE_NAME));
 
-  forwards to create_a(numDim, dimSize, count, data, location=builtinLoc(MODULE_NAME));
+  forwards to
+    if null(tensor.errors)
+    then create_a(numDim, dimSize, count, data, location=builtinLoc(MODULE_NAME))
+    else errorExpr(tensor.errors, location=e.location);
 }
 
-nonterminal Tensor with numDim;
-
-synthesized attribute numDim :: Integer;
+nonterminal Tensor with numDim, dimSize, count, data, errors, env;
+synthesized attribute numDim :: Integer occurs on Expr;
+synthesized attribute dimSize :: [Integer];
+synthesized attribute count :: Integer;
+synthesized attribute data :: [Integer];
 
 abstract production consTensor
 tensor::Tensor ::= e::Expr ts::Tensor
 {
-  tensor.numDim =
-    case e of
-      tensorLiteral(t) -> t.numDim + 1
-    | _                -> 1
-    end;
+  tensor.numDim = e.numDim + 1;
+  tensor.dimSize = [];
+  tensor.count = 0;
+  tensor.data = [];
+
+  tensor.errors := e.errors ++ ts.errors;
+  tensor.errors <-
+    if tensor.numDim != ts.numDim
+    then [err(e.location, "tensor dimensions do not match: " ++
+           toString(tensor.numDim) ++ "d and " ++ toString(ts.numDim) ++ "d")]
+    else [];
 }
 
-abstract production nilTensor
-tensor::Tensor ::=
+abstract production singletonTensor
+tensor::Tensor ::= e::Expr
 {
-  tensor.numDim = 0;
+  tensor.numDim = e.numDim + 1;
+  tensor.dimSize = [];
+  tensor.count = 0;
+  tensor.data = [];
+  tensor.errors := [];
+}
+
+aspect default production
+e::Expr ::=
+{
+  e.numDim = 0;
 }
 

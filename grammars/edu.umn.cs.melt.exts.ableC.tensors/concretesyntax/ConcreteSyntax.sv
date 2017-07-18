@@ -360,7 +360,7 @@ nonterminal TensorSeq_c with location, ast<Tensor>;
 concrete productions tSeq::TensorSeq_c
 | e::AssignExpr_c
   {
-    tSeq.ast = consTensor(e.ast, nilTensor());
+    tSeq.ast = singletonTensor(e.ast);
   }
 | e::AssignExpr_c ',' anotherTSeq::TensorSeq_c
   {
