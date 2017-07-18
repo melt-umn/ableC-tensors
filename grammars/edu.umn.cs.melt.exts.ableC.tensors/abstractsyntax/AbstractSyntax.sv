@@ -10,6 +10,7 @@ imports edu:umn:cs:melt:ableC:concretesyntax;
 imports silver:langutil:pp;
 imports silver:langutil;
 
+global MODULE_NAME :: String = "edu:umn:cs:melt:exts:ableC:tensors";
 
 {-
 synthesized attribute dimLength :: Integer;
@@ -926,7 +927,12 @@ tensor::Tensor ::= expr::Expr
 abstract production tensorLiteral
 e::Expr ::= tensors::[Tensor]
 {
-  forwards to txtExpr("/* tensorLiteral */", location=e.location);
+  local numDim :: Expr = mkIntConst(0, builtinLoc(MODULE_NAME));
+  local dimSize :: Expr = mkIntConst(0, builtinLoc(MODULE_NAME));
+  local count :: Expr = mkIntConst(0, builtinLoc(MODULE_NAME));
+  local data :: Expr = mkIntConst(0, builtinLoc(MODULE_NAME));
+
+  forwards to create_a(numDim, dimSize, count, data, location=builtinLoc(MODULE_NAME));
 }
 
 nonterminal Tensor;
