@@ -370,13 +370,3 @@ concrete productions tSeq::TensorSeq
 --  t.ast = e.ast;
     tSeq.ast = txtExpr("/* tensorSeq */", location=e.location);
   }
-
-concrete productions eSeq::ExprSeq
-| e::AssignExpr_c
-{
-  eSeq.ast = txtExpr("/* ExprSeq */", location = e.location);
-}
-| e::AssignExpr_c ',' anotherESeq::ExprSeq
-{
-  eSeq.ast = txtExpr("/* ExprSeq */", location = e.location);
-}
