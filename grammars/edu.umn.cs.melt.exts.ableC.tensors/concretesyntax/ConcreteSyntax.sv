@@ -348,8 +348,6 @@ e::PrimaryExpr_c ::= 'printT' '(' value :: AssignExpr_c ')'
   e.ast = print_tensor_a(value.ast, location = e.location);
 }
 
---Experimental tensor literal creation
-{-
 concrete production tensor_literal_c
 e::Expr_c ::= '[.' tSeq :: TensorSeq '.]'
 {
@@ -362,4 +360,3 @@ tSeq::TensorSeq ::= e::Expr_c
 {
   t.ast = e.ast;
 }
--}
