@@ -925,9 +925,9 @@ tensor::Tensor ::= expr::Expr
 -}
 
 abstract production tensorLiteral
-e::Expr ::= tensors::[Tensor]
+e::Expr ::= tensor::Tensor
 {
-  local numDim :: Expr = mkIntConst(0, builtinLoc(MODULE_NAME));
+  local numDim :: Expr = mkIntConst(tensor.numDim, builtinLoc(MODULE_NAME));
   local dimSize :: Expr = mkIntConst(0, builtinLoc(MODULE_NAME));
   local count :: Expr = mkIntConst(0, builtinLoc(MODULE_NAME));
   local data :: Expr = mkIntConst(0, builtinLoc(MODULE_NAME));
@@ -935,10 +935,23 @@ e::Expr ::= tensors::[Tensor]
   forwards to create_a(numDim, dimSize, count, data, location=builtinLoc(MODULE_NAME));
 }
 
-nonterminal Tensor;
+nonterminal Tensor with numDim;
 
-abstract production tensor
+synthesized attribute numDim :: Integer;
+
+abstract production consTensor
+tensor::Tensor ::= e::Expr ts::Tensor
+{
+  tensor.numDim =
+    case e of
+      tensorLiteral(t) -> t.numDim + 1
+    | _                -> 1
+    end;
+}
+
+abstract production nilTensor
 tensor::Tensor ::=
 {
+  tensor.numDim = 0;
 }
 
