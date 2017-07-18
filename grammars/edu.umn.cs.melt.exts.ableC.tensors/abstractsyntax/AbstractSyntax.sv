@@ -973,8 +973,7 @@ abstract production singletonTensor
 tensor::Tensor ::= e::Expr
 {
   tensor.numDim = e.numDim + 1;
---  tensor.dimSize = [e.dimSize + 1];
-  tensor.dimSize = e.dimSize;
+  tensor.dimSize = [e.count];
   tensor.count = e.count;
   tensor.data = [];
   tensor.errors := [];
@@ -984,8 +983,8 @@ aspect default production
 e::Expr ::=
 {
   e.numDim = 0;
+  e.dimSize = [];
   e.count = 1;
-  e.dimSize = [0];
 }
 
 -- e.g. ({ int *__dimsize_tmp9 = malloc(1*sizeof(int)); __dimsize_tmp9[0] = 3; __dimsize_tmp9; })
