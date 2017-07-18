@@ -355,14 +355,14 @@ e::AssignExpr_c ::= '[.' tSeq :: TensorSeq_c '.]'
   e.ast = tensorLiteral(tSeq.ast, location=e.location);
 }
 
-nonterminal TensorSeq_c with location, ast<[Tensor]>;
+nonterminal TensorSeq_c with location, ast<Tensor>;
 
 concrete productions tSeq::TensorSeq_c
 | e::AssignExpr_c
   {
-    tSeq.ast = [tensor()];
+    tSeq.ast = consTensor(e.ast, nilTensor());
   }
 | e::AssignExpr_c ',' anotherTSeq::TensorSeq_c
   {
-    tSeq.ast = cons(tensor(), anotherTSeq.ast);
+    tSeq.ast = consTensor(e.ast, anotherTSeq.ast);
   }
