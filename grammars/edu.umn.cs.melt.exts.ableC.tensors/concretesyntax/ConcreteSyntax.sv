@@ -9,8 +9,6 @@ imports edu:umn:cs:melt:exts:ableC:tensors:abstractsyntax;
 imports silver:langutil:pp;
 imports silver:langutil;
 
-nonterminal TensorSeq with ast, location;
-
 marking terminal TensorEnvOpen_t '[.';
 terminal TensorEnvClose_t '.]';
 

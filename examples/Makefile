@@ -18,7 +18,7 @@ all: ableC.jar examples
 
 ableC.jar: $(GRAMMAR_SOURCES)
 	touch artifact/Artifact.sv
-	silver -o $@ -I $(ABLEC_BASE) \
+	silver --clean -o $@ -I $(ABLEC_BASE) \
 		     -I $(EXTS_BASE)/ableC-tensors/grammars \
 		     artifact
 
