@@ -349,6 +349,7 @@ e::PrimaryExpr_c ::= 'printT' '(' value :: AssignExpr_c ')'
 }
 
 nonterminal TensorSeq with location, ast<Expr>;
+nonterminal ExprSeq with location, ast<Expr>;
 
 --Experimental tensor literal creation
 concrete production tensor_literal_c
@@ -370,3 +371,12 @@ concrete productions tSeq::TensorSeq
     tSeq.ast = txtExpr("/* tensorSeq */", location=e.location);
   }
 
+concrete productions eSeq::ExprSeq
+| e::AssignExpr_c
+{
+  eSeq.ast = txtExpr("/* ExprSeq */", location = e.location);
+}
+| e::AssignExpr_c ',' anotherESeq::ExprSeq
+{
+  eSeq.ast = txtExpr("/* ExprSeq */", location = e.location);
+}
