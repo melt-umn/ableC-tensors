@@ -928,10 +928,11 @@ abstract production tensorLiteral
 e::Expr ::= tensor::Tensor
 {
   e.numDim = tensor.numDim;
+  e.count = tensor.count + 1;
 
   local numDim :: Expr = mkIntConst(tensor.numDim, builtinLoc(MODULE_NAME));
   local dimSize :: Expr = mkIntConst(0, builtinLoc(MODULE_NAME));
-  local count :: Expr = mkIntConst(tensor.count, builtinLoc(MODULE_NAME));
+  local count :: Expr = mkIntConst(e.count, builtinLoc(MODULE_NAME));
   local data :: Expr = mkIntConst(0, builtinLoc(MODULE_NAME));
 
   forwards to
@@ -943,7 +944,7 @@ e::Expr ::= tensor::Tensor
 nonterminal Tensor with numDim, dimSize, count, data, errors, env;
 synthesized attribute numDim :: Integer occurs on Expr;
 synthesized attribute dimSize :: [Integer];
-synthesized attribute count :: Integer;
+synthesized attribute count :: Integer occurs on Expr;
 synthesized attribute data :: [Integer];
 
 abstract production consTensor
@@ -951,7 +952,7 @@ tensor::Tensor ::= e::Expr ts::Tensor
 {
   tensor.numDim = e.numDim + 1;
   tensor.dimSize = [];
-  tensor.count = 0;
+  tensor.count = e.count + ts.count;
   tensor.data = [];
 
   tensor.errors := e.errors ++ ts.errors;
@@ -967,7 +968,7 @@ tensor::Tensor ::= e::Expr
 {
   tensor.numDim = e.numDim + 1;
   tensor.dimSize = [];
-  tensor.count = 0;
+  tensor.count = e.count + 1;
   tensor.data = [];
   tensor.errors := [];
 }
@@ -976,5 +977,6 @@ aspect default production
 e::Expr ::=
 {
   e.numDim = 0;
+  e.count = 0;
 }
 
