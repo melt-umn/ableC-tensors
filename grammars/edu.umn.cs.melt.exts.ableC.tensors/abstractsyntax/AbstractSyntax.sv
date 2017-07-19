@@ -903,7 +903,7 @@ synthesized attribute numDim :: Integer occurs on Expr;
 synthesized attribute currentDimSize :: Integer occurs on Expr;
 synthesized attribute dimSize :: [Integer] occurs on Expr;
 synthesized attribute count :: Integer occurs on Expr;
-synthesized attribute data :: [Integer] occurs on Expr;
+synthesized attribute data :: [Expr] occurs on Expr;
 
 abstract production consTensor
 tensor::Tensor ::= e::Expr ts::Tensor
@@ -1033,7 +1033,7 @@ function mkDimSizeAssign
 }
 
 function mkDataExpr
-Expr ::= data::[Integer] l::Location
+Expr ::= data::[Expr] l::Location
 {
   local tmpName :: Name = name("__data_tmp" ++ toString(genInt()), location=l);
   return
@@ -1088,7 +1088,7 @@ Expr ::= data::[Integer] l::Location
 }
 
 function mkDataAssign
-[Stmt] ::= data::[Integer] tmpName::Name count::Integer l::Location
+[Stmt] ::= data::[Expr] tmpName::Name count::Integer l::Location
 {
   return
     if null(data)
