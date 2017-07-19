@@ -894,11 +894,12 @@ e::Expr ::= tensor::Tensor
 {
   e.numDim = tensor.numDim;
   e.dimSize = tensor.dimSize;
+  e.default = tensor.default
   e.count = tensor.count;
 
   local numDim :: Expr = mkIntConst(tensor.numDim, generate_location(e.location, module_name));
   local dimSize :: Expr = mkDimSizeExpr(tensor.dimSize, generate_location(e.location, module_name));
-  local count :: Expr = mkIntConst(tensor.count, generate_location(e.location, module_name));
+  local count :: Expr = mkIntConst(tensor.default, generate_location(e.location, module_name));
   local data :: Expr = mkIntConst(0, generate_location(e.location, module_name));
 
   forwards to
@@ -907,7 +908,8 @@ e::Expr ::= tensor::Tensor
     else errorExpr(tensor.errors, location=e.location);
 }
 
-nonterminal Tensor with numDim, currentDimSize, dimSize, count, data, errors, env;
+nonterminal Tensor with default, numDim, currentDimSize, dimSize, count, data, errors, env;
+synthesized attribute default :: Integer occurs on Expr;
 synthesized attribute numDim :: Integer occurs on Expr;
 synthesized attribute currentDimSize :: Integer occurs on Expr;
 synthesized attribute dimSize :: [Integer] occurs on Expr;
@@ -917,6 +919,7 @@ synthesized attribute data :: [Float];
 abstract production consTensor
 tensor::Tensor ::= e::Expr ts::Tensor
 {
+  tensor.default = e.default ++ ts.default;
   tensor.numDim = e.numDim + 1;
   tensor.currentDimSize = e.currentDimSize + ts.currentDimSize;
   tensor.dimSize = [tensor.currentDimSize] ++ ts.dimSize;
@@ -943,9 +946,10 @@ tensor::Tensor ::= e::Expr ts::Tensor
 abstract production singletonTensor
 tensor::Tensor ::= e::Expr
 {
+  tensor.default = e.default;
   tensor.numDim = e.numDim + 1;
-  tensor.currentDimSize = 1;
-  tensor.dimSize = [1];
+  tensor.currentDimSize = e.currentDimSize;
+  tensor.dimSize = tensor.dimSize;
   tensor.count = e.count;
   tensor.data = [];
   tensor.errors := [];
@@ -954,6 +958,7 @@ tensor::Tensor ::= e::Expr
 aspect default production
 e::Expr ::=
 {
+  e.default = 1;
   e.numDim = 0;
   e.currentDimSize = 1;
   e.dimSize = [];
