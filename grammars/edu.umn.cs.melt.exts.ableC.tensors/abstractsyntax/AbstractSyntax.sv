@@ -900,7 +900,7 @@ e::Expr ::= tensor::Tensor
   local numDim :: Expr = mkIntConst(tensor.numDim, generate_location(e.location, module_name));
   local dimSize :: Expr = mkDimSizeExpr(tensor.dimSize, generate_location(e.location, module_name));
   local count :: Expr = mkIntConst(tensor.count, generate_location(e.location, module_name));
-  local data :: Expr = mkDataConst(tensor.data, generate_location(e.location, module_name));
+  local data :: Expr = mkDataExpr(tensor.data, generate_location(e.location, module_name));
 
   forwards to
     if null(tensor.errors)
