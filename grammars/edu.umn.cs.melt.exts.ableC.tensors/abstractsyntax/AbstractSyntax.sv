@@ -889,39 +889,6 @@ e::Expr ::= tensor :: Expr
   );
 }
 
-
---Experimental
-{-
-abstract production tensor_cons
-connedTensSeq::TensorSeq ::= tensSeq1::TensorSeq  tensSeq2::TensorSeq
-{}
-
-abstract production tensorSeq_to_expr
-expr::Expr ::= tensorSeq::TensorSeq
-{}
-
-abstract production tensor_to_tensorSeq
-tensorSeq::TensorSeq ::= tensor::Tensor  tensorSeq::TensorSeq
-{}
-
-abstract production expr_to_tensor
-tensor::Tensor ::= expr::Expr
-{
-  local tensType :: Type;
-
-  mkDeclGeneral(
-    "tensor",
-    tensType,
-    tensor.location
-  );
-
-  Tensor.numDim = expr.numDim;
-  Tensor.dimensions = expr.dimensions;
-  Tensor.numData = expr.numData;
-  Tensor.data = expr.data;
-}
--}
-
 abstract production tensorLiteral
 e::Expr ::= tensor::Tensor
 {
@@ -940,8 +907,9 @@ e::Expr ::= tensor::Tensor
     else errorExpr(tensor.errors, location=e.location);
 }
 
-nonterminal Tensor with numDim, dimSize, count, data, errors, env;
+nonterminal Tensor with numDim, currentDimSize, dimSize, count, data, errors, env;
 synthesized attribute numDim :: Integer occurs on Expr;
+synthesized attribute currentDimSize :: Integer occurs on Expr;
 synthesized attribute dimSize :: [Integer] occurs on Expr;
 synthesized attribute count :: Integer occurs on Expr;
 synthesized attribute data :: [Float];
@@ -950,8 +918,9 @@ abstract production consTensor
 tensor::Tensor ::= e::Expr ts::Tensor
 {
   tensor.numDim = e.numDim + 1;
+  tensor.currentDimSize = e.dimSize + ts.dimSize;
+  tensor.dimSize = [tensor.currentDimSize] ++ ts.dimSize;
   tensor.count = e.count + ts.count;
-  tensor.dimSize = e.dimSize ++ ts.dimSize;
   tensor.data = [];
 
   tensor.errors := e.errors ++ ts.errors;
@@ -975,7 +944,8 @@ abstract production singletonTensor
 tensor::Tensor ::= e::Expr
 {
   tensor.numDim = e.numDim + 1;
-  tensor.dimSize = [e.count];
+  tensor.currentDimSize = 1;
+  tensor.dimSize = [1];
   tensor.count = e.count;
   tensor.data = [];
   tensor.errors := [];
@@ -985,6 +955,7 @@ aspect default production
 e::Expr ::=
 {
   e.numDim = 0;
+  e.currentDimSize = 1;
   e.dimSize = [];
   e.count = 1;
 }
@@ -1068,4 +1039,3 @@ function mkDimSizeAssign
         mkDimSizeAssign(tail(dimSize), tmpName, count+1, l)
       );
 }
-
