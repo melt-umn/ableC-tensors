@@ -895,11 +895,12 @@ e::Expr ::= tensor::Tensor
   e.numDim = tensor.numDim;
   e.dimSize = tensor.dimSize;
   e.count = tensor.count;
+  e.data = tensor.data;
 
   local numDim :: Expr = mkIntConst(tensor.numDim, generate_location(e.location, module_name));
   local dimSize :: Expr = mkDimSizeExpr(tensor.dimSize, generate_location(e.location, module_name));
   local count :: Expr = mkIntConst(tensor.count, generate_location(e.location, module_name));
-  local data :: Expr = mkIntConst(0, generate_location(e.location, module_name));
+  local data :: Expr = mkDataConst(tensor.data, generate_location(e.location, module_name));
 
   forwards to
     if null(tensor.errors)
@@ -912,7 +913,7 @@ synthesized attribute numDim :: Integer occurs on Expr;
 synthesized attribute currentDimSize :: Integer occurs on Expr;
 synthesized attribute dimSize :: [Integer] occurs on Expr;
 synthesized attribute count :: Integer occurs on Expr;
-synthesized attribute data :: [Float];
+synthesized attribute data :: [Integer] occurs on Expr;
 
 abstract production consTensor
 tensor::Tensor ::= e::Expr ts::Tensor
@@ -921,7 +922,7 @@ tensor::Tensor ::= e::Expr ts::Tensor
   tensor.currentDimSize = e.currentDimSize + ts.currentDimSize;
   tensor.dimSize = [tensor.currentDimSize] ++ ts.dimSize;
   tensor.count = e.count + ts.count;
-  tensor.data = [];
+  tensor.data = [e] ++ ts.data;
 
   tensor.errors := e.errors ++ ts.errors;
   tensor.errors <-
@@ -945,9 +946,9 @@ tensor::Tensor ::= e::Expr
 {
   tensor.numDim = e.numDim + 1;
   tensor.currentDimSize = e.currentDimSize;
-  tensor.dimSize = e.dimSize;
+  tensor.dimSize = [e.currentDimSize];
   tensor.count = e.count;
-  tensor.data = [];
+  tensor.data = [e];
   tensor.errors := [];
 }
 
@@ -958,6 +959,7 @@ e::Expr ::=
   e.currentDimSize = 1;
   e.dimSize = [];
   e.count = 1;
+  e.data = [];
 }
 
 -- e.g. ({ int *__dimsize_tmp9 = malloc(1*sizeof(int)); __dimsize_tmp9[0] = 3; __dimsize_tmp9; })
@@ -1037,5 +1039,84 @@ function mkDimSizeAssign
           )
         ),
         mkDimSizeAssign(tail(dimSize), tmpName, count+1, l)
+      );
+}
+
+function mkDataExpr
+Expr ::= data::[Integer] l::Location
+{
+  local tmpName :: Name = name("__data_tmp" ++ toString(genInt()), location=l);
+  return
+    stmtExpr(
+      foldStmt([
+        declStmt(
+          variableDecls(
+            [],
+            nilAttribute(),
+            typeModifierTypeExpr(
+              directTypeExpr(builtinType(nilQualifier(), signedType(intType()))),
+              pointerTypeExpr(nilQualifier(), baseTypeExpr())
+            ),
+            foldDeclarator([
+              declarator(
+                tmpName, baseTypeExpr(), nilAttribute(),
+                justInitializer(
+                  exprInitializer(
+                    directCallExpr(
+                      name("malloc", location = l),
+                      foldExpr([
+                        binaryOpExpr(
+                          mkIntConst(length(data), l),
+                          numOp(mulOp(location=l), location=l),
+                          unaryExprOrTypeTraitExpr(
+                            sizeofOp(location=l),
+                            typeNameExpr(
+                              typeName(
+                                directTypeExpr(
+                                  builtinType(nilQualifier(), signedType(intType()))
+                                ),
+                                baseTypeExpr()
+                              )
+                            ),
+                            location=l
+                          ),
+                          location=l
+                        )
+                      ]),
+                      location=l
+                    )
+                  )
+                )
+              )
+            ])
+          )
+        )
+      ] ++ mkDataAssign(data, tmpName, 0, l)),
+      declRefExpr(tmpName, location=l),
+      location=l
+    );
+}
+
+function mkDataAssign
+[Stmt] ::= data::[Integer] tmpName::Name count::Integer l::Location
+{
+  return
+    if null(data)
+    then []
+    else
+      cons(
+        exprStmt(
+          binaryOpExpr(
+            arraySubscriptExpr(
+              declRefExpr(tmpName, location=l),
+              mkIntConst(count, l),
+              location=l
+            ),
+            assignOp(eqOp(location=l), location=l),
+            mkIntConst(head(data), l),
+            location=l
+          )
+        ),
+        mkDataAssign(tail(data), tmpName, count+1, l)
       );
 }
