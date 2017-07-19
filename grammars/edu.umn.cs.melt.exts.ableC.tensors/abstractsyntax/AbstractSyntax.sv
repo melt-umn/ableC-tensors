@@ -894,7 +894,7 @@ e::Expr ::= tensor::Tensor
 {
   e.numDim = tensor.numDim;
   e.dimSize = tensor.dimSize;
-  e.default = tensor.default
+  e.default = tensor.default;
   e.count = tensor.count;
 
   local numDim :: Expr = mkIntConst(tensor.numDim, generate_location(e.location, module_name));
