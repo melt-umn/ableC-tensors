@@ -1103,7 +1103,7 @@ function mkDataAssign
               location=l
             ),
             assignOp(eqOp(location=l), location=l),
-            mkIntConst(head(data), l),
+            head(data),
             location=l
           )
         ),
