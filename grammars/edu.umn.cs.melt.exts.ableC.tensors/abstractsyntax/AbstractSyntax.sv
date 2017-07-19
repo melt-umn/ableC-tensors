@@ -921,6 +921,13 @@ tensor::Tensor ::= e::Expr ts::Tensor
            toString(tensor.numDim) ++ "d and " ++ toString(ts.numDim) ++ "d")]
     else [];
 
+  tensor.errors <-
+    if length(tensor.data) != tensor.count
+    then [err(e.location, "tensor data length " ++
+            toString(length(tensor.data)) ++ " does not match count " ++
+            toString(tensor.count))]
+    else [];
+
 {-
   tensor.errors <-
     if length(tensor.dimSize) != tensor.numDim
