@@ -8,8 +8,9 @@ int main () {
   Tensor tenZero = [. 666 .];
   Tensor tenOne = [. [. 666 .] .];
   Tensor tenTwo = [. 22, 32 .];
-  Tensor tenThree = [. [. 22 .], [. 32 .] .];
-  Tensor tenFour = [. [. 666, 222 .] .];
+  Tensor tenThree = [. 22, 32, 42 .];
+  Tensor tenFour = [. [. 22 .], [. 32 .] .];
+  Tensor tenFive = [. [. 666, 222 .] .];
 
 
   //Tensor tenTwo = [. [. 32,1234,2 .],[. 645,-6,43 .],[. -4345,13,0 .] .];
