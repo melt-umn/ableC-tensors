@@ -912,7 +912,7 @@ tensor::Tensor ::= e::Expr ts::Tensor
   tensor.currentDimSize = e.currentDimSize + ts.currentDimSize;
   tensor.dimSize = [tensor.currentDimSize] ++ ts.dimSize;
   tensor.count = e.count + ts.count;
-  tensor.data = [e] ++ ts.data;
+  tensor.data = e.data ++ ts.data;
 
   tensor.errors := e.errors ++ ts.errors;
   tensor.errors <-
@@ -938,7 +938,7 @@ tensor::Tensor ::= e::Expr
   tensor.currentDimSize = e.currentDimSize;
   tensor.dimSize = [e.currentDimSize];
   tensor.count = e.count;
-  tensor.data = [e];
+  tensor.data = e.data;
   tensor.errors := [];
 }
 
@@ -949,7 +949,7 @@ e::Expr ::=
   e.currentDimSize = 1;
   e.dimSize = [];
   e.count = 1;
-  e.data = [];
+  e.data = [e];
 }
 
 -- e.g. ({ int *__dimsize_tmp9 = malloc(1*sizeof(int)); __dimsize_tmp9[0] = 3; __dimsize_tmp9; })
