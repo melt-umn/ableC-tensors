@@ -9,9 +9,9 @@ int main () {
   int *dataTestOne = malloc(sizeof(int));
   dataTestOne[0] = 9;
 
-	int *dataTestTwo = malloc(sizeof(int) * 2);
-	dataTestTwo[0] = 3;
-	dataTestTwo[1] = 9;
+  int *dataTestTwo = malloc(sizeof(int) * 2);
+  dataTestTwo[0] = 3;
+  dataTestTwo[1] = 9;
 
   int *dataTestThree = malloc(sizeof(int)*3);
   dataTestThree[0] = 2;

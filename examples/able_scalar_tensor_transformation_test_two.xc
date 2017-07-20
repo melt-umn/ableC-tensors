@@ -1,23 +1,24 @@
 #include "../include/tensorsLib.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int main () {
   int intOne = 5;
   int intTwo = 666;
   int intThree = -12;
 
-  Tensor tenOne = [.intOne.];
+  Tensor tenOne = [. intOne .];
   printf("print 5 as tensor:\n");
   printT(tenOne);
   printf("\n");
 
-  Tensor tenTwo = [.intTwo.];
+  Tensor tenTwo = [. intTwo .];
   printf("print 666 as tensor:\n");
   printT(tenTwo);
   printf("\n");
 
-  Tensor tenThree = [.intThree.];
+  Tensor tenThree = [. intThree .];
   printf("print -12 as tensor:\n");
   printT(tenThree);
   printf("\n");
