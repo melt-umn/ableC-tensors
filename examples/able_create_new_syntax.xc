@@ -1,6 +1,7 @@
 #include "../include/tensorsLib.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 //creating tensors with "normal" syntax
 int main () {
@@ -12,7 +13,7 @@ int main () {
   Tensor tenFour = [. [. 22 .], [. 32 .] .]; // 2 x 1
   Tensor tenFive = [. [. 666, 222 .] .]; // 1 x 2
   Tensor tenSix = [. [. 32,1234,2 .],[. 645,-6,43 .],[. -4345,13,0 .] .]; // 3 x 3
-  Tensor tenSeven = [. [. [. 0,1,2 .],[. 3,4,5 .],[. 6,7,8 .] .],[. [. 9,10,11 .],[. 12,13,14 .],[. 15,16,17 .] .] .];
+  Tensor tenSeven = [. [. [. 3,4,5 .],[. 6,7,8 .] .],[. [. 12,13,14 .],[. 15,16,17 .] .] .];
   // 2 x 3 x 3
 
   printf("tenZero is: \n");
