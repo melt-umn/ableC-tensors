@@ -928,14 +928,21 @@ tensor::Tensor ::= e::Expr ts::Tensor
             toString(tensor.count))]
     else [];
 
-{-
   tensor.errors <-
     if length(tensor.dimSize) != tensor.numDim
     then [err(e.location, "tensor dimSize length " ++
             toString(length(tensor.dimSize)) ++ " does not match numDim " ++
             toString(tensor.numDim))]
     else [];
--}
+
+  tensor.errors <-
+    if listEq(e.dimSize, tail(ts.dimSize), \x::Integer y::Integer -> x == y)
+    then []
+    else [err(e.location, "tensor dimSizes do not match: (" ++
+           implode(", ", map(\n::Integer -> toString(n), e.dimSize)) ++
+           ") and (" ++
+           implode(", ", map(\n::Integer -> toString(n), tail(ts.dimSize))) ++
+           ")")];
 }
 
 abstract production singletonTensor
@@ -946,7 +953,7 @@ tensor::Tensor ::= e::Expr
   tensor.dimSize = e.currentDimSize :: e.dimSize;
   tensor.count = e.count;
   tensor.data = e.data;
-  tensor.errors := [];
+  tensor.errors := e.errors;
 }
 
 aspect default production
@@ -1163,5 +1170,17 @@ Expr ::= data::[Expr] l::Location
       memcpy,
       location=l
     );
+}
+
+function listEq
+Boolean ::= l1::[a]  l2::[a]  eq::(Boolean ::= a a)
+{
+  return
+    case null(l1), null(l2) of
+      true,  true  -> true
+    | true,  false -> false
+    | false, true  -> false
+    | false, false -> eq(head(l1), head(l2)) && listEq(tail(l1), tail(l2), eq)
+    end;
 }
 
