@@ -959,161 +959,209 @@ e::Expr ::=
   e.data = [e];
 }
 
--- e.g. ({ int *__dimsize_tmp9 = malloc(1*sizeof(int)); __dimsize_tmp9[0] = 3; __dimsize_tmp9; })
+-- e.g.
+-- ({ int __dimsize_tmp9[] = {3, 4};
+--    int *__dimsize_tmp10 = malloc(2*sizeof(int));
+--    memcpy(__dimsize_tmp10, __dimsize_tmp9, 2*sizeof(int));
+-- })
 function mkDimSizeExpr
 Expr ::= dimSize::[Integer] l::Location
 {
-  local tmpName :: Name = name("__dimsize_tmp" ++ toString(genInt()), location=l);
-  return
-    stmtExpr(
-      foldStmt([
-        declStmt(
-          variableDecls(
-            [],
-            nilAttribute(),
-            typeModifierTypeExpr(
-              directTypeExpr(builtinType(nilQualifier(), signedType(intType()))),
-              pointerTypeExpr(nilQualifier(), baseTypeExpr())
-            ),
-            foldDeclarator([
-              declarator(
-                tmpName, baseTypeExpr(), nilAttribute(),
-                justInitializer(
-                  exprInitializer(
-                    directCallExpr(
-                      name("malloc", location = l),
-                      foldExpr([
-                        binaryOpExpr(
-                          mkIntConst(length(dimSize), l),
-                          numOp(mulOp(location=l), location=l),
-                          unaryExprOrTypeTraitExpr(
-                            sizeofOp(location=l),
-                            typeNameExpr(
-                              typeName(
-                                directTypeExpr(
-                                  builtinType(nilQualifier(), signedType(intType()))
-                                ),
-                                baseTypeExpr()
-                              )
-                            ),
-                            location=l
-                          ),
-                          location=l
-                        )
-                      ]),
-                      location=l
+  local tmpName1 :: Name = name("__dimsize_tmp" ++ toString(genInt()), location=l);
+  local tmpName2 :: Name = name("__dimsize_tmp" ++ toString(genInt()), location=l);
+
+  -- e.g. int __dimsize_tmp9[] = {3, 4};
+  local tmpDecl1 :: Stmt =
+    declStmt(
+      variableDecls(
+        [],
+        nilAttribute(),
+        typeModifierTypeExpr(
+          directTypeExpr(builtinType(nilQualifier(), signedType(intType()))),
+          arrayTypeExprWithoutExpr(baseTypeExpr(), nilQualifier(), normalArraySize())
+        ),
+        foldDeclarator([
+          declarator(
+            tmpName1, baseTypeExpr(), nilAttribute(),
+            justInitializer(
+              objectInitializer(
+                foldInit(
+                  map(init,
+                    map(exprInitializer,
+                      map(\n::Integer -> mkIntConst(n, l), dimSize)
                     )
                   )
                 )
               )
-            ])
+            )
           )
-        )
-      ] ++ mkDimSizeAssign(dimSize, tmpName, 0, l)),
-      declRefExpr(tmpName, location=l),
+        ])
+      )
+    );
+
+  -- e.g. 2*sizeof(int)
+	local size :: Expr =
+		binaryOpExpr(
+			mkIntConst(length(dimSize), l),
+			numOp(mulOp(location=l), location=l),
+			unaryExprOrTypeTraitExpr(
+				sizeofOp(location=l),
+				typeNameExpr(
+					typeName(
+						directTypeExpr(builtinType(nilQualifier(), signedType(intType()))),
+						baseTypeExpr()
+					)
+				),
+				location=l
+			),
+			location=l
+		);
+
+  -- e.g. malloc(2*sizeof(int))
+  local malloc :: Expr =
+    directCallExpr(
+      name("malloc", location = l),
+      foldExpr([size]),
+      location=l
+    );
+
+  -- e.g. int *__dimsize_tmp10 = malloc(2*sizeof(int));
+  local tmpDecl2 :: Stmt =
+    declStmt(
+      variableDecls(
+        [],
+        nilAttribute(),
+        typeModifierTypeExpr(
+          directTypeExpr(builtinType(nilQualifier(), signedType(intType()))),
+          pointerTypeExpr(nilQualifier(), baseTypeExpr())
+        ),
+        foldDeclarator([
+          declarator(tmpName2, baseTypeExpr(), nilAttribute(), justInitializer(exprInitializer(size)))
+        ])
+      )
+    );
+
+  -- note: need to #include <string.h>
+  -- e.g. memcpy(__dimsize_tmp10, __dimsize_tmp9, 2*sizeof(int));
+  local memcpy :: Expr =
+    directCallExpr(
+      name("memcpy", location = l),
+      foldExpr([
+        declRefExpr(tmpName1, location=l),
+        declRefExpr(tmpName2, location=l),
+        size
+      ]),
+      location=l
+    );
+
+  return
+    stmtExpr(
+      foldStmt([
+        tmpDecl1,
+        tmpDecl2
+      ]),
+      memcpy,
       location=l
     );
 }
 
-function mkDimSizeAssign
-[Stmt] ::= dimSize::[Integer] tmpName::Name count::Integer l::Location
-{
-  return
-    if null(dimSize)
-    then []
-    else
-      cons(
-        exprStmt(
-          binaryOpExpr(
-            arraySubscriptExpr(
-              declRefExpr(tmpName, location=l),
-              mkIntConst(count, l),
-              location=l
-            ),
-            assignOp(eqOp(location=l), location=l),
-            mkIntConst(head(dimSize), l),
-            location=l
-          )
-        ),
-        mkDimSizeAssign(tail(dimSize), tmpName, count+1, l)
-      );
-}
-
+-- e.g.
+-- ({ float __data_tmp11[] = {1, 2, 3, 4, 5, 6};
+--    float *__data_tmp12 = malloc(6*sizeof(int));
+--    memcpy(__dimsize_tmp12, __dimsize_tmp11, 6*sizeof(float));
+-- })
 function mkDataExpr
 Expr ::= data::[Expr] l::Location
 {
-  local tmpName :: Name = name("__data_tmp" ++ toString(genInt()), location=l);
+  local tmpName1 :: Name = name("__data_tmp" ++ toString(genInt()), location=l);
+  local tmpName2 :: Name = name("__data_tmp" ++ toString(genInt()), location=l);
+
+  -- e.g. float __dimsize_tmp11[] = {1, 2, 3, 4, 5, 6};
+  local tmpDecl1 :: Stmt =
+    declStmt(
+      variableDecls(
+        [],
+        nilAttribute(),
+        typeModifierTypeExpr(
+          directTypeExpr(builtinType(nilQualifier(), signedType(intType()))),
+          arrayTypeExprWithoutExpr(baseTypeExpr(), nilQualifier(), normalArraySize())
+        ),
+        foldDeclarator([
+          declarator(
+            tmpName1, baseTypeExpr(), nilAttribute(),
+            justInitializer(
+              objectInitializer(
+                foldInit(map(init, map(exprInitializer, data)))
+              )
+            )
+          )
+        ])
+      )
+    );
+
+  -- e.g. 6*sizeof(float)
+	local size :: Expr =
+		binaryOpExpr(
+			mkIntConst(length(data), l),
+			numOp(mulOp(location=l), location=l),
+			unaryExprOrTypeTraitExpr(
+				sizeofOp(location=l),
+				typeNameExpr(
+					typeName(
+						directTypeExpr(builtinType(nilQualifier(), realType(floatType()))),
+						baseTypeExpr()
+					)
+				),
+				location=l
+			),
+			location=l
+		);
+
+  -- e.g. malloc(6*sizeof(float))
+  local malloc :: Expr =
+    directCallExpr(
+      name("malloc", location = l),
+      foldExpr([size]),
+      location=l
+    );
+
+  -- e.g. float *__data_tmp12 = malloc(6*sizeof(float));
+  local tmpDecl2 :: Stmt =
+    declStmt(
+      variableDecls(
+        [],
+        nilAttribute(),
+        typeModifierTypeExpr(
+          directTypeExpr(builtinType(nilQualifier(), realType(floatType()))),
+          pointerTypeExpr(nilQualifier(), baseTypeExpr())
+        ),
+        foldDeclarator([
+          declarator(tmpName2, baseTypeExpr(), nilAttribute(), justInitializer(exprInitializer(size)))
+        ])
+      )
+    );
+
+  -- note: need to #include <string.h>
+  -- e.g. memcpy(__data_tmp12, __data_tmp11, 6*sizeof(float));
+  local memcpy :: Expr =
+    directCallExpr(
+      name("memcpy", location = l),
+      foldExpr([
+        declRefExpr(tmpName1, location=l),
+        declRefExpr(tmpName2, location=l),
+        size
+      ]),
+      location=l
+    );
+
   return
     stmtExpr(
       foldStmt([
-        declStmt(
-          variableDecls(
-            [],
-            nilAttribute(),
-            typeModifierTypeExpr(
-              directTypeExpr(builtinType(nilQualifier(), realType(floatType()))),
-              pointerTypeExpr(nilQualifier(), baseTypeExpr())
-            ),
-            foldDeclarator([
-              declarator(
-                tmpName, baseTypeExpr(), nilAttribute(),
-                justInitializer(
-                  exprInitializer(
-                    directCallExpr(
-                      name("malloc", location = l),
-                      foldExpr([
-                        binaryOpExpr(
-                          mkIntConst(length(data), l),
-                          numOp(mulOp(location=l), location=l),
-                          unaryExprOrTypeTraitExpr(
-                            sizeofOp(location=l),
-                            typeNameExpr(
-                              typeName(
-                                directTypeExpr(
-                                  builtinType(nilQualifier(), realType(floatType()))
-                                ),
-                                baseTypeExpr()
-                              )
-                            ),
-                            location=l
-                          ),
-                          location=l
-                        )
-                      ]),
-                      location=l
-                    )
-                  )
-                )
-              )
-            ])
-          )
-        )
-      ] ++ mkDataAssign(data, tmpName, 0, l)),
-      declRefExpr(tmpName, location=l),
+        tmpDecl1,
+        tmpDecl2
+      ]),
+      memcpy,
       location=l
     );
 }
 
-function mkDataAssign
-[Stmt] ::= data::[Expr] tmpName::Name count::Integer l::Location
-{
-  return
-    if null(data)
-    then []
-    else
-      cons(
-        exprStmt(
-          binaryOpExpr(
-            arraySubscriptExpr(
-              declRefExpr(tmpName, location=l),
-              mkIntConst(count, l),
-              location=l
-            ),
-            assignOp(eqOp(location=l), location=l),
-            head(data),
-            location=l
-          )
-        ),
-        mkDataAssign(tail(data), tmpName, count+1, l)
-      );
-}
