@@ -1051,7 +1051,7 @@ Expr ::= data::[Expr] l::Location
             [],
             nilAttribute(),
             typeModifierTypeExpr(
-              directTypeExpr(builtinType(nilQualifier(), signedType(intType()))), --needs to be float
+              directTypeExpr(builtinType(nilQualifier(), realType(floatType()))),
               pointerTypeExpr(nilQualifier(), baseTypeExpr())
             ),
             foldDeclarator([
@@ -1070,7 +1070,7 @@ Expr ::= data::[Expr] l::Location
                             typeNameExpr(
                               typeName(
                                 directTypeExpr(
-                                  builtinType(nilQualifier(), signedType(intType())) --needs to be float
+                                  builtinType(nilQualifier(), realType(floatType()))
                                 ),
                                 baseTypeExpr()
                               )
