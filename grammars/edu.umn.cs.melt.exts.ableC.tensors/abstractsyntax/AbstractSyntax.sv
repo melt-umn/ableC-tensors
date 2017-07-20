@@ -1036,7 +1036,7 @@ Expr ::= dimSize::[Integer] l::Location
           pointerTypeExpr(nilQualifier(), baseTypeExpr())
         ),
         foldDeclarator([
-          declarator(tmpName2, baseTypeExpr(), nilAttribute(), justInitializer(exprInitializer(size)))
+          declarator(tmpName2, baseTypeExpr(), nilAttribute(), justInitializer(exprInitializer(malloc)))
         ])
       )
     );
@@ -1136,7 +1136,7 @@ Expr ::= data::[Expr] l::Location
           pointerTypeExpr(nilQualifier(), baseTypeExpr())
         ),
         foldDeclarator([
-          declarator(tmpName2, baseTypeExpr(), nilAttribute(), justInitializer(exprInitializer(size)))
+          declarator(tmpName2, baseTypeExpr(), nilAttribute(), justInitializer(exprInitializer(malloc)))
         ])
       )
     );
