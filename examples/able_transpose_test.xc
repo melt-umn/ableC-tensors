@@ -1,6 +1,7 @@
 #include "../include/tensorsLib.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 //tests the transpose function (print isn't working yet)
 int main () {

@@ -1,6 +1,7 @@
 #include "../include/tensorsLib.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 //tests different functions written with copy
 int main () {

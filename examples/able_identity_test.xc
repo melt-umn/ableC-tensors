@@ -1,5 +1,6 @@
 #include "../include/tensorsLib.h"
 #include <stdio.h>
+#include <string.h>
 
 //tests the normal identity function
 //ankit, can you add the asymmetric identity function is as a test please?
