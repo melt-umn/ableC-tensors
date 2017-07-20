@@ -910,7 +910,7 @@ tensor::Tensor ::= e::Expr ts::Tensor
 {
   tensor.numDim = e.numDim + 1;
   tensor.currentDimSize = e.currentDimSize + ts.currentDimSize;
-  tensor.dimSize = e.dimSize ++ [tensor.currentDimSize];
+  tensor.dimSize = [tensor.currentDimSize] ++ e.dimSize;
   tensor.count = e.count + ts.count;
   tensor.data = e.data ++ ts.data;
 
@@ -943,7 +943,7 @@ tensor::Tensor ::= e::Expr
 {
   tensor.numDim = e.numDim + 1;
   tensor.currentDimSize = e.currentDimSize;
-  tensor.dimSize = e.dimSize ++ [e.currentDimSize];
+  tensor.dimSize = [e.currentDimSize] ++ e.dimSize;
   tensor.count = e.count;
   tensor.data = e.data;
   tensor.errors := [];
