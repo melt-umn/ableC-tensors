@@ -904,6 +904,7 @@ synthesized attribute currentDimSize :: Integer occurs on Expr;
 synthesized attribute dimSize :: [Integer] occurs on Expr;
 synthesized attribute count :: Integer occurs on Expr;
 synthesized attribute data :: [Expr] occurs on Expr;
+synthesized attribute interList :: [Expr] occurs on Expr;
 
 abstract production consTensor
 tensor::Tensor ::= e::Expr ts::Tensor
@@ -964,6 +965,7 @@ e::Expr ::=
   e.dimSize = [];
   e.count = 1;
   e.data = [e];
+  e.interList = [];
 }
 
 -- e.g.
@@ -1184,3 +1186,130 @@ Boolean ::= l1::[a]  l2::[a]  eq::(Boolean ::= a a)
     end;
 }
 
+
+abstract production intervalList
+e::Expr ::= inter::Interval
+{
+  e.interList = inter.interList;
+
+  local interList :: Expr = mkInterListExpr(inter.interList, generate_location(e.location, module_name));
+
+  forwards to
+    if null(inter.errors)
+    then interList
+    else errorExpr(inter.errors, location=e.location);
+}
+
+nonterminal Interval with interList, errors, env;
+
+abstract production consInterval
+inter::Interval ::= e::Expr is::Interval
+{
+  inter.interList = e.interList ++ is.interList;
+  inter.errors := e.errors ++ is.errors;
+}
+
+abstract production singleInterval
+inter::Interval ::= e::Expr
+{
+  inter.interList = e.interList;
+  inter.errors := e.errors;
+}
+
+function mkInterListExpr
+Expr ::= data::[Expr] l::Location
+{
+  local tmpName1 :: Name = name("__interlist_tmp" ++ toString(genInt()), location=l);
+  local tmpName2 :: Name = name("__interlist_tmp" ++ toString(genInt()), location=l);
+
+  -- e.g. float __dimsize_tmp11[] = {1, 2, 3, 4, 5, 6};
+  local tmpDecl1 :: Stmt =
+    declStmt(
+      variableDecls(
+        [],
+        nilAttribute(),
+        typeModifierTypeExpr(
+          directTypeExpr(builtinType(nilQualifier(), signedType(intType()))),
+          arrayTypeExprWithoutExpr(baseTypeExpr(), nilQualifier(), normalArraySize())
+        ),
+        foldDeclarator([
+          declarator(
+            tmpName1, baseTypeExpr(), nilAttribute(),
+            justInitializer(
+              objectInitializer(
+                foldInit(map(init, map(exprInitializer, data)))
+              )
+            )
+          )
+        ])
+      )
+    );
+
+  -- e.g. 6*sizeof(float)
+	local size :: Expr =
+		binaryOpExpr(
+			mkIntConst(length(data), l),
+			numOp(mulOp(location=l), location=l),
+			unaryExprOrTypeTraitExpr(
+				sizeofOp(location=l),
+				typeNameExpr(
+					typeName(
+						directTypeExpr(builtinType(nilQualifier(), realType(floatType()))),
+{-
+            //needs room for Interval aka two ints, technically float might be right?
+-}
+						baseTypeExpr()
+					)
+				),
+				location=l
+			),
+			location=l
+		);
+
+  -- e.g. malloc(6*sizeof(float))
+  local malloc :: Expr =
+    directCallExpr(
+      name("malloc", location = l),
+      foldExpr([size]),
+      location=l
+    );
+
+  -- e.g. float *__data_tmp12 = malloc(6*sizeof(float));
+  local tmpDecl2 :: Stmt =
+    declStmt(
+      variableDecls(
+        [],
+        nilAttribute(),
+        typeModifierTypeExpr(
+          directTypeExpr(builtinType(nilQualifier(), realType(floatType()))),
+          pointerTypeExpr(nilQualifier(), baseTypeExpr())
+        ),
+        foldDeclarator([
+          declarator(tmpName2, baseTypeExpr(), nilAttribute(), justInitializer(exprInitializer(malloc)))
+        ])
+      )
+    );
+
+  -- note: need to #include <string.h>
+  -- e.g. memcpy(__data_tmp12, __data_tmp11, 6*sizeof(float));
+  local memcpy :: Expr =
+    directCallExpr(
+      name("memcpy", location = l),
+      foldExpr([
+        declRefExpr(tmpName1, location=l),
+        declRefExpr(tmpName2, location=l),
+        size
+      ]),
+      location=l
+    );
+
+  return
+    stmtExpr(
+      foldStmt([
+        tmpDecl1,
+        tmpDecl2
+      ]),
+      memcpy,
+      location=l
+    );
+}

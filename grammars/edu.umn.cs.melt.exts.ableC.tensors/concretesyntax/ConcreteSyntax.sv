@@ -11,7 +11,9 @@ imports silver:langutil;
 
 marking terminal IntervalEnvOpen_t '<.';
 terminal IntervalEnvClose_t '.>';
-marking terminal StartIntervalList '<.>';
+marking terminal IntervalListStart_t '/.';
+terminal IntervalListEnd_t '.\';
+marking terminal StartIntervalIndex '<.>';
 terminal Between '.-.';
 
 marking terminal TensorEnvOpen_t '[.';
@@ -69,59 +71,6 @@ marking terminal Free 'freeT' lexer classes {Ckeyword};
 marking terminal Free_dynamic 'free_dynamic' lexer classes {Ckeyword};
 
 marking terminal Tensor_print 'printT' lexer classes {Ckeyword};
-
-{-
--- Mirrors TypeNames_c
--- Can't use TypeNames_c due to constraints on adding new terminals to host follow sets
-nonterminal TensorTypes_c with ast<AssignExpr_c>;
-
-concrete production tensor_creation_c --only works for 1d tensors
-e::PrimaryExpr_c ::= '[.' t :: TensorTypeNames_c '.]'
-{
-  e.ast = tensor_creation_c(t.ast, location = e.location);
-}
-
-concrete productions top::TensorTypes_c
-| h::AssignExpr_c ',' t::TupleTypes_c --two or more tensor elements
-    { top.ast = cons_tensor_a(h.ast, t.ast); }
-| h::AssignExpr_c --one tensor element
-    { top.ast = cons_tensor_a(h.ast, nil_tensor_a()); }
-| --empty tensor
-    { top.ast = nil_tensor_a(h.ast);}
--}
-
---concrete production nil_tensor_c
---e::PrimaryExpr_c ::= '[.' '.]'
---{
---  e.ast = nil_tensor_a(location = e.location);
---}
---
---concrete production float_to_scalar_tensor_c
---e::PrimaryExpr_c ::= '[.' value :: AssignExpr_c '.]'
---{
---  e.ast = float_to_scalar_tensor_a(value.ast, location = e.location);
---}
-
-
-concrete productions top::PrimaryExpr_c
-| '<.' oneDim :: AssignExpr_c '.>'
-  { top.ast = create_interval_double_bound_a(oneDim.ast, oneDim.ast,
-    location = top.location); }
-| '<.' leftDim :: AssignExpr_c '.-.' rightDim :: AssignExpr_c '.>'
-  { top.ast = create_interval_double_bound_a(leftDim.ast, rightDim.ast,
-    location = top.location); }
-| '<.' leftDim :: AssignExpr_c '.-.' '*' '.>'
-  { top.ast = create_interval_left_bound_a(leftDim.ast,
-    location = top.location); }
-| '<.' '*' '.>'
-  { top.ast = create_interval_no_bound_a(location = top.location); }
-
---rest of these are technically useless but will add for consistency
-| '<.' '*' '.-.' rightDim :: AssignExpr_c '.>'
-  { top.ast = create_interval_right_bound_a(rightDim.ast, location = top.location); }
-| '<.' '*' '.-.' '*' '.>'
-  { top.ast = create_interval_no_bound_a(location = top.location); }
-
 
 concrete production create_c
 e::PrimaryExpr_c ::= 'create' '(' numDim :: AssignExpr_c ',' dimSize :: AssignExpr_c ',' count :: AssignExpr_c ',' data :: AssignExpr_c')'
@@ -348,7 +297,7 @@ e::PrimaryExpr_c ::= 'printT' '(' value :: AssignExpr_c ')'
   e.ast = print_tensor_a(value.ast, location = e.location);
 }
 
---Experimental tensor literal creation
+-- tensor literal creation
 concrete production tensor_literal_c
 e::AssignExpr_c ::= '[.' tSeq :: TensorSeq_c '.]'
 {
@@ -366,3 +315,46 @@ concrete productions tSeq::TensorSeq_c
   {
     tSeq.ast = consTensor(e.ast, anotherTSeq.ast);
   }
+
+
+-- interval list creation
+concrete production interval_list_c
+e::AssignExpr_c ::= '/.' iSeq :: IntervalSeq_c '.\'
+{
+  e.ast = intervalList(iSeq.ast, location=e.location);
+}
+
+nonterminal IntervalSeq_c with location, ast<Interval>;
+concrete productions iSeq::IntervalSeq_c
+| e::AssignExpr_c
+  {
+    iSeq.ast = singleInterval(e.ast);
+  }
+| e::AssignExpr_c ',' anotherISeq::IntervalSeq_c
+  {
+    iSeq.ast = consInterval(e.ast, anotherISeq.ast);
+  }
+
+{-
+need abstract syntax to take the intervals and put them in a list!
+not quite sure how to do this, though :(
+-}
+
+concrete productions top::PrimaryExpr_c
+| '<.' oneDim :: AssignExpr_c '.>'
+  { top.ast = create_interval_double_bound_a(oneDim.ast, oneDim.ast,
+    location = top.location); }
+| '<.' leftDim :: AssignExpr_c '.-.' rightDim :: AssignExpr_c '.>'
+  { top.ast = create_interval_double_bound_a(leftDim.ast, rightDim.ast,
+    location = top.location); }
+| '<.' leftDim :: AssignExpr_c '.-.' '*' '.>'
+  { top.ast = create_interval_left_bound_a(leftDim.ast,
+    location = top.location); }
+| '<.' '*' '.>'
+  { top.ast = create_interval_no_bound_a(location = top.location); }
+
+--rest of these are technically useless but will add for consistency
+| '<.' '*' '.-.' rightDim :: AssignExpr_c '.>'
+  { top.ast = create_interval_right_bound_a(rightDim.ast, location = top.location); }
+| '<.' '*' '.-.' '*' '.>'
+  { top.ast = create_interval_no_bound_a(location = top.location); }
