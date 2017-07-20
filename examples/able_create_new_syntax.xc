@@ -31,5 +31,20 @@ int main () {
   printT(tenThree);
   printf("\n");
 
+  printf("tenFour is: \n");
+  printT(tenFour);
+  printf("\n\n\n");
+
+  printf("tenFive is: \n");
+  printT(tenFive);
+  printf("\n\n\n");
+
+  printf("tenSix is: \n");
+  printT(tenSix);
+  printf("\n\n\n");
+
+  printf("tenSeven is: \n");
+  printT(tenSeven);
+  printf("\n");
   return 0;
 }
