@@ -898,9 +898,8 @@ e::Expr ::= tensor::Tensor
     else errorExpr(tensor.errors, location=e.location);
 }
 
-nonterminal Tensor with numDim, currentDimSize, dimSize, count, data, errors, env;
+nonterminal Tensor with numDim, dimSize, count, data, errors, env;
 synthesized attribute numDim :: Integer occurs on Expr;
-synthesized attribute currentDimSize :: Integer occurs on Expr;
 synthesized attribute dimSize :: [Integer] occurs on Expr;
 synthesized attribute count :: Integer occurs on Expr;
 synthesized attribute data :: [Expr] occurs on Expr;
@@ -910,8 +909,7 @@ abstract production consTensor
 tensor::Tensor ::= e::Expr ts::Tensor
 {
   tensor.numDim = e.numDim + 1;
-  tensor.currentDimSize = e.currentDimSize + ts.currentDimSize;
-  tensor.dimSize = tensor.currentDimSize :: e.dimSize;
+  tensor.dimSize = (1 + head(tensor.dimSize)) :: e.dimSize;
   tensor.count = e.count + ts.count;
   tensor.data = e.data ++ ts.data;
 
@@ -950,8 +948,7 @@ abstract production singletonTensor
 tensor::Tensor ::= e::Expr
 {
   tensor.numDim = e.numDim + 1;
-  tensor.currentDimSize = e.currentDimSize;
-  tensor.dimSize = e.currentDimSize :: e.dimSize;
+  tensor.dimSize = 1 :: e.dimSize;
   tensor.count = e.count;
   tensor.data = e.data;
   tensor.errors := e.errors;
@@ -961,7 +958,6 @@ aspect default production
 e::Expr ::=
 {
   e.numDim = 0;
-  e.currentDimSize = 1;
   e.dimSize = [];
   e.count = 1;
   e.data = [e];
