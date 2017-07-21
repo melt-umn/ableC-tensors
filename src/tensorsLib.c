@@ -482,7 +482,10 @@ float scalar_tensor_to_float(Tensor a) {
 */
 Tensor map(float (*fun)(float), Tensor tens) {
 	int i;
-	memcpy(tens.data, (*fun)(tens.data));
+	//looks like memcopy can't accept functions?
+	for (i = 0; i < tens.count; i++) {		
+ 		tens.data[i] = (*fun)(tens.data[i]);		
+ 	}
 	return tens;
 }
 
@@ -658,11 +661,13 @@ Tensor tensor_combine(float (*fun)(float,float), Tensor tOne, Tensor tTwo) {
 		tens.count = tOne.count;
 		tens.data = malloc(sizeof(float)*tOne.count);
 		tens.dim = tOne.dim;
-		tens.dim_size = malloc(sizeof(float)*tOne.dim);
+		tens.dim_size = malloc(sizeof(int)*tOne.dim);
 
-		memcpy(tens.dim_size, tOne.dim_size);
+		memcpy(tens.dim_size, tOne.dim_size, sizeof(int)*tOne.dim);
 
-		memcpy(tens.data, (*fun)(tOne.data, tTwo.date));
+		for (i = 0; i < tens.count; i++) {
+			tens.data[i] = (*fun)(tOne.data[i], tTwo.data[i]);
+		}
 
 		return tens;
 

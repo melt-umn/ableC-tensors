@@ -933,7 +933,7 @@ tensor::Tensor ::= e::Expr ts::Tensor
             toString(length(tensor.dimSize)) ++ " does not match numDim " ++
             toString(tensor.numDim))]
     else [];
-
+  {-
   tensor.errors <-
     if listEq(e.dimSize, tail(ts.dimSize), \x::Integer y::Integer -> x == y)
     then []
@@ -942,6 +942,7 @@ tensor::Tensor ::= e::Expr ts::Tensor
            ") and (" ++
            implode(", ", map(\n::Integer -> toString(n), tail(ts.dimSize))) ++
            ")")];
+  -}
 }
 
 abstract production singletonTensor
@@ -964,6 +965,166 @@ e::Expr ::=
   e.interList = [];
 }
 
+-- e.g. ({ int *__dimsize_tmp9 = malloc(1*sizeof(int)); __dimsize_tmp9[0] = 3; __dimsize_tmp9; })
+function mkDimSizeExpr
+Expr ::= dimSize::[Integer] l::Location
+{
+  local tmpName :: Name = name("__dimsize_tmp" ++ toString(genInt()), location=l);
+  return
+    stmtExpr(
+      foldStmt([
+        declStmt(
+          variableDecls(
+            [],
+            nilAttribute(),
+            typeModifierTypeExpr(
+              directTypeExpr(builtinType(nilQualifier(), signedType(intType()))),
+              pointerTypeExpr(nilQualifier(), baseTypeExpr())
+            ),
+            foldDeclarator([
+              declarator(
+                tmpName, baseTypeExpr(), nilAttribute(),
+                justInitializer(
+                  exprInitializer(
+                    directCallExpr(
+                      name("malloc", location = l),
+                      foldExpr([
+                        binaryOpExpr(
+                          mkIntConst(length(dimSize), l),
+                          numOp(mulOp(location=l), location=l),
+                          unaryExprOrTypeTraitExpr(
+                            sizeofOp(location=l),
+                            typeNameExpr(
+                              typeName(
+                                directTypeExpr(
+                                  builtinType(nilQualifier(), signedType(intType()))
+                                ),
+                                baseTypeExpr()
+                              )
+                            ),
+                            location=l
+                          ),
+                          location=l
+                        )
+                      ]),
+                      location=l
+                    )
+                  )
+                )
+              )
+            ])
+          )
+        )
+      ] ++ mkDimSizeAssign(dimSize, tmpName, 0, l)),
+      declRefExpr(tmpName, location=l),
+      location=l
+    );
+}
+
+function mkDimSizeAssign
+[Stmt] ::= dimSize::[Integer] tmpName::Name count::Integer l::Location
+{
+  return
+    if null(dimSize)
+    then []
+    else
+      cons(
+        exprStmt(
+          binaryOpExpr(
+            arraySubscriptExpr(
+              declRefExpr(tmpName, location=l),
+              mkIntConst(count, l),
+              location=l
+            ),
+            assignOp(eqOp(location=l), location=l),
+            mkIntConst(head(dimSize), l),
+            location=l
+          )
+        ),
+        mkDimSizeAssign(tail(dimSize), tmpName, count+1, l)
+      );
+}
+
+function mkDataExpr
+Expr ::= data::[Expr] l::Location
+{
+  local tmpName :: Name = name("__data_tmp" ++ toString(genInt()), location=l);
+  return
+    stmtExpr(
+      foldStmt([
+        declStmt(
+          variableDecls(
+            [],
+            nilAttribute(),
+            typeModifierTypeExpr(
+              directTypeExpr(builtinType(nilQualifier(), realType(floatType()))),
+              pointerTypeExpr(nilQualifier(), baseTypeExpr())
+            ),
+            foldDeclarator([
+              declarator(
+                tmpName, baseTypeExpr(), nilAttribute(),
+                justInitializer(
+                  exprInitializer(
+                    directCallExpr(
+                      name("malloc", location = l),
+                      foldExpr([
+                        binaryOpExpr(
+                          mkIntConst(length(data), l),
+                          numOp(mulOp(location=l), location=l),
+                          unaryExprOrTypeTraitExpr(
+                            sizeofOp(location=l),
+                            typeNameExpr(
+                              typeName(
+                                directTypeExpr(
+                                  builtinType(nilQualifier(), realType(floatType()))
+                                ),
+                                baseTypeExpr()
+                              )
+                            ),
+                            location=l
+                          ),
+                          location=l
+                        )
+                      ]),
+                      location=l
+                    )
+                  )
+                )
+              )
+            ])
+          )
+        )
+      ] ++ mkDataAssign(data, tmpName, 0, l)),
+      declRefExpr(tmpName, location=l),
+      location=l
+    );
+}
+
+function mkDataAssign
+[Stmt] ::= data::[Expr] tmpName::Name count::Integer l::Location
+{
+  return
+    if null(data)
+    then []
+    else
+      cons(
+        exprStmt(
+          binaryOpExpr(
+            arraySubscriptExpr(
+              declRefExpr(tmpName, location=l),
+              mkIntConst(count, l),
+              location=l
+            ),
+            assignOp(eqOp(location=l), location=l),
+            head(data),
+            location=l
+          )
+        ),
+        mkDataAssign(tail(data), tmpName, count+1, l)
+      );
+}
+
+{- commenting out new memcpy version, causes floating point errors
 -- e.g.
 -- ({ int __dimsize_tmp9[] = {3, 4};
 --    int *__dimsize_tmp10 = malloc(2*sizeof(int));
@@ -1182,6 +1343,7 @@ Boolean ::= l1::[a]  l2::[a]  eq::(Boolean ::= a a)
     end;
 }
 
+-}
 
 abstract production intervalList
 e::Expr ::= inter::Interval
@@ -1212,6 +1374,86 @@ inter::Interval ::= e::Expr
   inter.errors := e.errors;
 }
 
+function mkInterListExpr
+Expr ::= inter::[Expr] l::Location
+{
+  local tmpName :: Name = name("__inter_tmp" ++ toString(genInt()), location=l);
+  return
+    stmtExpr(
+      foldStmt([
+        declStmt(
+          variableDecls(
+            [],
+            nilAttribute(),
+            typeModifierTypeExpr(
+              directTypeExpr(builtinType(nilQualifier(), realType(floatType()))), -- need to change this to be interval?
+              pointerTypeExpr(nilQualifier(), baseTypeExpr())
+            ),
+            foldDeclarator([
+              declarator(
+                tmpName, baseTypeExpr(), nilAttribute(),
+                justInitializer(
+                  exprInitializer(
+                    directCallExpr(
+                      name("malloc", location = l),
+                      foldExpr([
+                        binaryOpExpr(
+                          mkIntConst(length(inter), l),
+                          numOp(mulOp(location=l), location=l),
+                          unaryExprOrTypeTraitExpr(
+                            sizeofOp(location=l),
+                            typeNameExpr(
+                              typeName(
+                                directTypeExpr(
+                                  builtinType(nilQualifier(), realType(floatType())) -- need to change this to be interval?
+                                ),
+                                baseTypeExpr()
+                              )
+                            ),
+                            location=l
+                          ),
+                          location=l
+                        )
+                      ]),
+                      location=l
+                    )
+                  )
+                )
+              )
+            ])
+          )
+        )
+      ] ++ mkInterListAssign(inter, tmpName, 0, l)),
+      declRefExpr(tmpName, location=l),
+      location=l
+    );
+}
+
+function mkInterListAssign
+[Stmt] ::= inter::[Expr] tmpName::Name count::Integer l::Location
+{
+  return
+    if null(inter)
+    then []
+    else
+      cons(
+        exprStmt(
+          binaryOpExpr(
+            arraySubscriptExpr(
+              declRefExpr(tmpName, location=l),
+              mkIntConst(count, l),
+              location=l
+            ),
+            assignOp(eqOp(location=l), location=l),
+            head(inter),
+            location=l
+          )
+        ),
+        mkInterListAssign(tail(inter), tmpName, count+1, l)
+      );
+}
+
+{-
 function mkInterListExpr
 Expr ::= data::[Expr] l::Location
 {
@@ -1309,3 +1551,4 @@ Expr ::= data::[Expr] l::Location
       location=l
     );
 }
+-}

@@ -22,5 +22,9 @@ int main () {
   printT(tenThree);
   printf("\n");
 
+  printf("tenFour is: \n");
+  printT(tenFour);
+  printf("\n");
+
   return 0;
 }
