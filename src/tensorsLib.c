@@ -8,6 +8,7 @@
 #include "../include/tensorsLib.h"
 #include <errno.h>
 #include <math.h>
+#include <string.h>
 
 #define FLT_MIN 1.175494e-38
 #define FLT_MAX 3.402823e+38
@@ -282,7 +283,6 @@ Tensor access_tensor(Tensor tens, Interval *interIndices) {
  * rid of previous data.
  */
 Tensor copy_tensor(Tensor tens) {
-	int i,j;
 	Tensor newTens;
 	newTens.dim = tens.dim;
 	newTens.count = tens.count;
@@ -290,8 +290,8 @@ Tensor copy_tensor(Tensor tens) {
 	newTens.data = malloc(sizeof(float)*newTens.count);
 	newTens.dim_size = malloc(sizeof(int)*newTens.dim);
 
-	memcpy(newTens.data, tens.data);
-	memcpy(newTens.dim_size, tens.dim_size);
+	memcpy(newTens.data, tens.data, sizeof(float)*newTens.count);
+	memcpy(newTens.dim_size, tens.dim_size, sizeof(int)*newTens.dim);
 	return newTens;
 }
 
