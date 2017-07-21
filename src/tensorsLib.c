@@ -284,6 +284,10 @@ Tensor access_tensor(Tensor tens, Interval *interIndices) {
  */
 Tensor copy_tensor(Tensor tens) {
 	Tensor newTens;
+	//memcpy(newTens,tens,sizeof(Tensor));
+	//should just be able to copy the whole tensor like this, no?
+	//apparently not :(
+
 	newTens.dim = tens.dim;
 	newTens.count = tens.count;
 
@@ -292,6 +296,7 @@ Tensor copy_tensor(Tensor tens) {
 
 	memcpy(newTens.data, tens.data, sizeof(float)*newTens.count);
 	memcpy(newTens.dim_size, tens.dim_size, sizeof(int)*newTens.dim);
+
 	return newTens;
 }
 
