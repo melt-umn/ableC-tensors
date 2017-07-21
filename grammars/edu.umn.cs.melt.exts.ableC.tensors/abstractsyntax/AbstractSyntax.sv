@@ -909,7 +909,7 @@ abstract production consTensor
 tensor::Tensor ::= e::Expr ts::Tensor
 {
   tensor.numDim = e.numDim + 1;
-  tensor.dimSize = (1 + head(tensor.dimSize)) :: e.dimSize;
+  tensor.dimSize = (1 + head(ts.dimSize)) :: e.dimSize;
   tensor.count = e.count + ts.count;
   tensor.data = e.data ++ ts.data;
 

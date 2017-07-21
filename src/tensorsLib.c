@@ -290,20 +290,14 @@ Tensor copy_tensor(Tensor tens) {
 	newTens.data = malloc(sizeof(float)*newTens.count);
 	newTens.dim_size = malloc(sizeof(int)*newTens.dim);
 
-	for (i = 0; i < tens.count; i++) {
-		newTens.data[i] = tens.data[i];
-	}
-
-	for (j = 0; j < tens.dim; j++) {
-		newTens.dim_size[j] = tens.dim_size[j];
-	}
-
+	memcpy(newTens.data, tens.data);
+	memcpy(newTens.dim_size, tens.dim_size);
 	return newTens;
 }
 
 /*
   Description:
-    Takes a tensor and transposes it (rows and columns are swapped).
+    Takes a tensor and transposes it (rows and columns are swapped)
 
   Assumption:
     The tensors passed in must be <= two dimensions and the returned tensor
@@ -483,11 +477,7 @@ float scalar_tensor_to_float(Tensor a) {
 */
 Tensor map(float (*fun)(float), Tensor tens) {
 	int i;
-
-	for (i = 0; i < tens.count; i++) {
-		tens.data[i] = (*fun)(tens.data[i]);
-	}
-
+	memcpy(tens.data, (*fun)(tens.data));
 	return tens;
 }
 
@@ -665,13 +655,9 @@ Tensor tensor_combine(float (*fun)(float,float), Tensor tOne, Tensor tTwo) {
 		tens.dim = tOne.dim;
 		tens.dim_size = malloc(sizeof(float)*tOne.dim);
 
-		for (i = 0; i < tOne.dim; i++) {
-			tens.dim_size[i] = tOne.dim_size[i];
-		}
+		memcpy(tens.dim_size, tOne.dim_size);
 
-		for (i = 0; i < tens.count; i++) {
-			tens.data[i] = (*fun)(tOne.data[i], tTwo.data[i]);
-		}
+		memcpy(tens.data, (*fun)(tOne.data, tTwo.date));
 
 		return tens;
 
