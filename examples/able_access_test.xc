@@ -24,9 +24,14 @@ int main() {
   Interval four = <. 1 .-. 2 .>;
   Interval five = <. 1 .-. * .>;
 
-  Interval *interListOne = [one];
-  Interval *interListTwo = [two, three];
-  Interval *interListThree = [two, four, five];
+  Interval *interListOne = malloc(sizeof(Interval));
+  interListOne = [one];
+
+  Interval *interListTwo = malloc(sizeof(Interval)*2);
+  interListTwo = [two, three];
+
+  Interval *interListThree = malloc(sizeof(Interval)*3);
+  interListThree = [two, four, five];
 
   printf("original tensor:\n");
   printT(tenOne);
