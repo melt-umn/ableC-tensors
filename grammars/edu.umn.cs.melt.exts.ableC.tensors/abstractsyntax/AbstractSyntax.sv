@@ -965,6 +965,7 @@ e::Expr ::=
   e.interList = [];
 }
 
+{-
 -- e.g. ({ int *__dimsize_tmp9 = malloc(1*sizeof(int)); __dimsize_tmp9[0] = 3; __dimsize_tmp9; })
 function mkDimSizeExpr
 Expr ::= dimSize::[Integer] l::Location
@@ -1123,8 +1124,8 @@ function mkDataAssign
         mkDataAssign(tail(data), tmpName, count+1, l)
       );
 }
+-}
 
-{- commenting out new memcpy version, causes floating point errors
 -- e.g.
 -- ({ int __dimsize_tmp9[] = {3, 4};
 --    int *__dimsize_tmp10 = malloc(2*sizeof(int));
@@ -1213,8 +1214,8 @@ Expr ::= dimSize::[Integer] l::Location
     directCallExpr(
       name("memcpy", location = l),
       foldExpr([
-        declRefExpr(tmpName1, location=l),
         declRefExpr(tmpName2, location=l),
+        declRefExpr(tmpName1, location=l),
         size
       ]),
       location=l
@@ -1313,8 +1314,8 @@ Expr ::= data::[Expr] l::Location
     directCallExpr(
       name("memcpy", location = l),
       foldExpr([
-        declRefExpr(tmpName1, location=l),
         declRefExpr(tmpName2, location=l),
+        declRefExpr(tmpName1, location=l),
         size
       ]),
       location=l
@@ -1342,8 +1343,6 @@ Boolean ::= l1::[a]  l2::[a]  eq::(Boolean ::= a a)
     | false, false -> eq(head(l1), head(l2)) && listEq(tail(l1), tail(l2), eq)
     end;
 }
-
--}
 
 abstract production intervalList
 e::Expr ::= inter::Interval
@@ -1534,8 +1533,8 @@ Expr ::= data::[Expr] l::Location
     directCallExpr(
       name("memcpy", location = l),
       foldExpr([
-        declRefExpr(tmpName1, location=l),
         declRefExpr(tmpName2, location=l),
+        declRefExpr(tmpName1, location=l),
         size
       ]),
       location=l
