@@ -1251,7 +1251,7 @@ Expr ::= data::[Expr] l::Location
         [],
         nilAttribute(),
         typeModifierTypeExpr(
-          directTypeExpr(builtinType(nilQualifier(), signedType(intType()))),
+          directTypeExpr(builtinType(nilQualifier(), realType(floatType()))),
           arrayTypeExprWithoutExpr(baseTypeExpr(), nilQualifier(), normalArraySize())
         ),
         foldDeclarator([
