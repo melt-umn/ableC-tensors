@@ -1324,8 +1324,8 @@ Expr ::= data::[Expr] l::Location
   return
     stmtExpr(
       foldStmt([
-        tmpDecl2
         tmpDecl1,
+        tmpDecl2
       ]),
       memcpy,
       location=l
