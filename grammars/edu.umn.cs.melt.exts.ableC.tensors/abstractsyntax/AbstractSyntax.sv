@@ -933,7 +933,6 @@ tensor::Tensor ::= e::Expr ts::Tensor
             toString(length(tensor.dimSize)) ++ " does not match numDim " ++
             toString(tensor.numDim))]
     else [];
-  {-
   tensor.errors <-
     if listEq(e.dimSize, tail(ts.dimSize), \x::Integer y::Integer -> x == y)
     then []
@@ -942,7 +941,6 @@ tensor::Tensor ::= e::Expr ts::Tensor
            ") and (" ++
            implode(", ", map(\n::Integer -> toString(n), tail(ts.dimSize))) ++
            ")")];
-  -}
 }
 
 abstract production singletonTensor
@@ -962,7 +960,7 @@ e::Expr ::=
   e.dimSize = [];
   e.count = 1;
   e.data = [e];
-  e.interList = [];
+  e.interList = [e];
 }
 
 -- e.g.
