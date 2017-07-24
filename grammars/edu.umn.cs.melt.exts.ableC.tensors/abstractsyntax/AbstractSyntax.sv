@@ -909,8 +909,8 @@ abstract production consTensor
 tensor::Tensor ::= e::Expr ts::Tensor
 {
   tensor.numDim = e.numDim + 1;
-  tensor.dimSize = (1 + head(ts.dimSize)) :: e.dimSize;
   tensor.count = e.count + ts.count;
+  tensor.dimSize = e.count :: e.dimSize;
   tensor.data = e.data ++ ts.data;
 
   tensor.errors := e.errors ++ ts.errors;
@@ -949,8 +949,8 @@ abstract production singletonTensor
 tensor::Tensor ::= e::Expr
 {
   tensor.numDim = e.numDim + 1;
-  tensor.dimSize = 1 :: e.dimSize;
   tensor.count = e.count;
+  tensor.dimSize = e.count :: e.dimSize;
   tensor.data = e.data;
   tensor.errors := e.errors;
 }
