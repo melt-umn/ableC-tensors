@@ -12,17 +12,18 @@ int main() {
 					   [. [. 10,11,12 .], [. 13,14,15 .], [. 16,17,18 .] .] ,
                        [. [. 19,20,21 .], [. 22,23,24 .], [. 25,26,27 .] .] .];
 
-  /*
+
   Interval *interListOne = /. <. * .> .\;
   Interval *interListTwo = /. <. 0 .-. 1 .> , <. * .-. 1 .> .\;
   Interval *interListThree = /. <. 0 .-. 1 .> , <. 1 .-. 2 .> , <. 1 .-. * .> .\;
-  */
 
+  /*
   Interval one = <. * .>;
   Interval two = <. 0 .-. 1 .>;
   Interval three = <. * .-. 1 .>;
   Interval four = <. 1 .-. 2 .>;
   Interval five = <. 1 .-. * .>;
+  */
 
   Interval *interListOne = malloc(sizeof(Interval));
   interListOne[0] = one;
