@@ -965,7 +965,7 @@ e::Expr ::=
   e.interList = [];
 }
 
-{-
+
 -- e.g. ({ int *__dimsize_tmp9 = malloc(1*sizeof(int)); __dimsize_tmp9[0] = 3; __dimsize_tmp9; })
 function mkDimSizeExpr
 Expr ::= dimSize::[Integer] l::Location
@@ -1124,8 +1124,9 @@ function mkDataAssign
         mkDataAssign(tail(data), tmpName, count+1, l)
       );
 }
--}
 
+
+{-
 -- e.g.
 -- ({ int __dimsize_tmp9[] = {3, 4};
 --    int *__dimsize_tmp10 = malloc(2*sizeof(int));
@@ -1224,8 +1225,8 @@ Expr ::= dimSize::[Integer] l::Location
   return
     stmtExpr(
       foldStmt([
-        tmpDecl1,
-        tmpDecl2
+        tmpDecl2,
+        tmpDecl1
       ]),
       memcpy,
       location=l
@@ -1331,6 +1332,7 @@ Expr ::= data::[Expr] l::Location
       location=l
     );
 }
+-}
 
 function listEq
 Boolean ::= l1::[a]  l2::[a]  eq::(Boolean ::= a a)
