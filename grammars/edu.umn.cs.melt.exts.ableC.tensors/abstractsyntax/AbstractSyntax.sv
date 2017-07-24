@@ -1453,7 +1453,7 @@ function mkInterListAssign
       );
 }
 
-{-
+
 function mkInterListExpr
 Expr ::= data::[Expr] l::Location
 {
@@ -1467,7 +1467,7 @@ Expr ::= data::[Expr] l::Location
         [],
         nilAttribute(),
         typeModifierTypeExpr(
-          directTypeExpr(builtinType(nilQualifier(), signedType(intType()))),
+          directTypeExpr(builtinType(nilQualifier(), realType(floatType()))),
           arrayTypeExprWithoutExpr(baseTypeExpr(), nilQualifier(), normalArraySize())
         ),
         foldDeclarator([
@@ -1551,4 +1551,3 @@ Expr ::= data::[Expr] l::Location
       location=l
     );
 }
--}
