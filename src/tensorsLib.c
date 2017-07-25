@@ -8,6 +8,7 @@
 #include "../include/tensorsLib.h"
 #include <errno.h>
 #include <math.h>
+#include <string.h>
 
 #define FLT_MIN 1.175494e-38
 #define FLT_MAX 3.402823e+38
@@ -211,6 +212,7 @@ Tensor access_tensor(Tensor tens, Interval *interIndices) {
   for (k = 0; k < dim; k++) { //copy the interval, keep original for reference
     interIndicesCopy[k] = interIndices[k];
   }
+	memcpy(interIndicesCopy, interIndices, dim * sizeof(int));
   currentChangingDim = dim - 1; //start with rightmost dimension
   largestChangingDim = dim - 1; //largset changing dim is also rightmost dimension
   for (k = 0; k < newCount; k++) { //loop until we get every element
@@ -282,7 +284,6 @@ Tensor access_tensor(Tensor tens, Interval *interIndices) {
  * rid of previous data.
  */
 Tensor copy_tensor(Tensor tens) {
-	int i,j;
 	Tensor newTens;
 	newTens.dim = tens.dim;
 	newTens.count = tens.count;
@@ -290,8 +291,8 @@ Tensor copy_tensor(Tensor tens) {
 	newTens.data = malloc(sizeof(float)*newTens.count);
 	newTens.dim_size = malloc(sizeof(int)*newTens.dim);
 
-	memcpy(newTens.data, tens.data);
-	memcpy(newTens.dim_size, tens.dim_size);
+	memcpy(newTens.data, tens.data, tens.count * sizeof(float));
+	memcpy(newTens.dim_size, tens.dim_size, tens.dim * sizeof(int));
 	return newTens;
 }
 
@@ -477,7 +478,9 @@ float scalar_tensor_to_float(Tensor a) {
 */
 Tensor map(float (*fun)(float), Tensor tens) {
 	int i;
-	memcpy(tens.data, (*fun)(tens.data));
+	for (i = 0; i < tens.count; i++) {
+		tens.data[i] = (*fun)(tens.data[i]);
+	}
 	return tens;
 }
 
@@ -655,9 +658,11 @@ Tensor tensor_combine(float (*fun)(float,float), Tensor tOne, Tensor tTwo) {
 		tens.dim = tOne.dim;
 		tens.dim_size = malloc(sizeof(float)*tOne.dim);
 
-		memcpy(tens.dim_size, tOne.dim_size);
+		memcpy(tens.dim_size, tOne.dim_size, tOne.dim * sizeof(int));
 
-		memcpy(tens.data, (*fun)(tOne.data, tTwo.date));
+		for (i = 0; i < tOne.count; i++) {
+			tens.data[i] = (*fun)(tOne.data[i], tTwo.data[i]);
+		}
 
 		return tens;
 
