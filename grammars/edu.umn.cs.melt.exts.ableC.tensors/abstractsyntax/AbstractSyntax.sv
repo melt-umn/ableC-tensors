@@ -933,7 +933,6 @@ tensor::Tensor ::= e::Expr ts::Tensor
             toString(length(tensor.dimSize)) ++ " does not match numDim " ++
             toString(tensor.numDim))]
     else [];
-
   tensor.errors <-
     if listEq(e.dimSize, tail(ts.dimSize), \x::Integer y::Integer -> x == y)
     then []
@@ -961,7 +960,7 @@ e::Expr ::=
   e.dimSize = [];
   e.count = 1;
   e.data = [e];
-  e.interList = [];
+  e.interList = [e];
 }
 
 -- e.g.
@@ -1052,8 +1051,8 @@ Expr ::= dimSize::[Integer] l::Location
     directCallExpr(
       name("memcpy", location = l),
       foldExpr([
-        declRefExpr(tmpName1, location=l),
         declRefExpr(tmpName2, location=l),
+        declRefExpr(tmpName1, location=l),
         size
       ]),
       location=l
@@ -1062,8 +1061,8 @@ Expr ::= dimSize::[Integer] l::Location
   return
     stmtExpr(
       foldStmt([
-        tmpDecl1,
-        tmpDecl2
+        tmpDecl2,
+        tmpDecl1
       ]),
       memcpy,
       location=l
@@ -1088,7 +1087,7 @@ Expr ::= data::[Expr] l::Location
         [],
         nilAttribute(),
         typeModifierTypeExpr(
-          directTypeExpr(builtinType(nilQualifier(), signedType(intType()))),
+          directTypeExpr(builtinType(nilQualifier(), realType(floatType()))),
           arrayTypeExprWithoutExpr(baseTypeExpr(), nilQualifier(), normalArraySize())
         ),
         foldDeclarator([
@@ -1152,8 +1151,8 @@ Expr ::= data::[Expr] l::Location
     directCallExpr(
       name("memcpy", location = l),
       foldExpr([
-        declRefExpr(tmpName1, location=l),
         declRefExpr(tmpName2, location=l),
+        declRefExpr(tmpName1, location=l),
         size
       ]),
       location=l
@@ -1181,7 +1180,6 @@ Boolean ::= l1::[a]  l2::[a]  eq::(Boolean ::= a a)
     | false, false -> eq(head(l1), head(l2)) && listEq(tail(l1), tail(l2), eq)
     end;
 }
-
 
 abstract production intervalList
 e::Expr ::= inter::Interval
@@ -1225,7 +1223,7 @@ Expr ::= data::[Expr] l::Location
         [],
         nilAttribute(),
         typeModifierTypeExpr(
-          directTypeExpr(builtinType(nilQualifier(), signedType(intType()))),
+          directTypeExpr(builtinType(nilQualifier(), realType(floatType()))),
           arrayTypeExprWithoutExpr(baseTypeExpr(), nilQualifier(), normalArraySize())
         ),
         foldDeclarator([
@@ -1292,8 +1290,8 @@ Expr ::= data::[Expr] l::Location
     directCallExpr(
       name("memcpy", location = l),
       foldExpr([
-        declRefExpr(tmpName1, location=l),
         declRefExpr(tmpName2, location=l),
+        declRefExpr(tmpName1, location=l),
         size
       ]),
       location=l
