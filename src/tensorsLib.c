@@ -361,14 +361,8 @@ Tensor copy_tensor(Tensor tens) {
 	newTens.data = malloc(sizeof(float)*newTens.count);
 	newTens.dim_size = malloc(sizeof(int)*newTens.dim);
 
-<<<<<<< HEAD
 	memcpy(newTens.data, tens.data, tens.count * sizeof(float));
 	memcpy(newTens.dim_size, tens.dim_size, tens.dim * sizeof(int));
-=======
-	memcpy(newTens.data, tens.data, sizeof(float)*newTens.count);
-	memcpy(newTens.dim_size, tens.dim_size, sizeof(int)*newTens.dim);
-
->>>>>>> c2643c357d44d91a2079a2a5307171e45ab606ea
 	return newTens;
 }
 
@@ -566,18 +560,12 @@ float scalar_tensor_to_float(Tensor a) {
 //   measuring). Just something to be aware of and maybe think about.
 Tensor map(float (*fun)(float), Tensor tens) {
 	int i;
-<<<<<<< HEAD
-	for (i = 0; i < tens.count; i++) {
-		tens.data[i] = (*fun)(tens.data[i]);
-	}
-=======
 	//looks like memcopy can't accept functions?
 	// Travis: right, it just copies the data, it can't do any computation,
 	//   so you do need an explicit loop here.
 	for (i = 0; i < tens.count; i++) {		
  		tens.data[i] = (*fun)(tens.data[i]);		
  	}
->>>>>>> c2643c357d44d91a2079a2a5307171e45ab606ea
 	return tens;
 }
 
@@ -755,15 +743,9 @@ Tensor tensor_combine(float (*fun)(float,float), Tensor tOne, Tensor tTwo) {
 		tens.dim = tOne.dim;
 		tens.dim_size = malloc(sizeof(int)*tOne.dim);
 
-<<<<<<< HEAD
-		memcpy(tens.dim_size, tOne.dim_size, tOne.dim * sizeof(int));
-
-		for (i = 0; i < tOne.count; i++) {
-=======
 		memcpy(tens.dim_size, tOne.dim_size, sizeof(int)*tOne.dim);
 
 		for (i = 0; i < tens.count; i++) {
->>>>>>> c2643c357d44d91a2079a2a5307171e45ab606ea
 			tens.data[i] = (*fun)(tOne.data[i], tTwo.data[i]);
 		}
 
