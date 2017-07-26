@@ -1216,7 +1216,7 @@ Expr ::= data::[Expr] l::Location
   local tmpName1 :: Name = name("__interlist_tmp" ++ toString(genInt()), location=l);
   local tmpName2 :: Name = name("__interlist_tmp" ++ toString(genInt()), location=l);
 
-  -- e.g. float __dimsize_tmp11[] = {1, 2, 3, 4, 5, 6};
+  -- e.g. Interval __interlist_tmp11[] = {a, b, c}; with a, b, c as intervals
   local tmpDecl1 :: Stmt =
     declStmt(
       variableDecls(
@@ -1247,7 +1247,7 @@ Expr ::= data::[Expr] l::Location
       )
     );
 
-  -- e.g. 6*sizeof(float)
+  -- e.g. 6*sizeof(Interval)
 	local size :: Expr =
 		binaryOpExpr(
 			mkIntConst(length(data), l),
@@ -1273,7 +1273,7 @@ Expr ::= data::[Expr] l::Location
 			location=l
 		);
 
-  -- e.g. malloc(6*sizeof(float))
+  -- e.g. malloc(6*sizeof(Interval))
   local malloc :: Expr =
     directCallExpr(
       name("malloc", location = l),
@@ -1281,7 +1281,7 @@ Expr ::= data::[Expr] l::Location
       location=l
     );
 
-  -- e.g. float *__data_tmp12 = malloc(6*sizeof(float));
+  -- e.g. float *__interlist_tmp12 = malloc(6*sizeof(Interval));
   local tmpDecl2 :: Stmt =
     declStmt(
       variableDecls(
@@ -1297,7 +1297,7 @@ Expr ::= data::[Expr] l::Location
                                 "Interval",
                                 "edu:umn:cs:melt:exts:ableC:tensors:interval"
                         )))),
-          pointerTypeExpr(nilQualifier(), baseTypeExpr())
+          baseTypeExpr()
         ),
         foldDeclarator([
           declarator(tmpName2, baseTypeExpr(), nilAttribute(), justInitializer(exprInitializer(malloc)))
@@ -1306,7 +1306,7 @@ Expr ::= data::[Expr] l::Location
     );
 
   -- note: need to #include <string.h>
-  -- e.g. memcpy(__data_tmp12, __data_tmp11, 6*sizeof(float));
+  -- e.g. memcpy(__interlist_tmp12, __interlist_tmp11, 6*sizeof(Interval));
   local memcpy :: Expr =
     directCallExpr(
       name("memcpy", location = l),
