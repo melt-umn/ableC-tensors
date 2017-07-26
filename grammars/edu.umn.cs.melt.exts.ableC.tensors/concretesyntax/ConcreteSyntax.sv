@@ -13,12 +13,10 @@ marking terminal IntervalEnvOpen_t '<.';
 terminal IntervalEnvClose_t '.>';
 marking terminal IntervalListStart_t '/.';
 terminal IntervalListEnd_t '.\';
-marking terminal StartIntervalIndex '<.>';
 terminal Between '.-.';
 
 marking terminal TensorEnvOpen_t '[.';
 terminal TensorEnvClose_t '.]';
---i assume a star exists? and the dash?
 
 marking terminal Create_tensor 'create' lexer classes {Ckeyword};
 
@@ -239,12 +237,6 @@ concrete productions top::AddMulNoneOp_c
   { top.ast = tensor_multiply_a(top.leftExpr,top.rightExpr,
     location = top.location); }
 
-concrete productions top::AddMulRightOp_c
-| '<.>'
-  { top.ast = access_a(top.leftExpr, top.rightExpr,
-    location = top.location); }
-
-
 concrete production scalar_triple_product_c
 e::PrimaryExpr_c ::= 'scalar_triple_productT' '(' tenOne :: AssignExpr_c ',' tenTwo :: AssignExpr_c ','
                       tenThree :: AssignExpr_c ')'
@@ -319,9 +311,9 @@ concrete productions tSeq::TensorSeq_c
 
 -- interval list creation
 concrete production interval_list_c
-e::AssignExpr_c ::= '/.' iSeq :: IntervalSeq_c '.\'
+e::AssignExpr_c ::= tensor :: AssignExpr_c '/.' iSeq :: IntervalSeq_c '.\'
 {
-  e.ast = intervalList(iSeq.ast, location=e.location);
+  e.ast = access_a(tensor.ast, intervalList(iSeq.ast, location=e.location), location=e.location);
 }
 
 nonterminal IntervalSeq_c with location, ast<Interval>;
