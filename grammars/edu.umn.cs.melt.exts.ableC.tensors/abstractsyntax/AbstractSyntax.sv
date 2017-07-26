@@ -1292,7 +1292,7 @@ Expr ::= data::[Expr] l::Location
                                 "Interval",
                                 "edu:umn:cs:melt:exts:ableC:tensors:interval"
                         ))),
-          baseTypeExpr()
+          pointerTypeExpr(nilQualifier(), baseTypeExpr())
         ),
         foldDeclarator([
           declarator(tmpName2, baseTypeExpr(), nilAttribute(), justInitializer(exprInitializer(malloc)))
@@ -1306,8 +1306,8 @@ Expr ::= data::[Expr] l::Location
     directCallExpr(
       name("memcpy", location = l),
       foldExpr([
-        mkAddressOf(declRefExpr(tmpName2, location=l),l),
-        mkAddressOf(declRefExpr(tmpName1, location=l),l),
+        declRefExpr(tmpName2, location=l),
+        declRefExpr(tmpName1, location=l),
         size
       ]),
       location=l
@@ -1317,10 +1317,9 @@ Expr ::= data::[Expr] l::Location
     stmtExpr(
       foldStmt([
         tmpDecl1,
-        tmpDecl2,
-		exprStmt(memcpy)
+        tmpDecl2
       ]),
-      declRefExpr(tmpName2,location=l),
+      memcpy,
       location=l
     );
 }
