@@ -1080,7 +1080,7 @@ Expr ::= data::[Expr] l::Location
   local tmpName1 :: Name = name("__data_tmp" ++ toString(genInt()), location=l);
   local tmpName2 :: Name = name("__data_tmp" ++ toString(genInt()), location=l);
 
-  -- e.g. float __dimsize_tmp11[] = {1, 2, 3, 4, 5, 6};
+  -- e.g. float __data_tmp11[] = {1, 2, 3, 4, 5, 6};
   local tmpDecl1 :: Stmt =
     declStmt(
       variableDecls(
@@ -1210,6 +1210,7 @@ inter::Interval ::= e::Expr
   inter.errors := e.errors;
 }
 
+--should create a list of intervals
 function mkInterListExpr
 Expr ::= data::[Expr] l::Location
 {
@@ -1305,8 +1306,8 @@ Expr ::= data::[Expr] l::Location
     directCallExpr(
       name("memcpy", location = l),
       foldExpr([
-        declRefExpr(tmpName2, location=l),
-        declRefExpr(tmpName1, location=l),
+        mkAddressOf(declRefExpr(tmpName2, location=l),l),
+        mkAddressOf(declRefExpr(tmpName1, location=l),l),
         size
       ]),
       location=l
@@ -1316,9 +1317,10 @@ Expr ::= data::[Expr] l::Location
     stmtExpr(
       foldStmt([
         tmpDecl1,
-        tmpDecl2
+        tmpDecl2,
+		exprStmt(memcpy)
       ]),
-      memcpy,
+      declRefExpr(tmpName2,location=l),
       location=l
     );
 }
