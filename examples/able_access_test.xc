@@ -48,7 +48,7 @@ int main() {
   printf("original tensor:\n");
   printT(tenTwo);
   printf("\n\n");
-  printf("accessing from 0 - 1, 0 - 1 (should be 32, 1234 // -6, 23)\n");
+  printf("accessing from 0 - 1, 0 - 1 (should be 32, 1234 // -6, 24)\n");
   printT(tenTwo<.>interListTwo);
   printf("\n\n");
 
