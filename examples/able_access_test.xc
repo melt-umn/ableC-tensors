@@ -14,10 +14,9 @@ int main() {
 
 
   Interval *interListOne = /. <. * .> .\;
-/*
   Interval *interListTwo = /. <. 0 .-. 1 .> , <. * .-. 1 .> .\;
   Interval *interListThree = /. <. 0 .-. 1 .> , <. 1 .-. 2 .> , <. 1 .-. * .> .\;
-*/
+
   /*
   Interval one = <. * .>;
   Interval two = <. 0 .-. 1 .>;
@@ -45,7 +44,7 @@ int main() {
   printf("accessing from 0 - 4 (should be 32, 1234, 2, 645, -6)\n");
   printT(tenOne<.>interListOne);
   printf("\n\n");
-/*
+
   printf("original tensor:\n");
   printT(tenTwo);
   printf("\n\n");
@@ -59,6 +58,6 @@ int main() {
   printf("accessing from [0-1][1-2][1-2](should be 5 6 8 9 14 15 17 18)\n");
   printT(tenThree<.>interListThree);
   printf("\n\n");
-*/
+
   return 0;
 }
