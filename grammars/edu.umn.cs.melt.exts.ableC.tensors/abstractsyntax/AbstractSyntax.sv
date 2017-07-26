@@ -1223,11 +1223,15 @@ Expr ::= data::[Expr] l::Location
         [],
         nilAttribute(),
         typeModifierTypeExpr(
-              refIdTagType(
-                structSEU(),
-                "interval",
-                "edu:umn:cs:melt:exts:ableC:tensors:interval"
-            ),
+          directTypeExpr(pointerType(
+                         nilQualifier(),
+                         tagType(
+                           nilQualifier(),
+							 refIdTagType(
+                               structSEU(),
+                               "Interval",
+                               "edu:umn:cs:melt:exts:ableC:tensors:interval"
+          )))),
           arrayTypeExprWithoutExpr(baseTypeExpr(), nilQualifier(), normalArraySize())
         ),
         foldDeclarator([
@@ -1258,7 +1262,7 @@ Expr ::= data::[Expr] l::Location
                             nilQualifier(),
 							  refIdTagType(
                                 structSEU(),
-                                "interval",
+                                "Interval",
                                 "edu:umn:cs:melt:exts:ableC:tensors:interval"
                         )))),
 						baseTypeExpr()
@@ -1290,7 +1294,7 @@ Expr ::= data::[Expr] l::Location
                             nilQualifier(),
 							  refIdTagType(
                                 structSEU(),
-                                "interval",
+                                "Interval",
                                 "edu:umn:cs:melt:exts:ableC:tensors:interval"
                         )))),
           pointerTypeExpr(nilQualifier(), baseTypeExpr())
