@@ -14,7 +14,8 @@ typedef struct __attribute__((refId("edu:umn:cs:melt:exts:ableC:tensors:tensors"
   int count;
 } Tensor;
 
-typedef struct {
+typedef struct __attribute__((refId("edu:umn:cs:melt:exts:ableC:tensors:interval"),
+                      module("edu:umn:cs:melt:exts:ableC:tensors:interval"))) Interval {
 	int lBound;
 	int rBound;
 } Interval;
