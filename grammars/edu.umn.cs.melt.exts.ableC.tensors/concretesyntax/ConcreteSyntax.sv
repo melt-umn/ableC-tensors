@@ -313,7 +313,7 @@ concrete productions tSeq::TensorSeq_c
 
 -- interval list creation
 concrete production interval_list_c
-e::PostfixExpr_c ::= '<.>' tensor::PostfixExpr_c ',' '(' iSeq :: IntervalSeq_c ')'
+e::PostfixExpr_c ::= '<.>' tensor::PostfixExpr_c '<' '(' iSeq :: IntervalSeq_c ')' '>'
 {
   e.ast = access_a(tensor.ast,intervalList(iSeq.ast, location=e.location),location=e.location);
 }
@@ -331,20 +331,20 @@ concrete productions iSeq::IntervalSeq_c
   }
 
 concrete productions top::PrimaryExpr_c
-| '<(' oneDim :: AssignExpr_c ')' '>'
+| '<' '(' oneDim :: AssignExpr_c ')' '>'
   { top.ast = create_interval_double_bound_a(oneDim.ast, oneDim.ast,
     location = top.location); }
-| '<(' leftDim :: AssignExpr_c ',' '-,' rightDim :: AssignExpr_c ')' '>'
+| '<' '(' leftDim :: AssignExpr_c ',' '-,' rightDim :: AssignExpr_c ')' '>'
   { top.ast = create_interval_double_bound_a(leftDim.ast, rightDim.ast,
     location = top.location); }
-| '<(' leftDim :: AssignExpr_c ',' '-,' '*' ')' '>'
+| '<' '(' leftDim :: AssignExpr_c ',' '-,' '*' ')' '>'
   { top.ast = create_interval_left_bound_a(leftDim.ast,
     location = top.location); }
-| '<(' '*' ')' '>'
+| '<' '(' '*' ')' '>'
   { top.ast = create_interval_no_bound_a(location = top.location); }
 
 --rest of these are technically useless but will add for consistency
-| '<(' '*' ',' '-,' rightDim :: AssignExpr_c ')' '>'
+| '<' '(' '*' ',' '-,' rightDim :: AssignExpr_c ')' '>'
   { top.ast = create_interval_right_bound_a(rightDim.ast, location = top.location); }
-| '<(' '*' ',' '-,' '*' ')' '>'
+| '<' '(' '*' ',' '-,' '*' ')' '>'
   { top.ast = create_interval_no_bound_a(location = top.location); }
