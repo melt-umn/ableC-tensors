@@ -311,9 +311,9 @@ concrete productions tSeq::TensorSeq_c
 
 -- interval list creation
 concrete production interval_list_c
-e::AssignExpr_c ::= tensor :: AssignExpr_c '/.' iSeq :: IntervalSeq_c '.\'
+e::PostfixExpr_c ::= '/.' iSeq :: IntervalSeq_c '.\'
 {
-  e.ast = access_a(tensor.ast, intervalList(iSeq.ast, location=e.location), location=e.location);
+  e.ast = intervalList(iSeq.ast, location=e.location);
 }
 
 nonterminal IntervalSeq_c with location, ast<Interval>;
@@ -328,8 +328,17 @@ concrete productions iSeq::IntervalSeq_c
   }
 
 {-
-need abstract syntax to take the intervals and put them in a list!
-not quite sure how to do this, though :(
+want to be able to access tensor A like this:\
+  Tensor A = [. 1, 2, 3....... .];
+  Tensor B = A /. <. 1 .> , <. * .> , <. 2 .-. 4 .> .\;
+
+  Tensor A = [. 1, 2, 3....... .];
+  Tensor B = A <. 1 .><. * .><. 2 .-. 4 .>;
+
+before, it was like this
+  Tensor A = [. 1, 2, 3....... .];
+  Interval *I = /. <. 1 .> , <. * .> , <. 2 .-. 4 .> .\;
+  Tensor B = A<.>I;
 -}
 
 concrete productions top::PrimaryExpr_c

@@ -16,6 +16,8 @@ int main() {
   printT(tenOne);
   printf("\n\n");
   printf("accessing from 0 - 4 (should be 32, 1234, 2, 645, -6)\n");
+
+
   printT(tenOne/. <. * .> .\);
   printf("\n\n");
 
@@ -23,14 +25,14 @@ int main() {
   printT(tenTwo);
   printf("\n\n");
   printf("accessing from 0 - 1, 0 - 1 (should be 32, 1234 // -6, 24)\n");
-  printT(tenTwo/. <. 0 .-. 1 .> , <. * .-. 1 .> .\);
+  printT(tenTwo /. <. 0 .-. 1 .> , <. * .-. 1 .> .\);
   printf("\n\n");
 
   printf("original tensor:\n");
   printT(tenThree);
   printf("\n\n");
   printf("accessing from [0-1][1-2][1-2](should be 5 6 8 9 14 15 17 18)\n");
-  printT(tenThree/. <. 0 .-. 1 .> , <. 1 .-. 2 .> , <. 1 .-. * .> .\);
+  printT(tenThree /. <. 0 .-. 1 .> , <. 1 .-. 2 .> , <. 1 .-. * .> .\);
   printf("\n\n");
 
   return 0;
