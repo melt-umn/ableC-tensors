@@ -5,8 +5,8 @@
 
 //tests the transpose function (print isn't working yet)
 int main () {
-  Tensor tenOne = [. [. 9, 10, 21 .], [. 32, 53, 12 .], [. 43, 4, 10 .] .];
-  Tensor tenTwo = [. [. 12, 43, 65, 34, 23 .], [. 6, 7, 2, 45, 20 .], [. 40, 21, 65, 7, 69 .] .];
+  Tensor tenOne = [[ [[ 9, 10, 21 ]], [[ 32, 53, 12 ]], [[ 43, 4, 10 ]] ]];
+  Tensor tenTwo = [[ [[ 12, 43, 65, 34, 23 ]], [[ 6, 7, 2, 45, 20 ]], [[ 40, 21, 65, 7, 69 ]] ]];
 
   int *dataTestThree;
   dataTestThree = malloc(sizeof(int)*2);

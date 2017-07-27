@@ -5,9 +5,9 @@
 
 //tests different functions written with tensor_combine
 int main () {
-  Tensor tenZero = [. 666, 662, 35 .]; 
-  Tensor tenOne = [. 22, 1234, 2 .];
-  Tensor tenTwo = [. 32, 543, 65 .];
+  Tensor tenZero = [[ 666, 662, 35 ]];
+  Tensor tenOne = [[ 22, 1234, 2 ]];
+  Tensor tenTwo = [[ 32, 543, 65 ]];
 
   printf("([666 662 35] x* [22 1234 2]:\n");
   printT(tenZero x* tenOne);

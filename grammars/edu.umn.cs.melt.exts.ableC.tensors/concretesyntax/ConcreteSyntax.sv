@@ -9,14 +9,16 @@ imports edu:umn:cs:melt:exts:ableC:tensors:abstractsyntax;
 imports silver:langutil:pp;
 imports silver:langutil;
 
-marking terminal IntervalEnvOpen_t '<.';
-terminal IntervalEnvClose_t '.>';
-marking terminal IntervalListStart_t '/.';
-terminal IntervalListEnd_t '.\';
-terminal Between '.-.';
+marking terminal IntervalEnvOpen_t '<(';
+--terminal IntervalEnvClose_t '.>';
+--IntervalListStart_t will be marking once ableC is modified
+--terminal IntervalListStart_t '/(';
+terminal IntervalListEnd_t '\';
+terminal Between '-,';
+marking terminal IndexSign '<.>'; --currently here b/c ableC needs to be modified
 
-marking terminal TensorEnvOpen_t '[.';
-terminal TensorEnvClose_t '.]';
+marking terminal TensorEnvOpen_t '[[';
+--terminal TensorEnvClose_t ']]';
 
 marking terminal Create_tensor 'create' lexer classes {Ckeyword};
 
@@ -53,10 +55,10 @@ marking terminal Tensor_combine 'ten_combine' lexer classes {Ckeyword};
 
 marking terminal Tensor_multiply '**' lexer classes {Ckeyword};
 
-terminal Dot_product '.*' lexer classes {Csymbol};
-terminal Float_dot_product 'f.*' lexer classes {Ckeyword};
+marking terminal Dot_product '.*' lexer classes {Csymbol};
+marking terminal Float_dot_product 'f.*' lexer classes {Ckeyword};
 
-terminal Cross_product 'x*' lexer classes {Csymbol};
+marking terminal Cross_product 'x*' lexer classes {Csymbol};
 
 marking terminal Scalar_triple_product 'scalar_triple_productT' lexer classes {Ckeyword};
 marking terminal Float_scalar_triple_product 'float_triple_productT' lexer classes {Ckeyword};
@@ -291,7 +293,7 @@ e::PrimaryExpr_c ::= 'printT' '(' value :: AssignExpr_c ')'
 
 -- tensor literal creation
 concrete production tensor_literal_c
-e::AssignExpr_c ::= '[.' tSeq :: TensorSeq_c '.]'
+e::AssignExpr_c ::= '[[' tSeq :: TensorSeq_c ']' ']'
 {
   e.ast = tensorLiteral(tSeq.ast, location=e.location);
 }
@@ -311,12 +313,13 @@ concrete productions tSeq::TensorSeq_c
 
 -- interval list creation
 concrete production interval_list_c
-e::PostfixExpr_c ::= '/.' iSeq :: IntervalSeq_c '.\'
+e::PostfixExpr_c ::= '<.>' tensor::PostfixExpr_c ',' '(' iSeq :: IntervalSeq_c ')'
 {
-  e.ast = intervalList(iSeq.ast, location=e.location);
+  e.ast = access_a(tensor.ast,intervalList(iSeq.ast, location=e.location),location=e.location);
 }
 
 nonterminal IntervalSeq_c with location, ast<Interval>;
+
 concrete productions iSeq::IntervalSeq_c
 | e::AssignExpr_c
   {
@@ -327,35 +330,21 @@ concrete productions iSeq::IntervalSeq_c
     iSeq.ast = consInterval(e.ast, anotherISeq.ast);
   }
 
-{-
-want to be able to access tensor A like this:\
-  Tensor A = [. 1, 2, 3....... .];
-  Tensor B = A /. <. 1 .> , <. * .> , <. 2 .-. 4 .> .\;
-
-  Tensor A = [. 1, 2, 3....... .];
-  Tensor B = A <. 1 .><. * .><. 2 .-. 4 .>;
-
-before, it was like this
-  Tensor A = [. 1, 2, 3....... .];
-  Interval *I = /. <. 1 .> , <. * .> , <. 2 .-. 4 .> .\;
-  Tensor B = A<.>I;
--}
-
 concrete productions top::PrimaryExpr_c
-| '<.' oneDim :: AssignExpr_c '.>'
+| '<(' oneDim :: AssignExpr_c ')' '>'
   { top.ast = create_interval_double_bound_a(oneDim.ast, oneDim.ast,
     location = top.location); }
-| '<.' leftDim :: AssignExpr_c '.-.' rightDim :: AssignExpr_c '.>'
+| '<(' leftDim :: AssignExpr_c ',' '-,' rightDim :: AssignExpr_c ')' '>'
   { top.ast = create_interval_double_bound_a(leftDim.ast, rightDim.ast,
     location = top.location); }
-| '<.' leftDim :: AssignExpr_c '.-.' '*' '.>'
+| '<(' leftDim :: AssignExpr_c ',' '-,' '*' ')' '>'
   { top.ast = create_interval_left_bound_a(leftDim.ast,
     location = top.location); }
-| '<.' '*' '.>'
+| '<(' '*' ')' '>'
   { top.ast = create_interval_no_bound_a(location = top.location); }
 
 --rest of these are technically useless but will add for consistency
-| '<.' '*' '.-.' rightDim :: AssignExpr_c '.>'
+| '<(' '*' ',' '-,' rightDim :: AssignExpr_c ')' '>'
   { top.ast = create_interval_right_bound_a(rightDim.ast, location = top.location); }
-| '<.' '*' '.-.' '*' '.>'
+| '<(' '*' ',' '-,' '*' ')' '>'
   { top.ast = create_interval_no_bound_a(location = top.location); }

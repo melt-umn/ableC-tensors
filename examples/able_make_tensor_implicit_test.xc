@@ -5,10 +5,10 @@
 
 //create manual tensors boop boop
 int main () {
-  Tensor tenOne = [. 1 .];
-  Tensor tenTwo = [. 666, 5 .];
-  Tensor tenThree = [. [. 1,2 .], [. 3,4 .] .];
-  Tensor tenFour = [. [. 1 .], [. 1 .] .]; 
+  Tensor tenOne = [[ 1 ]];
+  Tensor tenTwo = [[ 666, 5 ]];
+  Tensor tenThree = [[ [[ 1,2 ]], [[ 3,4 ]] ]];
+  Tensor tenFour = [[ [[ 1 ]], [[ 1 ]] ]];
 
   printf("tenOne is: \n");
   printT(tenOne);
