@@ -32,23 +32,23 @@ Interval create_interval_no_bound();
 
 // Function calls
 Tensor empty_tensor();
-Tensor create_tensor(int,int*,int,float*);
-Tensor access_tensor(Tensor,Interval*);
-float float_access_tensor(Tensor,int*);
-Tensor copy_tensor(Tensor);
-Tensor transpose(Tensor);
-Tensor create_identity_tensor(int,int);
-Tensor create_identity_tensor_asymmetric(int, int*);
-Tensor fill_tensor(int,int*,float);
+Tensor create(int,int*,int,float*);
+Tensor access(Tensor,Interval*);
+float float_access(Tensor,int*);
+Tensor copy(Tensor);
+Tensor trans(Tensor);
+Tensor id(int,int);
+Tensor id_as(int, int*);
+Tensor fill(int,int*,float);
 Tensor ones(int,int*);
 Tensor zeros(int,int*);
-Tensor float_to_scalar_tensor(float);
+Tensor float_to_ten(float);
 
-float scalar_tensor_to_float(Tensor);
+float ten_to_float(Tensor);
 
 Tensor map(float (*)(float),Tensor);
 Tensor square(Tensor);
-Tensor increment(Tensor);
+Tensor incr(Tensor);
 Tensor negate(Tensor);
 
 float plus_one(float);
@@ -61,39 +61,39 @@ float scalar_divide(float,float);
 float greater_than(float,float);
 float lesser_than(float,float);
 
-Tensor tensor_fold(float (*)(float,float),Tensor,Tensor);
+Tensor ten_fold(float (*)(float,float),Tensor,Tensor);
 float fold(float (*)(float,float),float,Tensor);
 float max(Tensor);
 float min(Tensor);
 float sum(Tensor);
-float product(Tensor);
-Tensor tensor_max(Tensor);
-Tensor tensor_min(Tensor);
-Tensor tensor_sum(Tensor);
-Tensor tensor_product(Tensor);
+float prod(Tensor);
+Tensor ten_max(Tensor);
+Tensor ten_min(Tensor);
+Tensor ten_sum(Tensor);
+Tensor ten_prod(Tensor);
 
-Tensor tensor_combine(float (*)(float,float),Tensor,Tensor);
-Tensor tensor_elem_add(Tensor,Tensor);
-Tensor tensor_elem_subtract(Tensor,Tensor);
-Tensor tensor_elem_multiply(Tensor,Tensor);
-Tensor tensor_elem_divide(Tensor,Tensor);
+Tensor ten_combine(float (*)(float,float),Tensor,Tensor);
+Tensor ten_elem_add(Tensor,Tensor);
+Tensor ten_elem_subtract(Tensor,Tensor);
+Tensor ten_elem_multiply(Tensor,Tensor);
+Tensor ten_elem_divide(Tensor,Tensor);
 
-bool tensor_equals(Tensor,Tensor);
+bool ten_equals(Tensor,Tensor);
 
-Tensor tensor_multiply(Tensor,Tensor);
+Tensor ten_multiply(Tensor,Tensor);
 Tensor dot_product(Tensor,Tensor);
 float float_dot_product(Tensor,Tensor);
 float float_dot_product_vtwo(Tensor,Tensor);
 Tensor cross_product(Tensor,Tensor);
 Tensor scalar_triple_product(Tensor,Tensor,Tensor);
-float float_scalar_triple_product(Tensor,Tensor,Tensor);
+float float_triple_product(Tensor,Tensor,Tensor);
 Tensor vector_triple_product(Tensor,Tensor,Tensor);
 
 float trace(Tensor);
-Tensor tensor_trace(Tensor);
+Tensor ten_trace(Tensor);
 
-void free_tensor(Tensor);
-void free_tensor_dynamic(Tensor *);
+void freeT(Tensor);
+void freeT_dynamic(Tensor *);
 
-void print_tensor_compact(Tensor);
-void print_tensor(Tensor, char *, int);
+void printT(Tensor);
+void printT_extended(Tensor, char *, int);

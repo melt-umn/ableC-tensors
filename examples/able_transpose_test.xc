@@ -33,7 +33,7 @@ int main () {
   printf("\n\n");
 
 
-  Tensor fillThree = onesT(2,dataTestThree);
+  Tensor fillThree = ones(2,dataTestThree);
   printf("2 x 5 ones tensor is: \n");
   printT(fillThree);
   printf("\n");
@@ -41,7 +41,7 @@ int main () {
   printT(trans(fillThree));
   printf("\n\n");
 
-  Tensor fillFour = zerosT(2,dataTestFour);
+  Tensor fillFour = zeros(2,dataTestFour);
   printf("1 x 6 zeros tensor is: \n");
   printT(fillFour);
   printf("\n");

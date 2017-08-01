@@ -8,16 +8,16 @@ int main () {
   printf("3 x 3 identity tensor is: \n");
   printT(idOne);
   printf("Trace (Tensor) is:\n");
-  printT(tensor_traceT(idOne));
-  printf("Trace (int) is: %f",traceT(idOne));
+  printT(ten_trace(idOne));
+  printf("Trace (int) is: %f",trace(idOne));
   printf("\n\n");
 
   Tensor idTwo = id(2,10);
   printf("10 x 10 identity tensor is: \n");
   printT(idTwo);
   printf("Trace (Tensor) is:\n");
-  printT(tensor_traceT(idTwo));
-  printf("Trace (int) is: %f",traceT(idTwo));
+  printT(ten_trace(idTwo));
+  printf("Trace (int) is: %f",trace(idTwo));
   printf("\n\n");
 
   int *dataTest;
@@ -28,8 +28,8 @@ int main () {
   printf("5 x 5 666 tensor is: \n");
   printT(testThree);
   printf("Trace (Tensor) is:\n");
-  printT(tensor_traceT(testThree));
-  printf("Trace (int) is: %f",traceT(testThree));
+  printT(ten_trace(testThree));
+  printf("Trace (int) is: %f",trace(testThree));
 
   return 0;
 }

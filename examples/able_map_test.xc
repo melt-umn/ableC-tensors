@@ -39,7 +39,7 @@ int main () {
   printf("\n");
 
   printf("9 2 tensor incremented\n");
-  printT(increment(tenOne));
+  printT(incr(tenOne));
   printf("\n");
 
   printf("\n9 3 tensor squared\n");
@@ -47,7 +47,7 @@ int main () {
   printf("\n");
 
   printf("3 x 9 666 tensor incremented\n");
-  printT(increment(tenTwo));
+  printT(incr(tenTwo));
   printf("\n");
 
   printf("\n3 x 9 667 tensor squared\n");
@@ -55,14 +55,14 @@ int main () {
   printf("\n");
 
   printf("2 x 3 x 4 100 tensor incremented\n");
-  printT(increment(tenThree));
+  printT(incr(tenThree));
 
   printf("\n2 x 3 x 4 101 tensor squared\n");
   printT(square(tenThree));
   printf("\n");
 
   printf("0 dim 1 tensor incremented\n");
-  printT(increment(tenFour));
+  printT(incr(tenFour));
   printf("\n");
 
   printf("\n0 dim 2 tensor squared\n");
@@ -70,7 +70,7 @@ int main () {
   printf("\n");
 
   printf("2 x 2 identity tensor incremented\n");
-  printT(increment(tenFive));
+  printT(incr(tenFive));
   printf("\n");
 
   printf("2 x 2 identity tensor + 1 squared\n");

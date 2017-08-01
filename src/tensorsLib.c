@@ -108,11 +108,6 @@ Interval create_interval_no_bound() {
 	return create_interval_double_bound_hidden(0,-1);
 }
 
-
-
-Tensor empty_tensor() {
-	return create_tensor(0,NULL,0,NULL);
-}
 /*
  * Description:
  * Creates a Tensor in which each field of the tensor struct is passed in
@@ -120,7 +115,7 @@ Tensor empty_tensor() {
  * Assumption:
  * everything is passed in correctly
 */
-Tensor create_tensor(int dim, int *dim_size, int count, float *data) {
+Tensor create(int dim, int *dim_size, int count, float *data) {
 	Tensor newTens;
 	newTens.dim = dim;
 	newTens.dim_size = dim_size;
@@ -136,7 +131,7 @@ Tensor create_tensor(int dim, int *dim_size, int count, float *data) {
  * Assumption:
  * Number of dimensions in the tensor matches the length of the index list
 */
-float float_access_tensor(Tensor tens, int *indices) {
+float float_access(Tensor tens, int *indices) {
   int j,currentIndex,currentSum,currentProd,downTo,k;
   int dim = tens.dim;
   int *dim_size = tens.dim_size;
@@ -170,7 +165,7 @@ float float_access_tensor(Tensor tens, int *indices) {
  * Assumption:
  * Number of dimensions in the tensor matches the length of the interval list
 */
-Tensor access_tensor(Tensor tens, Interval *interIndices) {
+Tensor access(Tensor tens, Interval *interIndices) {
   int k,j,z,flag;
   int currentChangingDim; //innermost dimension changing
   int largestChangingDim;
@@ -220,7 +215,7 @@ Tensor access_tensor(Tensor tens, Interval *interIndices) {
     for (j = 0; j < dim; j++) {
       intIndices[j] = interIndicesCopy[j].lBound;
     }
-    newData[k] = float_access_tensor(tens, intIndices); //find the int at the current indice
+    newData[k] = float_access(tens, intIndices); //find the int at the current indice
     //changing the farthest element possible to the right
     if (interIndicesCopy[currentChangingDim].lBound != interIndicesCopy[currentChangingDim].rBound) {
       interIndicesCopy[currentChangingDim].lBound++; //left bound gets higher
@@ -341,7 +336,7 @@ Tensor access_tensor(Tensor tens, Interval *interIndices) {
 //     delete_tensor(t2); // call freeT(t) then free(t)
 //     delete_tensor(t);
 //   }
-Tensor copy_tensor(Tensor tens) {
+Tensor copy(Tensor tens) {
 	Tensor newTens;
 	//memcpy(newTens,tens,sizeof(Tensor));
 	//should just be able to copy the whole tensor like this, no?
@@ -374,7 +369,7 @@ Tensor copy_tensor(Tensor tens) {
     The tensors passed in must be <= two dimensions and the returned tensor
 		will have the same dimensions, but swapped. Does NOT mutate the actual tensor.
 */
-Tensor transpose(Tensor tens) {
+Tensor trans(Tensor tens) {
 	int i,j,currentCount;
 
 	Tensor newTens;
@@ -409,7 +404,7 @@ Tensor transpose(Tensor tens) {
  * Identity tensor with given dimension number and dimension length parameters
  * is generated.
  */
-Tensor create_identity_tensor(int numDimensions, int dim_len){
+Tensor id(int numDimensions, int dim_len){
 	int i = 0;
 	Tensor tensor;
 	tensor.count = pow(dim_len, numDimensions);
@@ -441,7 +436,7 @@ Tensor create_identity_tensor(int numDimensions, int dim_len){
  * Identity tensor with given number of dimensions and each having the specified
  * dimension length is created.
  */
-Tensor create_identity_tensor_asymmetric(int numDimensions, int * dim_len);
+Tensor id_as(int numDimensions, int * dim_len);
 
 /*
  * Description:
@@ -451,7 +446,7 @@ Tensor create_identity_tensor_asymmetric(int numDimensions, int * dim_len);
  * Assumption:
  * Tensor returned will have the value of the given number in all dimensions
  */
-Tensor fill_tensor(int dim, int *dim_size, float toFill) {
+Tensor fill(int dim, int *dim_size, float toFill) {
 	int i;
 	Tensor tens;
 	tens.dim = dim;
@@ -481,7 +476,7 @@ Tensor fill_tensor(int dim, int *dim_size, float toFill) {
     Tensor returned will have ones in all dimensions
 */
 Tensor ones(int dim, int *dim_size) {
-	return fill_tensor(dim,dim_size,1);
+	return fill(dim,dim_size,1);
 }
 
 /*
@@ -493,7 +488,7 @@ Tensor ones(int dim, int *dim_size) {
     Tensor returned will have zeros in all dimensions
 */
 Tensor zeros(int dim, int *dim_size) {
-	return fill_tensor(dim,dim_size,0);
+	return fill(dim,dim_size,0);
 }
 
 /*
@@ -504,7 +499,7 @@ Tensor zeros(int dim, int *dim_size) {
     The returned tensor will have a dim of 0, a dim_size of null, and a count
 		of 1. It's only data will be the given integer.
 */
-Tensor float_to_scalar_tensor(float i) {
+Tensor float_to_ten(float i) {
 	float *data;
 	data = malloc(sizeof(float));
 
@@ -527,7 +522,7 @@ Tensor float_to_scalar_tensor(float i) {
   Assumption:
     The given tensor must have only one element (count of 1).
 */
-float scalar_tensor_to_float(Tensor a) {
+float ten_to_float(Tensor a) {
 	if (a.count == 1) { //should work for tensors with dim_size = [], [1], [1,1,1], etc
 		return a.data[0];
 	} else {
@@ -573,7 +568,7 @@ Tensor square(Tensor tens) {
 	return map(scalar_square,tens);
 }
 
-Tensor increment(Tensor tens) {
+Tensor incr(Tensor tens) {
 	return map(plus_one,tens);
 }
 
@@ -641,7 +636,7 @@ float lesser_than(float i, float j) {
   Assumption:
     The given function must handle integers and will return a scalar Tensor.
 */
-Tensor tensor_fold(float (*fun)(float,float), Tensor current, Tensor tens){
+Tensor ten_fold(float (*fun)(float,float), Tensor current, Tensor tens){
 	int i;
 
 	if (current.count == 1) {
@@ -699,24 +694,24 @@ float sum(Tensor tens) {
 	return fold(scalar_add,0,tens);
 }
 
-float product(Tensor tens) {
+float prod(Tensor tens) {
 	return fold(scalar_multiply,1,tens);
 }
 
-Tensor tensor_max(Tensor tens) {
-	return float_to_scalar_tensor(max(tens));
+Tensor ten_max(Tensor tens) {
+	return float_to_ten(max(tens));
 }
 
-Tensor tensor_min(Tensor tens) {
-	return float_to_scalar_tensor(min(tens));
+Tensor ten_min(Tensor tens) {
+	return float_to_ten(min(tens));
 }
 
-Tensor tensor_sum(Tensor tens) {
-	return float_to_scalar_tensor(sum(tens));
+Tensor ten_sum(Tensor tens) {
+	return float_to_ten(sum(tens));
 }
 
-Tensor tensor_product(Tensor tens) {
-	return float_to_scalar_tensor(product(tens));
+Tensor ten_prod(Tensor tens) {
+	return float_to_ten(prod(tens));
 }
 
 /*
@@ -727,7 +722,7 @@ Tensor tensor_product(Tensor tens) {
  * two tensors must be the sameshape and the function must deal with ints
  * does not mutate either tensor passed in
 */
-Tensor tensor_combine(float (*fun)(float,float), Tensor tOne, Tensor tTwo) {
+Tensor ten_combine(float (*fun)(float,float), Tensor tOne, Tensor tTwo) {
 	int i;
 	if (tOne.dim == tTwo.dim) {
 		for (i = 0; i < tOne.dim; i++) {
@@ -757,23 +752,23 @@ Tensor tensor_combine(float (*fun)(float,float), Tensor tOne, Tensor tTwo) {
 	}
 }
 
-Tensor tensor_elem_add(Tensor tOne, Tensor tTwo) {
-	return tensor_combine(scalar_add,tOne,tTwo);
+Tensor ten_elem_add(Tensor tOne, Tensor tTwo) {
+	return ten_combine(scalar_add,tOne,tTwo);
 }
 
-Tensor tensor_elem_subtract(Tensor tOne, Tensor tTwo) {
-	return tensor_combine(scalar_subtract,tOne,tTwo);
+Tensor ten_elem_subtract(Tensor tOne, Tensor tTwo) {
+	return ten_combine(scalar_subtract,tOne,tTwo);
 }
 
-Tensor tensor_elem_multiply(Tensor tOne, Tensor tTwo) {
-	return tensor_combine(scalar_multiply,tOne,tTwo);
+Tensor ten_elem_multiply(Tensor tOne, Tensor tTwo) {
+	return ten_combine(scalar_multiply,tOne,tTwo);
 }
 
-Tensor tensor_elem_divide(Tensor tOne, Tensor tTwo) {
-	return tensor_combine(scalar_divide,tOne,tTwo);
+Tensor ten_elem_divide(Tensor tOne, Tensor tTwo) {
+	return ten_combine(scalar_divide,tOne,tTwo);
 }
 
-bool tensor_equals(Tensor tOne, Tensor tTwo) {
+bool ten_equals(Tensor tOne, Tensor tTwo) {
 	int i;
 	int *dimSizeOne = tOne.dim_size;
 	int *dimSizeTwo = tTwo.dim_size;
@@ -794,7 +789,7 @@ bool tensor_equals(Tensor tOne, Tensor tTwo) {
 	}
 }
 
-Tensor tensor_multiply(Tensor tOne, Tensor tTwo) {
+Tensor ten_multiply(Tensor tOne, Tensor tTwo) {
 	int i,j,k,z,currentCount;
 	int dimOne = tOne.dim;
 	int dimTwo = tTwo.dim;
@@ -830,7 +825,7 @@ Tensor tensor_multiply(Tensor tOne, Tensor tTwo) {
 			newCount = dimSizeOne[0] * dimSizeTwo[1];
 			newData = malloc(sizeof(int)*newCount);
 
-			Tensor tThree = transpose(tTwo); //tThree will now be p x m
+			Tensor tThree = trans(tTwo); //tThree will now be p x m
 			dataThree = tThree.data;
 
 			tempOneDimSize = malloc(sizeof(int)*2);
@@ -960,7 +955,7 @@ float float_dot_product(Tensor tOne, Tensor tTwo) {
 		than two-dimensional.
 */
 float float_dot_product_vtwo(Tensor tOne, Tensor tTwo) {
-	return sum(tensor_combine(scalar_multiply,tOne,tTwo));
+	return sum(ten_combine(scalar_multiply,tOne,tTwo));
 }
 
 /*
@@ -1024,7 +1019,7 @@ Tensor scalar_triple_product(Tensor tOne, Tensor tTwo, Tensor tThree) {
     The tensors passed in must be vectors (dim = 1) with three elements. The
 		result will be the integer calculated.
 */
-float float_scalar_triple_product(Tensor tOne, Tensor tTwo, Tensor tThree) {
+float float_triple_product(Tensor tOne, Tensor tTwo, Tensor tThree) {
 	return float_dot_product(tOne, cross_product(tTwo,tThree));
 	/* Note: the shape checking of the last two tensors should happen during the call
 		 to cross product (which makes sure the size of each is three). Then, because
@@ -1086,16 +1081,16 @@ float trace(Tensor tens) {
     The tensor passed in is a square matrix, shape [n,n]. Returned tensor is
 		scalar, dim = 0
 */
-Tensor tensor_trace(Tensor tens) {
-	return float_to_scalar_tensor(trace(tens));
+Tensor ten_trace(Tensor tens) {
+	return float_to_ten(trace(tens));
 }
 
-void free_tensor(Tensor tens) {
+void freeT(Tensor tens) {
 	free(tens.data);
 	free(tens.dim_size);
 }
 
-void free_tensor_dynamic(Tensor *tens) {
+void freeT_dynamic(Tensor *tens) {
 	free(tens -> data);
 	free(tens -> dim_size);
 	free(tens);
@@ -1106,7 +1101,7 @@ void free_tensor_dynamic(Tensor *tens) {
  * Should be written with modular arithmetic to ensure high portability
  * As of now works with 2D and lower, so should run fine instead of using the large print function above
  */
-void print_tensor(Tensor input, char * delimiters, int numDelims) {
+void printT_extended(Tensor input, char * delimiters, int numDelims) {
 	if(numDelims < input.dim) {
 		printf("Delimiter array has too few delimiters for the current tensor input");
 		exit(1);
@@ -1143,8 +1138,8 @@ void print_tensor(Tensor input, char * delimiters, int numDelims) {
 	printf("]\n\n");
 }
 
-void print_tensor_compact(Tensor input) {
-  print_tensor(input, delimiters, 10);
+void printT(Tensor input) {
+  printT_extended(input, delimiters, 10);
 }
 
 /*

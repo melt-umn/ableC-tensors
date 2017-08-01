@@ -148,26 +148,12 @@ e::Expr ::=
   );
 }
 
-
-abstract production nil_tensor_a
-e::Expr ::=
-{
-  forwards to directCallExpr(
-    name(
-     "empty_tensor",
-     location = generate_location(e.location, module_name)
-    ),
-    nilExpr(),
-    location = generate_location(e.location, module_name)
-  );
-}
-
 abstract production create_a
 e::Expr ::= numDim :: Expr dimSize :: Expr count :: Expr data :: Expr
 {
   forwards to directCallExpr(
     name(
-     "create_tensor",
+     "create",
      location = generate_location(e.location, module_name)
     ),
     consExpr(numDim,
@@ -183,13 +169,12 @@ e::Expr ::= numDim :: Expr dimSize :: Expr count :: Expr data :: Expr
   );
 }
 
-
 abstract production access_a
 e::Expr ::= tensor :: Expr interval :: Expr
 {
   forwards to directCallExpr(
     name(
-     "access_tensor",
+     "access",
      location = generate_location(e.location, module_name)
     ),
     consExpr(tensor,
@@ -198,204 +183,6 @@ e::Expr ::= tensor :: Expr interval :: Expr
       )
     ),
     location = generate_location(e.location, module_name)
-  );
-}
-
-abstract production copy_tensor_a
-e::Expr ::= tensor :: Expr
-{
-  forwards to directCallExpr(
-    name(
-      "copy_tensor",
-      location = generate_location(e.location, module_name)
-    ),
-    consExpr(tensor,
-      nilExpr()
-    ),
-     location = generate_location(e.location, module_name)
-  );
-}
-
-abstract production transpose_tensor_a
-e::Expr ::= tensor :: Expr
-{
-  forwards to directCallExpr(
-    name(
-      "transpose",
-      location = generate_location(e.location, module_name)
-    ),
-    consExpr(tensor,
-      nilExpr()
-    ),
-     location = generate_location(e.location, module_name)
-  );
-}
-
-abstract production identity_tensor_a
-e::Expr ::= numDim :: Expr sizeDim :: Expr
-{
-  forwards to directCallExpr(
-    name(
-     "create_identity_tensor",
-     location = generate_location(e.location, module_name)
-    ),
-    consExpr(numDim,
-      consExpr(sizeDim,
-        nilExpr()
-      )
-    ),
-    location = generate_location(e.location, module_name)
-  );
-}
-
-abstract production identity_tensor_asymmetric_a
-e::Expr ::=  numDim :: Expr dimArr :: Expr
-{
-  forwards to directCallExpr(
-    name(
-     "create_identity_tensor_asymmetric",
-     location = generate_location(e.location, module_name)
-    ),
-    consExpr(numDim,
-      consExpr(dimArr,
-        nilExpr()
-      )
-    ),
-    location = generate_location(e.location, module_name)
-  );
-}
-
-
-abstract production fill_tensor_a
-e::Expr ::= numDim :: Expr sizeDim :: Expr toFill :: Expr
-{
-  forwards to directCallExpr(
-    name(
-     "fill_tensor",
-     location = generate_location(e.location, module_name)
-    ),
-    consExpr(numDim,
-      consExpr(sizeDim,
-		    consExpr(toFill,
- 	       nilExpr()
-		    )
-      )
-    ),
-    location = generate_location(e.location, module_name)
-  );
-}
-
-abstract production ones_a
-e::Expr ::= numDim :: Expr sizeDim :: Expr
-{
-  forwards to directCallExpr(
-    name(
-     "ones",
-     location = generate_location(e.location, module_name)
-    ),
-    consExpr(numDim,
-      consExpr(sizeDim,
-        nilExpr()
-      )
-    ),
-    location = generate_location(e.location, module_name)
-  );
-}
-
-
-abstract production zeros_a
-e::Expr ::= numDim :: Expr sizeDim :: Expr
-{
-  forwards to directCallExpr(
-    name(
-     "zeros",
-     location = generate_location(e.location, module_name)
-    ),
-    consExpr(numDim,
-      consExpr(sizeDim,
-        nilExpr()
-      )
-    ),
-    location = generate_location(e.location, module_name)
-  );
-}
-
-abstract production float_to_scalar_tensor_a
-e::Expr ::= float :: Expr
-{
-  forwards to directCallExpr(
-    name(
-      "float_to_scalar_tensor",
-      location = generate_location(e.location, module_name)
-    ),
-    consExpr (float,
-      nilExpr()
-    ),
-    location = generate_location(e.location, module_name)
-  );
-}
-
-abstract production scalar_tensor_to_float_a
-e::Expr ::= tensor :: Expr
-{
-  forwards to directCallExpr(
-    name(
-      "scalar_tensor_to_float",
-      location = generate_location(e.location, module_name)
-    ),
-    consExpr(tensor,
-      nilExpr()
-    ),
-    location = generate_location(e.location, module_name)
-  );
-}
-
-
-
-abstract production map_a
-e::Expr ::= fun :: Expr tensor :: Expr
-{
-  forwards to directCallExpr(
-    name(
-     "map",
-     location = generate_location(e.location, module_name)
-    ),
-    consExpr(fun,
-      consExpr(tensor,
-        nilExpr()
-      )
-    ),
-    location = generate_location(e.location, module_name)
-  );
-}
-
-abstract production square_a
-e::Expr ::= tensor :: Expr
-{
-  forwards to directCallExpr(
-    name(
-      "square",
-      location = generate_location(e.location, module_name)
-    ),
-    consExpr(tensor,
-      nilExpr()
-    ),
-     location = generate_location(e.location, module_name)
-  );
-}
-
-abstract production increment_a
-e::Expr ::= tensor :: Expr
-{
-  forwards to directCallExpr(
-    name(
-      "increment",
-      location = generate_location(e.location, module_name)
-    ),
-    consExpr(tensor,
-      nilExpr()
-    ),
-     location = generate_location(e.location, module_name)
   );
 }
 
@@ -414,189 +201,12 @@ e::Expr ::= tensor :: Expr
   );
 }
 
-abstract production fold_a
-e::Expr ::= fun :: Expr valueStart :: Expr tensor :: Expr
-{
-  forwards to directCallExpr(
-    name(
-     "fold",
-     location = generate_location(e.location, module_name)
-    ),
-    consExpr(fun,
-      consExpr(valueStart,
-		    consExpr(tensor,
- 	       nilExpr()
-		    )
-      )
-    ),
-    location = generate_location(e.location, module_name)
-  );
-}
-
-abstract production tensor_fold_a
-e::Expr ::= fun :: Expr tensorStart :: Expr tensor :: Expr
-{
-  forwards to directCallExpr(
-    name(
-     "tensor_fold",
-     location = generate_location(e.location, module_name)
-    ),
-    consExpr(fun,
-      consExpr(tensorStart,
-		    consExpr(tensor,
- 	       nilExpr()
-		    )
-      )
-    ),
-    location = generate_location(e.location, module_name)
-  );
-}
-
-abstract production max_a
-e::Expr ::= tensor :: Expr
-{
-  forwards to directCallExpr(
-    name(
-      "max",
-      location = generate_location(e.location, module_name)
-    ),
-    consExpr(tensor,
-      nilExpr()
-    ),
-     location = generate_location(e.location, module_name)
-  );
-}
-
-abstract production min_a
-e::Expr ::= tensor :: Expr
-{
-  forwards to directCallExpr(
-    name(
-      "min",
-      location = generate_location(e.location, module_name)
-    ),
-    consExpr(tensor,
-      nilExpr()
-    ),
-     location = generate_location(e.location, module_name)
-  );
-}
-
-abstract production sum_a
-e::Expr ::= tensor :: Expr
-{
-  forwards to directCallExpr(
-    name(
-      "sum",
-      location = generate_location(e.location, module_name)
-    ),
-    consExpr(tensor,
-      nilExpr()
-    ),
-     location = generate_location(e.location, module_name)
-  );
-}
-
-abstract production product_a
-e::Expr ::= tensor :: Expr
-{
-  forwards to directCallExpr(
-    name(
-      "product",
-      location = generate_location(e.location, module_name)
-    ),
-    consExpr(tensor,
-      nilExpr()
-    ),
-     location = generate_location(e.location, module_name)
-  );
-}
-
-abstract production tensor_max_a
-e::Expr ::= tensor :: Expr
-{
-  forwards to directCallExpr(
-    name(
-      "tensor_max",
-      location = generate_location(e.location, module_name)
-    ),
-    consExpr(tensor,
-      nilExpr()
-    ),
-     location = generate_location(e.location, module_name)
-  );
-}
-
-abstract production tensor_min_a
-e::Expr ::= tensor :: Expr
-{
-  forwards to directCallExpr(
-    name(
-      "tensor_min",
-      location = generate_location(e.location, module_name)
-    ),
-    consExpr(tensor,
-      nilExpr()
-    ),
-     location = generate_location(e.location, module_name)
-  );
-}
-
-abstract production tensor_sum_a
-e::Expr ::= tensor :: Expr
-{
-  forwards to directCallExpr(
-    name(
-      "tensor_sum",
-      location = generate_location(e.location, module_name)
-    ),
-    consExpr(tensor,
-      nilExpr()
-    ),
-     location = generate_location(e.location, module_name)
-  );
-}
-
-abstract production tensor_product_a
-e::Expr ::= tensor :: Expr
-{
-  forwards to directCallExpr(
-    name(
-      "tensor_product",
-      location = generate_location(e.location, module_name)
-    ),
-    consExpr(tensor,
-      nilExpr()
-    ),
-     location = generate_location(e.location, module_name)
-  );
-}
-
-abstract production tensor_combine_a
-e::Expr ::= tenOne :: Expr tenTwo :: Expr
-{
-  forwards to directCallExpr(
-    name(
-     "tensor_combine",
-     location = generate_location(e.location, module_name)
-    ),
-    consExpr(tenOne,
-      consExpr(tenTwo,
-        nilExpr()
-      )
-    ),
-    location = generate_location(e.location, module_name)
-  );
-}
-
-
---working here--
 abstract production tensor_elem_add_a
 e::Expr ::= tenOne :: Expr tenTwo :: Expr
 {
   forwards to directCallExpr(
     name(
-     "tensor_elem_add",
+     "ten_elem_add",
      location = generate_location(e.location, module_name)
     ),
     consExpr(tenOne,
@@ -613,7 +223,7 @@ e::Expr ::= tenOne :: Expr tenTwo :: Expr
 {
   forwards to directCallExpr(
     name(
-     "tensor_elem_subtract",
+     "ten_elem_subtract",
      location = generate_location(e.location, module_name)
     ),
     consExpr(tenOne,
@@ -630,7 +240,7 @@ e::Expr ::= tenOne :: Expr tenTwo :: Expr
 {
   forwards to directCallExpr(
     name(
-     "tensor_elem_multiply",
+     "ten_elem_multiply",
      location = generate_location(e.location, module_name)
     ),
     consExpr(tenOne,
@@ -647,7 +257,7 @@ e::Expr ::= tenOne :: Expr tenTwo :: Expr
 {
   forwards to directCallExpr(
     name(
-     "tensor_elem_divide",
+     "ten_elem_divide",
      location = generate_location(e.location, module_name)
     ),
     consExpr(tenOne,
@@ -664,7 +274,7 @@ e::Expr ::= tenOne :: Expr tenTwo :: Expr
 {
   forwards to directCallExpr(
     name(
-     "tensor_equals",
+     "ten_equals",
      location = generate_location(e.location, module_name)
     ),
     consExpr(tenOne,
@@ -681,7 +291,7 @@ e::Expr ::= tenOne :: Expr tenTwo :: Expr
 {
   forwards to directCallExpr(
     name(
-     "tensor_multiply",
+     "ten_multiply",
      location = generate_location(e.location, module_name)
     ),
     consExpr(tenOne,
@@ -746,142 +356,11 @@ e::Expr ::= tenOne :: Expr tenTwo :: Expr
   );
 }
 
-abstract production scalar_triple_product_a
-e::Expr ::= tenOne :: Expr tenTwo :: Expr tenThree :: Expr
-{
-  forwards to directCallExpr(
-    name(
-     "scalar_triple_product",
-     location = generate_location(e.location, module_name)
-    ),
-    consExpr(tenOne,
-      consExpr(tenTwo,
-        consExpr(tenThree,
-          nilExpr()
-        )
-      )
-    ),
-    location = generate_location(e.location, module_name)
-  );
-}
-
-abstract production float_scalar_triple_product_a
-e::Expr ::= tenOne :: Expr tenTwo :: Expr tenThree :: Expr
-{
-  forwards to directCallExpr(
-    name(
-     "float_scalar_triple_product",
-     location = generate_location(e.location, module_name)
-    ),
-    consExpr(tenOne,
-      consExpr(tenTwo,
-        consExpr(tenThree,
-          nilExpr()
-        )
-      )
-    ),
-    location = generate_location(e.location, module_name)
-  );
-}
-
-abstract production vector_triple_product_a
-e::Expr ::= tenOne :: Expr tenTwo :: Expr tenThree :: Expr
-{
-  forwards to directCallExpr(
-    name(
-     "vector_triple_product",
-     location = generate_location(e.location, module_name)
-    ),
-    consExpr(tenOne,
-      consExpr(tenTwo,
-        consExpr(tenThree,
-          nilExpr()
-        )
-      )
-    ),
-    location = generate_location(e.location, module_name)
-  );
-}
-
-abstract production trace_a
-e::Expr ::= tensor :: Expr
-{
-  forwards to directCallExpr(
-    name(
-      "trace",
-      location = generate_location(e.location, module_name)
-    ),
-    consExpr(tensor,
-      nilExpr()
-    ),
-     location = generate_location(e.location, module_name)
-  );
-}
-
-abstract production tensor_trace_a
-e::Expr ::= tensor :: Expr
-{
-  forwards to directCallExpr(
-    name(
-      "tensor_trace",
-      location = generate_location(e.location, module_name)
-    ),
-    consExpr(tensor,
-      nilExpr()
-    ),
-     location = generate_location(e.location, module_name)
-  );
-}
-
-abstract production free_tensor_a
-e::Expr ::= tensor :: Expr
-{
-  forwards to directCallExpr(
-    name(
-      "free_tensor",
-      location = generate_location(e.location, module_name)
-    ),
-    consExpr(tensor,
-      nilExpr()
-    ),
-     location = generate_location(e.location, module_name)
-  );
-}
-
-abstract production free_tensor_dynamic_a
-e::Expr ::= tensor :: Expr
-{
-  forwards to directCallExpr(
-    name(
-      "free_tensor_dynamic",
-      location = generate_location(e.location, module_name)
-    ),
-    consExpr(tensor,
-      nilExpr()
-    ),
-     location = generate_location(e.location, module_name)
-  );
-}
-
-
-abstract production print_tensor_a
-e::Expr ::= tensor :: Expr
-{
-  forwards to directCallExpr(
-    name(
-      "print_tensor_compact",
-      location = generate_location(e.location, module_name)
-    ),
-    consExpr(tensor,
-      nilExpr()
-    ),
-     location = generate_location(e.location, module_name)
-  );
-}
-
 abstract production tensorLiteral
 e::Expr ::= tensor::Tensor
 {
+  propagate substituted;
+
   e.numDim = tensor.numDim;
   e.dimSize = tensor.dimSize;
   e.count = tensor.count;
@@ -1184,6 +663,8 @@ Boolean ::= l1::[a]  l2::[a]  eq::(Boolean ::= a a)
 abstract production intervalList
 e::Expr ::= inter::Interval
 {
+  propagate substituted;
+
   e.interList = inter.interList;
 
   forwards to
