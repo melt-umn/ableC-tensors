@@ -898,7 +898,7 @@ e::Expr ::= tensor::Tensor
     else errorExpr(tensor.errors, location=e.location);
 }
 
-nonterminal Tensor with numDim, dimSize, count, data, errors, env;
+nonterminal Tensor with numDim, dimSize, count, data, errors, env, returnType;
 synthesized attribute numDim :: Integer occurs on Expr;
 synthesized attribute dimSize :: [Integer] occurs on Expr;
 synthesized attribute count :: Integer occurs on Expr;
@@ -1186,15 +1186,13 @@ e::Expr ::= inter::Interval
 {
   e.interList = inter.interList;
 
-  local interList :: Expr = mkInterListExpr(inter.interList, generate_location(e.location, module_name));
-
   forwards to
     if null(inter.errors)
-    then interList
+    then mkInterListExpr(inter.interList, generate_location(e.location, module_name))
     else errorExpr(inter.errors, location=e.location);
 }
 
-nonterminal Interval with interList, errors, env;
+nonterminal Interval with interList, errors, env, returnType;
 
 abstract production consInterval
 inter::Interval ::= e::Expr is::Interval
