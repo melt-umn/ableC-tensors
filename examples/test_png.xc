@@ -1,3 +1,4 @@
+
 //found and slightly modified at: http://zarb.org/~gc/html/libpng.html
 
 #include <png.h>
@@ -8,8 +9,14 @@
 #include <stdint.h>
 #include <stdarg.h>
 
+png_byte color_type;
+png_byte bit_depth;
+
+png_structp png_ptr;
+png_infop info_ptr;
+
 int main() {
-  char *file_name = "../../../../high_fidelity.png"
+  char file_name[] = "../../../../high_fidelity.png";
 
   //test to see if file is png
   char header[8];
@@ -37,12 +44,12 @@ int main() {
   info_ptr = png_create_info_struct(png_ptr);
   if (!info_ptr) {
     printf("png_create_info_struct failed");
-    return 1
+    return 1;
   }
 
-  if (setjmp(png_jmpbuf(png_ptr)))) {
+  if (setjmp(png_jmpbuf(png_ptr))) {
     printf("Error during init_io");
-    return 1
+    return 1;
   }
   return 0;
 }
