@@ -174,7 +174,7 @@ e::Expr ::= tensor :: Expr interval :: Expr
 {
   forwards to directCallExpr(
     name(
-     "access",
+     "accessT",
      location = generate_location(e.location, module_name)
     ),
     consExpr(tensor,

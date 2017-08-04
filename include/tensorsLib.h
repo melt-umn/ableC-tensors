@@ -33,7 +33,7 @@ Interval create_interval_no_bound();
 // Function calls
 Tensor empty_tensor();
 Tensor create(int,int*,int,float*);
-Tensor access(Tensor,Interval*);
+Tensor accessT(Tensor,Interval*);
 float float_access(Tensor,int*);
 Tensor copy(Tensor);
 Tensor trans(Tensor);

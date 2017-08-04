@@ -165,7 +165,7 @@ float float_access(Tensor tens, int *indices) {
  * Assumption:
  * Number of dimensions in the tensor matches the length of the interval list
 */
-Tensor access(Tensor tens, Interval *interIndices) {
+Tensor accessT(Tensor tens, Interval *interIndices) {
   int k,j,z,flag;
   int currentChangingDim; //innermost dimension changing
   int largestChangingDim;
@@ -558,8 +558,8 @@ Tensor map(float (*fun)(float), Tensor tens) {
 	//looks like memcopy can't accept functions?
 	// Travis: right, it just copies the data, it can't do any computation,
 	//   so you do need an explicit loop here.
-	for (i = 0; i < tens.count; i++) {		
- 		tens.data[i] = (*fun)(tens.data[i]);		
+	for (i = 0; i < tens.count; i++) {
+ 		tens.data[i] = (*fun)(tens.data[i]);
  	}
 	return tens;
 }
