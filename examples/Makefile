@@ -11,10 +11,8 @@ GRAMMAR_SOURCES=$(shell find $(GRAMMAR_DIRS) -name *.sv -print0 | xargs -0)
 # The C source files.
 XC_SOURCES=$(wildcard *.xc)
 
-PKGCONFIGS+=libpng
-
-CFLAGS+=-I../include -Wall -Wextra -Wpedantic -std=c11 $(shell pkg-config --cflags $(PKGCONFIGS))
-LDLIBS+=-lm $(shell pkg-config --libs $(PKGCONFIGS))
+CFLAGS+=-I../include -Wall -Wextra -Wpedantic -std=c11 $(shell sdl-config --cflags)
+LDLIBS+=-lm $(shell sdl-config --libs)
 
 all: ableC.jar examples
 
