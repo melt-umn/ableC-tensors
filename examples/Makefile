@@ -20,7 +20,7 @@ ableC.jar: $(GRAMMAR_SOURCES)
 	touch artifact/Artifact.sv
 	silver --clean -o $@ -I $(ABLEC_BASE) \
 		     -I $(EXTS_BASE)/ableC-tensors/grammars \
-		     artifact
+					     artifact
 
 # This is phony despite being a real file, because the Makefile in src checks
 # if the source files have been modified or not.
@@ -39,7 +39,8 @@ examples: $(XC_SOURCES:.xc=.out)
 	$(CC) -c $(CFLAGS) -o $@ $^
 
 %.c: %.xc ableC.jar
-	java -jar ableC.jar $<
+	java -jar ableC.jar $< $(shell sdl-config --cflags)
+
 
 clean:
 	rm -f *~ *.i *.o *.c *.out *.test *.jar *.copperdump.html build.xml
