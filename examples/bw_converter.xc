@@ -177,21 +177,23 @@ void process_file(void)
   float float_arr[count];
   int currentCount = 0;
 
-/*
-  for (y = 0; y<dimensions[1]; y++) {
+
+  //for (y = 0; y<dimensions[0]; y++) {
+    y = 0;
     png_byte* row = row_pointers[y];
-    for (x = 0; x < dimensions[0]; x++) {
+    for (x = 0; x < dimensions[1]; x++) {
        png_byte* ptr = &(row[x*4]);
+       printf("%d,%d,%d,%d\n",ptr[0],ptr[1],ptr[2],ptr[3]);/*
        float_arr[currentCount] = ptr[0];
        float_arr[currentCount+1] = ptr[1];
        float_arr[currentCount+2] = ptr[2];
        float_arr[currentCount+3] = ptr[3];
-       currentCount += 4;
-    }
+       currentCount += 4;*/
+    //}
   }
-*/
+
   Tensor png_tensor = create(2,dimensions,dimensions[0]*dimensions[1],float_arr);
-  printT(png_tensor);
+  //printT(png_tensor);
 
   for (y=0; y<dimensions[1]; y++) {
     png_byte* row = row_pointers[y];
