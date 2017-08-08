@@ -47,6 +47,7 @@ Tensor float_to_ten(float);
 float ten_to_float(Tensor);
 
 Tensor map(float (*)(float),Tensor);
+Tensor map_with_context(float (*)(float,void*),Tensor,void*);
 Tensor square(Tensor);
 Tensor incr(Tensor);
 Tensor negate(Tensor);

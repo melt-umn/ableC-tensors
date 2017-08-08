@@ -482,6 +482,16 @@ Tensor map(float (*fun)(float), Tensor tens) {
 	return tens;
 }
 
+//same as previous map but with context that allows more intense/general map functions
+Tensor map_with_context(float (*fun)(float,void*), Tensor tens, void *context) {
+	int i;
+	for (i = 0; i < tens.count; i++) {
+ 		tens.data[i] = (*fun)(tens.data[i],context);
+ 	}
+	return tens;
+}
+
+
 Tensor square(Tensor tens) {
 	return map(scalar_square,tens);
 }

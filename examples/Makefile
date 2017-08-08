@@ -11,8 +11,8 @@ GRAMMAR_SOURCES=$(shell find $(GRAMMAR_DIRS) -name *.sv -print0 | xargs -0)
 # The C source files.
 XC_SOURCES=$(wildcard *.xc)
 
-CFLAGS+=-I../include -Wall -Wextra -Wpedantic -std=c11 $(shell sdl-config --cflags)
-LDLIBS+=-lm $(shell sdl-config --libs)
+CFLAGS+=-I../include -Wall -Wextra -Wpedantic -std=c11 #$(shell sdl-config --cflags)
+LDLIBS+=-lm #$(shell sdl-config --libs)
 
 all: ableC.jar examples
 
@@ -39,7 +39,7 @@ examples: $(XC_SOURCES:.xc=.out)
 	$(CC) -c $(CFLAGS) -o $@ $^
 
 %.c: %.xc ableC.jar
-	java -jar ableC.jar $< $(shell sdl-config --cflags)
+	java -jar ableC.jar $< #$(shell sdl-config --cflags)
 
 
 clean:
