@@ -279,76 +279,8 @@ Tensor accessT(Tensor tens, Interval *interIndices) {
  * rid of previous data.
  */
 
-// Travis: In C it's more common for pointers to structs to be passed around in
-//   place of the structs themselves, e.g. `Tensor *copy_tensor(Tensor *tens)`.
-//   This is partly for efficiency, especially for large structs: passing in
-//   copy_tensor(t) means that space for t is taken on the stack and t copied
-//   there, i.e. in effect `arg.data = t.data; arg.dim = t.dim;
-//   arg.dim_size = t.dim_size; arg.count = t.count;` happens when the function
-//   is called. But if a pointer is used, e.g. copy_tensor(&t), then only space
-//   for a single pointer is made on the stack and in effect only `arg = &t;`
-//   happens when the function is called. Similarly for `return newTens;` when
-//   the function returns. The Tensor struct is probably small enough that this
-//   doesn't matter, but it's something you should know about.
-//
-//   More important is the issue of memory management. Since you're using the
-//   standard malloc() (which I think is probably the right choice here) without
-//   garbage collection like GC_malloc(), to prevent memory leaks you should
-//   ensure that a corresponding free() is called for every call to malloc().
-//   As a rule of thumb I try to follow C++'s concept of RAII (resource
-//   acquisition is initialization) where the function that allocates space for
-//   the struct (either on the stack or by calling malloc or a library function
-//   that calls malloc) `owns' it and is responsible for freeing it (with the
-//   exception of library functions whose purpose is to create new structs like
-//   create_tensor() or copy_tensor() or even most of these functions like
-//   fill() and transpose()).
-//
-//   Also, const annotations can be helpful even just as documentation telling
-//   which functions modify their arguments.
-//
-//   Also, just a minor style thing, and other people might disagree, but if it
-//   were me I would name this function dup_tensor() rather than copy_sensor().
-//   Consider the standard library function strdup() that allocates memory for a
-//   new string then copies the string. Compare this to memcpy(), which copies
-//   data from one location to another but does not allocate any new memory. To
-//   me, `dup' means to allocate memory and also copy, while `copy' means to
-//   copy data over without allocating space for it.  The following function
-//   `duplicates' a tensor; it doesn't only `copy' it.
-//
-//   This isn't critical, and you don't have to go off and redesign the library
-//   this way, but this is the way that I would do it and I thought it might be
-//   helpful for you at least to be exposed to it and think about it.
-//
-//   Tensor *copy_tensor(const Tensor *tens) {
-//     Tensor *newTens = malloc(sizeof(Tensor));
-//     newTens->dim = tens->dim;
-//     newTens->count = test->count;
-//     newTens->data = malloc(sizeof(float)*newTens->count);
-//     newTens->dim_size = malloc(sizeof(float)*newTens->dim);
-//     memcpy(newTens->data, tens->data, sizeof(float)*newTens->count);
-//     memcpy(newTens->dim_size, tens->dim_size, sizeof(int)*newTens->dim);
-//     return newTens;
-//   }
-//
-//   int main(void) {
-//     Tensor *t = [. 1, 2, 3 .]; // we own t and so must free it in this function
-//     Tensor *t2 = copy_tensor(t); // copy_tensor() doesn't own t and so shouldn't free it
-//     delete_tensor(t2); // call freeT(t) then free(t)
-//     delete_tensor(t);
-//   }
 Tensor copy(Tensor tens) {
 	Tensor newTens;
-	//memcpy(newTens,tens,sizeof(Tensor));
-	//should just be able to copy the whole tensor like this, no?
-	//apparently not :(
-	//
-	// Travis: that will work similarly as `newTens = tens;`
-	//   which will in turn work similarly as
-	//   `newTens.data = tens.data; newTens.dim = tens.dim;
-	//    newTens.dim_size = tens.dim_size; newTens.count = tens.count;`
-	//   In the case of data and dim_size this just copies the pointers
-	//   but does not copy the data that they point to. You do need to do an
-	//   explicit malloc()/memcpy() for that.
 
 	newTens.dim = tens.dim;
 	newTens.count = tens.count;
@@ -542,22 +474,8 @@ float ten_to_float(Tensor a) {
 		not return a new tensor.
 */
 
-// Travis:
-//   Note that, in the case that a user does not want to modify the data
-//   in place, it might be more efficient to have a single function
-//   rather than requiring copy_tensor()/map() to both be called. As it
-//   is, copy_tensor() loops through all the data (using memcpy) once to
-//   copy it, then map() loops through again to modify it. A
-//   map_in_place() function that looks like copy_tensor() but with the
-//   data memcpy() replaced with a loop like this would do the same
-//   thing but be a little faster without the memcpy() call. How much
-//   faster, I don't know (and don't rewrite it this way without first
-//   measuring). Just something to be aware of and maybe think about.
 Tensor map(float (*fun)(float), Tensor tens) {
 	int i;
-	//looks like memcopy can't accept functions?
-	// Travis: right, it just copies the data, it can't do any computation,
-	//   so you do need an explicit loop here.
 	for (i = 0; i < tens.count; i++) {
  		tens.data[i] = (*fun)(tens.data[i]);
  	}
