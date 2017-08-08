@@ -42,7 +42,6 @@ int get_color_type_unsafe(FILE *read_file) {
     color_type = 3; //rgb
   } else {
     printf("Current PNM tensor implementation does not support given color type: %s\n",color_type_list);
-    fclose(read_file);
     exit(EXIT_FAILURE);
   }
   //reset file pointer to beginning of file
@@ -90,7 +89,7 @@ PNMInfo pbm_file_to_pnm_info(FILE *pbm_read) {
   Tensor pbm_tensor;
   PNMInfo pbm_info;
   int tensor_count, current_pixel;
-  int tensor_dim_size[2]; //[width, height]
+  int *tensor_dim_size; //[width, height]
   float *tensor_data;
   char color_type[3]; //must be P2 for this function
 
@@ -101,7 +100,10 @@ PNMInfo pbm_file_to_pnm_info(FILE *pbm_read) {
     fclose(pbm_read);
     exit(EXIT_FAILURE);
   }
+
   pbm_info.color_type = 1;
+
+  tensor_dim_size = malloc(sizeof(int)*2);
 
   fscanf(pbm_read,"%d",&tensor_dim_size[0]);
   fscanf(pbm_read,"%d",&tensor_dim_size[1]); //dimensions of image
@@ -133,7 +135,7 @@ PNMInfo pgm_file_to_pnm_info(FILE *pgm_read) {
   Tensor pgm_tensor;
   PNMInfo pgm_info;
   int tensor_count, current_pixel, color_range;
-  int tensor_dim_size[2]; //[width, height]
+  int *tensor_dim_size; //[width, height]
   float *tensor_data;
   char color_type[3]; //must be P2 for this function
 
@@ -145,6 +147,8 @@ PNMInfo pgm_file_to_pnm_info(FILE *pgm_read) {
     exit(EXIT_FAILURE);
   }
   pgm_info.color_type = 2;
+
+  tensor_dim_size = malloc(sizeof(int)*2);
 
   fscanf(pgm_read,"%d",&tensor_dim_size[0]);
   fscanf(pgm_read,"%d",&tensor_dim_size[1]); //dimensions of image
@@ -176,7 +180,7 @@ PNMInfo ppm_file_to_pnm_info(FILE *ppm_read) {
   Tensor ppm_tensor;
   PNMInfo ppm_info;
   int tensor_count, current_pixel, color_range;
-  int tensor_dim_size[2]; //[width, height]
+  int *tensor_dim_size; //[width, height]
   float *tensor_data;
   char color_type[3]; //must be P3 for this function
 
@@ -188,6 +192,7 @@ PNMInfo ppm_file_to_pnm_info(FILE *ppm_read) {
     exit(EXIT_FAILURE);
   }
   ppm_info.color_type = 3;
+  tensor_dim_size = malloc(sizeof(int)*2);
 
   fscanf(ppm_read,"%d",&tensor_dim_size[0]);
   tensor_dim_size[0] = tensor_dim_size[0]*3; //each pixel has 3 color values (RGB)
@@ -227,6 +232,10 @@ PNMInfo pnm_file_to_pnm_info(FILE *pnm_read) {
       break;
     case 3:
       pnm_info = ppm_file_to_pnm_info(pnm_read);
+      break;
+    default:
+      printf("get_color_type_unsafe returned invalid response\n");
+      exit(EXIT_FAILURE);
   }
   return pnm_info;
 }
@@ -255,4 +264,8 @@ void pnm_info_to_pnm_file(FILE *pnm_write, PNMInfo pnm_info) {
       fprintf(pnm_write,"\n");
     }
   }
+}
+
+void free_pnm_info(PNMInfo pnm_info) {
+  freeT(pnm_info.tensor);
 }

@@ -18,10 +18,10 @@ int get_image_height(PNMInfo);
 int get_color_type(PNMInfo);
 int get_color_range(PNMInfo);
 
-
 PNMInfo pbm_file_to_pnm_info(FILE*);
 PNMInfo pgm_file_to_pnm_info(FILE*);
 PNMInfo ppm_file_to_pnm_info(FILE*);
 PNMInfo pnm_file_to_pnm_info(FILE*);
 
 void pnm_info_to_pnm_file(FILE*,PNMInfo);
+void free_pnm_info(PNMInfo);

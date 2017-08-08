@@ -37,13 +37,13 @@ int main(int argc, char **argv)
     return 1;
   }
 
-  PNMInfo pnm_info = ppm_file_to_pnm_info(read_file);
+  PNMInfo pnm_info = pnm_file_to_pnm_info(read_file);
   printf("Image width is: %d\n",get_image_width(pnm_info));
   printf("Image height is: %d\n",get_image_height(pnm_info));
   printf("Image color type is: %d\n",get_color_type(pnm_info));
   printf("Image color range is: %d\n",get_color_range(pnm_info));
 
-/*  invert_colors(pnm_info);
+  invert_colors(pnm_info);
 
   //open file to write
   FILE *write_file = fopen(argv[2],"w");
@@ -52,7 +52,8 @@ int main(int argc, char **argv)
     return 1;
   }
   pnm_info_to_pnm_file(write_file, pnm_info); //writes a info to a pnm file
-*/
+
+  free_pnm_info(pnm_info);
   fclose(read_file);
-//  fclose(write_file);
+  fclose(write_file);
 }
