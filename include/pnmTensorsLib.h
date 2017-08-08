@@ -2,7 +2,8 @@
                 PNM TENSOR LIBRARY
 Created by: Zoe Wentzel
 *************************************************************/
-#include <tensorsLib.h>
+#include "tensorsLib.h"
+#include <stdio.h>
 
 typedef struct {
   Tensor tensor;
@@ -10,7 +11,7 @@ typedef struct {
   int color_range; //color values go from 0 to color_range
 } PNMInfo;
 
-int get_color_type_unsafe(FILE*);
+int get_color_type_unsafe(FILE *);
 
 int get_image_width(PNMInfo);
 int get_image_height(PNMInfo);

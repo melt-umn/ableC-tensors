@@ -30,6 +30,7 @@ int get_color_type_unsafe(FILE *read_file) {
   //set file pointer to beginning of file
   if ( fseek(read_file, 0L, SEEK_SET) != 0 ) {
     printf("Unable to go to beginning of file before finding color type\n");
+    fclose(read_file);
     exit(EXIT_FAILURE);
   }
   fscanf(read_file,"%s",color_type_list);
@@ -41,11 +42,13 @@ int get_color_type_unsafe(FILE *read_file) {
     color_type = 3; //rgb
   } else {
     printf("Current PNM tensor implementation does not support given color type: %s\n",color_type_list);
+    fclose(read_file);
     exit(EXIT_FAILURE);
   }
   //reset file pointer to beginning of file
   if ( fseek(read_file, 0L, SEEK_SET) != 0 ) {
     printf("Unable to go to beginning of file before finding color type\n");
+    fclose(read_file);
     exit(EXIT_FAILURE);
   }
   return color_type;
@@ -95,6 +98,7 @@ PNMInfo pbm_file_to_pnm_info(FILE *pbm_read) {
   fscanf(pbm_read,"%s",color_type);
   if (strcmp(color_type, "P1") != 0) { //P1 is bw color type
     printf("Color type must be P3 (RGB). Instead, it is: %s\n", color_type);
+    fclose(pbm_read);
     exit(EXIT_FAILURE);
   }
   pbm_info.color_type = 1;
@@ -137,6 +141,7 @@ PNMInfo pgm_file_to_pnm_info(FILE *pgm_read) {
   fscanf(pgm_read,"%s",color_type);
   if (strcmp(color_type, "P2") != 0) { //P2 is greyscale color type
     printf("Color type must be P3 (RGB). Instead, it is: %s\n", color_type);
+    fclose(pgm_read);
     exit(EXIT_FAILURE);
   }
   pgm_info.color_type = 2;
@@ -147,10 +152,6 @@ PNMInfo pgm_file_to_pnm_info(FILE *pgm_read) {
   tensor_count = tensor_dim_size[0] * tensor_dim_size[1];
 
   fscanf(pgm_read,"%d",&color_range); //max color value
-  if (color_range > 255) {
-    printf("Color values must have a max of 255 or lower. Instead, the max is: %d\n",color_range);
-    exit(EXIT_FAILURE);
-  }
   pgm_info.color_range = color_range;
 
   tensor_data = malloc(sizeof(float)*tensor_count);
@@ -183,6 +184,7 @@ PNMInfo ppm_file_to_pnm_info(FILE *ppm_read) {
   fscanf(ppm_read,"%s",color_type);
   if (strcmp(color_type, "P3") != 0) { //P3 is RBG color type
     printf("Color type must be P3 (RGB). Instead, it is: %s\n", color_type);
+    fclose(ppm_read);
     exit(EXIT_FAILURE);
   }
   ppm_info.color_type = 3;
@@ -194,10 +196,6 @@ PNMInfo ppm_file_to_pnm_info(FILE *ppm_read) {
   tensor_count = tensor_dim_size[0] * tensor_dim_size[1];
 
   fscanf(ppm_read,"%d",&color_range); //max color value
-  if (color_range > 255) {
-    printf("Color values must have a max of 255 or lower. Instead, the max is: %d\n",color_range);
-    exit(EXIT_FAILURE);
-  }
   ppm_info.color_range = color_range;
 
   tensor_data = malloc(sizeof(float)*tensor_count);
