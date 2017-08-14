@@ -288,6 +288,8 @@ Tensor get_color_info_tensor(Tensor ten, int color_num) {
 }
 
 Tensor get_red_info_tensor(PNMInfo pnm_info) {
+  printf("\ngetting red info\n");
+
   if (pnm_info.color_type != 3) {
     printf("Cannot grab red data from P%d color type\n",pnm_info.color_type);
     exit(EXIT_FAILURE);
@@ -299,6 +301,8 @@ Tensor get_red_info_tensor(PNMInfo pnm_info) {
 }
 
 Tensor get_green_info_tensor(PNMInfo pnm_info) {
+  printf("\ngetting green info\n");
+
   if (pnm_info.color_type != 3) {
     printf("Cannot grab red data from P%d color type\n",pnm_info.color_type);
     exit(EXIT_FAILURE);
@@ -309,6 +313,8 @@ Tensor get_green_info_tensor(PNMInfo pnm_info) {
 }
 
 Tensor get_blue_info_tensor(PNMInfo pnm_info) {
+  printf("\ngetting blue info\n");
+
   if (pnm_info.color_type != 3) {
     printf("Cannot grab red data from P%d color type\n",pnm_info.color_type);
     exit(EXIT_FAILURE);
