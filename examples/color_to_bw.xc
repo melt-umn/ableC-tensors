@@ -40,6 +40,7 @@ PNMInfo color_to_greyscale(PNMInfo pnm_info) {
 
   freeT(pnm_info.tensor); //no longer need this tensor, too much space allocated
   pnm_info.tensor = red_green_blue_info;
+  printT("\nTensor dimensions are %d x %d\n",red_green_blue_info.dim_size[0],red_green_blue_info.dim_size[1]);
   return pnm_info;
 }
 
