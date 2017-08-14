@@ -12,7 +12,7 @@ typedef struct {
 
 float average_colors(float i, void *context) {
   AverageContext *ctx = (AverageContext*) context;
-  return ctx->i / num_to_average;
+  return i / ctx->num_to_average;
 }
 
 void color_to_greyscale(PNMInfo pnm_info) {
@@ -80,5 +80,5 @@ int main(int argc, char **argv)
 
   free_pnm_info(pnm_info);
   fclose(read_file);
-  fclose(write_file);
+//  fclose(write_file);
 }
