@@ -37,7 +37,7 @@ void color_to_greyscale(PNMInfo pnm_info) {
   map_with_context(average_colors,red_green_blue_info,&context);
 
   printf("\nAfter average: \n");
-  printT(<.>red_green_blue_info<(0 ,-, 15)>);
+  printT(<.>red_green_blue_info<( <( 0 ,-, 15 )> )> );
 
   //now must free pnm_info and return a new PNMInfo struct (array sizes are different)
   pnm_info.color_type = 2;
