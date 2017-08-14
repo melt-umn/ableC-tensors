@@ -273,7 +273,7 @@ void free_pnm_info(PNMInfo pnm_info) {
 Tensor get_color_info_tensor(Tensor ten, int color_num) {
   Tensor new_ten;
   new_ten.count = ten.count/3; //each color is 1/3 of total count
-  new_ten.dim = 1;
+  new_ten.dim = 2;
   new_ten.dim_size = malloc(sizeof(int)*2);
   new_ten.data = malloc(sizeof(int)*new_ten.count);
   new_ten.dim_size[0] = ten.dim_size[0]/3; //only care about 1 of every 3 width elements
