@@ -15,7 +15,7 @@ float average_colors(float i, void *context) {
   return i / ctx->num_to_average;
 }
 
-void color_to_greyscale(PNMInfo pnm_info) {
+PNMInfo color_to_greyscale(PNMInfo pnm_info) {
   //extract color value of each pixel
   Tensor red_info = get_red_info_tensor(pnm_info);
   Tensor green_info = get_green_info_tensor(pnm_info);
@@ -43,7 +43,7 @@ void color_to_greyscale(PNMInfo pnm_info) {
   pnm_info.color_type = 2;
 
   //pnm_info.color_range will not change
-  
+
   printf("\nAfter averaging, color_type is %d\n\n",pnm_info.color_type);
   printf("\nAfter averaging, color_range is %d\n\n",pnm_info.color_range);
 
@@ -72,7 +72,7 @@ int main(int argc, char **argv)
   printf("Image color type is: %d\n",get_color_type(pnm_info));
   printf("Image color range is: %d\n",get_color_range(pnm_info));
 
-  color_to_greyscale(pnm_info);
+  pnm_info = color_to_greyscale(pnm_info);
 
   printf("\n\nAfter greyscale transformation:\n");
 
