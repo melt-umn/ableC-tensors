@@ -29,6 +29,7 @@ void color_to_greyscale(PNMInfo pnm_info) {
 
   AverageContext context = (AverageContext) {.num_to_average = 3}; //3 to average
   //context.color_range = pnm_info.color_range;
+  printT(red_green_blue_info);
 
   //divides added color tensor by three
   map_with_context(average_colors,red_green_blue_info,&context);
