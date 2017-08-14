@@ -292,6 +292,8 @@ Tensor get_red_info_tensor(PNMInfo pnm_info) {
     printf("Cannot grab red data from P%d color type\n",pnm_info.color_type);
     exit(EXIT_FAILURE);
   } else {
+    printf("\ngetting red info\n");
+
     return get_color_info_tensor(pnm_info.tensor, 0);
   }
 }
@@ -301,6 +303,7 @@ Tensor get_green_info_tensor(PNMInfo pnm_info) {
     printf("Cannot grab red data from P%d color type\n",pnm_info.color_type);
     exit(EXIT_FAILURE);
   } else {
+    printf("\ngetting green info\n");
     return get_color_info_tensor(pnm_info.tensor, 1);
   }
 }
@@ -310,6 +313,7 @@ Tensor get_blue_info_tensor(PNMInfo pnm_info) {
     printf("Cannot grab red data from P%d color type\n",pnm_info.color_type);
     exit(EXIT_FAILURE);
   } else {
+    printf("\ngetting blue info\n");
     return get_color_info_tensor(pnm_info.tensor, 2);
   }
 }
