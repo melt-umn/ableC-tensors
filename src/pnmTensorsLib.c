@@ -278,10 +278,12 @@ Tensor get_color_info_tensor(Tensor ten, int color_num) {
   new_ten.data = malloc(sizeof(int)*new_ten.count);
   new_ten.dim_size[0] = ten.dim_size[0]/3; //only care about 1 of every 3 width elements
   new_ten.dim_size[1] = ten.dim_size[1];
+  printf("\nnew_ten dim_size is %d x %d\n",new_ten.dim_size[0],new_ten.dim_size[1]);
 
   for (int i = 0; i < new_ten.count; i++) {
     new_ten.data[i] = ten.data[i*3 + color_num];
   }
+
   return new_ten;
 }
 
