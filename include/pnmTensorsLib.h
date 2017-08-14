@@ -25,3 +25,8 @@ PNMInfo pnm_file_to_pnm_info(FILE*);
 
 void pnm_info_to_pnm_file(FILE*,PNMInfo);
 void free_pnm_info(PNMInfo);
+
+Tensor get_color_info_tensor(Tensor, int);
+Tensor get_red_info_tensor(PNMInfo);
+Tensor get_green_info_tensor(PNMInfo);
+Tensor get_blue_info_tensor(PNMInfo);
