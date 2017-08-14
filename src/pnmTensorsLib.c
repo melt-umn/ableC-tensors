@@ -279,7 +279,7 @@ Tensor get_color_info_tensor(Tensor ten, int color_num) {
   new_ten.dim_size[0] = ten.dim_size[0]/3; //only care about 1 of every 3 width elements
   new_ten.dim_size[1] = ten.dim_size[1];
 
-  for (int i = 0; i < count; i++) {
+  for (int i = 0; i < new_ten.count; i++) {
     new_ten.data[i] = ten.data[i*3 + color_num];
   }
   return new_ten;
@@ -299,7 +299,7 @@ Tensor get_green_info_tensor(PNMInfo pnm_info) {
     printf("Cannot grab red data from P%d color type\n",pnm_info.color_type);
     exit(EXIT_FAILURE);
   } else {
-    get_color_info_tensor(pnm_info.tensor, 1);
+    return get_color_info_tensor(pnm_info.tensor, 1);
   }
 }
 
@@ -308,6 +308,6 @@ Tensor get_blue_info_tensor(PNMInfo pnm_info) {
     printf("Cannot grab red data from P%d color type\n",pnm_info.color_type);
     exit(EXIT_FAILURE);
   } else {
-    get_color_info_tensor(pnm_info.tensor, 2);
+    return get_color_info_tensor(pnm_info.tensor, 2);
   }
 }
