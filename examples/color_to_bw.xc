@@ -28,7 +28,7 @@ void color_to_greyscale(PNMInfo pnm_info) {
   Tensor red_green_blue_info = ten_elem_add(red_green_info, blue_info);
 
   printf("\nBefore average: \n");
-  printT(<.>red_green_blue_info<(0 ,-, 15)>);
+  printT(<.>red_green_blue_info<( <( 0 ,-, 15 )> )> );
 
   AverageContext context = (AverageContext) {.num_to_average = 3}; //3 to average
   //context.color_range = pnm_info.color_range;
