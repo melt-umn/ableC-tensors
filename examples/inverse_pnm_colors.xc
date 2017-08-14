@@ -1,6 +1,5 @@
-//this file should take an RGB ppm file and return another RBG ppm file in which
-//each color number (0 to 255) is equivalent to 255 - the color number
-//255 would become 0, 0 to 255, and 100 to 150, for example
+//this file should take an ppm file and return another ppm file in which
+//each color number is equivalent to the max color number - the color number
 
 #include "../include/pnmTensorsLib.h"
 #include <stdio.h>

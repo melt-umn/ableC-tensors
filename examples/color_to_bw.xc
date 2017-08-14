@@ -62,7 +62,7 @@ int main(int argc, char **argv)
   printf("Image color range is: %d\n",get_color_range(pnm_info));
 
   color_to_greyscale(pnm_info);
-
+  printf("\n\nAfter greyscale transformation:\n");
   printf("Image width is: %d\n",get_image_width(pnm_info));
   printf("Image height is: %d\n",get_image_height(pnm_info));
   printf("Image color type is: %d\n",get_color_type(pnm_info));
