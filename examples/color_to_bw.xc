@@ -17,8 +17,11 @@ float average_colors(float i, void *context) {
 
 PNMInfo color_to_greyscale(PNMInfo pnm_info) {
   //extract color value of each pixel
+  printf("calling get red info\n");
   Tensor red_info = get_red_info_tensor(pnm_info);
+  printf("calling get green info\n");
   Tensor green_info = get_green_info_tensor(pnm_info);
+  printf("calling get blue info\n");
   Tensor blue_info = get_blue_info_tensor(pnm_info);
 
   //add each element of the red and green tensors
