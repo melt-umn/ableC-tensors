@@ -17,11 +17,8 @@ float average_colors(float i, void *context) {
 
 PNMInfo color_to_greyscale(PNMInfo pnm_info) {
   //extract color value of each pixel
-  printf("calling get red info\n");
   Tensor red_info = get_red_info_tensor(pnm_info);
-  printf("calling get green info\n");
   Tensor green_info = get_green_info_tensor(pnm_info);
-  printf("calling get blue info\n");
   Tensor blue_info = get_blue_info_tensor(pnm_info);
 
   //add each element of the red and green tensors
@@ -30,7 +27,14 @@ PNMInfo color_to_greyscale(PNMInfo pnm_info) {
   //add the blue color information to it
   Tensor red_green_blue_info = ten_elem_add(red_green_info, blue_info);
 
+  //no longer need any tensor other than red_green_blue_info
+  freeT(red_info);
+  freeT(green_info);
+  freeT(blue_info);
+  freeT(red_green_info);
+
   AverageContext context = (AverageContext) {.num_to_average = 3}; //3 to average
+
   //context.color_range = pnm_info.color_range;
 
   //divides added color tensor by three
@@ -43,7 +47,6 @@ PNMInfo color_to_greyscale(PNMInfo pnm_info) {
 
   freeT(pnm_info.tensor); //no longer need this tensor, too much space allocated
   pnm_info.tensor = red_green_blue_info;
-  printf("\nTensor dimensions are %d x %d\n",red_green_blue_info.dim_size[0],red_green_blue_info.dim_size[1]);
   return pnm_info;
 }
 
@@ -63,21 +66,9 @@ int main(int argc, char **argv)
   }
 
   PNMInfo pnm_info = pnm_file_to_pnm_info(read_file);
-  printf("Image width is: %d\n",get_image_width(pnm_info));
-  printf("Image height is: %d\n",get_image_height(pnm_info));
-  printf("Image color type is: %d\n",get_color_type(pnm_info));
-  printf("Image color range is: %d\n",get_color_range(pnm_info));
 
   pnm_info = color_to_greyscale(pnm_info);
 
-  printf("\n\nAfter greyscale transformation:\n");
-
-  printf("Image width is: %d\n",get_image_width(pnm_info));
-  printf("Image height is: %d\n",get_image_height(pnm_info));
-  printf("Image color type is: %d\n",get_color_type(pnm_info));
-  printf("Image color range is: %d\n",get_color_range(pnm_info));
-
-/*
   //open file to write
   FILE *write_file = fopen(argv[2],"w");
   if (!write_file) {
@@ -85,9 +76,8 @@ int main(int argc, char **argv)
     return 1;
   }
   pnm_info_to_pnm_file(write_file, pnm_info); //writes a info to a pnm file
-*/
 
   free_pnm_info(pnm_info);
   fclose(read_file);
-//  fclose(write_file);
+  fclose(write_file);
 }

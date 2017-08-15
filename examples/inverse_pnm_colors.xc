@@ -15,10 +15,11 @@ float invert_color(float i, void *context) {
   return ctx->color_range - i;
 }
 
-void invert_colors(PNMInfo pnm_info) {
+PNMInfo invert_colors(PNMInfo pnm_info) {
   InvertContext context = (InvertContext) {.color_range = pnm_info.color_range};
   //context.color_range = pnm_info.color_range;
   map_with_context(invert_color,pnm_info.tensor,&context);
+  return pnm_info;
 }
 
 int main(int argc, char **argv)
@@ -37,10 +38,6 @@ int main(int argc, char **argv)
   }
 
   PNMInfo pnm_info = pnm_file_to_pnm_info(read_file);
-  printf("Image width is: %d\n",get_image_width(pnm_info));
-  printf("Image height is: %d\n",get_image_height(pnm_info));
-  printf("Image color type is: %d\n",get_color_type(pnm_info));
-  printf("Image color range is: %d\n",get_color_range(pnm_info));
 
   invert_colors(pnm_info);
 
