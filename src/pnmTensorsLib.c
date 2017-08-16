@@ -245,10 +245,12 @@ void pnm_info_to_pnm_file(FILE *pnm_write, PNMInfo pnm_info) {
   switch (pnm_info.color_type) {
     case 1:
       fprintf(pnm_write,"%d %d\n",pnm_info.tensor.dim_size[0],pnm_info.tensor.dim_size[1]);
+	  break;
       //bw does not have max color range printed
     case 2:
       fprintf(pnm_write,"%d %d\n",pnm_info.tensor.dim_size[0],pnm_info.tensor.dim_size[1]);
       fprintf(pnm_write,"%d\n",pnm_info.color_range);
+	  break;
     case 3:
       //image dimensions, divide the first by three to make up for the fact that
       //each pixel has 3 color values
