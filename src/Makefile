@@ -6,7 +6,10 @@ CFLAGS+=-fpic
 LDLIBS+=-lm
 
 # Flags to ensure good style.
-CFLAGS+=-Wall -Wextra -Wpedantic -Werror -std=c11
+CFLAGS+=-Wall -Wextra -Wpedantic -Werror -std=c11 
+
+# Adds cilk_for
+CFLAGS+=-fcilkplus
 
 # Don't bother us about refId.
 CFLAGS+=-Wno-error=attributes -Wno-attributes
