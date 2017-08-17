@@ -12,7 +12,7 @@ GRAMMAR_SOURCES=$(shell find $(GRAMMAR_DIRS) -name *.sv -print0 | xargs -0)
 XC_SOURCES=$(wildcard *.xc)
 
 CFLAGS+=-I../include -Wall -Wextra -Wpedantic -std=c11 #$(shell sdl-config --cflags)
-LDLIBS+=-lm #$(shell sdl-config --libs)
+LDLIBS+=-lm -lcilkrts #$(shell sdl-config --libs)
 
 all: ableC.jar examples
 

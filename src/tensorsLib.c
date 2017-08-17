@@ -1,8 +1,6 @@
 //Written by Ankit Siva and Zoe Wentzel
 //Parts copied from edu.umn.cs.melt.exts.ableC.matlab
 
-//Modified tensorsLib.c file to fit our own needs, cleaning out most of the
-//code from the matlab version but still using snippets for inspiration/help//might break, please don't trust this -zoe
 #include <stdio.h>
 #include <stdlib.h>
 #include "../include/tensorsLib.h"
@@ -271,7 +269,6 @@ Tensor accessT(Tensor tens, Interval *interIndices) {
   return newTens;
 }
 
-
 /*
  * Description:
  * Takes a Tensor and returns a duplicate of it in a new space in memory.
@@ -359,17 +356,6 @@ Tensor id(int numDimensions, int dim_len){
 	}
 	return tensor;
 }
-
-/*
- * Description:
- * Creates an identity tensor for a given number of dimensions
- * and each dimension having a length specified by the array of integers passed
- *
- * Assumption:
- * Identity tensor with given number of dimensions and each having the specified
- * dimension length is created.
- */
-Tensor id_as(int numDimensions, int * dim_len);
 
 /*
  * Description:
@@ -708,22 +694,84 @@ Tensor ten_combine(float (*fun)(float,float), Tensor tOne, Tensor tTwo) {
 	}
 }
 
+/*
+ * Description:
+ * Creates a new tensor using a function and two other tensors, identical to last function but uses cilk
+ *
+ * Assumption:
+ * two tensors must be the sameshape and the function must deal with ints
+ * does not mutate either tensor passed in
+*/
+Tensor ten_combine_cilk(float (*fun)(float,float), Tensor tOne, Tensor tTwo) {
+	int i;
+	if (tOne.dim == tTwo.dim) {
+		for (i = 0; i < tOne.dim; i++) {
+			if (tOne.dim_size[i] != tTwo.dim_size[i]) {
+				printf("The two tensors have different length of dimensions\n");
+				exit(1);
+			}
+		}
+
+		Tensor tens;
+		tens.count = tOne.count;
+		tens.data = malloc(sizeof(float)*tOne.count);
+		tens.dim = tOne.dim;
+		tens.dim_size = malloc(sizeof(int)*tOne.dim);
+
+		memcpy(tens.dim_size, tOne.dim_size, sizeof(int)*tOne.dim);
+
+		cilk_for (i = 0; i < tens.count; i++) {
+			tens.data[i] = (*fun)(tOne.data[i], tTwo.data[i]);
+		}
+
+		return tens;
+
+	} else {
+		printf("The two tensors have a different number of dimensions\n");
+		exit(1);
+	}
+}
+
 Tensor ten_elem_add(Tensor tOne, Tensor tTwo) {
 	return ten_combine(scalar_add,tOne,tTwo);
+}
+
+Tensor ten_elem_add_cilk(Tensor tOne, Tensor tTwo) {
+	return ten_combine_cilk(scalar_add,tOne,tTwo);
 }
 
 Tensor ten_elem_subtract(Tensor tOne, Tensor tTwo) {
 	return ten_combine(scalar_subtract,tOne,tTwo);
 }
 
+Tensor ten_elem_subtract_cilk(Tensor tOne, Tensor tTwo) {
+	return ten_combine_cilk(scalar_subtract,tOne,tTwo);
+}
+
 Tensor ten_elem_multiply(Tensor tOne, Tensor tTwo) {
 	return ten_combine(scalar_multiply,tOne,tTwo);
+}
+
+Tensor ten_elem_multiply_cilk(Tensor tOne, Tensor tTwo) {
+	return ten_combine_cilk(scalar_multiply,tOne,tTwo);
 }
 
 Tensor ten_elem_divide(Tensor tOne, Tensor tTwo) {
 	return ten_combine(scalar_divide,tOne,tTwo);
 }
 
+Tensor ten_elem_divide_cilk(Tensor tOne, Tensor tTwo) {
+	return ten_combine_cilk(scalar_divide,tOne,tTwo);
+}
+
+/*
+ * Description:
+ * Sees if two tensors are equivalent (size and data)
+ *
+ * Assumption:
+ * two tensors must be the same shape and the function must deal with floats
+ * does not mutate either tensor passed in
+*/
 bool ten_equals(Tensor tOne, Tensor tTwo) {
 	int i;
 	int *dimSizeOne = tOne.dim_size;

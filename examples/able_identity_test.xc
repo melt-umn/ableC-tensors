@@ -2,8 +2,6 @@
 #include <stdio.h>
 #include <string.h>
 
-//tests the normal identity function
-//ankit, can you add the asymmetric identity function is as a test please?
 int main () {
   Tensor idOne = id(2,3);
   printf("3 x 3 identity tensor is: \n");

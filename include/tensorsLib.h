@@ -38,7 +38,6 @@ float float_access(Tensor,int*);
 Tensor copy(Tensor);
 Tensor trans(Tensor);
 Tensor id(int,int);
-Tensor id_as(int, int*);
 Tensor fill(int,int*,float);
 Tensor ones(int,int*);
 Tensor zeros(int,int*);
@@ -76,10 +75,15 @@ Tensor ten_sum(Tensor);
 Tensor ten_prod(Tensor);
 
 Tensor ten_combine(float (*)(float,float),Tensor,Tensor);
+Tensor ten_combine_cilk(float(*)(float,float),Tensor,Tensor);
 Tensor ten_elem_add(Tensor,Tensor);
+Tensor ten_elem_add_cilk(Tensor,Tensor);
 Tensor ten_elem_subtract(Tensor,Tensor);
+Tensor ten_elem_subtract_cilk(Tensor,Tensor);
 Tensor ten_elem_multiply(Tensor,Tensor);
+Tensor ten_elem_multiply_cilk(Tensor,Tensor);
 Tensor ten_elem_divide(Tensor,Tensor);
+Tensor ten_elem_divide_cilk(Tensor,Tensor);
 
 bool ten_equals(Tensor,Tensor);
 
