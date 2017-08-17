@@ -64,11 +64,11 @@ PNMInfo vert_flip(PNMInfo pnm_info) {
 }
 
 PNMInfo both_flip(PNMInfo pnm_info) {
-   float *data;
+  float *data;
   data = malloc(sizeof(float)*pnm_info.tensor.count);
   memcpy(data,pnm_info.tensor.data,pnm_info.tensor.count*sizeof(float));
   
-  int current_count, max_height;
+  int current_count, max_height, max_width;
   current_count = 0;
   max_height = pnm_info.tensor.dim_size[1]; 
   max_width = pnm_info.tensor.dim_size[0];
@@ -76,19 +76,23 @@ PNMInfo both_flip(PNMInfo pnm_info) {
   if (pnm_info.color_type < 3) {  
     for (int i = 0; i < max_height; i++) {
       for (int j = 0; j < max_width; j++) {
-        pnm_info.tensor.data[current_count++] = data[ (max_height - 1 - i) + (max_width - 1 - j];
+        /*printf("indexing from %d, first part is %d, second part is %d\n",
+				(max_height-1-i)*max_width+(max_width-1-j),
+                (max_height-1-i)*max_width, max_width-1-j); */
+        pnm_info.tensor.data[current_count++] = data[ (max_height - 1 - i)*max_width + (max_width - 1 - j)];
       }
     }
   } else if (pnm_info.color_type == 3) {
     for (int i = 0; i < get_image_height(pnm_info); i++) {
       for (int j = 0; j < max_width; j+=3) {
         //width is 1/3 of actual stored data width for RGB photos
-        pnm_info.tensor.data[current_count++] = data[(max_height - 1 - i) + max_width - 3 - j];
-        pnm_info.tensor.data[current_count++] = data[(max_height - 1 - i) + max_width - 2 - j];
-        pnm_info.tensor.data[current_count++] = data[(max_height - 1 - i) + max_width - 1 - j];
+        pnm_info.tensor.data[current_count++] = data[(max_height - 1 - i)*max_width + max_width - 3 - j];
+        pnm_info.tensor.data[current_count++] = data[(max_height - 1 - i)*max_width + max_width - 2 - j];
+        pnm_info.tensor.data[current_count++] = data[(max_height - 1 - i)*max_width + max_width - 1 - j];
       }
     }
   }
+
   free(data);
   return pnm_info;
 }
@@ -156,9 +160,6 @@ int main(int argc, char **argv)
     printf("File %s could not be opened for writing\n", argv[2]);
     return 1;
   }
-  printf("pnm color type is %d\n",pnm_info.color_type);
-  printf("pnm color range is %d\n",pnm_info.color_range);
-  printf("pnm dimensions are %d x %d\n",get_image_width(pnm_info),get_image_height(pnm_info));
 
   pnm_info_to_pnm_file(write_file, pnm_info); //writes a info to a pnm file
   

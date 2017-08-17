@@ -9,6 +9,7 @@
 #include <errno.h>
 #include <math.h>
 #include <string.h>
+#include <cilk/cilk.h>
 
 #define FLT_MIN 1.175494e-38
 #define FLT_MAX 3.402823e+38
@@ -482,10 +483,37 @@ Tensor map(float (*fun)(float), Tensor tens) {
 	return tens;
 }
 
+/*
+  Description:
+    Takes a function and a Tensor and performs that function on every
+		element in the Tensor. Uses cilk for parallel goodness.
+
+  Assumption:
+    The given function must handle integers and the returned Tensor will be
+		the same shape as the one passed in. Will mutate the tensor itself, will
+		not return a new tensor.
+*/
+
+Tensor map_cilk(float (*fun)(float), Tensor tens) {
+	cilk_for (int i = 0; i < tens.count; i++) {
+ 		tens.data[i] = (*fun)(tens.data[i]);
+ 	}
+	return tens;
+}
+
+
 //same as previous map but with context that allows more intense/general map functions
 Tensor map_with_context(float (*fun)(float,void*), Tensor tens, void *context) {
 	int i;
 	for (i = 0; i < tens.count; i++) {
+ 		tens.data[i] = (*fun)(tens.data[i],context);
+ 	}
+	return tens;
+}
+
+//same as previous map but with context that allows more intense/general map functions and cilk
+Tensor map_with_context_cilk(float (*fun)(float,void*), Tensor tens, void *context) {
+	cilk_for (int i = 0; i < tens.count; i++) {
  		tens.data[i] = (*fun)(tens.data[i],context);
  	}
 	return tens;
