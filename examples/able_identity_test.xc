@@ -22,5 +22,10 @@ int main () {
   printf("3 x 3 x 3 x 3 x 3 identity tensor is: \n");
   printT(idFour);
 
+  freeT(idOne);
+  freeT(idTwo);
+  freeT(idThree);
+  freeT(idFour);
+
   return 0;
 }

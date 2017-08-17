@@ -77,5 +77,14 @@ int main () {
   printT(-tenFourF);
   printT(-tenFourS);
 
+  freeT(tenOneF);
+  freeT(tenTwoF);
+  freeT(tenThreeF);
+  freeT(tenFourF);
+  freeT(tenOneS);
+  freeT(tenTwoS);
+  freeT(tenThreeS);
+  freeT(tenFourS);
+
   return 0;
 }

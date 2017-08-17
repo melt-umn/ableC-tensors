@@ -35,5 +35,9 @@ int main() {
   printT(<.>tenThree<( <( 0 ,-, 1 )> , <( 1 ,-, 2 )> , <( 1 ,-, * )> )>);
   printf("\n\n");
 
+  freeT(tenOne);
+  freeT(tenTwo);
+  freeT(tenThree);
+
   return 0;
 }

@@ -51,5 +51,12 @@ int main () {
   printf("\n");
   printf("ten 134 to int 134 is: %f\n",ten_to_float(tenSix));
 
+  freeT(tenOne);
+  freeT(tenTwo);
+  freeT(tenThree);
+  freeT(tenFour);
+  freeT(tenFive);
+  freeT(tenSix);
+
   return 0;
 }

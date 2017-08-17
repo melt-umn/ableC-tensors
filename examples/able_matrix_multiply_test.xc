@@ -40,5 +40,10 @@ int main () {
   printf("tenThree * tenFour is: \n");
   printT(tenThree ** tenFour);
 
+  freeT(tenOne);
+  freeT(tenTwo);
+  freeT(tenThree);
+  freeT(tenFour);
+
   return 0;
 }

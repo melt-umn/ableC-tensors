@@ -111,5 +111,11 @@ int main () {
   printf("\n2 x 2 id tensor + 1's product\n");
   printT(ten_prod(tenFive));
 
+  freeT(tenOne);
+  freeT(tenTwo);
+  freeT(tenThree);
+  freeT(tenFour);
+  freeT(tenFive);
+
   return 0;
 }

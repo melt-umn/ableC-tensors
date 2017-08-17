@@ -49,6 +49,10 @@ int main () {
   printT(trans(fillFour));
   printf("\n\n");
 
+  freeT(tenOne);
+  freeT(tenTwo);
+  freeT(fillThree);
+  freeT(fillFour);
 
   return 0;
 }

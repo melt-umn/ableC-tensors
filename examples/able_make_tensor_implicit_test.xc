@@ -26,5 +26,10 @@ int main () {
   printT(tenFour);
   printf("\n");
 
+  freeT(tenOne);
+  freeT(tenTwo);
+  freeT(tenThree);
+  freeT(tenFour);
+
   return 0;
 }

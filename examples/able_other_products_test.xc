@@ -36,5 +36,9 @@ int main () {
   printf("vector triple product of: [32 543 65], [666 662 35], and [22 1234 2]:\n");
   printT(vector_triple_product(tenTwo,tenZero,tenOne));
 
+  freeT(tenZero);
+  freeT(tenOne);
+  freeT(tenTwo);
+
   return 0;
 }

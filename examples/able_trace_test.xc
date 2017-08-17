@@ -31,5 +31,9 @@ int main () {
   printT(ten_trace(testThree));
   printf("Trace (int) is: %f",trace(testThree));
 
+  freeT(idOne);
+  freeT(idTwo);
+  freeT(testThree);
+
   return 0;
 }

@@ -86,5 +86,11 @@ int main () {
   printT(tenFive);
   printf("\n");
 
+  freeT(tenOne);
+  freeT(tenTwo);
+  freeT(tenThree);
+  freeT(tenFour);
+  freeT(tenFive);
+
   return 0;
 }

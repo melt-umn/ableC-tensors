@@ -21,5 +21,9 @@ int main () {
   printf("[22 1234 2] x* [32 543 65]:\n");
   printT(tenOne x* tenTwo);
 
+  freeT(tenZero);
+  freeT(tenOne);
+  freeT(tenTwo);
+
   return 0;
 }

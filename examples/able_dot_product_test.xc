@@ -55,5 +55,15 @@ int main () {
   printf("\n(Int): ");
   printf("%f",tenFourF f.* tenFourS);
   printf("\n");
+
+  freeT(tenOneS);
+  freeT(tenTwoS);
+  freeT(tenThreeS);
+  freeT(tenFourS);
+  freeT(tenOneF);
+  freeT(tenTwoF);
+  freeT(tenThreeF);
+  freeT(tenFourF);
+
   return 0;
 }

@@ -74,5 +74,9 @@ int main () {
   printT(tenThree);
   printf("\n");
 
+  freeT(tenOne);
+  freeT(tenTwo);
+  freeT(tenThree);
+
   return 0;
 }

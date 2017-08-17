@@ -47,5 +47,14 @@ int main () {
   printf("tenSeven is: \n");
   printT(tenSeven);
   printf("\n");
+
+  freeT(tenOne);
+  freeT(tenTwo);
+  freeT(tenThree);
+  freeT(tenFour);
+  freeT(tenFive);
+  freeT(tenSix);
+  freeT(tenSeven);
+
   return 0;
 }
