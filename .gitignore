@@ -17,7 +17,6 @@ build.xml
 *.dSYM/
 
 #Ignore everything except for the Makefile and the .xc files
-test/*
 !test/*.xc
 !test/Makefile
 
