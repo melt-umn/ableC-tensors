@@ -12,32 +12,47 @@ int main() {
 					   [[ [[ 10,11,12 ]], [[ 13,14,15 ]], [[ 16,17,18 ]] ]] ,
                        [[ [[ 19,20,21 ]], [[ 22,23,24 ]], [[ 25,26,27 ]] ]] ]];
 
-  printf("original tensor:\n");
-  printT(tenOne);
-  printf("\n\n");
-  printf("accessing from 0 - 4 (should be 32, 1234, 2, 645, -6)\n");
+  Tensor tenOneAccessed = <.>tenOne<(<(*)>)>; // test star
+  Tensor tenOneAccessedExt = <.>tenOne<(<(*,-,*)>)>; //test star to star, this one looks like a vampire
+  Tensor tenTwoAccessed = <.>tenTwo<(<(0,-,1)>,<(*,-,1)>)>; //test number to number, star to num
+  Tensor tenThreeAccessed = <.>tenThree<(<( 0 )> , <( 0 )> , <( 0 )>)>; //test single number
 
+  if (!(tenOneAccessed == tenOne)) {
+    printf("accessed tenOne first is incorrect\n");
+    return 1;
+  }
+  
+  if (!(tenOneAccessedExt == tenOne)) {
+    printf("accessed tenOne second is incorrect\n");
+    return 1;
+  }
+ 
+  Tensor tenCompareTwo = [[ [[ 32, 1234 ]] , [[ -6, 24 ]] ]];
+ 
+  if (!(tenTwoAccessed == tenCompareTwo)) {
+    printf("accessed tenTwo is incorrect\n");	
+    return 1;
+  }
 
-  printT(<.> tenOne<( <( * )> )>);
-  printf("\n\n");
+  Tensor tenCompareThree = [[ [[ [[ 1 ]] ]] ]]; 
 
-  printf("original tensor:\n");
-  printT(tenTwo);
-  printf("\n\n");
-  printf("accessing from 0 - 1, 0 - 1 (should be 32, 1234 // -6, 24)\n");
-  printT(<.>tenTwo<( <( 0 ,-, 1 )> , <( * ,-, 1 )> )>);
-  printf("\n\n");
+  if (!(tenThreeAccessed == tenCompareThree)) {
+    printf("accessed tenThree is incorrect\n");
+    return 1; 
+  }
 
-  printf("original tensor:\n");
-  printT(tenThree);
-  printf("\n\n");
-  printf("accessing from [0-1][1-2][1-2](should be 5 6 8 9 14 15 17 18)\n");
-  printT(<.>tenThree<( <( 0 ,-, 1 )> , <( 1 ,-, 2 )> , <( 1 ,-, * )> )>);
-  printf("\n\n");
 
   freeT(tenOne);
   freeT(tenTwo);
   freeT(tenThree);
+  
+  freeT(tenOneAccessed);
+  freeT(tenOneAccessedExt);
+  freeT(tenTwoAccessed);
+  freeT(tenThreeAccessed);
+
+  freeT(tenCompareTwo);
+  freeT(tenCompareThree);
 
   return 0;
 }

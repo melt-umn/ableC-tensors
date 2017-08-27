@@ -52,4 +52,6 @@ int main(int argc, char **argv)
   free_pnm_info(pnm_info);
   fclose(read_file);
   fclose(write_file);
+
+  return 0;
 }
