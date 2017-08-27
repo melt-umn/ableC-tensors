@@ -25,38 +25,55 @@ int main() {
   int *dataTestFive;
   dataTestFive = malloc(sizeof(int)*3);
   dataTestFive[0] = 3;
-  dataTestFive[1] = 4;
-  dataTestFive[2] = 5;
+  dataTestFive[1] = 3;
+  dataTestFive[2] = 3;
 
   Tensor fillOne = fill(0,dataTestOne,666);
-  printf("0 dim 666 tensor is: \n");
-  printT(fillOne);
-  printf("\n");
-
   Tensor fillTwo = fill(1,dataTestTwo,666);
-  printf("3 x 1 666 tensor is: \n");
-  printT(fillTwo);
-  printf("\n");
-
-  Tensor fillThree = ones(2,dataTestThree);
-  printf("2 x 5 ones tensor is: \n");
-  printT(fillThree);
-  printf("\n");
-
-  Tensor fillFour = zeros(2,dataTestFour);
-  printf("1 x 6 zeros tensor is: \n");
-  printT(fillFour);
-  printf("\n");
-
+  Tensor fillThree = fill(2,dataTestThree,1);
+  Tensor onesThree = ones(2,dataTestThree);
+  Tensor fillFour = fill(2,dataTestFour,0);
+  Tensor zerosFour = zeros(2,dataTestFour);
   Tensor fillFive = fill(3,dataTestFive,666);
-  printf("3 x 4 x 5 666 tensor is: \n");
-  printT(fillFive);
+
+  //same tensors with new syntax
+  Tensor fillOneSyn = [[ 666 ]];
+  Tensor fillTwoSyn = [[ 666, 666, 666 ]];
+  Tensor fillFiveSyn = [[ [[ [[ 666, 666, 666 ]], [[666, 666, 666]], [[ 666, 666, 666 ]] ]],
+                          [[ [[ 666, 666, 666 ]], [[666, 666, 666]], [[ 666, 666, 666 ]] ]],
+                          [[ [[ 666, 666, 666 ]], [[666, 666, 666]], [[ 666, 666, 666 ]] ]] ]];
+
+  if (fillOne != fillOneSyn) {
+    return 1;
+  }
+
+  if (fillTwo != fillTwoSyn) {
+    return 1;
+  }
+
+  if (onesThree != fillThree) {
+    return 1;
+  }
+
+  if (zerosFour != fillFour) {
+    return 1;
+  }
+
+  if (fillFive != fillFiveSyn) {
+    return 1;
+  }
 
   freeT(fillOne);
   freeT(fillTwo);
   freeT(fillThree);
   freeT(fillFour);
   freeT(fillFive);
+  freeT(fillOneSyn);
+  freeT(fillTwoSyn);
+  freeT(onesThree);
+  freeT(zerosFour);
+  freeT(fillFiveSyn);
+
 
   return 0;
 }

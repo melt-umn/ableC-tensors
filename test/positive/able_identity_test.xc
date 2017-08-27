@@ -4,28 +4,35 @@
 
 int main () {
   Tensor idOne = id(2,3);
-  printf("3 x 3 identity tensor is: \n");
-  printT(idOne);
-  printf("\n");
+  Tensor fillOne = [[ [[ 1, 0, 0]], [[ 0, 1, 0 ]], [[ 0, 0, 1]] ]];
 
-  Tensor idTwo = id(2,10);
-  printf("10 x 10 identity tensor is: \n");
-  printT(idTwo);
-  printf("\n");
+  Tensor idTwo = id(1,1);
+  Tensor fillTwo = [[ 1 ]];
 
-  Tensor idThree = id(3,5);
-  printf("5 x 5 x 5 identity tensor is: \n");
-  printT(idThree);
-  printf("\n");
+  Tensor idThree = id(3,3);
+  Tensor fillThree = [[ [[ [[ 0, 0, 0]], [[ 0, 0, 0 ]], [[ 0, 0, 0 ]] ]],
+                        [[ [[ 0, 0, 0]], [[ 0, 0, 0 ]], [[ 0, 0, 0 ]] ]],
+                        [[ [[ 0, 0, 0]], [[ 0, 0, 0 ]], [[ 0, 0, 0 ]] ]] ]]
 
-  Tensor idFour = id(5,3);
-  printf("3 x 3 x 3 x 3 x 3 identity tensor is: \n");
-  printT(idFour);
+
+  if (idOne != fillOne) {
+    return 1;
+  }
+
+  if (idTwo != fillTwo) {
+    return 1;
+  }
+
+  if (idThree != fillThree) {
+    return 1;
+  }
 
   freeT(idOne);
+  freeT(fillOne);
   freeT(idTwo);
+  freeT(fillTwo);
   freeT(idThree);
-  freeT(idFour);
+  freeT(fillThree);
 
   return 0;
 }

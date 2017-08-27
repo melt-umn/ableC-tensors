@@ -793,6 +793,13 @@ bool ten_equals(Tensor tOne, Tensor tTwo) {
 	}
 }
 
+bool ten_not_equals(Tensor tOne, Tensor tTwo) {
+	if (ten_equals(tOne,tTwo) == true) {
+		return false;
+	}
+	return true;
+}
+
 Tensor ten_multiply(Tensor tOne, Tensor tTwo) {
 	int i,j,k,z,currentCount;
 	int dimOne = tOne.dim;

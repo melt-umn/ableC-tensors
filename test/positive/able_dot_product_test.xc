@@ -3,7 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-//tests different functions written with tensor_combine
+//tests dot product
+
 int main () {
 
   int *dataTestOne = malloc(sizeof(int));
@@ -32,29 +33,47 @@ int main () {
   Tensor tenFourF = fill(0,dataTestFour,1);
   Tensor tenFourS = fill(0,dataTestFour,9);
 
-  printf("1 dim 2's tensor .* 1 dim 5's tensor (Tensor):\n");
-  printT(tenOneF .* tenOneS);
-  printf("\n(Int): ");
-  printf("%f",tenOneF f.* tenOneS);
-  printf("\n\n\n");
+  //check tensor dot product first
+  Tensor dotOne, dotTwo, dotThree, dotFour;
 
-  printf("2 dim 666's tensor .* 2 dim 1's tensor (Tensor):\n");
-  printT(tenTwoF .* tenTwoS);
-  printf("\n(Int): ");
-  printf("%f",tenTwoF f.* tenTwoS );
-  printf("\n\n\n");
+  dotOne = [[ 90 ]];
+  dotTwo = [[ 17982 ]];
+  dotThree = [[ 242400 ]];
+  dotFour = [[ 9 ]];
 
-  printf("3 dim 100's tensor .* 3 dim 101's tensor (Tensor):\n");
-  printT(tenThreeF .* tenThreeS);
-  printf("\n(Int): ");
-  printf("%f",tenThreeF f.* tenThreeS);
-  printf("\n\n\n");
+  if (dotOne != tenOneF .* tenOneS) {
+    return 1;
+  }
 
-  printf("0 dim 1's tensor .* 0 dim 9's tensor (Tensor):\n");
-  printT(tenFourF .* tenFourS);
-  printf("\n(Int): ");
-  printf("%f",tenFourF f.* tenFourS);
-  printf("\n");
+  if (dotTwo != tenTwoF .* tenTwoS) {
+    return 1;
+  }
+
+  if (dotThree != tenThreeF .* tenThreeS) {
+    return 1;
+  }
+
+  if (dotFour != tenFourF .* tenFourS) {
+    return 1;
+  }
+
+  //then test float dot product
+
+  if ( 90 != tenOneF f.* tenOneS) {
+    return 1;
+  }
+
+  if ( 17982 != tenTwoF f.* tenTwoS) {
+    return 1;
+  }
+
+  if ( 242400 != tenThreeF f.* tenThreeS) {
+    return 1;
+  }
+
+  if ( 9 != tenFourF f.* tenFourS) {
+    return 1;
+  }
 
   freeT(tenOneS);
   freeT(tenTwoS);
@@ -64,6 +83,11 @@ int main () {
   freeT(tenTwoF);
   freeT(tenThreeF);
   freeT(tenFourF);
+
+  freeT(dotOne);
+  freeT(dotTwo);
+  freeT(dotThree);
+  freeT(dotFour)
 
   return 0;
 }

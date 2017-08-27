@@ -21,7 +21,7 @@ int main () {
   dimSizeTwo[0] = 3;
   dimSizeTwo[1] = 3;
 
-  int *dimSizeThree = malloc(sizeof(int)*3); //4 x 5 x 3
+  int *dimSizeThree = malloc(sizeof(int)*3); 
   dimSizeThree[0] = 2;
   dimSizeThree[1] = 3;
   dimSizeThree[2] = 3;
@@ -57,7 +57,7 @@ int main () {
   Tensor tenOne = create(dimOne,dimSizeOne,countOne,dataOne);
   Tensor tenTwo = create(dimTwo,dimSizeTwo,countTwo,dataTwo);
   Tensor tenThree = create(dimThree,dimSizeThree,countThree,dataThree);
-
+/*
   printf("tenZero is: \n");
   printT(tenZero);
   printf("\n\n\n");
@@ -73,7 +73,8 @@ int main () {
   printf("tenThree is: \n");
   printT(tenThree);
   printf("\n");
-
+*/
+  freeT(tenZero);
   freeT(tenOne);
   freeT(tenTwo);
   freeT(tenThree);

@@ -3,27 +3,41 @@
 #include <stdlib.h>
 #include <string.h>
 
-//tests different functions written with tensor_combine
+//tests cross product
+
 int main () {
   Tensor tenZero = [[ 666, 662, 35 ]];
   Tensor tenOne = [[ 22, 1234, 2 ]];
   Tensor tenTwo = [[ 32, 543, 65 ]];
 
-  printf("([666 662 35] x* [22 1234 2]:\n");
-  printT(tenZero x* tenOne);
-  printf("\n\n\n");
-  printf("([22 1234 2] x* [666 662 35]:\n");
-  printT(tenOne x* tenZero);
-  printf("\n\n\n");
-  printf("([666 662 35] x* [32 543 65]:\n");
-  printT(tenTwo x* tenTwo);
-  printf("\n\n\n");
-  printf("[22 1234 2] x* [32 543 65]:\n");
-  printT(tenOne x* tenTwo);
+  Tensor crossZeroOne = [[-41866, -562, 807280]];
+  Tensor crossOneZero = [[41866, 562, -807280]];
+  Tensor crossZeroTwo = [[24025, -42170, 340454]];
+  Tensor crossOneTwo = [[79124, -1366, -27542]];
+
+  if (crossZeroOne != tenZero x* tenOne)) {
+    return 1;
+  }
+
+  if (crossOneZero != tenOne x* tenZero)) {
+    return 1;
+  }
+
+  if (crossZeroTwo != tenZero x* tenTwo)) {
+    return 1;
+  }
+
+  if (crossOneTwo != tenOne x* tenTwo)) {
+    return 1;
+  }
 
   freeT(tenZero);
   freeT(tenOne);
   freeT(tenTwo);
+  freeT(crossZeroOne);
+  freeT(crossOneZero);
+  freeT(crossZeroTwo);
+  freeT(crossOneTwo);
 
   return 0;
 }

@@ -17,35 +17,35 @@ int main() {
   Tensor tenTwoAccessed = <.>tenTwo<(<(0,-,1)>,<(*,-,1)>)>; //test number to number, star to num
   Tensor tenThreeAccessed = <.>tenThree<(<( 0 )> , <( 0 )> , <( 0 )>)>; //test single number
 
-  if (!(tenOneAccessed == tenOne)) {
+  if (tenOneAccessed != tenOne) {
     printf("accessed tenOne first is incorrect\n");
     return 1;
   }
-  
-  if (!(tenOneAccessedExt == tenOne)) {
+
+  if (tenOneAccessedExt != tenOne) {
     printf("accessed tenOne second is incorrect\n");
     return 1;
   }
- 
+
   Tensor tenCompareTwo = [[ [[ 32, 1234 ]] , [[ -6, 24 ]] ]];
- 
-  if (!(tenTwoAccessed == tenCompareTwo)) {
-    printf("accessed tenTwo is incorrect\n");	
+
+  if (tenTwoAccessed != tenCompareTwo) {
+    printf("accessed tenTwo is incorrect\n");
     return 1;
   }
 
-  Tensor tenCompareThree = [[ [[ [[ 1 ]] ]] ]]; 
+  Tensor tenCompareThree = [[ [[ [[ 1 ]] ]] ]];
 
-  if (!(tenThreeAccessed == tenCompareThree)) {
+  if (tenThreeAccessed != tenCompareThree) {
     printf("accessed tenThree is incorrect\n");
-    return 1; 
+    return 1;
   }
 
 
   freeT(tenOne);
   freeT(tenTwo);
   freeT(tenThree);
-  
+
   freeT(tenOneAccessed);
   freeT(tenOneAccessedExt);
   freeT(tenTwoAccessed);

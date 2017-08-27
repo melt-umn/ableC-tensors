@@ -20,77 +20,61 @@ int main () {
 
   int *dataTestFour = NULL;
 
+  Tensor tenOneSquared;
+  Tensor tenTwoSquared;
+  Tensor tenThreeSquared;
+  Tensor tenFourSquared;
+
   Tensor tenOne = fill(1,dataTestOne,2);
+  Tensor tenOneOrig = fill(1,dataTestOne,2);
+
   Tensor tenTwo = fill(2,dataTestTwo,666);
+  Tensor tenTwoOrig = fill(2,dataTestTwo,666);
+
   Tensor tenThree = fill(3,dataTestThree,100);
-  Tensor tenFour = fill(0,dataTestFour,1);
-  Tensor tenFive = id(2,2);
+  Tensor tenThreeOrig = fill(3,dataTestThree,100);
 
-  printf("9 2 tensor: \n");
-  printT(tenOne);
-  printf("\n");
+  Tensor tenFour = fill(0,dataTestFour,2);
+  Tensor tenFourOrig = fill(0,dataTestFour,2);
 
-  printf("9 2 tensor squared\n");
-  printT(square(copy(tenOne)));
-  printf("\n");
+  //each test will make sure the original tensor is not modified after having
+  //a copy of it squared (tests will result in a tensor that is different than
+  //the original in value when squared)
 
-  printf("9 2 tensor: \n");
-  printT(tenOne);
-  printf("\n\n\n");
+  //don't need to save to a value, but doing just so they can be freed
+  tenOneSquared = square(copy(tenOne));
+  tenTwoSquared = square(copy(tenTwo));
+  tenThreeSquared = square(copy(tenThree));
+  tenFourSquared = square(copy(tenFour));
 
-  printf("3 x 9 666 tensor: \n");
-  printT(tenTwo);
-  printf("\n");
+  if (tenOne != tenOneOrig) {
+    return 1;
+  }
 
-  printf("3 x 9 666 tensor squared\n");
-  printT(square(copy(tenTwo)));
-  printf("\n");
+  if (tenTwo != tenTwoOrig) {
+    return 1;
+  }
 
-  printf("3 x 9 666 tensor: \n");
-  printT(tenTwo);
-  printf("\n\n\n");
+  if (tenThree != tenThreeOrig) {
+    return 1;
+  }
 
-  printf("2 x 3 x 4 100 tensor: \n");
-  printT(tenThree);
-  printf("\n");
-
-  printf("2 x 3 x 4 100 tensor squared\n");
-  printT(square(copy(tenThree)));
-  printf("\n");
-
-  printf("2 x 3 x 4 100 tensor: \n");
-  printT(tenThree);
-  printf("\n\n\n");
-
-  printf("0 dim 1 tensor 1: \n");
-  printT(tenFour);
-  printf("\n");
-
-  printf("\n0 dim 1 tensor squared\n");
-  printT(square(copy(tenFour)));
-  printf("\n");
-
-  printf("0 dim 1 tensor 1: \n");
-  printT(tenFour);
-  printf("\n\n\n");
-
-  printf("2 x 2 identity tensor\n");
-  printT(tenFive);
-  printf("\n");
-
-  printf("2 x 2 identity tensor squared\n");
-  printT(square(copy(tenFive)));
-  printf("\n");
-
-  printf("2 x 2 identity tensor\n");
-  printT(tenFive);
-  printf("\n");
+  if (tenFour != tenFourOrig) {
+    return 1;
+  }
 
   freeT(tenOne);
+  freeT(tenOneOrig);
+  freeT(tenOneSquared);
   freeT(tenTwo);
+  freeT(tenTwoOrig);
+  freeT(tenTwoSquared);
   freeT(tenThree);
+  freeT(tenThreeOrig);
+  freeT(tenThreeSquared);
   freeT(tenFour);
-  freeT(tenFive);
+  freeT(tenFourOrig);
+  freeT(tenFourSquared);
 
   return 0;
 }

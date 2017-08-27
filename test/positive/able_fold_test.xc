@@ -4,8 +4,8 @@
 #include <string.h>
 
 //tests different functions written with fold
-//-- maxT, minT, sumT, prodT
-//also tests one function for tensor_fold just to have something :)
+//max, min, sum, prod, maxT, minT, sumT, prodT
+//also tests one tensor with tensor_fold
 int main () {
 
   int *dataTestOne = malloc(sizeof(int));
@@ -26,96 +26,95 @@ int main () {
   Tensor tenTwo = fill(2,dataTestTwo,666);
   Tensor tenThree = fill(3,dataTestThree,100);
   Tensor tenFour = fill(0,dataTestFour,1);
+  Tensor tenFive = [[ 1, 2, 3, 4, 5, -1, 2, 2, 95 ]];
 
-  printf("9 2's tensor: \n");
-  printT(tenOne);
-  printf("\n");
-  printf("9 2's tensor max\n");
-  printf("%f",max(tenOne));
-  printf("\n9 2's tensor min\n");
-  printf("%f",min(tenOne));
-  printf("\n9 2's tensor sum\n");
-  printf("%f",sum(tenOne));
-  printf("\n9 2's tensor product\n");
-  printf("%f",prod(tenOne));
-  printf("\n\n\n");
+  if (max(tenOne) != 2) {
+    return 1;
+  }
+  if (min(tenOne) != 2) {
+    return 1;
+  }
+  if (sum(tenOne) != 18) {
+    return 1;
+  }
+  if (prod(tenOne) != 512) {
+    return 1;
+  }
 
-  printf("3 x 9 666's tensor: \n");
-  printT(tenTwo);
-  printf("\n");
-  printf("3 x 9 666's tensor max\n");
-  printf("%f",max(tenTwo));
-  printf("\n3 x 9 666's tensor min\n");
-  printf("%f",min(tenTwo));
-  printf("\n3 x 9 666's tensor sum\n");
-  printf("%f",sum(tenTwo));
-  printf("\n3 x 9 666's tensor product (overflows)\n");
-  printf("%f",prod(tenTwo));
-  printf("\n\n\n");
+  if (max(tenTwo) != 666) {
+    return 1;
+  }
+  if (min(tenTwo) != 666) {
+    return 1;
+  }
+  if (sum(tenTwo) != 17982) {
+    return 1;
+  } //prod would be too large
 
-  printf("2 x 3 x 4 100's tensor: \n");
-  printT(tenThree);
-  printf("\n");
-  printf("2 x 3 x 4 100's tensor max\n");
-  printf("%f",max(tenThree));
-  printf("\n2 x 3 x 4 100's tensor min\n");
-  printf("%f",min(tenThree));
-  printf("\n2 x 3 x 4 100's tensor sum\n");
-  printf("%f",sum(tenThree));
-  printf("\n2 x 3 x 4 100's tensor product (overflows)\n");
-  printf("%f",prod(tenThree));
-  printf("\n\n\n");
+  if (max(tenThree) != 100) {
+    return 1;
+  }
+  if (min(tenThree) != 100) {
+    return 1;
+  }
+  if (sum(tenThree) != 2400) {
+    return 1;
+  } //prod would be too large
 
+  if (max(tenFour) != 1) {
+    return 1;
+  }
+  if (min(tenFour) != 1) {
+    return 1;
+  }
+  if (sum(tenFour) != 1) {
+    return 1;
+  }
+  if (prod(tenFour) != 1) {
+    return 1;
+  }
 
-  printf("0 dim 1's tensor: \n");
-  printT(tenFour);
-  printf("\n");
-  printf("0 dim 1's tensor max\n");
-  printf("%f",max(tenFour));
-  printf("\n9 2's tensor min\n");
-  printf("%f",min(tenFour));
-  printf("\n0 dim 1's tensor sum\n");
-  printf("%f",sum(tenFour));
-  printf("\n0 dim 1's tensor product\n");
-  printf("%f",prod(tenFour));
-  printf("\n\n\n");
+  if (max(tenFive) != 95) {
+    return 1;
+  }
+  if (min(tenFive) != -1) {
+    return 1;
+  }
+  if (sum(tenFive) != 113) {
+    return 1;
+  }
+  if (prod(tenFive) != -45,600) {
+    return 1;
+  }
 
-  Tensor tenFive = id(2,2);
-  printf("\n2 x 2 identity tensor plus 1\n");
-  printT(incr(tenFive));
-  printf("\n");
+  Tensor tenFiveMax = [[ 95 ]];
+  Tensor tenFiveMin = [[ -1 ]];
+  Tensor tenFiveSum = [[ 113 ]];
+  Tensor tenFiveProd = [[ -45,600 ]];
 
-  printf("2 x 2 id tensor + 1's: \n");
-  printT(tenFive);
-  printf("\n");
-  printf("2 x 2 id tensor + 1's max\n");
-  printf("%f",max(tenFive));
-  printf("\n2 x 2 id tensor + 1's min\n");
-  printf("%f",min(tenFive));
-  printf("\n2 x 2 id tensor + 1's sum\n");
-  printf("%f",sum(tenFive));
-  printf("\n2 x 2 id tensor + 1's product\n");
-  printf("%f",prod(tenFive));
-  printf("\n\n\n");
-
-  printf("again but with tensor_fold\n\n");
-  printf("2 x 2 id tensor + 1's: \n");
-  printT(tenFive);
-  printf("\n");
-  printf("2 x 2 id tensor + 1's max\n");
-  printT(ten_max(tenFive));
-  printf("\n2 x 2 id tensor + 1's min\n");
-  printT(ten_min(tenFive));
-  printf("\n2 x 2 id tensor + 1's sum\n");
-  printT(ten_sum(tenFive));
-  printf("\n2 x 2 id tensor + 1's product\n");
-  printT(ten_prod(tenFive));
+  if (ten_max(tenFive) != tenFiveMax) {
+    return 1;
+  }
+  if (ten_min(tenFive) != tenFiveMin) {
+    return 1;
+  }
+  if (ten_sum(tenFive) != tenFiveSum) {
+    return 1;
+  }
+  if (ten_prod(tenFive) != tenFiveProd) {
+    return 1;
+  }
 
   freeT(tenOne);
   freeT(tenTwo);
   freeT(tenThree);
   freeT(tenFour);
   freeT(tenFive);
+
+  freeT(tenFiveMax);
+  freeT(tenFiveMin);
+  freeT(tenFiveSum);
+  freeT(tenFiveProd);
 
   return 0;
 }
