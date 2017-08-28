@@ -34,7 +34,7 @@ int main () {
   Tensor tenFourS = fill(0,dataTestFour,9);
 
   //check tensor dot product first
-  Tensor dotOne, dotTwo, dotThree, dotFour;
+  //Tensor dotOne, dotTwo, dotThree, dotFour;
 
   /*dotOne = [[ 90 ]];
   dotTwo = [[ 17982 ]];
@@ -46,35 +46,41 @@ int main () {
   Tensor dotThree = tenThreeF .* tenThreeS;
   Tensor dotFour = tenFourF .* tenFourS;
 
-  printf("%f\n",dotOne);
-  printf("%f\n",dotTwo);
-  printf("%f\n",dotThree);
-  printf("%f\n",dotFour);
+  printT(dotOne);
+  printT(dotTwo);
+  printT(dotThree);
+  printT(dotFour);
 
 
   if (dotOne != tenOneF .* tenOneS) {
-    printf("one is %f\n",tenOneF .* tenOneS);
+    printf("1: ");
+    printT(tenOneF .* tenOneS);
     return 1;
   }
 
   if (dotTwo != tenTwoF .* tenTwoS) {
-    printf("two is %f\n",tenTwoF .* tenTwoS);
+    printf("2: ");
+    printT(tenTwoF .* tenTwoS);
     return 1;
   }
 
   if (dotThree != tenThreeF .* tenThreeS) {
-    printf("three is %f\n",tenThreeF .* tenThreeS);
+    printf("3: ");
+    printT(tenThreeF .* tenThreeS);
     return 1;
   }
 
   if (dotFour != tenFourF .* tenFourS) {
-    printf("four is %f\n",tenFourF .* tenFourS);
+    printf("4 ");
+    printT(tenFourF .* tenFourS);
     return 1;
   }
 
   //then test float dot product
+  printf("floats\n");
 
   if ( 90 != tenOneF f.* tenOneS) {
+    printf("one %f\n",tenOneF f.* tenOneS);
     return 1;
   }
 
@@ -89,7 +95,7 @@ int main () {
   if ( 9 != tenFourF f.* tenFourS) {
     return 1;
   }
-
+/*
   freeT(tenOneS);
   freeT(tenTwoS);
   freeT(tenThreeS);
@@ -103,6 +109,6 @@ int main () {
   freeT(dotTwo);
   freeT(dotThree);
   freeT(dotFour);
-
+*/
   return 0;
 }
