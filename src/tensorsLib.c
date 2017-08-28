@@ -866,7 +866,7 @@ Tensor ten_multiply(Tensor tOne, Tensor tTwo) {
 					tempTwo.dim_size = tempTwoDimSize;
 					tempTwo.count = dimSizeOne[1];
 					tempTwo.data = tempTwoData;
-					newData[currentCount++] = float_duct_vtwo(tempOne,tempTwo);
+					newData[currentCount++] = float_dot_product_vtwo(tempOne,tempTwo);
 				}
 			}
 			newTens.dim = newDim;
@@ -915,8 +915,8 @@ Tensor dot_product(Tensor tOne, Tensor tTwo) {
 		for (i = 0; i < tOne.count; i++) {
 			sum += tOne.data[i] * tTwo.data[i];
 		}
-		
 		tens.data = &sum;
+
 		return tens;
 
 	} else {
