@@ -893,7 +893,8 @@ Tensor ten_multiply(Tensor tOne, Tensor tTwo) {
 		dimensions. The returned tensor will be scalar (zero dimensions).
 */
 Tensor dot_product(Tensor tOne, Tensor tTwo) {
-	int i;
+	return float_to_ten(float_dot_product(tOne,tTwo));
+	/*int i;
 	float sum;
 
 	//used for return scalar tensor;
@@ -922,7 +923,7 @@ Tensor dot_product(Tensor tOne, Tensor tTwo) {
 	} else {
 		printf("The two tensors have a different number of dimensions\n");
 		exit(1);
-	}
+	}*/
 }
 
 /*
