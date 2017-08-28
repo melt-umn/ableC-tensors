@@ -1,5 +1,6 @@
 #include "../include/tensorsLib.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 int main () {
@@ -12,7 +13,7 @@ int main () {
   Tensor idThree = id(3,3);
   Tensor fillThree = [[ [[ [[ 0, 0, 0]], [[ 0, 0, 0 ]], [[ 0, 0, 0 ]] ]],
                         [[ [[ 0, 0, 0]], [[ 0, 0, 0 ]], [[ 0, 0, 0 ]] ]],
-                        [[ [[ 0, 0, 0]], [[ 0, 0, 0 ]], [[ 0, 0, 0 ]] ]] ]]
+                        [[ [[ 0, 0, 0]], [[ 0, 0, 0 ]], [[ 0, 0, 0 ]] ]] ]];
 
 
   if (idOne != fillOne) {
@@ -24,6 +25,7 @@ int main () {
   }
 
   if (idThree != fillThree) {
+    printT(idThree);
     return 1;
   }
 
