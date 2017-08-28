@@ -83,14 +83,14 @@ int main () {
   if (sum(tenFive) != 113) {
     return 1;
   }
-  if (prod(tenFive) != -45,600) {
+  if (prod(tenFive) != -45600) {
     return 1;
   }
 
   Tensor tenFiveMax = [[ 95 ]];
   Tensor tenFiveMin = [[ -1 ]];
   Tensor tenFiveSum = [[ 113 ]];
-  Tensor tenFiveProd = [[ -45,600 ]];
+  Tensor tenFiveProd = [[ -45600 ]];
 
   if (ten_max(tenFive) != tenFiveMax) {
     return 1;

@@ -41,7 +41,7 @@ int main () {
   dotThree = [[ 242400 ]];
   dotFour = [[ 9 ]];
 
-  if (dotOne != tenOneF .* tenOneS) {
+  if (dotOne != (tenOneF .* tenOneS)) {
     return 1;
   }
 

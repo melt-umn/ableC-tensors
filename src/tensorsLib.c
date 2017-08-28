@@ -420,14 +420,17 @@ Tensor zeros(int dim, int *dim_size) {
 */
 Tensor float_to_ten(float i) {
 	float *data;
+	int *dim_size;
 	data = malloc(sizeof(float));
+    dim_size = malloc(sizeof(int));
 
 	Tensor tens;
 
 	data[0] = i;
+	dim_size[0] = 1;
 
-	tens.dim = 0;
-	tens.dim_size = NULL;
+	tens.dim = 1;
+	tens.dim_size = dim_size;
 	tens.count = 1;
 	tens.data = data;
 
