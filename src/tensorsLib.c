@@ -894,6 +894,7 @@ Tensor ten_multiply(Tensor tOne, Tensor tTwo) {
 */
 Tensor dot_product(Tensor tOne, Tensor tTwo) {
 	return float_to_ten(float_dot_product(tOne,tTwo));
+	//this code worked before and somehow broke...
 	/*int i;
 	float sum;
 

@@ -34,45 +34,26 @@ int main () {
   Tensor tenFourS = fill(0,dataTestFour,9);
 
   //check tensor dot product first
-  //Tensor dotOne, dotTwo, dotThree, dotFour;
+  Tensor dotOne, dotTwo, dotThree, dotFour;
 
-  /*dotOne = [[ 90 ]];
+  dotOne = [[ 90 ]];
   dotTwo = [[ 17982 ]];
   dotThree = [[ 242400 ]];
-  dotFour = [[ 9 ]];*/
-
-  Tensor dotOne = tenOneF .* tenOneS;
-  Tensor dotTwo = tenTwoF .* tenTwoS;
-  Tensor dotThree = tenThreeF .* tenThreeS;
-  Tensor dotFour = tenFourF .* tenFourS;
-
-  printT(dotOne);
-  printT(dotTwo);
-  printT(dotThree);
-  printT(dotFour);
-
+  dotFour = [[ 9 ]];
 
   if (dotOne != tenOneF .* tenOneS) {
-    printf("1: ");
-    printT(tenOneF .* tenOneS);
     return 1;
   }
 
   if (dotTwo != tenTwoF .* tenTwoS) {
-    printf("2: ");
-    printT(tenTwoF .* tenTwoS);
     return 1;
   }
 
   if (dotThree != tenThreeF .* tenThreeS) {
-    printf("3: ");
-    printT(tenThreeF .* tenThreeS);
     return 1;
   }
 
   if (dotFour != tenFourF .* tenFourS) {
-    printf("4 ");
-    printT(tenFourF .* tenFourS);
     return 1;
   }
 
@@ -93,7 +74,7 @@ int main () {
   if ( 9 != tenFourF f.* tenFourS) {
     return 1;
   }
-/*
+
   freeT(tenOneS);
   freeT(tenTwoS);
   freeT(tenThreeS);
@@ -107,6 +88,6 @@ int main () {
   freeT(dotTwo);
   freeT(dotThree);
   freeT(dotFour);
-*/
+
   return 0;
 }
