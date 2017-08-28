@@ -15,19 +15,19 @@ int main () {
   Tensor crossZeroTwo = [[24025, -42170, 340454]];
   Tensor crossOneTwo = [[79124, -1366, -27542]];
 
-  if (crossZeroOne != tenZero x* tenOne)) {
+  if (crossZeroOne != tenZero x* tenOne) {
     return 1;
   }
 
-  if (crossOneZero != tenOne x* tenZero)) {
+  if (crossOneZero != tenOne x* tenZero) {
     return 1;
   }
 
-  if (crossZeroTwo != tenZero x* tenTwo)) {
+  if (crossZeroTwo != tenZero x* tenTwo) {
     return 1;
   }
 
-  if (crossOneTwo != tenOne x* tenTwo)) {
+  if (crossOneTwo != tenOne x* tenTwo) {
     return 1;
   }
 

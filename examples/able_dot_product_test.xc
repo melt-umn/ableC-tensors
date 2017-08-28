@@ -41,19 +41,23 @@ int main () {
   dotThree = [[ 242400 ]];
   dotFour = [[ 9 ]];
 
-  if (dotOne != tenOneF .* tenOneS) {
+  /*if (dotOne != tenOneF .* tenOneS) {
+    printf("one is %f\n",tenOneF .* tenOneS);
     return 1;
-  }
+  }*/
 
   if (dotTwo != tenTwoF .* tenTwoS) {
+    printf("two is %f\n",tenTwoF .* tenTwoS);
     return 1;
   }
 
   if (dotThree != tenThreeF .* tenThreeS) {
+    printf("three is %f\n",tenThreeF .* tenThreeS);
     return 1;
   }
 
   if (dotFour != tenFourF .* tenFourS) {
+    printf("four is %f\n",tenFourF .* tenFourS);
     return 1;
   }
 
@@ -87,7 +91,7 @@ int main () {
   freeT(dotOne);
   freeT(dotTwo);
   freeT(dotThree);
-  freeT(dotFour)
+  freeT(dotFour);
 
   return 0;
 }

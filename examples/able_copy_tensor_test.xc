@@ -66,12 +66,15 @@ int main () {
   freeT(tenOne);
   freeT(tenOneOrig);
   freeT(tenOneSquared);
+
   freeT(tenTwo);
   freeT(tenTwoOrig);
   freeT(tenTwoSquared);
+
   freeT(tenThree);
   freeT(tenThreeOrig);
   freeT(tenThreeSquared);
+
   freeT(tenFour);
   freeT(tenFourOrig);
   freeT(tenFourSquared);
