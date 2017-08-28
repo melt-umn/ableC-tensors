@@ -915,8 +915,8 @@ Tensor dot_product(Tensor tOne, Tensor tTwo) {
 		for (i = 0; i < tOne.count; i++) {
 			sum += tOne.data[i] * tTwo.data[i];
 		}
-
-		tens.data = sum;
+		
+		tens.data = &sum;
 		return tens;
 
 	} else {
