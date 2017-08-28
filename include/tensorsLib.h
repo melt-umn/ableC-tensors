@@ -86,6 +86,7 @@ Tensor ten_elem_divide(Tensor,Tensor);
 Tensor ten_elem_divide_cilk(Tensor,Tensor);
 
 bool ten_equals(Tensor,Tensor);
+bool ten_not_equals(Tensor,Tensor);
 
 Tensor ten_multiply(Tensor,Tensor);
 Tensor dot_product(Tensor,Tensor);
