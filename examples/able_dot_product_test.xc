@@ -36,15 +36,26 @@ int main () {
   //check tensor dot product first
   Tensor dotOne, dotTwo, dotThree, dotFour;
 
-  dotOne = [[ 90 ]];
+  /*dotOne = [[ 90 ]];
   dotTwo = [[ 17982 ]];
   dotThree = [[ 242400 ]];
-  dotFour = [[ 9 ]];
+  dotFour = [[ 9 ]];*/
 
-  /*if (dotOne != tenOneF .* tenOneS) {
+  Tensor dotOne = tenOneF .* tenOneS;
+  Tensor dotTwo = tenTwoF .* tenTwoS;
+  Tensor dotThree = tenThreeF .* tenThreeS;
+  Tensor dotFour = tenFourF .* tenFourS;
+
+  printf("%f\n",dotOne);
+  printf("%f\n",dotTwo);
+  printf("%f\n",dotThree);
+  printf("%f\n",dotFour);
+
+
+  if (dotOne != tenOneF .* tenOneS) {
     printf("one is %f\n",tenOneF .* tenOneS);
     return 1;
-  }*/
+  }
 
   if (dotTwo != tenTwoF .* tenTwoS) {
     printf("two is %f\n",tenTwoF .* tenTwoS);
