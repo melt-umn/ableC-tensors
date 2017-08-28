@@ -77,10 +77,8 @@ int main () {
   }
 
   //then test float dot product
-  printf("floats\n");
 
   if ( 90 != tenOneF f.* tenOneS) {
-    printf("one %f\n",tenOneF f.* tenOneS);
     return 1;
   }
 
