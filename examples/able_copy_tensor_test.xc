@@ -64,19 +64,19 @@ int main () {
   }
 
   freeT(tenOne);
-  freeT(tenOneOrig);
+  free(tenOneOrig.data); //ten___Orig uses same dim_size as ten___, therefore can't cal freeT on it
   freeT(tenOneSquared);
 
   freeT(tenTwo);
-  freeT(tenTwoOrig);
+  free(tenTwoOrig.data);
   freeT(tenTwoSquared);
 
   freeT(tenThree);
-  freeT(tenThreeOrig);
+  free(tenThreeOrig.data);
   freeT(tenThreeSquared);
 
   freeT(tenFour);
-  freeT(tenFourOrig);
+  free(tenFourOrig.data);
   freeT(tenFourSquared);
 
   return 0;

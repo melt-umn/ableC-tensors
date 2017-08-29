@@ -68,7 +68,7 @@ int main () {
   freeT(tenTwo);
   freeT(tenThreeTensor);
   freeT(tenThree);
-  freeT(tenFourTensor);
+  freeT(tenFour);
   freeT(tenFive);
   freeT(tenSix);
 

@@ -508,17 +508,28 @@ Tensor map_with_context_cilk(float (*fun)(float,void*), Tensor tens, void *conte
 	return tens;
 }
 
-
 Tensor square(Tensor tens) {
 	return map(scalar_square,tens);
+}
+
+Tensor square_cilk(Tensor tens) {
+	return map_cilk(scalar_square,tens);
 }
 
 Tensor incr(Tensor tens) {
 	return map(plus_one,tens);
 }
 
+Tensor incr_cilk(Tensor tens) {
+	return map_cilk(plus_one,tens);
+}
+
 Tensor negate(Tensor tens) {
 	return map(times_negative_one,tens);
+}
+
+Tensor negate_cilk(Tensor tens) {
+	return map_cilk(times_negative_one,tens);
 }
 
 float plus_one(float i) {

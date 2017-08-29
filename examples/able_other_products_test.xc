@@ -9,36 +9,61 @@ int main () {
   Tensor tenOne = [[ 22, 1234, 2 ]];
   Tensor tenTwo = [[ 32, 543, 65 ]];
 
-  printf("scalar triple product of: [666 662 35], [22 1234 2], and [32 543 65]:\n");
-  printT(scalar_triple_product(tenZero,tenOne,tenTwo));
-  printf("int version: %f",float_triple_product(tenZero,tenOne,tenTwo));
-  printf("\n\n\n");
 
-  printf("scalar triple product of: [22 1234 2], [666 662 35], and [32 543 65]:\n");
-  printT(scalar_triple_product(tenOne,tenZero,tenTwo));
-  printf("int version: %f",float_triple_product(tenOne,tenZero,tenTwo));
-  printf("\n\n\n");
+  //there's a slight rounding error with the triple product formula
+  Tensor tenZeroOneTwoScalar = [[ 50828320 ]]; //should be 50828322
+  Tensor tenOneZeroTwoScalar = [[ -50828324 ]]; //" " -50828322
+  Tensor tenTwoZeroOneScalar = [[ 50828320 ]]; //" " 50828322
 
-  printf("scalar triple product of: [32 543 65], [666 662 35], and [22 1234 2]:\n");
-  printT(scalar_triple_product(tenTwo,tenZero,tenOne));
-  printf("int version: %f",float_triple_product(tenTwo,tenZero,tenOne));
-  printf("\n\n\n\n\n");
+  float tenZeroOneTwoFloat = 50828320; //same as above ^
+  float tenOneZeroTwoFloat = -50828324; //" "
+  float tenTwoZeroOneFloat = 50828320; //" "
 
+  Tensor tenZeroOneTwoVector = [[ -18184994, 21112312, -53289844 ]];
+  Tensor tenOneZeroTwoVector = [[ 420204576, -7441938, -30574590 ]];
+  Tensor tenTwoZeroOneVector = [[ 438389568, -28554250, 22715254 ]];
 
-  printf("vector triple product of: [666 662 35], [22 1234 2], and [32 543 65]:\n");
-  printT(vector_triple_product(tenZero,tenOne,tenTwo));
-  printf("\n\n");
+  if (tenZeroOneTwoScalar != scalar_triple_product(tenZero,tenOne,tenTwo)) {
+    return 1;
+  }
+  if (tenOneZeroTwoScalar != scalar_triple_product(tenOne,tenZero,tenTwo)) {
+    return 1;
+  }
+  if (tenTwoZeroOneScalar != scalar_triple_product(tenTwo,tenZero,tenOne)) {
+    return 1;
+  }
 
-  printf("vector triple product of: [22 1234 2], [666 662 35], and [32 543 65]:\n");
-  printT(vector_triple_product(tenOne,tenZero,tenTwo));
-  printf("\n\n");
+  if (tenZeroOneTwoFloat != float_triple_product(tenZero,tenOne,tenTwo)) {
+    return 1;
+  }
+  if (tenOneZeroTwoFloat != float_triple_product(tenOne,tenZero,tenTwo)) {
+    return 1;
+  }
+  if (tenTwoZeroOneFloat != float_triple_product(tenTwo,tenZero,tenOne)) {
+    return 1;
+  } 
 
-  printf("vector triple product of: [32 543 65], [666 662 35], and [22 1234 2]:\n");
-  printT(vector_triple_product(tenTwo,tenZero,tenOne));
+  if (tenZeroOneTwoVector != vector_triple_product(tenZero,tenOne,tenTwo)) {
+    return 1;
+  }
+  if (tenOneZeroTwoVector != vector_triple_product(tenOne,tenZero,tenTwo)) {
+    return 1;
+  }
+  if (tenTwoZeroOneVector != vector_triple_product(tenTwo,tenZero,tenOne)) {
+    return 1;
+  }
 
   freeT(tenZero);
   freeT(tenOne);
   freeT(tenTwo);
+
+  freeT(tenZeroOneTwoScalar);
+  freeT(tenOneZeroTwoScalar);
+  freeT(tenTwoZeroOneScalar);
+
+  freeT(tenZeroOneTwoVector);
+  freeT(tenOneZeroTwoVector);
+  freeT(tenTwoZeroOneVector);
 
   return 0;
 }

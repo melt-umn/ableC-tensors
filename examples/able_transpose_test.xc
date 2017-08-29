@@ -8,7 +8,7 @@ int main () {
   Tensor tenOne = [[ [[ 9, 10, 21 ]], [[ 32, 53, 12 ]], [[ 43, 4, 10 ]] ]];
   Tensor tenTwo = [[ [[ 12, 43, 65, 34, 23 ]], [[ 6, 7, 2, 45, 20 ]], [[ 40, 21, 65, 7, 69 ]] ]];
 
-  Tensor tenOneTrans = [[ [[ 9, 32, 43 ]], [[ 19, 53, 4 ]], [[ 21, 12, 10 ]] ]];
+  Tensor tenOneTrans = [[ [[ 9, 32, 43 ]], [[ 10, 53, 4 ]], [[ 21, 12, 10 ]] ]];
   Tensor tenTwoTrans = [[ [[ 12, 6, 40 ]], [[ 43, 7, 21 ]], [[ 65, 2, 65 ]] ,
                           [[ 34, 45, 7 ]], [[ 23, 20, 69]] ]];
 
@@ -17,6 +17,7 @@ int main () {
   }
 
   if (trans(tenTwo) != tenTwoTrans) {
+    printT(trans(tenTwo));
     return 1;
   }
 

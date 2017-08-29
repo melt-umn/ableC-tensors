@@ -5,35 +5,51 @@
 
 int main () {
   Tensor idOne = id(2,3);
-  printf("3 x 3 identity tensor is: \n");
-  printT(idOne);
-  printf("Trace (Tensor) is:\n");
-  printT(ten_trace(idOne));
-  printf("Trace (int) is: %f",trace(idOne));
-  printf("\n\n");
+  Tensor idOneTrace = [[ 3 ]];
+  float idOneTraceF = 3;
 
   Tensor idTwo = id(2,10);
-  printf("10 x 10 identity tensor is: \n");
-  printT(idTwo);
-  printf("Trace (Tensor) is:\n");
-  printT(ten_trace(idTwo));
-  printf("Trace (int) is: %f",trace(idTwo));
-  printf("\n\n");
+  Tensor idTwoTrace = [[ 10 ]];
+  float idTwoTraceF = 10;
 
   int *dataTest;
   dataTest = malloc(sizeof(int)*2);
   dataTest[0] = 5;
   dataTest[1] = 5;
+
   Tensor testThree = fill(2,dataTest,666);
-  printf("5 x 5 666 tensor is: \n");
-  printT(testThree);
-  printf("Trace (Tensor) is:\n");
-  printT(ten_trace(testThree));
-  printf("Trace (int) is: %f",trace(testThree));
+  Tensor testThreeTrace = [[ 3330 ]];
+  float testThreeTraceF = 3330;
+
+  if (ten_trace(idOne) != idOneTrace) {
+    return 1;
+  }
+  if (trace(idOne) != idOneTraceF) {
+    return 1;
+  }
+
+  if (ten_trace(idTwo) != idTwoTrace) {
+    return 1;
+  }
+  if (trace(idTwo) != idTwoTraceF) {
+    return 1;
+  }
+
+  if (ten_trace(testThree) != testThreeTrace) {
+    return 1;
+  }
+  if (trace(testThree) != testThreeTraceF) {
+    return 1;
+  }
 
   freeT(idOne);
+  freeT(idOneTrace);
+
   freeT(idTwo);
+  freeT(idTwoTrace);
+
   freeT(testThree);
+  freeT(testThreeTrace);
 
   return 0;
 }

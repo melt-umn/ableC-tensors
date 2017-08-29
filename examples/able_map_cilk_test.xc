@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-//tests different functions written with map
+//tests different functions written with map_cilk (same as map test, just cilk)
 int main () {
 
   int *dataTestOne = malloc(sizeof(int));
@@ -46,53 +46,53 @@ int main () {
   Tensor tenFiveSquare = [[ [[ 4, 1 ]] , [[ 1, 4]] ]];
   Tensor tenFiveNeg = [[ [[ -4, -1 ]] , [[ -1, -4]] ]];
 
-  if (tenOneIncr != incr(tenOne)) {
+  if (tenOneIncr != incr_cilk(tenOne)) {
     return 1;
   }
-  if (tenOneSquare != square(tenOne)) {
+  if (tenOneSquare != square_cilk(tenOne)) {
     return 1;
   }
-  if (tenOneNeg != -tenOne) {
-    return 1;
-  }
-
-  if (tenTwoIncr != incr(tenTwo)) {
-    return 1;
-  }
-  if (tenTwoSquare != square(tenTwo)) {
-    return 1;
-  }
-  if (tenTwoNeg != -tenTwo) {
+  if (tenOneNeg != negate_cilk(tenOne)) {
     return 1;
   }
 
-  if (tenThreeIncr != incr(tenThree)) {
+  if (tenTwoIncr != incr_cilk(tenTwo)) {
     return 1;
   }
-  if (tenThreeSquare != square(tenThree)) {
+  if (tenTwoSquare != square_cilk(tenTwo)) {
     return 1;
   }
-  if (tenThreeNeg != -tenThree) {
-    return 1;
-  }
-
-  if (tenFourIncr != incr(tenFour)) {
-    return 1;
-  }
-  if (tenFourSquare != square(tenFour)) {
-    return 1;
-  }
-  if (tenFourNeg != -tenFour) {
+  if (tenTwoNeg != negate_cilk(tenTwo)) {
     return 1;
   }
 
-  if (tenFiveIncr != incr(tenFive)) {
+  if (tenThreeIncr != incr_cilk(tenThree)) {
     return 1;
   }
-  if (tenFiveSquare != square(tenFive)) {
+  if (tenThreeSquare != square_cilk(tenThree)) {
     return 1;
   }
-  if (tenFiveNeg != -tenFive) {
+  if (tenThreeNeg != negate_cilk(tenThree)) {
+    return 1;
+  }
+
+  if (tenFourIncr != incr_cilk(tenFour)) {
+    return 1;
+  }
+  if (tenFourSquare != square_cilk(tenFour)) {
+    return 1;
+  }
+  if (tenFourNeg != negate_cilk(tenFour)) {
+    return 1;
+  }
+
+  if (tenFiveIncr != incr_cilk(tenFive)) {
+    return 1;
+  }
+  if (tenFiveSquare != square_cilk(tenFive)) {
+    return 1;
+  }
+  if (tenFiveNeg != negate_cilk(tenFive)) {
     return 1;
   }
 
