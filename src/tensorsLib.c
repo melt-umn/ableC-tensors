@@ -49,11 +49,11 @@ Interval create_interval_double_bound(int left, int right) {
 		if (left <= right) { //right bound must be greater or equal to left bound
 			return create_interval_double_bound_hidden(left,right);
 		} else {
-			printf("\n\nLeft interval index must be less than or equal to right interval index\n\n");
+			printf("ERROR: Left interval index must be less than or equal to right interval index\n\n");
 			exit(1);
 		}
 	} else {
-		printf("\n\nInterval dimensions must be positive\n\n");
+		printf("ERROR: Interval dimensions must be positive\n\n");
 		exit(1);
 	}
 }
@@ -72,7 +72,7 @@ Interval create_interval_left_bound(int left) {
 	if (left >= 0) {
 		return create_interval_double_bound_hidden(left,-1);
 	} else {
-		printf("\n\nInterval dimensions must be positive\n\n");
+		printf("ERROR: Interval dimensions must be positive\n\n");
 		exit(1);
 	}
 }
@@ -90,7 +90,7 @@ Interval create_interval_right_bound(int right) {
 	if (right >= 0) {
 		return create_interval_double_bound_hidden(0, right);
 	} else {
-		printf("\n\nInterval dimensions must be positive\n\n");
+		printf("ERROR: Interval dimensions must be positive\n\n");
 		exit(1);
 	}
 }
@@ -163,6 +163,7 @@ float float_access(Tensor tens, int *indices) {
  *
  * Assumption:
  * Number of dimensions in the tensor matches the length of the interval list
+ * Note: this is an assumption that should probably be changed
 */
 Tensor accessT(Tensor tens, Interval *interIndices) {
   int k,j,z,flag;
@@ -198,8 +199,6 @@ Tensor accessT(Tensor tens, Interval *interIndices) {
   }
   newData = malloc(sizeof(float)*newCount); //need enough memory in data for each element
 
-
-
   //assumes every dimension needed in intervals is passed in
   intIndices = malloc(sizeof(int)*dim);
   Interval *interIndicesCopy = malloc(sizeof(Interval)*dim);
@@ -210,6 +209,12 @@ Tensor accessT(Tensor tens, Interval *interIndices) {
   currentChangingDim = dim - 1; //start with rightmost dimension
   largestChangingDim = dim - 1; //largset changing dim is also rightmost dimension
   for (k = 0; k < newCount; k++) { //loop until we get every element
+    //check to make sure that right bound is valid for the given tensor
+		if (interIndicesCopy[largestChangingDim].rBound >= tens.dim_size[largestChangingDim]) {
+			printf("ERROR: Right bound may not be larger than number of elements in corresponding "
+		         "dimension of Tensor.\n\n");
+			exit(1);
+		}
     //starts with minimum of each interval, lBound changes as this loops
     for (j = 0; j < dim; j++) {
       intIndices[j] = interIndicesCopy[j].lBound;
@@ -319,7 +324,7 @@ Tensor trans(Tensor tens) {
 		}
 		return newTens;
 	} else {
-		printf("\n\nToo many dimensions to transpose\n\n");
+		printf("ERROR: Too many dimensions to transpose\n\n");
 		exit(1);
 	}
 }
@@ -448,7 +453,7 @@ float ten_to_float(Tensor a) {
 	if (a.count == 1) { //should work for tensors with dim_size = [], [1], [1,1,1], etc
 		return a.data[0];
 	} else {
-		printf("Error, not a scalar tensor\n");
+		printf("ERROR: cannot transform a tensor with multiple elements into a float\n\n");
 		exit(1);
 	}
 }
@@ -560,7 +565,7 @@ float scalar_divide(float i, float j) {
 	if (j != 0) {
 		return i / j;
 	} else {
-		printf("Error, cannot scalar divide by zero\n");
+		printf("ERROR: cannot scalar divide by zero\n\n");
 		exit(1);
 	}
 }
@@ -596,7 +601,7 @@ Tensor ten_fold(float (*fun)(float,float), Tensor current, Tensor tens){
 	int i;
 
 	if (current.count == 1) {
-		if (current.dim == 0) { //dim needs to be 0, a [1] tensor will not work
+		if (current.dim == 0 || current.dim == 1) {
 				Tensor newTens;
 				newTens.data = malloc(sizeof(float));
 				newTens.data[0] = current.data[0];
@@ -610,11 +615,11 @@ Tensor ten_fold(float (*fun)(float,float), Tensor current, Tensor tens){
 				newTens.count = 1;
 				return newTens;
 		} else {
-			printf("Error, starting data must be scalar array");
+			printf("ERROR: Tensor fold cumulative value must be a single element Tensor.\n\n");
 			exit(1);
 		}
 	} else {
-		printf("Error, not a scalar tensor");
+		printf("ERROR: Tensor fold cumulative value must be a single element Tensor.\n\n");
 		exit(1);
 	}
 }
@@ -683,7 +688,7 @@ Tensor ten_combine(float (*fun)(float,float), Tensor tOne, Tensor tTwo) {
 	if (tOne.dim == tTwo.dim) {
 		for (i = 0; i < tOne.dim; i++) {
 			if (tOne.dim_size[i] != tTwo.dim_size[i]) {
-				printf("The two tensors have different length of dimensions\n");
+				printf("ERROR: cannot combine tensors with different dimension sizes.\n\n");
 				exit(1);
 			}
 		}
@@ -703,7 +708,7 @@ Tensor ten_combine(float (*fun)(float,float), Tensor tOne, Tensor tTwo) {
 		return tens;
 
 	} else {
-		printf("The two tensors have a different number of dimensions\n");
+		printf("ERROR: cannot combine tensors with different number of dimensions\n\n");
 		exit(1);
 	}
 }
@@ -721,7 +726,7 @@ Tensor ten_combine_cilk(float (*fun)(float,float), Tensor tOne, Tensor tTwo) {
 	if (tOne.dim == tTwo.dim) {
 		for (i = 0; i < tOne.dim; i++) {
 			if (tOne.dim_size[i] != tTwo.dim_size[i]) {
-				printf("The two tensors have different length of dimensions\n");
+				printf("ERROR: cannot combine tensors with different dimension sizes.\n\n");
 				exit(1);
 			}
 		}
@@ -741,7 +746,7 @@ Tensor ten_combine_cilk(float (*fun)(float,float), Tensor tOne, Tensor tTwo) {
 		return tens;
 
 	} else {
-		printf("The two tensors have a different number of dimensions\n");
+		printf("ERROR: cannot combine tensors with different number of dimensions\n\n");
 		exit(1);
 	}
 }
@@ -889,11 +894,11 @@ Tensor ten_multiply(Tensor tOne, Tensor tTwo) {
 			newTens.data = newData;
 			return newTens;
 		} else {
-			printf("Tensors multiplied must be n x m and m x p\n");
+			printf("ERROR: Tensors multiplied must be n x m and m x p\n\n");
 			exit(1);
 		}
 	} else {
-		printf("Tensors multiplied must be two-dimensional\n");
+		printf("ERROR: Tensors multiplied must be two-dimensional\n\n");
 		exit(1);
 	}
 }
@@ -959,7 +964,7 @@ float float_dot_product(Tensor tOne, Tensor tTwo) {
 	if (tOne.dim == tTwo.dim) {
 		for (i = 0; i < tOne.dim; i++) {
 			if (tOne.dim_size[i] != tTwo.dim_size[i]) {
-				printf("The two tensors have different length of dimensions\n");
+				printf("ERROR: cannot take float dot product of Tensors with different size dimensions\n\n");
 				exit(1);
 			}
 		}
@@ -968,7 +973,7 @@ float float_dot_product(Tensor tOne, Tensor tTwo) {
 		}
 		return sum;
 	} else {
-		printf("The two tensors have a different number of dimensions\n");
+		printf("ERROR: cannot take float dot product of Tensors with number of dimensions\n\n");
 		exit(1);
 	}
 }
@@ -1011,11 +1016,11 @@ Tensor cross_product(Tensor tOne, Tensor tTwo) {
 			tens.count = 3;
 			return tens;
 		} else {
-			printf("The two tensors have different length of dimensions\n");
+			printf("ERROR: cannot take cross product of Tensors with different size dimensions\n\n");
 			exit(1);
 		}
 	} else {
-		printf("The two tensors have a different number of dimensions\n");
+		printf("ERROR: cannot take cross product of Tensors with different number of dimensions\n\n");
 		exit(1);
 	}
 }
@@ -1131,7 +1136,7 @@ void freeT_dynamic(Tensor *tens) {
  */
 void printT_extended(Tensor input, char * delimiters, int numDelims) {
 	if(numDelims < input.dim) {
-		printf("Delimiter array has too few delimiters for the current tensor input");
+		printf("ERROR: Delimiter array in print has too few delimiters for the current tensor input\n\n");
 		exit(1);
 	}
 

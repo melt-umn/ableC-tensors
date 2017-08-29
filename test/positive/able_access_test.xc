@@ -18,26 +18,22 @@ int main() {
   Tensor tenThreeAccessed = <.>tenThree<(<( 0 )> , <( 0 )> , <( 0 )>)>; //test single number
 
   if (tenOneAccessed != tenOne) {
-    printf("accessed tenOne first is incorrect\n");
     return 1;
   }
 
   if (tenOneAccessedExt != tenOne) {
-    printf("accessed tenOne second is incorrect\n");
     return 1;
   }
 
   Tensor tenCompareTwo = [[ [[ 32, 1234 ]] , [[ -6, 24 ]] ]];
 
   if (tenTwoAccessed != tenCompareTwo) {
-    printf("accessed tenTwo is incorrect\n");
     return 1;
   }
 
   Tensor tenCompareThree = [[ [[ [[ 1 ]] ]] ]];
 
   if (tenThreeAccessed != tenCompareThree) {
-    printf("accessed tenThree is incorrect\n");
     return 1;
   }
 

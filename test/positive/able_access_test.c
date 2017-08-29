@@ -731,7 +731,6 @@ signed int main()
     if (((ten_not_equals)((tenOneAccessed), (tenOne))))
     {
       {
-        ((printf)("accessed tenOne first is incorrect\n"));
         return 1;
       }
     } else {
@@ -740,7 +739,6 @@ signed int main()
     if (((ten_not_equals)((tenOneAccessedExt), (tenOne))))
     {
       {
-        ((printf)("accessed tenOne second is incorrect\n"));
         return 1;
       }
     } else {
@@ -758,7 +756,6 @@ signed int main()
     if (((ten_not_equals)((tenTwoAccessed), (tenCompareTwo))))
     {
       {
-        ((printf)("accessed tenTwo is incorrect\n"));
         return 1;
       }
     } else {
@@ -776,7 +773,6 @@ signed int main()
     if (((ten_not_equals)((tenThreeAccessed), (tenCompareThree))))
     {
       {
-        ((printf)("accessed tenThree is incorrect\n"));
         return 1;
       }
     } else {
