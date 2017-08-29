@@ -34,7 +34,7 @@ XCFLAGS=$(addprefix -I, $(XC_INCLUDE_PATH))
 # All directories contining extension libraries that may be linked
 LIB_DIRS=$(wildcard $(EXTS_BASE)/*/lib)
 # Flags passed to the linker specifying the appropriate directories
-LDLIBS=$(addprefix -L, $(LIB_DIRS))
+LDLIBS=$(addprefix -L, $(LIB_DIRS)) -lm -lcilkrts
 
 all: $(ABLEC_JAR) $(C_FILES) $(OBJECTS) $(EXECUTABLES) $(TESTS)
 
@@ -42,11 +42,19 @@ all: $(ABLEC_JAR) $(C_FILES) $(OBJECTS) $(EXECUTABLES) $(TESTS)
 $(ABLEC_JAR):
 	make -C $(dir $(ABLEC_JAR)) ableC.jar
 
+# This is phony despite being a real file, because the Makefile in src checks
+# if the source files have been modified or not.
+.PHONY: ../src/libTensorsLib.a ../src/libTensorsLib.so
+../src/libTensorsLib.a:
+	@cd ../src && make libTensorsLib.a
+../src/libTensorsLib.so:
+	@cd ../src && make libTensorsLib.so
+
 %.c: %.xc $(ABLEC_JAR)
 	java -jar $(ABLEC_JAR) $< $(XCFLAGS)
 
-%.out: %.o
-	$(CC) $(LDFLAGS) $< $(LOADLIBES) $(LDLIBS) -o $@
+%.out: %.o ../src/libTensorsLib.a
+	$(CC) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
 translate_error/%.test: translate_error/%.xc $(ABLEC_JAR)
 	@echo "java -jar $(ABLEC_JAR) $< $(XCFLAGS)"
