@@ -10,40 +10,35 @@ int main () {
   Tensor tenThree = [[ [[ 1, 3, 6, 2 ]], [[ 12, 64, 29, 5 ]], [[ 39, 492, 42, 45 ]], [[ 65, 23, 56, 23 ]], [[ 12, 45, 12, 34 ]] ]];
   Tensor tenFour = [[ [[ 666, 555 ]], [[ 444, 333 ]], [[ 222, 111 ]], [[ 45, 2 ]] ]];
 
-  printf("tenOne is: \n");
-  printT(tenOne);
-  printf("\n\n\n");
+  Tensor tenOneTwo = [[ [[ 1008,	898,	1970,	903,	1856 ]],
+                        [[ 1182,	1999,	2966,	3557,	2624]],
+                        [[ 940,	2087,	3453,	1712,ß	1759]] ]];
+  Tensor tenTwoThree = [[ [[ 5549,	36585,	6229,	4728 ]],
+                          [[	3333,	3385,	3083,	1852 ]] ,
+                          [[ 4110,	36710,	4799,	5617]] ]]
+  Tensor tenThreeFour = [[ [[ 3420,	2224 ]],
+	                         [[ 43071,	31201 ]],
+	                         [[ 255771,	190233 ]],
+	                         [[ 66969,	49996 ]],
+	                         [[ 32166,	23045 ]] ]]
 
-  printf("tenTwo is: \n");
-  printT(tenTwo);
-  printf("\n\n\n");
-
-  printf("tenTwo transposed is: \n");
-  printT(trans(tenTwo));
-  printf("\n\n\n");
-
-  printf("tenThree is: \n");
-  printT(tenThree);
-  printf("\n");
-
-  printf("tenFour is: \n");
-  printT(tenFour);
-  printf("\n\n\n");
-
-  printT(tenOne ** tenTwo);
-  printf("\n\n\n");
-
-  printf("tenTwo * tenThree is: \n");
-  printT(tenTwo ** tenThree);
-  printf("\n\n\n");
-
-  printf("tenThree * tenFour is: \n");
-  printT(tenThree ** tenFour);
+  if (tenOne ** tenTwo != tenOneTwo) {
+    return 1;
+  }
+  if (tenTwo ** tenThree != tenTwoThree) {
+    return 1;
+  }
+  if (tenThree ** tenFour != tenThreeFour) {
+    return 1;
+  }
 
   freeT(tenOne);
   freeT(tenTwo);
   freeT(tenThree);
   freeT(tenFour);
+  freeT(tenOneTwo);
+  freeT(tenTwoThree);
+  freeT(tenThreeFour);
 
   return 0;
 }

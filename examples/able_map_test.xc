@@ -26,62 +26,71 @@ int main () {
   Tensor tenFour = fill(0,dataTestFour,1);
   Tensor tenFive = id(2,2);
 
-  printf("9 2 tensor: \n");
-  printT(tenOne);
-  printf("\n");
+  Tensor tenOneIncr = fill(1,dataTestOne,3);
+  Tensor tenOneSquare = fill(1,dataTestOne,4);
 
-  printf("3 x 9 666 tensor: \n");
-  printT(tenTwo);
-  printf("\n");
+  Tensor tenTwoIncr = fill(2,dataTestTwo,667);
+  Tensor tenTwoSquare = fill(2,dataTestTwo,443556);
 
-  printf("2 x 3 x 4 100 tensor: \n");
-  printT(tenThree);
-  printf("\n");
+  Tensor tenThreeIncr = fill(3,dataTestThree,101);
+  Tensor tenThreeSquare = fill(3,dataTestThree,10000);
 
-  printf("9 2 tensor incremented\n");
-  printT(incr(tenOne));
-  printf("\n");
+  Tensor tenFourIncr = fill(0,dataTestFour,2);
+  Tensor tenFourSquare = fill(0,dataTestFour,1);
 
-  printf("\n9 3 tensor squared\n");
-  printT(square(tenOne));
-  printf("\n");
+  Tensor tenFiveIncr = [[ [[ 2, 1 ]] , [[ 1, 2]] ]];
+  Tensor tenFiveSquare = [[ [[ 1, 0 ]] , [[ 0, 1]] ]];
 
-  printf("3 x 9 666 tensor incremented\n");
-  printT(incr(tenTwo));
-  printf("\n");
+  if (tenOneIncr != incr(tenOne)) {
+    return 1;
+  }
+  if (tenOneSquare != square(tenOne)) {
+    return 1;
+  }
 
-  printf("\n3 x 9 667 tensor squared\n");
-  printT(square(tenTwo));
-  printf("\n");
+  if (tenTwoIncr != incr(tenTwo)) {
+    return 1;
+  }
+  if (tenTwoSquare != square(tenTwo)) {
+    return 1;
+  }
 
-  printf("2 x 3 x 4 100 tensor incremented\n");
-  printT(incr(tenThree));
+  if (tenThreeIncr != incr(tenThree)) {
+    return 1;
+  }
+  if (tenThreeSquare != square(tenThree)) {
+    return 1;
+  }
 
-  printf("\n2 x 3 x 4 101 tensor squared\n");
-  printT(square(tenThree));
-  printf("\n");
+  if (tenFourIncr != incr(tenFour)) {
+    return 1;
+  }
+  if (tenFourSquare != square(tenFour)) {
+    return 1;
+  }
 
-  printf("0 dim 1 tensor incremented\n");
-  printT(incr(tenFour));
-  printf("\n");
-
-  printf("\n0 dim 2 tensor squared\n");
-  printT(square(tenFour));
-  printf("\n");
-
-  printf("2 x 2 identity tensor incremented\n");
-  printT(incr(tenFive));
-  printf("\n");
-
-  printf("2 x 2 identity tensor + 1 squared\n");
-  printT(square(tenFive));
-  printf("\n");
+  if (tenFiveIncr != incr(tenFive)) {
+    return 1;
+  }
+  if (tenFiveSquare != square(tenFive)) {
+    return 1;
+  }
 
   freeT(tenOne);
+  freeT(tenOneIncr);
+  freeT(tenOneSquare);
   freeT(tenTwo);
+  freeT(tenTwoIncr);
+  freeT(tenTwoSquare);
   freeT(tenThree);
+  freeT(tenThreeIncr);
+  freeT(tenThreeSquare);
   freeT(tenFour);
+  freeT(tenFourIncr);
+  freeT(tenFourSquare);
   freeT(tenFive);
+  freeT(tenFiveIncr);
+  freeT(tenFiveSquare);
 
   return 0;
 }
