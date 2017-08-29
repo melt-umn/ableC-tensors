@@ -67,11 +67,11 @@ int main () {
     return 1;
   }
 
-  if ( 242400 != tenThreeF f.* tenThreeS) {
+  if ( 242400 != float_dot_product(tenThreeF, tenThreeS)) {
     return 1;
   }
 
-  if ( 9 != tenFourF f.* tenFourS) {
+  if ( 9 != float_dot_product_vtwo(tenFourF, tenFourS)) {
     return 1;
   }
 

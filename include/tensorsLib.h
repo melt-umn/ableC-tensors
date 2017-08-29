@@ -46,8 +46,8 @@ float ten_to_float(Tensor);
 
 Tensor map(float (*)(float),Tensor);
 Tensor map_cilk(float (*)(float),Tensor);
-Tensor map_with_context(float (*)(float,void*),Tensor,void*); //
-Tensor map_with_context_cilk(float (*)(float,void*),Tensor,void*); //
+Tensor map_with_context(float (*)(float,void*),Tensor,void*); 
+Tensor map_with_context_cilk(float (*)(float,void*),Tensor,void*); 
 Tensor square(Tensor);
 Tensor square_cilk(Tensor);
 Tensor incr(Tensor);
@@ -77,15 +77,15 @@ Tensor ten_sum(Tensor);
 Tensor ten_prod(Tensor);
 
 Tensor ten_combine(float (*)(float,float),Tensor,Tensor);
-Tensor ten_combine_cilk(float(*)(float,float),Tensor,Tensor); //
+Tensor ten_combine_cilk(float(*)(float,float),Tensor,Tensor);
 Tensor ten_elem_add(Tensor,Tensor);
-Tensor ten_elem_add_cilk(Tensor,Tensor); //
+Tensor ten_elem_add_cilk(Tensor,Tensor); 
 Tensor ten_elem_subtract(Tensor,Tensor);
-Tensor ten_elem_subtract_cilk(Tensor,Tensor); //
+Tensor ten_elem_subtract_cilk(Tensor,Tensor); 
 Tensor ten_elem_multiply(Tensor,Tensor);
-Tensor ten_elem_multiply_cilk(Tensor,Tensor); //
+Tensor ten_elem_multiply_cilk(Tensor,Tensor); 
 Tensor ten_elem_divide(Tensor,Tensor);
-Tensor ten_elem_divide_cilk(Tensor,Tensor); //
+Tensor ten_elem_divide_cilk(Tensor,Tensor); 
 
 bool ten_equals(Tensor,Tensor);
 bool ten_not_equals(Tensor,Tensor);
@@ -93,7 +93,7 @@ bool ten_not_equals(Tensor,Tensor);
 Tensor ten_multiply(Tensor,Tensor);
 Tensor dot_product(Tensor,Tensor);
 float float_dot_product(Tensor,Tensor);
-float float_dot_product_vtwo(Tensor,Tensor); //
+float float_dot_product_vtwo(Tensor,Tensor);
 Tensor cross_product(Tensor,Tensor);
 Tensor scalar_triple_product(Tensor,Tensor,Tensor);
 float float_triple_product(Tensor,Tensor,Tensor);
@@ -103,7 +103,7 @@ float trace(Tensor);
 Tensor ten_trace(Tensor);
 
 void freeT(Tensor);
-void freeT_dynamic(Tensor *); //
+void freeT_dynamic(Tensor *);
 
-void printT(Tensor); //
-void printT_extended(Tensor, char *, int); //
+void printT(Tensor); 
+void printT_extended(Tensor, char *, int); 

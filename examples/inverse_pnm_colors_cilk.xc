@@ -7,10 +7,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+//struct that saves given context
 typedef struct {
   float color_range;
 } InvertContext;
 
+//function that takes in context
 float invert_color(float i, void *context) {
   InvertContext *ctx = (InvertContext*) context;
   return ctx->color_range - i;
@@ -18,8 +20,7 @@ float invert_color(float i, void *context) {
 
 PNMInfo invert_colors(PNMInfo pnm_info) {
   InvertContext context = (InvertContext) {.color_range = pnm_info.color_range};
-  //context.color_range = pnm_info.color_range;
-  map_with_context_cilk(invert_color,pnm_info.tensor,&context);
+  map_with_context_cilk(invert_color,pnm_info.tensor,&context); //function,tensor,context
   return pnm_info;
 }
 
@@ -56,4 +57,3 @@ int main(int argc, char **argv)
 
   return 0;
 }
-
