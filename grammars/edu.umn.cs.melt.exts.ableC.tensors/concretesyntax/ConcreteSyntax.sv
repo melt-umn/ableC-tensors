@@ -11,9 +11,6 @@ imports silver:langutil;
 
 marking terminal IntervalEnvOpen_t '<(';
 --terminal IntervalEnvClose_t '.>';
---IntervalListStart_t will be marking once ableC is modified
---terminal IntervalListStart_t '/(';
-terminal IntervalListEnd_t '\';
 terminal Between '-,';
 marking terminal IndexSign '<.>'; --currently here b/c ableC needs to be modified
 
