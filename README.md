@@ -34,6 +34,6 @@ This extension was primarily coded by Ankit Siva and Zoe Wentzel, with assistanc
 
 ## Contact
 
-For basic questions on using or understanding the extension, email Zoe Wentzel at wentz101@umn.edu. If you are interested on improving and/or expanding the ableC-tensor extension, wish to create your own extension with ableC/silver (or already have and want to share it!), desire more information on ableC or silver, or anything else along those lines, contact Professor Van Wyk at evw@umn.edu. 
+For basic questions on using or understanding the extension, email Zoë Wentzel at wentz101@umn.edu. If you are interested on improving and/or expanding the ableC-tensor extension, wish to create your own extension with ableC/silver (or already have and want to share it!), desire more information on ableC or silver, or anything else along those lines, contact Professor Van Wyk at evw@umn.edu. 
 
  
