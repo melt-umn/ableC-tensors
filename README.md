@@ -10,6 +10,10 @@ TODO: overview of purpose and function of product
 
 TODO: short code snippets/instructions on how to use
 
+## TODO:
+
+TODO: write the TODO section :D 
+
 ## Installation
 
 ### Requirements
