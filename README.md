@@ -2,7 +2,9 @@
 
 # ableC-tensors
 
-## Tensor extension for ableC, inspired and helped by Single Assignment C (SAC), MATLAB and Julia
+## Introduction
+
+Tensor extension for ableC, inspired and helped by [Single Assignment C (SAC)](http://www.sac-home.org/doku.php), [MATLAB](https://www.mathworks.com/products/matlab.html) and [Julia](https://julialang.org/).
 
 TODO: overview of purpose and function of product
 
