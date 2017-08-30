@@ -18,15 +18,15 @@ TODO: write the TODO section :D
 
 ### Requirements
 
-To use the ableC-tensors extension, first make sure to install ableC and silver (put them in the same directory!). I put their shared directory directly on my desktop, but the location should not matter.
+To use the ableC-tensors extension, first make sure to install [ableC](https://github.com/melt-umn/ableC) and [silver](https://github.com/melt-umn/silver) (put them in the same directory!). I put their shared directory directly on my desktop, but the location should not matter.
 
 ### Installation
 
 In the same directory as ableC and silver, create an `extensions` folder (if you have created this folder before, enter the one you have). The ableC-tensors repository (and any other up-to-date ableC extension) should be downloaded in this folder. This can be done two main ways: 
 
-	1. To clone this repository, open up your terminal and enter the extensions folder. Then, type `git clone git@github.umn.edu:melt/ableC-tensors.git` and the repository will download.
+1. To clone this repository, open up your terminal and enter the extensions folder. Then, type `git clone git@github.umn.edu:melt/ableC-tensors.git` and the repository will download.
 
-	2. To manually download this repository, you can click the green "Clone or download" button on this page's github (https://github.umn.edu/melt/ableC-tensors TODO: move to public github) and then click "Download ZIP". Unpack this ZIP file in the extensions folder.
+2. To manually download this repository, you can click the green "Clone or download" button on this page's github (https://github.umn.edu/melt/ableC-tensors TODO: move to public github) and then click "Download ZIP". Unpack this ZIP file in the extensions folder.
 
 ## Credits
 
