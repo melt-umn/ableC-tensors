@@ -1,4 +1,4 @@
-#Tensors and Intervals: The Basics
+# Tensors and Intervals: The Basics
 All of the functions in the ableC-tensor extension are based on two different data types: Tensors and Intervals. Therefore, in order to use this extension, it is first imperative that you understand what the two are.
 
 ## Tensors
