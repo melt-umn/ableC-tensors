@@ -24,11 +24,11 @@ TODO: write the TODO section :D
 
 ### Requirements
 
-To use the ableC-tensors extension, first make sure to install [ableC](https://github.com/melt-umn/ableC) and [silver](https://github.com/melt-umn/silver) (put them in the same directory!). I put their shared directory directly on my desktop, but the location should not matter.
+To use the ableC-tensors extension, first make sure to install [ableC](https://github.com/melt-umn/ableC) and [Silver](https://github.com/melt-umn/silver) (put them in the same directory!). I put their shared directory directly on my desktop, but the location should not matter.
 
 ### Installation
 
-In the same directory as ableC and silver, create an `extensions` folder (if you have created this folder before, enter the one you have). The ableC-tensors repository (and any other up-to-date ableC extension) should be downloaded in this folder. This can be done two main ways: 
+In the same directory as ableC and Silver, create an `extensions` folder (if you have created this folder before, enter the one you have). The ableC-tensors repository (and any other up-to-date ableC extension) should be downloaded in this folder. This can be done two main ways: 
 
 1. To clone this repository, open up your terminal and enter the extensions folder. Then, type `git clone git@github.umn.edu:melt/ableC-tensors.git` and the repository will download.
 
@@ -40,6 +40,6 @@ This extension was primarily coded by Ankit Siva and Zoe Wentzel, with assistanc
 
 ## Contact
 
-For basic questions on using or understanding the extension, email Zoë Wentzel at wentz101@umn.edu. If you are interested on improving and/or expanding the ableC-tensor extension, wish to create your own extension with ableC/silver (or already have and want to share it!), desire more information on ableC or silver, or anything else along those lines, contact Professor Van Wyk at evw@umn.edu. 
+For basic questions on using or understanding the extension, email Zoë Wentzel at wentz101@umn.edu. If you are interested on improving and/or expanding the ableC-tensor extension, wish to create your own extension with ableC and Silver (or already have and want to share it!), desire more information on ableC and/or Silver, or anything else along those lines, contact Professor Van Wyk at evw@umn.edu. 
 
  
