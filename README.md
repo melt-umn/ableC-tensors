@@ -13,8 +13,15 @@ In addition, this ableC-tensors extension shows the **power** of [Silver](https:
 \*Tensor: although the actual data type Tensor will be explained under under **Usage** below, the important thing to understand is that a tensor is similar to a matrix with unlimited dimensions. To learn more about tensors in mathematics, feel free to check out the [wiki page](https://en.wikipedia.org/wiki/Tensor). 
 
 ## Usage
+All of the functions in the ableC-tensor extension are based on two different data types: Tensors and Intervals. Therefore, in order to use this extension, it is first imperative that you understand what the two are. The basics are listed below:
 
-TODO: short code snippets/instructions on how to use
+Tensors are a struct that represent an array of data (currently, must be floating point numbers). However, Tensors are not actually a C array (this is the primary reason that we chose to call them Tensors instead of arrays). Instead, a Tensor is a data type that has four different variables saved to it: the number of dimensions, the size of those dimensions (as an array), the number of elements in the tensor, and all of those elements (as an array). Tensors can be created with a *create* method that takes in all of the previously listed variables, or with special syntax as follows: `[[ [[ 1, 2, 3 ]] , [[ 4, 5, 6 ]]` (a *2 x 3* Tensor). 
+
+Intervals lists are how one can access a Tensor. Unlike accessing an array or a list, which returns a single element of the inner data type of the array or list, Tensor accessing returns a Tensor that can have multiple elements. An Interval has a right bound and a left bound. The right bound represents where to start accessing in a given dimension, while the left bound represents where to stop accessing in the same dimension (both bounds are inclusive). To use an Interval to access a Tensor, it is necessary to use a sequence of them. This is because Tensors have multiple dimensions and, thus, there must be a Interval that corresponds to each dimension. If the Tensor `[[ 0, 1, 2, 3, 4, 5 ]]` was saved as `ten`, and the user wanted just to access it so they had the Tensor `[[ 2, 3, 4 ]]`, it would be done like so: `<.>ten<( 2 ,-, 4 )>`.
+
+There is also other special syntax that has been implemented in this extension, including, but not limited to, new syntax for dot product (`.*`) and overloaded syntax for Tensor equality (`==`). In addition, there is a multitude of functions that can be called for Tensors that do *not* have their own special syntax, but are useful nonetheless. 
+
+If you are interested in learning more, we would recommend reading more about Tensors and Intervals before reading more of the code documentation. The extended documentation on Tensors and Intervals can be found here: [Tensors and Intevals](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/tensors_and_intervals.md). The section specifically on other special syntax is here: [special syntax](), while the section including all of the functions is here: [useful functions]().
 
 ## TODO:
 
