@@ -13,6 +13,8 @@ In addition, this ableC-tensors extension shows the **power** of [Silver](https:
 \*Tensor: although the actual data type Tensor will be explained under under **Usage** below, the important thing to understand is that a tensor is similar to a matrix with unlimited dimensions. To learn more about tensors in mathematics, feel free to check out the [wiki page](https://en.wikipedia.org/wiki/Tensor). 
 
 ## Usage
+
+### A Brief Overview 
 All of the functions in the ableC-tensor extension are based on two different data types: Tensors and Intervals. Therefore, in order to use this extension, it is first imperative that you understand what the two are. The basics are listed below:
 
 Tensors are a struct that represent an array of data (currently, must be floating point numbers). However, Tensors are not actually a C array (this is the primary reason that we chose to call them Tensors instead of arrays). Instead, a Tensor is a data type that has four different variables saved to it: the number of dimensions, the size of those dimensions (as an array), the number of elements in the tensor, and all of those elements (as an array). Tensors can be created with a *create* method that takes in all of the previously listed variables, or with special syntax as follows: `[[ [[ 1, 2, 3 ]] , [[ 4, 5, 6 ]]` (a *2 x 3* Tensor). 
@@ -21,6 +23,7 @@ Intervals lists are how one can access a Tensor. Unlike accessing an array or a 
 
 There is also other special syntax that has been implemented in this extension, including, but not limited to, new syntax for dot product (`.*`) and overloaded syntax for Tensor equality (`==`). In addition, there is a multitude of functions that can be called for Tensors that do *not* have their own special syntax, but are useful nonetheless. 
 
+### Want to learn more?
 If you are interested in learning more, we would recommend reading more about Tensors and Intervals before reading more of the code documentation. **Note:** what is above is repeated in part in the documentation, but there are some clarifications and more examples. Re-reading is very recommended. The extended documentation on Tensors and Intervals can be found here: [Tensors and Intevals](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/tensors_and_intervals.md). The section specifically on other special syntax is here: [Special Tensor Syntax](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/special_tensor_syntax), while the section including all of the functions is here: [Useful Tensor Functions](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/useful_tensor_functions.md).
 
 ## TODO:
