@@ -27,8 +27,12 @@ There is also other special syntax that has been implemented in this extension, 
 If you are interested in learning more, we would recommend reading more about Tensors and Intervals before reading more of the code documentation. **Note:** what is above is repeated in part in the documentation, but there are some clarifications and more examples. Re-reading is very recommended. The extended documentation on Tensors and Intervals can be found here: [Tensors and Intevals](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/tensors_and_intervals.md). The section specifically on other special syntax is here: [Special Tensor Syntax](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/special_tensor_syntax), while the section including all of the functions is here: [Useful Tensor Functions](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/useful_tensor_functions.md).
 
 ## TODO:
-
-TODO: write the TODO section :D 
+Although there are many things that could be done to improve the code in ableC-tensors or to grow upon it, here is a list of known edits that may significantly improve the code (in no order):
+* More errors can be reported at compile time by moving/adding error tests into the Silver code. This includes, but is not limited to:
+  * Making sure the length of the interval sequence matches the number of dimensions of the Tensor it is accessing (currently **not** checked anywhere, which could lead to lots of confusion and many bugs)
+  * Comparing the variables of one or more Tensors for any function that requires the Tensor(s) to match a specific mold. For instance, the function that turns a Tensor into a float requires that the Tensor has only one dimension and one element. It **may** not be possible to currently look at the dim_size and data in Silver, but I believe that it should be possible to access num_dim and count (since they are simply saved ints). 
+* Compare functions with cilk to functions without and choose the best default. Currently, any new syntax that can call a version of a function with cilk or without is defaulting to without, but that is simply because that is what was coded first. 
+* Fix awkward Interval access
 
 ## Installation
 
