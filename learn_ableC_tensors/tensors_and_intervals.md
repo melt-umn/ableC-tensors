@@ -22,4 +22,6 @@ In rare cases, the programmer may need to explicitly call a function called *cre
 
 ## Intervals
 ## What is an Interval?
-Intervals are how one can access a Tensor. Unlike accessing an array or a list, which returns a single element of the inner data type of the array or list, Tensor accessing returns a Tensor that can have multiple elements.
+Intervals lists are how one can access a Tensor. Unlike accessing an array or a list, which returns a single element of the inner data type of the array or list, Tensor accessing returns a Tensor that can have multiple elements. An Interval has a right bound and a left bound. The right bound represents where to start accessing in a given dimension, while the left bound represents where to stop accessing in the same dimension (both bounds are inclusive). To use an Interval to access a Tensor, it is necessary to use a sequence of them. This is because Tensors have multiple dimensions and, thus, there must be a Interval that corresponds to each dimension. If the Tensor [[ 0, 1, 2, 3, 4, 5 ]] was saved as ten, and the user wanted just to access it so they had the Tensor [[ 2, 3, 4 ]], it would be done like so: <.>ten<( <( 2 ,-, 4 )> )>.
+
+There is also other special syntax that has been implemented in this extension, including, but not limited to, new syntax for dot product (.\*) and overloaded syntax for Tensor equality (==). In addition, there is a multitude of functions that can be called for Tensors that do not have their own special syntax, but are useful nonetheless.
