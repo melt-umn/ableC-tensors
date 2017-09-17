@@ -25,6 +25,7 @@ In rare cases, the programmer may need to explicitly call a function called *cre
 Intervals lists are how one can access a Tensor. Unlike accessing an array or a list, which returns a single element of the inner data type of the array or list, Tensor accessing returns a Tensor that can have multiple elements. (For those of you who know MATLAB, it is the same idea as their accessing.) An Interval is a struct with two variables saved to it:
 1. **lBound (int)**: the left bound of an interval represents where to start accessing the Tensor in a corresponding dimension
 2. **rBound (int)**: the right bound of an interval represents where to stop accessing in the same dimension 
+
 Note that both bounds are **inclusive**. In otherwords, if the lBound is 0 and the rBound is 4, the accessed indices would be 0, 1, 2, 3, and 4.
 
 However, most Intervals will have more than one dimension. When accessing a Tensor, each dimension of that Tensor is required to have a corresponding Interval to access it. In other words, a Tensor with four dimensions must take in a sequence of four Intervals. 
