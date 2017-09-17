@@ -34,6 +34,7 @@ Although there are many things that could be done to improve the code in ableC-t
 * Compare functions with cilk to functions without and choose the best default. Currently, any new syntax that can call a version of a function with cilk or without is defaulting to without, but that is simply because that is what was coded first. 
 * Fix awkward Interval access, it requires <.> to be put BEFORE the Tensor being accessed for it to work
 * Make sure all functions work both on a Tensor itself, on a variable representing a Tensor, and on a Tensor returned by an equation. For the ones that don't, fix.
+* Add more detailed documentation and tutorials on how to start using the ableC-Tensor extension
 
 ## Installation
 
