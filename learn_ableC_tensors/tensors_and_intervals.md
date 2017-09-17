@@ -3,7 +3,7 @@ All of the functions in the ableC-tensor extension are based on two different da
 
 ## Tensors
 ### What is a Tensor?
-Tensors are a struct that represent an array of data (currently, must be floating point numbers). However, Tensors are not actually a C array (this is the primary reason that we chose to call them Tensors instead of arrays). Instead, a Tensor is a data type that has four different variables saved to it:
+Tensors are a struct that represent an array of data (currently, must be floating point numbers). However, Tensors are not actually a C array (this is the primary reason that we chose to call them Tensors instead of arrays). Instead, a Tensor is a struct that has four different variables saved to it:
 1. **dim (int)**: this represents how many dimensions a Tensor has. For instance, a *n x m*  Tensor would have two dimensions, while a *n x m x j* Tensor would have three. Currently, empty tensors (zero dimensional Tensors) are not supported in most functions.
 2. **dim_size (\*int)**: this saves the size of the dimensions of the Tensor as an array. Using the examples from above, an *n x m* Tensor would have [n, m] stored, while a *n x m x j* Tensor would have [n, m, j] stored.
 3. **count (int)**: this keeps track of how many total elements are in the Tensor. A *n x m* Tensor would have *n \* m* elements, while an *n x m x j* Tensor would have *n \* m \* j* elements.
@@ -22,6 +22,9 @@ In rare cases, the programmer may need to explicitly call a function called *cre
 
 ## Intervals
 ### What is an Interval?
-Intervals lists are how one can access a Tensor. Unlike accessing an array or a list, which returns a single element of the inner data type of the array or list, Tensor accessing returns a Tensor that can have multiple elements. An Interval has a right bound and a left bound. The right bound represents where to start accessing in a given dimension, while the left bound represents where to stop accessing in the same dimension (both bounds are inclusive). To use an Interval to access a Tensor, it is necessary to use a sequence of them. This is because Tensors have multiple dimensions and, thus, there must be a Interval that corresponds to each dimension. If the Tensor [[ 0, 1, 2, 3, 4, 5 ]] was saved as ten, and the user wanted just to access it so they had the Tensor [[ 2, 3, 4 ]], it would be done like so: <.>ten<( <( 2 ,-, 4 )> )>.
+Intervals lists are how one can access a Tensor. Unlike accessing an array or a list, which returns a single element of the inner data type of the array or list, Tensor accessing returns a Tensor that can have multiple elements. (For those of you who know MATLAB, it is the same idea as their accessing.) An Interval is a struct with two variables saved to it:
+1. **lBound (int)**: the left bound of an interval represents where to start accessing the Tensor in a corresponding dimension
+2. **rBound (int)**: the right bound of an interval represents where to stop accessing in the same dimension 
+Note that both bounds are **inclusive**. In otherwords, if the lBound is 0 and the rBound is 4, the accessed indices would be 0, 1, 2, 3, and 4.
 
-There is also other special syntax that has been implemented in this extension, including, but not limited to, new syntax for dot product (.\*) and overloaded syntax for Tensor equality (==). In addition, there is a multitude of functions that can be called for Tensors that do not have their own special syntax, but are useful nonetheless.
+However, most Intervals will have more than one dimension. When accessing a Tensor, each dimension of that Tensor is required to have a corresponding Interval to access it. In other words, a Tensor with four dimensions must take in a sequence of four Intervals. 
