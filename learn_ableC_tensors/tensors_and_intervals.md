@@ -35,10 +35,10 @@ As said just above, there is new syntax that was created to represent the range 
 1. The most intuitive syntax is just a integer. If a single integer is in the Interval, that integer represents both the beginning and end of the accessing range.
 2. It is also possible to access every index in the Tensor dimension corresponding to the Interval by using just `*`. In other words, the Intervals left bound is automatically set to 0 and its right bound is set to the corresponding dimension length - 1. This can be particularily useful if the programmer does not know the length of the corresponding dimension beforehand (it can be figured out through function calls, but this is simpler). Although this would not make sense to use for a one-dimension array, it does have more use in arrays of greater dimensions. 
 3. The syntax `,-,` represents a range. Both integers and the `*` syntax can be used with the range symbol to create different combinations (the last two are included for sake of consistency, but have no practical use):
-  - `intStart ,-, intEnd` creates an Interval that starts at `intStart` and stop at `intEnd`.
-  - `intStart ,-, *` creates an Interval that starts at `intStart` and stops at the end of the corresponding dimension.
-  - `* ,-, intEnd` creates an Interval that starts at 0 and stops at `intEnd`. Equivalent to `0 ,-, intEnd`. 
-  - `* ,-, *` creates an Interval that starts at 0 and stops at the end of the corresponding dimension. Equivalent to `*`.
+   - `intStart ,-, intEnd` creates an Interval that starts at `intStart` and stop at `intEnd`.
+   - `intStart ,-, *` creates an Interval that starts at `intStart` and stops at the end of the corresponding dimension.
+   - `* ,-, intEnd` creates an Interval that starts at 0 and stops at `intEnd`. Equivalent to `0 ,-, intEnd`. 
+   - `* ,-, *` creates an Interval that starts at 0 and stops at the end of the corresponding dimension. Equivalent to `*`.
 
 ### How to create a sequence of Intervals
 
