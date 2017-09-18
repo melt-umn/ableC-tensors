@@ -26,7 +26,7 @@ Intervals lists are how one can access a Tensor. Unlike accessing an array or a 
 1. **lBound (int)**: the left bound of an interval represents where to start accessing the Tensor in a corresponding dimension
 2. **rBound (int)**: the right bound of an interval represents where to stop accessing in the same dimension 
 
-Note that both bounds are **inclusive**. In otherwords, if the lBound is 0 and the rBound is 4, the accessed indices would be 0, 1, 2, 3, and 4. In addition, most Intervals will have more than one dimension. When accessing a Tensor, each dimension of that Tensor is required to have a corresponding Interval to access it. In other words, a Tensor with four dimensions must take in a sequence of four Intervals. The syntax for defining an Interval, for defining a sequence of Intervals, and for indicating that a Tensor is going to be accessed is below. Explicit examples using Intervals will be written after the next three sections (under **Interval Examples**).
+Note that both bounds are **inclusive**. In otherwords, if the lBound is 0 and the rBound is 4, the accessed indices would be 0, 1, 2, 3, and 4. In addition, most Intervals will have more than one dimension. When accessing a Tensor, each dimension of that Tensor is required to have a corresponding Interval to access it. In other words, a Tensor with four dimensions must take in a sequence of four Intervals. The syntax for defining Intervals and then actually using those Intervals to access a Tensor is defined below. Explicit examples using Intervals will be written after the next two sections (under **Interval Examples**).
 
 ### How to create an Interval
 When creating an Interval, there is syntax to show that an Interval is being created as well as some unique syntax to indicate the range of the interval. This unique syntax was created to help users write shorter, easier code. An Interval is started by `<(` and ended with `)>`. In the middle, however, is the important information.
@@ -35,11 +35,14 @@ As said just above, there is new syntax that was created to represent the range 
 * The most intuitive syntax is just a integer. If a single integer is in the Interval, that integer represents both the beginning and end of the accessing range.
 * It is also possible to access every index in the Tensor dimension corresponding to the Interval by using just `*`. In other words, the Intervals left bound is automatically set to 0 and its right bound is set to the corresponding dimension length - 1. This can be particularily useful if the programmer does not know the length of the corresponding dimension beforehand (it can be figured out through function calls, but this is simpler). Although this would not make sense to use for a one-dimension array, it does have more use in arrays of greater dimensions. 
 * The syntax `,-,` represents a range. Both integers and the `*` syntax can be used with the range symbol to create different combinations (the last two are included for sake of consistency, but have no practical use):
-   * `intStart ,-, intEnd` creates an Interval that starts at `intStart` and stop at `intEnd`.
+   * `intStart ,-, intEnd` creates an Interval that starts at `intStart` and stop at `intEnd`.\*
    * `intStart ,-, *` creates an Interval that starts at `intStart` and stops at the end of the corresponding dimension.
    * `* ,-, intEnd` creates an Interval that starts at 0 and stops at `intEnd`. Equivalent to `0 ,-, intEnd`. 
    * `* ,-, *` creates an Interval that starts at 0 and stops at the end of the corresponding dimension. Equivalent to `*`.
 
-### How to create a sequence of Intervals
+ \*`intStart` and `intEnd` in all of the examples above can be variables, expressions that result in integers, or just integers.
 
-### How to access a Tensor with a sequence of Intervals
+### How to actually use Intervals
+As mentioned earlier, accessing a Tensor requires a sequence of intervals. Just as each Interval is started by using `<(` and ended by using `)>`, a sequence of Intervals is wrapped in the exact same syntax. This is the case whether there is one Interval or more. In addition, each individual Interval within that sequence is seperated by commas. So if there was a Tensor with three dimensions, the code would be as followed `<( intervalOne, intervalTwo, intervalThree )>`. (`intervalOne`, `intervalTwo`, and `intervalThree` can be created beforehand and saved to variables or can be created while coding the sequence.)
+
+Although it would be ideal if this was all that was necessary to index a Tensor, unfortunately that is not the case. Due to complexities in ableC and how new syntax is created (in particular, the type PostFixExpr_c, which is what would be needed to accept Interval sequences as described above, does not currently allow this kind of syntax), it is to communicate to the compiler that the Tensor is going to be accessed *before* the Tensor is referenced. This is something that should be cleaned up, but currently must be delt with as is.
