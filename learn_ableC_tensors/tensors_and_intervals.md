@@ -13,7 +13,7 @@ Two important notes:
 1. The array of elements (4 above) is the only part of the Tensor that a user would normally need. The previous three variables are useful in creating the necessary space for that array and for comparing different Tensors. Two Tensors could have the same number of dimensions and same number of elements, for example, but different dimensions. A *n x m* Tensor and a *m x n* Tensor are very different things and must be treated as such.
 2. The count can always be calculated using the dim_size, and thus does not technically need to be stored. It is possible that removing count would be more efficient, but the amount of memory needed to store one extra int in a Tensor struct is minimal and can save code and time elsewhere, thus it is currently left in the struct.
 
-### So… what does this mean to someone just trying to use the extension?
+### How to create a Tensor
 There are two ways to create a Tensor. When possible, the first is simpler and preferable.
 
 The first way highlights the functionality of the extension and the ability of Silver and ableC: the programmer can write out a Tensor with specialized syntax. To do this, they must already know the data that will be in the Tensor (either explicitly or saved as variables). Then, they can store all that data between a nested sequence of pairs of brackets, each pair representing a dimension. For instance, a *2 x 3* Tensor full of zeros would be written as such: `[[ [[ 0, 0, 0]] , [[ 0, 0, 0 ]] ]]`. Empty Tensors can not be created using this method; in other words, `[[ ]]` is not valid syntax. In addition, Tensors may not be uneven. This means that `[[ 0, [[ 0 , 0 ]] ]]` is invalid. When creating Tensors using this syntax, it is not necessary for the programmer to specify or even know the number of dimensions, size of those dimensions, or number of elements.
@@ -26,6 +26,20 @@ Intervals lists are how one can access a Tensor. Unlike accessing an array or a 
 1. **lBound (int)**: the left bound of an interval represents where to start accessing the Tensor in a corresponding dimension
 2. **rBound (int)**: the right bound of an interval represents where to stop accessing in the same dimension 
 
-Note that both bounds are **inclusive**. In otherwords, if the lBound is 0 and the rBound is 4, the accessed indices would be 0, 1, 2, 3, and 4.
+Note that both bounds are **inclusive**. In otherwords, if the lBound is 0 and the rBound is 4, the accessed indices would be 0, 1, 2, 3, and 4. In addition, most Intervals will have more than one dimension. When accessing a Tensor, each dimension of that Tensor is required to have a corresponding Interval to access it. In other words, a Tensor with four dimensions must take in a sequence of four Intervals. The syntax for defining an Interval, for defining a sequence of Intervals, and for indicating that a Tensor is going to be accessed is below. Explicit examples using Intervals will be written after the next three sections (under **Interval Examples**).
 
-However, most Intervals will have more than one dimension. When accessing a Tensor, each dimension of that Tensor is required to have a corresponding Interval to access it. In other words, a Tensor with four dimensions must take in a sequence of four Intervals. 
+### How to create an Interval
+When creating an Interval, there is syntax to show that an Interval is being created as well as some unique syntax to indicate the range of the interval. This unique syntax was created to help users write shorter, easier code. An Interval is started by `<(` and ended with `)>`. In the middle, however, is the important information.
+
+As said just above, there is new syntax that was created to represent the range of an interval. Please keep in mind that all the syntax below would be put in the middle of  `<(  )>`. 
+1. The most intuitive syntax is just a integer. If a single integer is in the Interval, that integer represents both the beginning and end of the accessing range.
+2. It is also possible to access every index in the Tensor dimension corresponding to the Interval by using just `*`. In other words, the Intervals left bound is automatically set to 0 and its right bound is set to the corresponding dimension length - 1. This can be particularily useful if the programmer does not know the length of the corresponding dimension beforehand (it can be figured out through function calls, but this is simpler). Although this would not make sense to use for a one-dimension array, it does have more use in arrays of greater dimensions. 
+3. The syntax `,-,` represents a range. Both integers and the `*` syntax can be used with the range symbol to create different combinations (the last two are included for sake of consistency, but have no practical use):
+  1. `intStart ,-, intEnd` creates an Interval that starts at `intStart` and stop at `intEnd`.
+  2. `intStart ,-, *` creates an Interval that starts at `intStart` and stops at the end of the corresponding dimension.
+  3. `* ,-, intEnd` creates an Interval that starts at 0 and stops at `intEnd`. Equivalent to `0 ,-, intEnd`. 
+  4. `* ,-, *` creates an Interval that starts at 0 and stops at the end of the corresponding dimension. Equivalent to `*`.
+
+### How to create a sequence of Intervals
+
+### How to access a Tensor with a sequence of Intervals
