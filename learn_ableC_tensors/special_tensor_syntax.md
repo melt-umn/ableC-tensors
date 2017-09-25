@@ -9,8 +9,8 @@ ableC-tensors has a handful of useful overloaded syntax that deals with two Tens
 
 <dl>
   <dt>tensorOne + tensorTwo</dt>
-  <dd>*Parameters: tensorOne and tensorTwo have to be Tensors of equal shape.*
-  Returns a Tensor, matching the shape of tensorOne and tensorTwo, in which each element is equivalent to the elements in the same location of tensorOne and tensorTwo added.</dd>
+  <dd>Parameters: tensorOne and tensorTwo have to be Tensors of equal shape.</dd>
+  <dd>Returns a Tensor, matching the shape of tensorOne and tensorTwo, in which each element is equivalent to the elements in the same location of tensorOne and tensorTwo added.</dd>
 </dl>
 #### **`tensorOne + tensorTwo`**
 - *Parameters: tensorOne and tensorTwo have to be Tensors of equal shape.* 
