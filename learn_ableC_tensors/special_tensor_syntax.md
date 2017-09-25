@@ -8,7 +8,7 @@ ableC-tensors has a handful of useful overloaded syntax that deals with two Tens
 
 
 <dl>
-<b><font size = "4">tensorOne + tensorTwo</font></b>
+<b><h4>tensorOne + tensorTwo</h4></b>
   
   <dd>Parameters: tensorOne and tensorTwo have to be Tensors of equal shape.</dd>
   <dd>Returns a Tensor, matching the shape of tensorOne and tensorTwo, in which each element is equivalent to the elements in the same location of tensorOne and tensorTwo added.</dd>
