@@ -50,3 +50,32 @@ ableC-tensors has a handful of useful overloaded syntax that deals with two Tens
 </dl>
 
 ## New syntax
+As mentioned above, the ableC-tensors extension also has a set of its own, unique syntax. Although new syntax *could* be created for every possible function, we did our best to limit ourselves to new syntax that seems logical. The most important new syntax is that for creating Tensors and accessing those Tensors with Intervals (still explained [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/tensors_and_intervals.md)!), but below is other added syntax for Tensors.
+
+<dl>
+<b>tensorOne .* tensorTwo</b>
+  
+  <dd><i>Parameters: tensorOne and tensorTwo have to be Tensors of equal shape.</i></dd>
+  <dd></dd>
+</d1>
+
+<dl>
+<b>tensorOne f.* tensorTwo</b>
+  
+  <dd><i>Parameters: tensorOne and tensorTwo have to be Tensors of equal shape.</i></dd>
+  <dd></dd>
+</d1>
+
+<dl>
+<b>tensorOne x* tensorTwo</b>
+  
+  <dd><i>Parameters: tensorOne and tensorTwo have to be Tensors of equal shape.</i></dd>
+  <dd></dd>
+</d1>
+
+<dl>
+<b>tensorOne ** tensorTwo</b>
+  
+  <dd><i>Parameters: tensorOne and tensorTwo have to be Tensors of equal shape.</i></dd>
+  <dd>Performs matrix multiplication on tenOne and tenTwo. Because <b>*</b> is already overloaded to represent the multiplication of corresponding elements of two Tensors, <b>**</b> is being used to calculate traditional matrix multiplication on two Tensors.</dd>
+</d1>
