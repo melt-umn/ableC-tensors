@@ -19,6 +19,7 @@ ableC-tensors has a handful of useful overloaded syntax that deals with two Tens
   
   <dd><i>Parameters: tensorOne and tensorTwo have to be Tensors of equal shape.</i></dd>
   <dd>Returns a Tensor matching the shape of tensorOne and tensorTwo, in which each element is equivalent to the element in the same location of tensorTwo subtracted from the matching element in tensorOne.</dd>
+  <dd>Function call equivalent is ten_elem_add(tensorOne, tensorTwo). There is also a version of this function that uses cilk, which is called</dd>
 </dl>
 
 <dl>
