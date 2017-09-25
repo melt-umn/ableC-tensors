@@ -29,10 +29,24 @@ ableC-tensors has a handful of useful overloaded syntax that deals with two Tens
 </dl>
 
 <dl>
-<b>tensorOne - tensorTwo</b>
+<b>tensorOne / tensorTwo</b>
   
   <dd><i>Parameters: tensorOne and tensorTwo have to be Tensors of equal shape.</i></dd>
   <dd>Returns a Tensor matching the shape of tensorOne and tensorTwo, in which each element is equivalent to the element in the same location of tensorOne divided by the matching element in tensorTwo.</dd>
+</dl>
+
+<dl>
+<b>tensorOne == tensorTwo</b>
+  
+  <dd><i>Parameters: tensorOne and tensorTwo must be Tensors.</i></dd>
+  <dd>Compares the shape and elements in tensorOne and tensorTwo (note: does <i>not</i> compare the Tensors in memory). If the shape is different, returns false. If the shape is the same but elements corresponding to the same index are not the same, returns false. Otherwise, if the shape and all of the corresponding elements are the same for the two Tensors, returns true.</dd>
+</dl>
+
+<dl>
+<b>tensorOne != tensorTwo</b>
+  
+  <dd><i>Parameters: tensorOne and tensorTwo must be Tensors.</i></dd>
+  <dd>Compares the shape and elements in tensorOne and tensorTwo (note: does <i>not</i> compare the Tensors in memory). If the shape is different, returns true. If the shape is the same but elements corresponding to the same index are not the same, returns true. Otherwise, if the shape and all of the corresponding elements are the same for the two Tensors, returns false. (Opposite of <b>==</b></dd>
 </dl>
 
 ## New syntax
