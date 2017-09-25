@@ -1016,11 +1016,11 @@ Tensor cross_product(Tensor tOne, Tensor tTwo) {
 			tens.count = 3;
 			return tens;
 		} else {
-			printf("ERROR: cannot take cross product of Tensors with different size dimensions\n\n");
+			printf("ERROR: cannot take cross product of Tensors that do not have three elements each\n\n");
 			exit(1);
 		}
 	} else {
-		printf("ERROR: cannot take cross product of Tensors with different number of dimensions\n\n");
+		printf("ERROR: cannot take cross product of Tensors with more than one dimension\n\n");
 		exit(1);
 	}
 }
