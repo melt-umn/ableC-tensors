@@ -77,7 +77,7 @@ As mentioned above, the ableC-tensors extension also has a set of its own, uniqu
 <b>tensorOne ** tensorTwo</b>
   
   <dd><i>Parameters: tensorOne and tensorTwo have to be Tensors of equal shape.</i></dd>
-  <dd>Performs matrix multiplication on tenOne and tenTwo. Because <b>*</b> is already overloaded to represent the multiplication of corresponding elements of two Tensors, <b>**</b> is being used to calculate traditional matrix multiplication on two Tensors.</dd>
+  <dd>Returns the result of matrix multiplication on tensorOne and tensorTwo. Because <b>*</b> is already overloaded to represent the multiplication of corresponding elements of two Tensors, <b>**</b> is used to calculate traditional matrix multiplication on two Tensors.</dd>
 </d1>
 
 ## Next?
