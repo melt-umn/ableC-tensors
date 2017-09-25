@@ -48,3 +48,5 @@ As mentioned earlier, accessing a Tensor requires a sequence of intervals. Just 
 Although it would be ideal if this was all that was necessary to index a Tensor, unfortunately that is not the case. Due to complexities in ableC and how new syntax is created (in particular, the type PostFixExpr_c, which is what would be needed to accept Interval sequences as described above, does not currently allow this kind of syntax), it is to communicate to the compiler that the Tensor is going to be accessed *before* the Tensor is referenced. This is something that should be cleaned up, but currently must be delt with as is.
 
 **As a reminder, a simple example program that uses Intervals to access Tensors of various sizes can be found [here](https://github.umn.edu/melt/ableC-tensors/blob/master/test/positive/able_access_test.xc).**
+
+## [Next part of the tutorial here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/special_tensor_syntax.md)
