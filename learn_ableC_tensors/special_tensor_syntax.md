@@ -8,7 +8,7 @@ ableC-tensors has a handful of useful overloaded syntax that deals with two Tens
 
 #### **`tensorOne + tensorTwo`**
 
-    *Parameters: tensorOne and tensorTwo have to be Tensors of equal shape.*
+   *Parameters: tensorOne and tensorTwo have to be Tensors of equal shape.*
   
   Returns a Tensor, matching the shape of tensorOne and tensorTwo, in which each element is equivalent to the elements in the same location of tensorOne and tensorTwo added.
 
