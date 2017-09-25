@@ -6,6 +6,12 @@ One of the things that seperates MELT extensions from generic modules with preex
 ## Overloaded functions
 ableC-tensors has a handful of useful overloaded syntax that deals with two Tensors. The extension should logically also include syntax to modify Tensors with a scalar (i.e. `[[ 1, 2, 3]] * 3` should be equivalent to `[[ 3, 6, 9 ]]` but this has not yet been implemented. Below are all of the current overloaded functions. The overloaded syntax will be presented, followed by the the parameters and what the function does. The word **shape** here represents the number of dimensions and size of those dimensions in a Tensor. If two Tensors are of equal shape, they have the same number of dimensions and the size of each of those dimensions is identical. 
 
+
+<dl>
+  <dt>tensorOne + tensorTwo</dt>
+  <dd>*Parameters: tensorOne and tensorTwo have to be Tensors of equal shape.*
+  Returns a Tensor, matching the shape of tensorOne and tensorTwo, in which each element is equivalent to the elements in the same location of tensorOne and tensorTwo added.</dd>
+</dl>
 #### **`tensorOne + tensorTwo`**
 - *Parameters: tensorOne and tensorTwo have to be Tensors of equal shape.* 
 - Returns a Tensor, matching the shape of tensorOne and tensorTwo, in which each element is equivalent to the elements in the same location of tensorOne and tensorTwo added.
