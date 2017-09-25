@@ -76,8 +76,8 @@ As mentioned above, the ableC-tensors extension also has a set of its own, uniqu
 <dl>
 <b>tensorOne ** tensorTwo</b>
   
-  <dd><i>Parameters: tensorOne must be [<b>m</b> x <b>n</b>] and tensorTwo must be [n x p]. In other words, tensorOne must be a two dimensional matrix in which the first dimension is size <b>m</b> and the second dimension is size <b>n</b>. tensorTwo must also be a two dimensional matrix, having a first dimension of size <b>n</b> (matching the second dimension of tensorOne) and a second dimension of size <b>p</b>. <b>m</b>, <b>n</b>, and <b>p</b> can all be equal, but do not need to be.</i></dd>
-  <dd>Returns the result of matrix multiplication on tensorOne and tensorTwo. Because <b>*</b> is already overloaded to represent the multiplication of corresponding elements of two Tensors, <b>**</b> is used to calculate traditional matrix multiplication on two Tensors.</dd>
+  <dd><i>Parameters: tensorOne must be [<b>n</b> x <b>m</b>] and tensorTwo must be [m x p]. In other words, tensorOne must be a two dimensional matrix in which the first dimension is size <b>n</b> and the second dimension is size <b>m</b>. tensorTwo must also be a two dimensional matrix, having a first dimension of size <b>m</b> (matching the second dimension of tensorOne) and a second dimension of size <b>p</b>. <b>n</b>, <b>m</b>, and <b>p</b> can all be equal, but do not need to be.</i></dd>
+  <dd>Returns the result of matrix multiplication on tensorOne and tensorTwo as a [n x p] matrix (assuming dimensions listed above in Parameters. Because <b>*</b> is already overloaded to represent the multiplication of corresponding elements of two Tensors, <b>**</b> is used to calculate traditional matrix multiplication on two Tensors.</dd>
 </d1>
 
 ## Next?
