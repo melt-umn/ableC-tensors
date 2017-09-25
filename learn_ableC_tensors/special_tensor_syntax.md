@@ -55,28 +55,28 @@ As mentioned above, the ableC-tensors extension also has a set of its own, uniqu
 <dl>
 <b>tensorOne .* tensorTwo</b>
   
-  <dd><i>Parameters: tensorOne and tensorTwo have to be Tensors of equal shape and two or less dimensions.</i></dd>
-  <dd>Returns a one dimensional Tensor storing the dot product of tensorOne and tensorTwo.</dd>
+  <dd><i>Parameters: tensorOne and tensorTwo have to be Tensors of equal shape and two or fewer dimensions.</i></dd>
+  <dd>Returns a one dimensional, single element Tensor storing the dot product of tensorOne and tensorTwo.</dd>
 </d1>
 
 <dl>
 <b>tensorOne f.* tensorTwo</b>
   
-  <dd><i>Parameters: tensorOne and tensorTwo have to be Tensors of equal shape.</i></dd>
+  <dd><i>Parameters: tensorOne and tensorTwo have to be Tensors of equal shape and two or fewer dimensions.</i></dd>
   <dd>Returns the floating point value of the dot product of tensorOne and tensorTwo.</dd>
 </d1>
 
 <dl>
 <b>tensorOne x* tensorTwo</b>
   
-  <dd><i>Parameters: tensorOne and tensorTwo have to be Tensors of equal shape.</i></dd>
-  <dd></dd>
+  <dd><i>Parameters: tensorOne and tensorTwo have to be one dimensional Tensors with three elements (each).</i></dd>
+  <dd>Returns the cross product of tensorOne and tensorTwo as a one dimensional Tensor (with three elements).</dd>
 </d1>
 
 <dl>
 <b>tensorOne ** tensorTwo</b>
   
-  <dd><i>Parameters: tensorOne and tensorTwo have to be Tensors of equal shape.</i></dd>
+  <dd><i>Parameters: tensorOne must be [<b>m</b> x <b>n</b>] and tensorTwo must be [n x p]. In other words, tensorOne must be a two dimensional matrix in which the first dimension is size <b>m</b> and the second dimension is size <b>n</b>. tensorTwo must also be a two dimensional matrix, having a first dimension of size <b>n</b> (matching the second dimension of tensorOne) and a second dimension of size <b>p</b>. <b>m</b>,<b>n</b>, and <b>p</b> can all be equal, but do not need to be.</i></dd>
   <dd>Returns the result of matrix multiplication on tensorOne and tensorTwo. Because <b>*</b> is already overloaded to represent the multiplication of corresponding elements of two Tensors, <b>**</b> is used to calculate traditional matrix multiplication on two Tensors.</dd>
 </d1>
 
