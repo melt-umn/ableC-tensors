@@ -49,7 +49,7 @@ In the same directory as ableC and Silver, create an `extensions` folder (if you
 
 1. To clone this repository, open up your terminal and enter the extensions folder. Then, type `git clone git@github.umn.edu:melt/ableC-tensors.git` and the repository will download.
 
-2. To manually download this repository, you can click the green "Clone or download" button on the (ableC-tensors repository)[https://github.umn.edu/melt/ableC-tensors] and then click "Download ZIP". Unpack this ZIP file in the extensions folder.
+2. To manually download this repository, you can click the green "Clone or download" button on the [ableC-tensors repository](https://github.umn.edu/melt/ableC-tensors) and then click "Download ZIP". Unpack this ZIP file in the extensions folder.
 
 ## Credits
 
