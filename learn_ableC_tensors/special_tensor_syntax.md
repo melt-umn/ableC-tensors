@@ -46,7 +46,7 @@ ableC-tensors has a handful of useful overloaded syntax that deals with two Tens
 <b>tensorOne != tensorTwo</b>
   
   <dd><i>Parameters: tensorOne and tensorTwo must be Tensors.</i></dd>
-  <dd>Compares the shape and elements in tensorOne and tensorTwo (note: does <i>not</i> compare the Tensors in memory). If the shape is different, returns true. If the shape is the same but elements corresponding to the same index are not the same, returns true. Otherwise, if the shape and all of the corresponding elements are the same for the two Tensors, returns false. (Opposite of <b>==</b></dd>)
+  <dd>Compares the shape and elements in tensorOne and tensorTwo (note: does <i>not</i> compare the Tensors in memory). If the shape is different, returns true. If the shape is the same but elements corresponding to the same index are not the same, returns true. Otherwise, if the shape and all of the corresponding elements are the same for the two Tensors, returns false. (Opposite of <b>==</b>)</dd>
 </dl>
 
 ## New syntax
