@@ -49,4 +49,7 @@ Although it would be ideal if this was all that was necessary to index a Tensor,
 
 **As a reminder, a simple example program that uses Intervals to access Tensors of various sizes can be found [here](https://github.umn.edu/melt/ableC-tensors/blob/master/test/positive/able_access_test.xc).**
 
-## [Next part of the tutorial here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/special_tensor_syntax.md)
+## Next?
+Find documentation for other new ableC-tensors syntax [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/special_tensor_syntax.md) (recommended).
+
+Otherwise, there is documentation for ableC-tensors functions [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/useful_tensor_functions.md).
