@@ -15,21 +15,21 @@ ableC-tensors has a handful of useful overloaded syntax that deals with two Tens
 </dl>
 
 <dl>
-<b><font size = "2">tensorOne - tensorTwo</font></b>
+<b>tensorOne - tensorTwo</b>
   
   <dd><i>Parameters: tensorOne and tensorTwo have to be Tensors of equal shape.</i></dd>
   <dd>Returns a Tensor matching the shape of tensorOne and tensorTwo, in which each element is equivalent to the element in the same location of tensorTwo subtracted from the matching element in tensorOne.</dd>
 </dl>
 
 <dl>
-<b><font size = "3">tensorOne * tensorTwo</font></b>
+<b>tensorOne * tensorTwo</b>
   
   <dd><i>Parameters: tensorOne and tensorTwo have to be Tensors of equal shape.</i></dd>
   <dd>Returns a Tensor matching the shape of tensorOne and tensorTwo, in which each element is equivalent to the elements in the same location of tensorOne and tensorTwo multiplied.</dd>
 </dl>
 
 <dl>
-<b><font size="7">tensorOne - tensorTwo</font></b>
+<b>tensorOne - tensorTwo</b>
   
   <dd><i>Parameters: tensorOne and tensorTwo have to be Tensors of equal shape.</i></dd>
   <dd>Returns a Tensor matching the shape of tensorOne and tensorTwo, in which each element is equivalent to the element in the same location of tensorOne divided by the matching element in tensorTwo.</dd>
