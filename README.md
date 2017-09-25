@@ -33,7 +33,8 @@ Although there are many things that could be done to improve the code in ableC-t
   * Comparing the variables of one or more Tensors for any function that requires the Tensor(s) to match a specific mold. For instance, the function that turns a Tensor into a float requires that the Tensor has only one dimension and one element. It **may** not be possible to currently look at the dim_size and data in Silver, but I believe that it should be possible to access num_dim and count (since they are simply saved ints). 
 * Compare functions with cilk to functions without and choose the best default. Currently, any new syntax that can call a version of a function with cilk or without is defaulting to without, but that is simply because that is what was coded first. 
 * Fix awkward Interval access, it requires <.> to be put BEFORE the Tensor being accessed for it to work
-* Make sure all functions work both on a Tensor itself, on a variable representing a Tensor, and on a Tensor returned by an equation. For the ones that don't, fix.
+* Make sure functions work both on a Tensor itself, on a variable representing a Tensor, and on a Tensor returned by an equation. For the ones that don't and should, fix them.
+* Add overloading for arithmetic on Tensors and scalar values (i.e. `[[ 1, 2, 3 ]]*3` should create a Tensor equivalent to `[[ 3, 6, 9]]`.
 * Add more detailed documentation and tutorials on how to start using the ableC-Tensor extension
 
 ## Installation
