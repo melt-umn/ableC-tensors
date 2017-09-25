@@ -55,15 +55,15 @@ As mentioned above, the ableC-tensors extension also has a set of its own, uniqu
 <dl>
 <b>tensorOne .* tensorTwo</b>
   
-  <dd><i>Parameters: tensorOne and tensorTwo have to be Tensors of equal shape.</i></dd>
-  <dd></dd>
+  <dd><i>Parameters: tensorOne and tensorTwo have to be Tensors of equal shape and two or less dimensions.</i></dd>
+  <dd>Returns a one dimensional Tensor storing the dot product of tensorOne and tensorTwo.</dd>
 </d1>
 
 <dl>
 <b>tensorOne f.* tensorTwo</b>
   
   <dd><i>Parameters: tensorOne and tensorTwo have to be Tensors of equal shape.</i></dd>
-  <dd></dd>
+  <dd>Returns the floating point value of the dot product of tensorOne and tensorTwo.</dd>
 </d1>
 
 <dl>
