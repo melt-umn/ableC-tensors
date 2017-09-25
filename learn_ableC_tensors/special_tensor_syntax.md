@@ -79,3 +79,7 @@ As mentioned above, the ableC-tensors extension also has a set of its own, uniqu
   <dd><i>Parameters: tensorOne and tensorTwo have to be Tensors of equal shape.</i></dd>
   <dd>Performs matrix multiplication on tenOne and tenTwo. Because <b>*</b> is already overloaded to represent the multiplication of corresponding elements of two Tensors, <b>**</b> is being used to calculate traditional matrix multiplication on two Tensors.</dd>
 </d1>
+
+## Next?
+
+Documentation for the rest of ableC-tensors functions (ignoring what is in this file and the Tensors and Intervals file) can be found [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/useful_tensor_functions.md).
