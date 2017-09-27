@@ -9,7 +9,7 @@ Just as in [the special tensor syntax](https://github.umn.edu/melt/ableC-tensors
   <dd><i>Parameters: dim and count are integers, dim_size is a pointer to an integer array of size dim, and data is a pointer to a float array of size count. Multiplying each element in dim_size together gives count. </i></dd>
   <dd>Returns a Tensor with dim dimensions, each dimension the size of the corresponding element in dim_size. The Tensor will have count elements, and those elements will be what is in data.</dd>
 </d1>
-*Unique syntax found [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/tensors_and_intervals.md)
+*Unique syntax found [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/tensors_and_intervals.md)*
 
 or
 
@@ -26,78 +26,131 @@ or something else?
 
 
 Tensor copy(Tensor)
+
 Tensor trans(Tensor)
+
 Tensor id(int,int);
+
 Tensor fill(int,int*,float);
+
 Tensor ones(int,int*);
+
 Tensor zeros(int,int*);
+
 Tensor float_to_ten(float);
 
 ## Important Tensor functions
 float ten_to_float(Tensor);
+
 Tensor accessT(Tensor,Interval*);
+
 void freeT(Tensor);
+
 void freeT_dynamic(Tensor *);
+
 void printT(Tensor); 
+
 void printT_extended(Tensor, char *, int); 
 
 ## Tensor mapping functions
 Tensor map(float (*)(float),Tensor);
+
 Tensor map_cilk(float (*)(float),Tensor);
+
 Tensor map_with_context(float (*)(float,void*),Tensor,void*); 
+
 Tensor map_with_context_cilk(float (*)(float,void*),Tensor,void*); 
+
 Tensor square(Tensor);
+
 Tensor square_cilk(Tensor);
+
 Tensor incr(Tensor);
+
 Tensor incr_cilk(Tensor);
+
 Tensor negate(Tensor);
+
 Tensor negate_cilk(Tensor);
 
 ## Tensor equality and arithmetic 
 bool ten_equals(Tensor,Tensor);
+
 bool ten_not_equals(Tensor,Tensor);
 
 float plus_one(float);
+
 float times_negative_one(float);
+
 float scalar_square(float);
+
 float scalar_add(float,float);
+
 float scalar_subtract(float,float);
+
 float scalar_multiply(float,float);
+
 float scalar_divide(float,float);
 
 ## Tensor folding functions
 Tensor ten_fold(float (*)(float,float),Tensor,Tensor);
+
 float fold(float (*)(float,float),float,Tensor);
+
 float max(Tensor);
+
 float min(Tensor);
+
 float sum(Tensor);
+
 float prod(Tensor);
+
 Tensor ten_max(Tensor);
+
 Tensor ten_min(Tensor);
+
 Tensor ten_sum(Tensor);
+
 Tensor ten_prod(Tensor);
 
 ## Tensor combination functions
 Tensor ten_combine(float (*)(float,float),Tensor,Tensor);
+
 Tensor ten_combine_cilk(float(*)(float,float),Tensor,Tensor);
+
 Tensor ten_elem_add(Tensor,Tensor);
+
 Tensor ten_elem_add_cilk(Tensor,Tensor); 
+
 Tensor ten_elem_subtract(Tensor,Tensor);
+
 Tensor ten_elem_subtract_cilk(Tensor,Tensor); 
+
 Tensor ten_elem_multiply(Tensor,Tensor);
+
 Tensor ten_elem_multiply_cilk(Tensor,Tensor); 
+
 Tensor ten_elem_divide(Tensor,Tensor);
+
 Tensor ten_elem_divide_cilk(Tensor,Tensor); 
 
 ## Linear algebra functionality
 Tensor ten_multiply(Tensor,Tensor);
-Tensor dot_product(Tensor,Tensor);
-float float_dot_product(Tensor,Tensor);
-float float_dot_product_vtwo(Tensor,Tensor);
-Tensor cross_product(Tensor,Tensor);
-Tensor scalar_triple_product(Tensor,Tensor,Tensor);
-float float_triple_product(Tensor,Tensor,Tensor);
-Tensor vector_triple_product(Tensor,Tensor,Tensor);
-float trace(Tensor);
-Tensor ten_trace(Tensor);
 
+Tensor dot_product(Tensor,Tensor);
+
+float float_dot_product(Tensor,Tensor);
+
+float float_dot_product_vtwo(Tensor,Tensor);
+
+Tensor cross_product(Tensor,Tensor);
+
+Tensor scalar_triple_product(Tensor,Tensor,Tensor);
+
+float float_triple_product(Tensor,Tensor,Tensor);
+
+Tensor vector_triple_product(Tensor,Tensor,Tensor);
+
+float trace(Tensor);
+
+Tensor ten_trace(Tensor);
