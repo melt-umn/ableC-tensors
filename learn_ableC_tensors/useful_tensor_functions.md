@@ -4,7 +4,29 @@ Listed below are all the useful functions for a user in this ableC-tensors exten
 Just as in [the special tensor syntax](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/special_tensor_syntax.md) documentation file, the word shape here represents the number of dimensions and size of those dimensions in a Tensor. If two Tensors are of equal shape, they have the same number of dimensions and the size of each of those dimensions is identical.
 
 ## Tensor creation
-Tensor create(int,int*,int,float*);
+<dl>
+<b>create(dim,dim_size,count,data)</b> 
+  <dd><i>Parameters: dim and count are integers, dim_size is a pointer to an integer array of size dim, and data is a pointer to a float array of size count. Multiplying each element in dim_size together gives count. </i></dd>
+  <dd>Returns a Tensor with dim dimensions, each dimension the size of the corresponding element in dim_size. The Tensor will have count elements, and those elements will be what is in data.</dd>
+</d1>
+
+or
+
+<dl>
+<b>create(int,int*,int,float*) -> Tensor</b>
+  
+  <dd><i>Parameters: tensorOne and tensorTwo have to be Tensors of equal shape and two or fewer dimensions.</i></dd>
+  <dd>Returns the floating point value of the dot product of tensorOne and tensorTwo.</dd>
+</d1>
+
+or
+
+<dl>
+<b>Tensor create(int,int*,int,float*)</b>
+  
+  <dd><i>Parameters: tensorOne and tensorTwo have to be Tensors of equal shape and two or fewer dimensions.</i></dd>
+  <dd>Returns the floating point value of the dot product of tensorOne and tensorTwo.</dd>
+</d1>
 Tensor copy(Tensor);
 Tensor trans(Tensor);
 Tensor id(int,int);
