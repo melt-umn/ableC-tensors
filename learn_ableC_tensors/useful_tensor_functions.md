@@ -9,7 +9,8 @@ Just as in [the special tensor syntax](https://github.umn.edu/melt/ableC-tensors
   <dd><i>Parameters: dim and count are integers, dim_size is a pointer to an integer array of size dim, and data is a pointer to a float array of size count. Multiplying each element in dim_size together gives count. </i></dd>
   <dd>Returns a Tensor with dim dimensions, each dimension the size of the corresponding element in dim_size. The Tensor will have count elements, and those elements will be what is in data.</dd>
 </d1>
-*Unique syntax found [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/tensors_and_intervals.md)*
+
+Unique syntax found [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/tensors_and_intervals.md)
 
 ### or
 
@@ -18,6 +19,7 @@ Just as in [the special tensor syntax](https://github.umn.edu/melt/ableC-tensors
   <dd><i>Parameters: dim and count are integers, dim_size is a pointer to an integer array of size dim, and data is a pointer to a float array of size count. Multiplying each element in dim_size together gives count. </i></dd>
   <dd>Returns a Tensor with dim dimensions, each dimension the size of the corresponding element in dim_size. The Tensor will have count elements, and those elements will be what is in data.</dd>
 </d1>
+
 Unique syntax found [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/tensors_and_intervals.md)
 
 
