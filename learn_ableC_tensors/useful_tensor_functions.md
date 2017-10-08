@@ -10,7 +10,7 @@ Just as in [the special tensor syntax](https://github.umn.edu/melt/ableC-tensors
   <dd>Returns a Tensor with dim dimensions, each dimension the size of the corresponding element in dim_size. The Tensor will have count elements, and those elements will be what is in data.</dd>
 </d1>
 
-Unique syntax found [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/tensors_and_intervals.md)
+Unique syntax found [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/tensors_and_intervals.md#tensors)
 
 Tensor copy(Tensor)
 
