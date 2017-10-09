@@ -157,118 +157,120 @@ More explanation and unique syntax found [here](https://github.umn.edu/melt/able
 
 ## Tensor equality and arithmetic
 <dl>
-</b>bool ten_equals(Tensor,Tensor)</b>
+<b>bool ten_equals(Tensor,Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-</b>bool ten_not_equals(Tensor,Tensor)</b>
+<b>bool ten_not_equals(Tensor,Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-</b>float plus_one(float)</b>
+<b>float plus_one(float)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-</b>float times_negative_one(float)</b>
+<b>float times_negative_one(float)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-</b>float scalar_square(float)</b>
+<b>float scalar_square(float)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-</b>float scalar_add(float,float)</b>
+<b>float scalar_add(float,float)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-</b>float scalar_subtract(float,float)</b>
+<b>float scalar_subtract(float,float)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-</b>float scalar_multiply(float,float)</b>
+<b>float scalar_multiply(float,float)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-</b>float scalar_divide(float,float)</b>
+<b>float scalar_divide(float,float)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 ## Tensor folding functions
+All of the functions below (excluding fold and ten_fold) are coded using fold and ten_fold (fold for the ones that return a float, ten_fold for the ones that return a Tensor).
+
 <dl>
-</b>Tensor ten_fold(float (*)(float,float),Tensor,Tensor)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
+<b>float fold(float (*fun)(float, float), float starting_float, Tensor ten)</b>
+  <dd><i>Parameters: fun must be a function that takes in two floats and returns a float, starting_float must be a float, and ten must be a Tensor.</i></dd>
+  <dd>Returns a floating point value. To begin with, the function fun takes the starting_float value and the first element of ten as arguments. The return value of fun becomes the new value that gets passed into fun with the next element of ten. This continues until all of ten is iterated through. The final value that fun returns becomes the return value of fold.</dd>
 </dl>
 
 <dl>
-</b>float fold(float (*)(float,float),float,Tensor)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
+<b>Tensor ten_fold(float (*fun)(float, float), Tensor starting_ten,Tensor ten)</b>
+  <dd><i>Parameters: fun must be a function that takes in two floats and returns a float, starting_ten must be a one-dimensional Tensor with a single element, and ten must be a Tensor.</i></dd>
+  <dd>Returns a one-dimensional Tensor with a single element. To begin with, the function fun takes the element in starting_ten and the first element of ten as arguments. The return value of fun becomes the new value that gets passed into fun with the next element of ten. This continues until all of ten is iterated through. The final value that fun returns becomes the single element in the returned Tensor.</dd>
 </dl>
 
 <dl>
-</b>float max(Tensor)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
+<b>float max(Tensor ten)</b>
+  <dd><i>Parameters: ten must be a Tensor.</i></dd>
+  <dd>Returns the maximum of ten as a floating point value.</dd>
 </dl>
 
 <dl>
-</b>float min(Tensor)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
+<b>float min(Tensor ten)</b>
+  <dd><i>Parameters: ten must be a Tensor.</i></dd>
+  <dd>Returns the minimum of ten as a floating point value.</dd>
 </dl>
 
 <dl>
-</b>float sum(Tensor)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
+<b>float sum(Tensor)</b>
+  <dd><i>Parameters: ten must be a Tensor.</i></dd>
+  <dd>Returns the floating point value of the elements of ten added together.</dd>
 </dl>
 
 <dl>
-</b>float prod(Tensor)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
+<b>float prod(Tensor ten)</b>
+  <dd><i>Parameters: ten must be a Tensor.</i></dd>
+  <dd>Returns the floating point value of the elements of ten multiplied together.</dd>
 </dl>
 
 <dl>
-</b>Tensor ten_max(Tensor)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
+<b>Tensor ten_max(Tensor ten)</b>
+  <dd><i>Parameters: ten must be a Tensor.</i></dd>
+  <dd>Returns a one-dimensional Tensor with the maximum of ten as its only value.</dd>
 </dl>
 
 <dl>
-</b>Tensor ten_min(Tensor)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
+<b>Tensor ten_min(Tensor ten)</b>
+  <dd><i>Parameters: ten must be a Tensor.</i></dd>
+  <dd>Returns a one-dimensional Tensor with the minimum of ten as its only value.</dd>
 </dl>
 
 <dl>
-</b>Tensor ten_sum(Tensor)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
+<b>Tensor ten_sum(Tensor ten)</b>
+  <dd><i>Parameters: ten must be a Tensor.</i></dd>
+  <dd>Returns a one-dimensional Tensor in which the only value is all of the elements of ten added together.</dd>
 </dl>
 
 <dl>
-</b>Tensor ten_prod(Tensor)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
+<b>Tensor ten_prod(Tensor ten)</b>
+  <dd><i>Parameters: ten must be a Tensor </i></dd>
+  <dd>Returns a one-dimensional Tensor in which the only value is all of the elements of ten multiplied together.</dd>
 </dl>
 
 ## Tensor combination functions
@@ -305,7 +307,7 @@ Note that all of the functions below have a function call that includes \_cilk a
 </dl>
 
 <dl>
-<b>Tensor ten_elem_divide(Tensor ten_one, Tensor ten_two)
+<b>Tensor ten_elem_divide(Tensor ten_one, Tensor ten_two)</b>
   <dd>or <b>Tensor ten_elem_divide_cilk(Tensor ten_one, Tensor ten_two)</b></dd>
   <dd><i>Parameters: ten_one and ten_two must be Tensors of the same shape.</i></dd>
   <dd>Returns a Tensor matching the shape of tensorOne and tensorTwo, in which each element is equivalent to the element in the same location of tensorOne divided by the matching element in tensorTwo.</dd>
@@ -344,7 +346,7 @@ Note that all of the functions below have a function call that includes \_cilk a
 
 <dl>
 <b>float float_triple_product(Tensor ten_one, Tensor ten_two, Tensor ten_three)</b>
-  <dd><i>Parameters: </i></dd>
+  <dd><i>Parameters: ten_one, ten_two, and ten_three must be one-dimensional Tensors with three elements each.</i></dd>
   <dd>Returns the floating point number calculated by taking the vector triple product of ten_one, ten_two, and ten_three. This is the equivalent of taking the cross product ten_one with the cross product of ten_two and ten_three.</dd>
 </dl>
 
