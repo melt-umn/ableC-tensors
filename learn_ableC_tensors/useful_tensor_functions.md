@@ -340,55 +340,49 @@ More explanation and unique syntax found [here](https://github.umn.edu/melt/able
 </dl>
 
 <dl>
-<b>Tensor dot_product(Tensor,Tensor)</b>
+<b>Tensor dot_product(Tensor ten_one, Tensor ten_two)</b>
+  <dd><i>Parameters: ten_one and ten_two must have the same dimensions.</i></dd>
+  <dd>Returns a one-dimensional Tensor in which the single element is the dot product of ten_one and ten_two.</dd>
+</dl>
+
+<dl>
+<b>float float_dot_product(Tensor ten_one, Tensor ten_two)</b>
+  <dd><i>Parameters: ten_one and ten_two must have the same dimensions.</i></dd>
+  <dd>Returns the dot product of ten_one and ten_two as a floating point value.</dd>
+</dl>
+
+<dl>
+<b>Tensor cross_product(Tensor ten_one, Tensor ten_two)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>float float_dot_product(Tensor,Tensor)</b>
+<b>Tensor scalar_triple_product(Tensor ten_one, Tensor ten_two, Tensor ten_three)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>float float_dot_product_vtwo(Tensor,Tensor)</b>
+<b>float float_triple_product(Tensor ten_one, Tensor ten_two, Tensor ten_three)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor cross_product(Tensor,Tensor)</b>
+<b>Tensor vector_triple_product(Tensor ten_one, Tensor ten_two, Tensor ten_three)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor scalar_triple_product(Tensor,Tensor,Tensor)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
+<b>float trace(Tensor ten_to_trace)</b>
+  <dd><i>Parameters: ten_to_trace must be a two-dimensional square Tensor (dim_size = [m,m]).</i></dd>
+  <dd>Returns a floating point number that is the trace (summation of all the elements along the diagonal) of ten_to_trace.</dd>
 </dl>
 
 <dl>
-<b>float float_triple_product(Tensor,Tensor,Tensor)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
-</dl>
-
-<dl>
-<b>Tensor vector_triple_product(Tensor,Tensor,Tensor)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
-</dl>
-
-<dl>
-<b>float trace(Tensor)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
-</dl>
-
-<dl>
-<b>Tensor ten_trace(Tensor)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
+<b>Tensor ten_trace(Tensor ten_to_trace)</b>
+  <dd><i>Parameters: ten_to_trace must be a two-dimensional square Tensor (dim_size = [m,m]).</i></dd>
+  <dd>Returns a one-dimensional Tensor in which the single element is the trace (summation of all the elements along the diagonal) of ten_to_trace.</dd>
 </dl>
