@@ -272,34 +272,37 @@ More explanation and unique syntax found [here](https://github.umn.edu/melt/able
 </dl>
 
 ## Tensor combination functions
+Unique syntax for all the functions in this section (except ten_combine and ten_combine_cilk, the first ones below) can be found [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/special_tensor_syntax.md#overloaded-functions).
+
 <dl>
-<b>Tensor ten_combine(float (*fun)(float, float),Tensor ten_one, Tensor ten_two) / Tensor ten_combine_cilk(float (*fun)(float, float),Tensor ten_one, Tensor ten_two)</b>
+<b>Tensor ten_combine(float (*fun)(float, float),Tensor ten_one, Tensor ten_two)</b>
+  <b>Tensor ten_combine_cilk(float (*fun)(float, float),Tensor ten_one, Tensor ten_two)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
 <b>Tensor ten_elem_add(Tensor ten_one, Tensor ten_two) / Tensor ten_elem_add_cilk(Tensor ten_one, Tensor ten_two)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
+  <dd><i>Parameters: ten_one and ten_two must be Tensors of the same shape.</i></dd>
+  <dd>Returns a Tensor matching the shape of tensorOne and tensorTwo, in which each element is equivalent to the elements in the same location of tensorOne and tensorTwo added.</dd>
 </dl>
 
 <dl>
 <b>Tensor ten_elem_subtract(Tensor ten_one, Tensor ten_two) / Tensor ten_elem_subtract_cilk(Tensor ten_one, Tensor ten_two)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
+  <dd><i>Parameters: ten_one and ten_two must be Tensors of the same shape.</i></dd>
+  <dd>Returns a Tensor matching the shape of tensorOne and tensorTwo, in which each element is equivalent to the element in the same location of tensorTwo subtracted from the matching element in tensorOne.</dd>
 </dl>
 
 <dl>
 <b>Tensor ten_elem_multiply(Tensor ten_one, Tensor ten_two) / Tensor ten_elem_multiply_cilk(Tensor ten_one, Tensor ten_two)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
+  <dd><i>Parameters: ten_one and ten_two must be Tensors of the same shape.</i></dd>
+  <dd>Returns a Tensor matching the shape of tensorOne and tensorTwo, in which each element is equivalent to the elements in the same location of tensorOne and tensorTwo multiplied.</dd>
 </dl>
 
 <dl>
 <b>Tensor ten_elem_divide(Tensor ten_one, Tensor ten_two) / Tensor ten_elem_divide_cilk(Tensor ten_one, Tensor ten_two)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
+  <dd><i>Parameters: ten_one and ten_two must be Tensors of the same shape.</i></dd>
+  <dd>Returns a Tensor matching the shape of tensorOne and tensorTwo, in which each element is equivalent to the element in the same location of tensorOne divided by the matching element in tensorTwo.</dd>
 </dl>
 
 ## Linear algebra functionality
