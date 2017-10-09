@@ -5,6 +5,8 @@ Just as in [the special tensor syntax](special_tensor_syntax.md) documentation f
 
 Note that some of the functions below have a function call that includes \_cilk at the end. These are identical functions that use cilk to perform parallel programming. We have not figured out which of the versions is more efficient with time and memory yet, thus they are both still included. 
 
+Almost of these functions have examples in the test file of this repository, found [here](../test/positive). It would be wise to look through these files to check your understanding of the functions and how they work (at least on a basic level).
+
 ## Tensor creation
 <dl>
 <b>Tensor create(int dim, int *dim_size, int count, float *data)</b>
