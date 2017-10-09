@@ -1,7 +1,7 @@
 # Special Tensor Syntax
 One of the things that seperates MELT extensions from generic modules with preexisting functions and data types is the ability to create new syntax. It was important, therefore, to include some new — but nonetheless logical — syntax in the ableC-tensors extension. Included in this file are overloaded functions as well as this new syntax. 
 
-*Note: as cool as the special ableC-tensors syntax is, it is more important that you understand at least how Tensors work in the ableC-tensors extension. If you have not yet read the documentation on that, you can find it [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/tensors_and_intervals.md).*
+*Note: as cool as the special ableC-tensors syntax is, it is more important that you understand at least how Tensors work in the ableC-tensors extension. If you have not yet read the documentation on that, you can find it [here](tensors_and_intervals.md).*
 
 ## Overloaded functions
 ableC-tensors has a handful of useful overloaded syntax that deals with two Tensors. The extension should logically also include syntax to modify Tensors with a scalar (i.e. `[[ 1, 2, 3]] * 3` should be equivalent to `[[ 3, 6, 9 ]]` but this has not yet been implemented. Below are all of the current overloaded functions. The overloaded syntax will be presented, followed by the the parameters and what the function does. The word **shape** here represents the number of dimensions and size of those dimensions in a Tensor. If two Tensors are of equal shape, they have the same number of dimensions and the size of each of those dimensions is identical. 
@@ -50,7 +50,7 @@ ableC-tensors has a handful of useful overloaded syntax that deals with two Tens
 </dl>
 
 ## New syntax
-As mentioned above, the ableC-tensors extension also has a set of its own, unique syntax. Although new syntax *could* be created for every possible function, we did our best to limit ourselves to new syntax that seems logical. The most important new syntax is that for creating Tensors and accessing those Tensors with Intervals (still explained [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/tensors_and_intervals.md)!), but below is other added syntax for Tensors.
+As mentioned above, the ableC-tensors extension also has a set of its own, unique syntax. Although new syntax *could* be created for every possible function, we did our best to limit ourselves to new syntax that seems logical. The most important new syntax is that for creating Tensors and accessing those Tensors with Intervals (still explained [here](tensors_and_intervals.md)!), but below is other added syntax for Tensors.
 
 <dl>
 <b>tensorOne .* tensorTwo</b>
@@ -82,4 +82,4 @@ As mentioned above, the ableC-tensors extension also has a set of its own, uniqu
 
 ## Next?
 
-Documentation for the rest of ableC-tensors functions (ignoring what is in this file and the Tensors and Intervals file) can be found [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/useful_tensor_functions.md).
+Documentation for the rest of ableC-tensors functions (ignoring what is in this file and the Tensors and Intervals file) can be found [here](useful_tensor_functions.md).
