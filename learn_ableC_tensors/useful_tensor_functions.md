@@ -130,6 +130,7 @@ In addition, square, incr, and negate are all functions written with map.
   <dd><i>Parameters: fun must be a function that takes in a float and a void pointer as parameters and returns a float. ten must be a Tensor and context must be a void pointer.</i></dd>
   <dd>Returns the <i>same</i> Tensor in which fun has been performed on every element in ten while also using data from context (the void * argument in fun). Context will (almost?) always be a pointer to a struct.</dd>
 </dl>
+
 Note: this one is harder to understand and currently has no simple examples, but I would recommend looking at this [implementation](../examples/inverse_pnm_colors_cilk.xc) for guidance. These void pointers are necessary for dynamically decided map functions.
 
 <dl>
