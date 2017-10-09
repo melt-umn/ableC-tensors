@@ -109,6 +109,8 @@ More explanation and unique syntax found [here](https://github.umn.edu/melt/able
 </dl>
 
 ## Tensor mapping functions
+Note that all of the map functions below directly modify the Tensor passed in. This means that it is not actually necessary to return a Tensor (the returns are currently included for convinience, but it may be wiser to remove them). If you wish to map over a Tensor without modifying the actual Tensor, you should first copy the Tensor and then map over that copy.
+
 <dl>
 <b>Tensor map(float (*)(float),Tensor)</b>
   <dd>or <b>Tensor map_cilk(float (*fun)(float),Tensor)</b></dd>
@@ -126,22 +128,22 @@ More explanation and unique syntax found [here](https://github.umn.edu/melt/able
 <dl>
 <b>Tensor square(Tensor ten_to_square)</b>
   <dd>or <b>square_cilk(Tensor ten_to_square)</b></dd>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
+  <dd><i>Parameters: ten_to_square must be a Tensor.</i></dd>
+  <dd>Returns the <i>same</i> Tensor with all of its elements squared.</dd>
 </dl>
 
 <dl>
 <b>Tensor incr(Tensor ten_to_incr)</b>
   <dd>or <b>Tensor incr_cilk(Tensor ten_to_incr)</b></dd> 
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
+  <dd><i>Parameters: ten_to_incr must be a Tensor.</i></dd>
+  <dd>Returns the <i>same</i> Tensor with all of its elements incremented by one.</dd>
 </dl>
 
 <dl>
 <b>Tensor negate(Tensor ten_to_negate)</b>
   <dd> or <b>Tensor negate_cilk(Tensor ten_to_negate)</b></dd>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
+  <dd><i>Parameters: ten_to_negate must be a Tensor.</i></dd>
+  <dd>Returns the <i>same</i> Tensor with all of its elements negated.</dd>
 </dl>
 
 ## Tensor folding functions
