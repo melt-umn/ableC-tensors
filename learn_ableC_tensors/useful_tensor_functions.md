@@ -334,9 +334,9 @@ More explanation and unique syntax found [here](https://github.umn.edu/melt/able
 
 ## Linear algebra functionality
 <dl>
-<b>Tensor ten_multiply(Tensor,Tensor)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
+<b>Tensor ten_multiply(Tensor ten_one, Tensor ten_two)</b>
+  <dd><i>Parameters: ten_one and ten_two must be two-dimensional Tensors. If ten_one has a dim_size of [m,n], ten_two must have the dim_size [n,p]. In other words, the number of columns in ten_one must match the number of rows in ten_two.</i></dd>
+  <dd>Returns a two-dimensional Tensor in which the dim_size is [m,p] (assuming dimensions listed above in Parameters). This Tensor will be the result of performing matrix multiplication on ten_one and ten_two.</dd>
 </dl>
 
 <dl>
@@ -353,26 +353,26 @@ More explanation and unique syntax found [here](https://github.umn.edu/melt/able
 
 <dl>
 <b>Tensor cross_product(Tensor ten_one, Tensor ten_two)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
+  <dd><i>Parameters: ten_one and ten_two must be one-dimensional Tensors with three elements each.</i></dd>
+  <dd>Returns a one-dimensional Tensor with three elements, calculated by taking the cross product of ten_one and ten_two.</dd>
 </dl>
 
 <dl>
 <b>Tensor scalar_triple_product(Tensor ten_one, Tensor ten_two, Tensor ten_three)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
+  <dd><i>Parameters: ten_one, ten_two, and ten_three must be one-dimensional Tensors with three elements each.</i></dd>
+  <dd>Returns a one-dimensional Tensor with a single element. This element is the result of taking the dot product of ten_one with the cross product of ten_two and ten_three.</dd>
 </dl>
 
 <dl>
 <b>float float_triple_product(Tensor ten_one, Tensor ten_two, Tensor ten_three)</b>
   <dd><i>Parameters: </i></dd>
-  <dd> </dd>
+  <dd>Returns the floating point number calculated by taking the vector triple product of ten_one, ten_two, and ten_three. This is the equivalent of taking the cross product ten_one with the cross product of ten_two and ten_three.</dd>
 </dl>
 
 <dl>
 <b>Tensor vector_triple_product(Tensor ten_one, Tensor ten_two, Tensor ten_three)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
+  <dd><i>Parameters: ten_one, ten_two, and ten_three must be one-dimensional Tensors with three elements each.</i></dd>
+  <dd>Returns a one-dimensional Tensor with three elements, calculated by taking the vector triple product of ten_one, ten_two, and ten_three. This is the equivalent of taking the cross product ten_one with the cross product of ten_two and ten_three.</dd>
 </dl>
 
 <dl>
