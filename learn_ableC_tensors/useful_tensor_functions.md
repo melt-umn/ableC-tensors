@@ -1,7 +1,7 @@
 # Useful Tensor Functions
 Listed below are all the useful functions for a user in this ableC-tensors extension. There are a handful of functions that exist in the extension that are not listed here, but those are functions that are called by other functions and thus not considered important *for use*. A programmer who wishes to modify this code will still want to read the descriptions of these functions in the src file to fully understand all that is going on. For the most part, the functions below should be fairly intuitive. They are organized loosely by functionality. Note that some of the functions below may also have unique syntax that can be used to call them.
 
-Just as in [the special tensor syntax](../special_tensor_syntax.md) documentation file, the word shape here represents the number of dimensions and size of those dimensions in a Tensor. If two Tensors are of equal shape, they have the same number of dimensions and the size of each of those dimensions is identical.
+Just as in [the special tensor syntax](special_tensor_syntax.md) documentation file, the word shape here represents the number of dimensions and size of those dimensions in a Tensor. If two Tensors are of equal shape, they have the same number of dimensions and the size of each of those dimensions is identical.
 
 Note that some of the functions below have a function call that includes \_cilk at the end. These are identical functions that use cilk to perform parallel programming. We have not figured out which of the versions is more efficient with time and memory yet, thus they are both still included. 
 
@@ -12,7 +12,7 @@ Note that some of the functions below have a function call that includes \_cilk 
   <dd>Returns a Tensor with dim dimensions, each dimension the size of the corresponding integer in dim_size. The Tensor will have count elements, and those elements will be what is in data.</dd>
 </d1>
 
-More explanation and unique syntax found [here](../tensors_and_intervals.md#tensors).
+More explanation and unique syntax found [here](tensors_and_intervals.md#tensors).
 
 <dl>
 <b>Tensor copy(Tensor ten_to_copy)</b>
