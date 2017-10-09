@@ -1,6 +1,6 @@
-/* copied directly from ableC-algebraic-data-types */
-
 #!groovy
+
+/* copied directly from ableC-algebraic-data-types */
 
 /* Set the properties this job has.
    I think there's a bug where the very first run lacks these... */
