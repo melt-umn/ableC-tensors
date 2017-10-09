@@ -3,6 +3,8 @@ Listed below are all the useful functions for a user in this ableC-tensors exten
 
 Just as in [the special tensor syntax](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/special_tensor_syntax.md) documentation file, the word shape here represents the number of dimensions and size of those dimensions in a Tensor. If two Tensors are of equal shape, they have the same number of dimensions and the size of each of those dimensions is identical.
 
+Note that some of the functions below have a function call that includes \_cilk at the end. These are identical functions that use cilk to perform parallel programming. We have not figured out which of the versions is more efficient with time and memory yet, thus they are both still included. 
+
 ## Tensor creation
 <dl>
 <b>Tensor create(int dim, int *dim_size, int count, float *data)</b>
@@ -69,6 +71,18 @@ More explanation and unique syntax found [here](https://github.umn.edu/melt/able
 
 More explanation and unique syntax found [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/tensors_and_intervals.md#intervals).
 
+<dl>
+<b>bool ten_equals(Tensor ten_one, Tensor ten_two)</b>
+  <dd><i>Parameters: ten_one and ten_two must be Tensors.</i></dd>
+  <dd>Compares the shape and elements in tensorOne and tensorTwo (note: does not compare the Tensors in memory). If the shape is different, returns false. If the shape is the same but elements corresponding to the same index are not the same, returns false. Otherwise, if the shape and all of the corresponding elements are the same for the two Tensors, returns true. (Opposite of != below.)
+</dd>
+</dl>
+
+<dl>
+<b>bool ten_not_equals(Tensor ten_one, Tensor ten_two)</b>
+  <dd><i>Parameters: ten_one and ten_two must be Tensors.</i></dd>
+  <dd>Compares the shape and elements in tensorOne and tensorTwo (note: does not compare the Tensors in memory). If the shape is different, returns true. If the shape is the same but elements corresponding to the same index are not the same, returns true. Otherwise, if the shape and all of the corresponding elements are the same for the two Tensors, returns false. (Opposite of == above.)</dd>
+</dl>
 
 <dl>
 <b>void freeT(Tensor ten_to_free)</b>
@@ -97,115 +111,35 @@ More explanation and unique syntax found [here](https://github.umn.edu/melt/able
 ## Tensor mapping functions
 <dl>
 <b>Tensor map(float (*)(float),Tensor)</b>
+  <dd>or <b>Tensor map_cilk(float (*fun)(float),Tensor)</b></dd>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor map_cilk(float (*)(float),Tensor)</b>
+<b>Tensor map_with_context(float (*fun)(float,void*),Tensor,void*)</b>
+  <dd>or <b>Tensor map_with_context_cilk(float (*)(float,void*),Tensor,void*)</b></dd> 
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor map_with_context(float (*)(float,void*),Tensor,void*)</b>
+<b>Tensor square(Tensor ten_to_square)</b>
+  <dd>or <b>square_cilk(Tensor ten_to_square)</b></dd>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor map_with_context_cilk(float (*)(float,void*),Tensor,void*)</b>
+<b>Tensor incr(Tensor ten_to_incr)</b>
+  <dd>or <b>Tensor incr_cilk(Tensor ten_to_incr)</b></dd> 
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor square(Tensor)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
-</dl>
-
-<dl>
-<b>Tensor square_cilk(Tensor)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
-</dl>
-
-<dl>
-<b>Tensor incr(Tensor)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
-</dl>
-
-<dl>
-<b>Tensor incr_cilk(Tensor)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
-</dl>
-
-<dl>
-<b>Tensor negate(Tensor)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
-</dl>
-
-<dl>
-<b>Tensor negate_cilk(Tensor)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
-</dl>
-
-## Tensor equality and arithmetic
-<dl>
-<b>bool ten_equals(Tensor,Tensor)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
-</dl>
-
-<dl>
-<b>bool ten_not_equals(Tensor,Tensor)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
-</dl>
-
-<dl>
-<b>float plus_one(float)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
-</dl>
-
-<dl>
-<b>float times_negative_one(float)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
-</dl>
-
-<dl>
-<b>float scalar_square(float)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
-</dl>
-
-<dl>
-<b>float scalar_add(float,float)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
-</dl>
-
-<dl>
-<b>float scalar_subtract(float,float)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
-</dl>
-
-<dl>
-<b>float scalar_multiply(float,float)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
-</dl>
-
-<dl>
-<b>float scalar_divide(float,float)</b>
+<b>Tensor negate(Tensor ten_to_negate)</b>
+  <dd> or <b>Tensor negate_cilk(Tensor ten_to_negate)</b></dd>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
@@ -276,7 +210,7 @@ All of the functions below (excluding fold and ten_fold) are coded using fold an
 ## Tensor combination functions
 Unique syntax for all the functions in this section (except ten_combine and ten_combine_cilk, the first ones below) can be found [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/special_tensor_syntax.md#overloaded-functions). 
 
-Note that all of the functions below have a function call that includes \_cilk at the end. These are identical functions that use cilk to perform parallel programming. We do not know which of the versions is more efficient with time and memory yet, thus they are both still included. However, all of the overloaded functions (linked above) use the version that does not use cilk. In addition, all of the functions in this section (minus ten_combine and ten_combine_cilk) are coded using ten_combine for the normal functions and ten_combine_cilk for the functions with cilk. 
+Note that all of the functions in this section (minus ten_combine and ten_combine_cilk) are coded using ten_combine for the normal functions and ten_combine_cilk for the functions with cilk. All of the overloaded functions (linked above) use the version that does not use cilk. 
 
 <dl>
 <b>Tensor ten_combine(float (*fun)(float, float), Tensor ten_one, Tensor ten_two)</b>
