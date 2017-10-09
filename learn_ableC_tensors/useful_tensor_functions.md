@@ -285,7 +285,7 @@ Note that all of the functions below have a function call that includes \_cilk a
 
 <dl>
 <b>Tensor ten_elem_add(Tensor ten_one, Tensor ten_two)</b>
-  <dd>Tensor ten_elem_add_cilk(Tensor ten_one, Tensor ten_two)</dd>
+  <dd>or <b>Tensor ten_elem_add_cilk(Tensor ten_one, Tensor ten_two)</b></dd>
   <dd><i>Parameters: ten_one and ten_two must be Tensors of the same shape.</i></dd>
   <dd>Returns a Tensor matching the shape of tensorOne and tensorTwo, in which each element is equivalent to the elements in the same location of tensorOne and tensorTwo added.</dd>
 </dl>
