@@ -273,61 +273,31 @@ More explanation and unique syntax found [here](https://github.umn.edu/melt/able
 
 ## Tensor combination functions
 <dl>
-<b>Tensor ten_combine(float (*)(float,float),Tensor,Tensor)</b>
+<b>Tensor ten_combine(float (*fun)(float, float),Tensor ten_one, Tensor ten_two) / Tensor ten_combine_cilk(float (*fun)(float, float),Tensor ten_one, Tensor ten_two)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor ten_combine_cilk(float(*)(float,float),Tensor,Tensor)</b>
+<b>Tensor ten_elem_add(Tensor ten_one, Tensor ten_two) / Tensor ten_elem_add_cilk(Tensor ten_one, Tensor ten_two)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor ten_elem_add(Tensor,Tensor)</b>
+<b>Tensor ten_elem_subtract(Tensor ten_one, Tensor ten_two) / Tensor ten_elem_subtract_cilk(Tensor ten_one, Tensor ten_two)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor ten_elem_add_cilk(Tensor,Tensor)</b>
+<b>Tensor ten_elem_multiply(Tensor ten_one, Tensor ten_two) / Tensor ten_elem_multiply_cilk(Tensor ten_one, Tensor ten_two)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor ten_elem_subtract(Tensor,Tensor)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
-</dl>
-
-<dl>
-<b>Tensor ten_elem_subtract_cilk(Tensor,Tensor)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
-</dl>
-
-<dl>
-<b>Tensor ten_elem_multiply(Tensor,Tensor)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
-</dl>
-
-<dl>
-<b>Tensor ten_elem_multiply_cilk(Tensor,Tensor)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
-</dl>
-
-<dl>
-<b>Tensor ten_elem_divide(Tensor,Tensor)</b>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
-</dl>
-
-<dl>
-<b>Tensor ten_elem_divide_cilk(Tensor,Tensor)</b>
+<b>Tensor ten_elem_divide(Tensor ten_one, Tensor ten_two) / Tensor ten_elem_divide_cilk(Tensor ten_one, Tensor ten_two)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
