@@ -77,12 +77,14 @@ More explanation and unique syntax found [here](https://github.umn.edu/melt/able
   <dd>Compares the shape and elements in tensorOne and tensorTwo (note: does not compare the Tensors in memory). If the shape is different, returns false. If the shape is the same but elements corresponding to the same index are not the same, returns false. Otherwise, if the shape and all of the corresponding elements are the same for the two Tensors, returns true. (Opposite of != below.)
 </dd>
 </dl>
+Unique syntax found [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/special_tensor_syntax.md#overloaded-functions).
 
 <dl>
 <b>bool ten_not_equals(Tensor ten_one, Tensor ten_two)</b>
   <dd><i>Parameters: ten_one and ten_two must be Tensors.</i></dd>
   <dd>Compares the shape and elements in tensorOne and tensorTwo (note: does not compare the Tensors in memory). If the shape is different, returns true. If the shape is the same but elements corresponding to the same index are not the same, returns true. Otherwise, if the shape and all of the corresponding elements are the same for the two Tensors, returns false. (Opposite of == above.)</dd>
 </dl>
+Unique syntax found [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/special_tensor_syntax.md#overloaded-functions).
 
 <dl>
 <b>void freeT(Tensor ten_to_free)</b>
@@ -253,6 +255,8 @@ Note that all of the functions in this section (minus ten_combine and ten_combin
 </dl>
 
 ## Linear algebra functionality
+Unique syntax for the first four functions below (ten_multiply, dot_product, float_dot_product, and cross_product) can be found [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/special_tensor_syntax.md#new-syntax).
+
 <dl>
 <b>Tensor ten_multiply(Tensor ten_one, Tensor ten_two)</b>
   <dd><i>Parameters: ten_one and ten_two must be two-dimensional Tensors. If ten_one has a dim_size of [m,n], ten_two must have the dim_size [n,p]. In other words, the number of columns in ten_one must match the number of rows in ten_two.</i></dd>
