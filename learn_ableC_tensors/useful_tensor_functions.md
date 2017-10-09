@@ -111,19 +111,22 @@ More explanation and unique syntax found [here](https://github.umn.edu/melt/able
 ## Tensor mapping functions
 Note that all of the map functions below directly modify the Tensor passed in. This means that it is not actually necessary to return a Tensor (the returns are currently included for convinience, but it may be wiser to remove them). If you wish to map over a Tensor without modifying the actual Tensor, you should first copy the Tensor and then map over that copy.
 
+In addition, square, incr, and negate are all functions written with map.
+
 <dl>
-<b>Tensor map(float (*)(float),Tensor)</b>
-  <dd>or <b>Tensor map_cilk(float (*fun)(float),Tensor)</b></dd>
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
+<b>Tensor map(float (*fun )(float),Tensor ten)</b>
+  <dd>or <b>Tensor map_cilk(float (*fun)(float), Tensor ten)</b></dd>
+  <dd><i>Parameters: fun must be a function that takes in a float as a parameter and returns a float and ten must be a Tensor.</i></dd>
+  <dd>Returns the <i>same</i> Tensor in which fun has been performed on every element in ten.</dd>
 </dl>
 
 <dl>
-<b>Tensor map_with_context(float (*fun)(float,void*),Tensor,void*)</b>
-  <dd>or <b>Tensor map_with_context_cilk(float (*)(float,void*),Tensor,void*)</b></dd> 
-  <dd><i>Parameters: </i></dd>
-  <dd> </dd>
+<b>Tensor map_with_context(float (*fun)(float, void*), Tensor ten, void *context)</b>
+  <dd>or <b>Tensor map_with_context_cilk(float (*fun)(float, void*), Tensor ten, void *context)</b></dd> 
+  <dd><i>Parameters: fun must be a function that takes in a float and a void pointer as parameters and returns a float. ten must be a Tensor and context must be a void pointer.</i></dd>
+  <dd>Returns the <i>same</i> Tensor in which fun has been performed on every element in ten while also using data from context (the void * argument in fun). Context will (almost?) always be a pointer to a struct.</dd>
 </dl>
+Note: this one is harder to understand and currently has no simple examples, but I would recommend looking at this [implementation](https://github.umn.edu/melt/ableC-tensors/blob/master/examples/inverse_pnm_colors_cilk.xc) for guidance. These void pointers are necessary for dynamically decided map functions.
 
 <dl>
 <b>Tensor square(Tensor ten_to_square)</b>
