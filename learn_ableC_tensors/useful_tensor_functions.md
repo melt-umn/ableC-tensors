@@ -62,7 +62,7 @@ More explanation and unique syntax found [here](https://github.umn.edu/melt/able
 </dl>
 
 <dl>
-<b>Tensor accessT(Tensor ten_to_access, Interval *interval_array);</b>
+<b>Tensor accessT(Tensor ten_to_access, Interval *interval_array)</b>
   <dd><i>Parameters: ten_to_access is a Tensor with as many dimensions as the length of interval_array, an array of Intervals</i></dd>
   <dd>Returns a Tensor in which each dimension of ten_to_access is accessed by the corresponding Interval in interval_array. The number of dimensions in this returned Tensor will remain the same as ten_to_access, but the length of those dimensions may change.</dd>
 </dl>
@@ -71,324 +71,324 @@ More explanation and unique syntax found [here](https://github.umn.edu/melt/able
 
 
 <dl>
-<b>void freeT(Tensor ten_to_free);</b>
+<b>void freeT(Tensor ten_to_free)</b>
   <dd><i>Parameters: ten_to_free is a Tensor of any size</i></dd>
   <dd>Frees everything in the Tensor (returns nothing)</dd>
 </dl>
 
 <dl>
-<b>void freeT_dynamic(Tensor *ten_to_free);</b>
+<b>void freeT_dynamic(Tensor *ten_to_free)</b>
   <dd><i>Parameters: ten_to_free is a pointer to a Tensor of any size</i></dd>
   <dd>Frees everything in the Tensor and the pointer to the Tensor itself (returns nothing)</dd>
 </dl>
 
 <dl>
-<b>void printT(Tensor ten_to_print);</b>
+<b>void printT(Tensor ten_to_print)</b>
   <dd><i>Parameters: ten_to_print is a Tensor with ten or fewer dimensions</i></dd>
   <dd>Prints out each element of ten_to_print with certain syntax separating each dimension. The syntax for each dimension corresponds to the following array [',', ';', '/', '-', '!', '@', '#', '%', '^', '&']. If you wish to choose your own syntax or have more than ten dimensions to a Tensor, see below.</dd>
 </dl>
 
 <dl>
-<b>void printT_extended(Tensor ten_to_print, char *dimension_syntax, int dimensions);</b>
+<b>void printT_extended(Tensor ten_to_print, char *dimension_syntax, int dimensions)</b>
   <dd><i>Parameters: ten_to_print is a Tensor, dimension_syntax is a pointer to a character array, and dimensions is an integer. The length of dimension_syntax should match dimensions, and the number of dimensions in ten_to_print must be less than or equal to dimensions.</i></dd>
-  <dd>Prints out each element of ten_to_print with the corresponding syntax from dimension_syntax separating each dimension of ten_to_print</dd>
+  <dd>Prints out each element of ten_to_print with the corresponding syntax from dimension_syntax separating each dimension of ten_to_print.</dd>
 </dl>
 
 ## Tensor mapping functions
 <dl>
-<b>Tensor map(float (*)(float),Tensor);</b>
+<b>Tensor map(float (*)(float),Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor map_cilk(float (*)(float),Tensor);</b>
+<b>Tensor map_cilk(float (*)(float),Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor map_with_context(float (*)(float,void*),Tensor,void*);</b>
+<b>Tensor map_with_context(float (*)(float,void*),Tensor,void*)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor map_with_context_cilk(float (*)(float,void*),Tensor,void*);</b>
+<b>Tensor map_with_context_cilk(float (*)(float,void*),Tensor,void*)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor square(Tensor);</b>
+<b>Tensor square(Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor square_cilk(Tensor);</b>
+<b>Tensor square_cilk(Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor incr(Tensor);</b>
+<b>Tensor incr(Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor incr_cilk(Tensor);</b>
+<b>Tensor incr_cilk(Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor negate(Tensor);</b>
+<b>Tensor negate(Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor negate_cilk(Tensor);</b>
+<b>Tensor negate_cilk(Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 ## Tensor equality and arithmetic
 <dl>
-</b>bool ten_equals(Tensor,Tensor);</b>
+</b>bool ten_equals(Tensor,Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-</b>bool ten_not_equals(Tensor,Tensor);</b>
+</b>bool ten_not_equals(Tensor,Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-</b>float plus_one(float);</b>
+</b>float plus_one(float)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-</b>float times_negative_one(float);</b>
+</b>float times_negative_one(float)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-</b>float scalar_square(float);</b>
+</b>float scalar_square(float)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-</b>float scalar_add(float,float);</b>
+</b>float scalar_add(float,float)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-</b>float scalar_subtract(float,float);</b>
+</b>float scalar_subtract(float,float)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-</b>float scalar_multiply(float,float);</b>
+</b>float scalar_multiply(float,float)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-</b>float scalar_divide(float,float);</b>
+</b>float scalar_divide(float,float)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 ## Tensor folding functions
 <dl>
-</b>Tensor ten_fold(float (*)(float,float),Tensor,Tensor);</b>
+</b>Tensor ten_fold(float (*)(float,float),Tensor,Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-</b>float fold(float (*)(float,float),float,Tensor);</b>
+</b>float fold(float (*)(float,float),float,Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-</b>float max(Tensor);</b>
+</b>float max(Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-</b>float min(Tensor);</b>
+</b>float min(Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-</b>float sum(Tensor);</b>
+</b>float sum(Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-</b>float prod(Tensor);</b>
+</b>float prod(Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-</b>Tensor ten_max(Tensor);</b>
+</b>Tensor ten_max(Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-</b>Tensor ten_min(Tensor);</b>
+</b>Tensor ten_min(Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-</b>Tensor ten_sum(Tensor);</b>
+</b>Tensor ten_sum(Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-</b>Tensor ten_prod(Tensor);</b>
+</b>Tensor ten_prod(Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 ## Tensor combination functions
 <dl>
-<b>Tensor ten_combine(float (*)(float,float),Tensor,Tensor);</b>
+<b>Tensor ten_combine(float (*)(float,float),Tensor,Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor ten_combine_cilk(float(*)(float,float),Tensor,Tensor);</b>
+<b>Tensor ten_combine_cilk(float(*)(float,float),Tensor,Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor ten_elem_add(Tensor,Tensor);</b>
+<b>Tensor ten_elem_add(Tensor,Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor ten_elem_add_cilk(Tensor,Tensor);</b>
+<b>Tensor ten_elem_add_cilk(Tensor,Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor ten_elem_subtract(Tensor,Tensor);</b>
+<b>Tensor ten_elem_subtract(Tensor,Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor ten_elem_subtract_cilk(Tensor,Tensor);</b>
+<b>Tensor ten_elem_subtract_cilk(Tensor,Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor ten_elem_multiply(Tensor,Tensor);</b>
+<b>Tensor ten_elem_multiply(Tensor,Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor ten_elem_multiply_cilk(Tensor,Tensor);</b>
+<b>Tensor ten_elem_multiply_cilk(Tensor,Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor ten_elem_divide(Tensor,Tensor);</b>
+<b>Tensor ten_elem_divide(Tensor,Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor ten_elem_divide_cilk(Tensor,Tensor);</b>
+<b>Tensor ten_elem_divide_cilk(Tensor,Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 ## Linear algebra functionality
 <dl>
-<b>Tensor ten_multiply(Tensor,Tensor);</b>
+<b>Tensor ten_multiply(Tensor,Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor dot_product(Tensor,Tensor);</b>
+<b>Tensor dot_product(Tensor,Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>float float_dot_product(Tensor,Tensor);</b>
+<b>float float_dot_product(Tensor,Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>float float_dot_product_vtwo(Tensor,Tensor);</b>
+<b>float float_dot_product_vtwo(Tensor,Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor cross_product(Tensor,Tensor);</b>
+<b>Tensor cross_product(Tensor,Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor scalar_triple_product(Tensor,Tensor,Tensor);</b>
+<b>Tensor scalar_triple_product(Tensor,Tensor,Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>float float_triple_product(Tensor,Tensor,Tensor);</b>
+<b>float float_triple_product(Tensor,Tensor,Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor vector_triple_product(Tensor,Tensor,Tensor);</b>
+<b>Tensor vector_triple_product(Tensor,Tensor,Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>float trace(Tensor);</b>
+<b>float trace(Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
 
 <dl>
-<b>Tensor ten_trace(Tensor);</b>
+<b>Tensor ten_trace(Tensor)</b>
   <dd><i>Parameters: </i></dd>
   <dd> </dd>
 </dl>
