@@ -10,7 +10,7 @@ Just as in [the special tensor syntax](https://github.umn.edu/melt/ableC-tensors
   <dd>Returns a Tensor with dim dimensions, each dimension the size of the corresponding integer in dim_size. The Tensor will have count elements, and those elements will be what is in data.</dd>
 </d1>
 
-More explanation and unique syntax found [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/tensors_and_intervals.md#tensors)
+More explanation and unique syntax found [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/tensors_and_intervals.md#tensors).
 
 <dl>
 <b>Tensor copy(Tensor ten_to_copy)</b>
@@ -67,7 +67,7 @@ More explanation and unique syntax found [here](https://github.umn.edu/melt/able
   <dd>Returns a Tensor in which each dimension of ten_to_access is accessed by the corresponding Interval in interval_array. The number of dimensions in this returned Tensor will remain the same as ten_to_access, but the length of those dimensions may change.</dd>
 </dl>
 
-More explanation and unique syntax found [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/tensors_and_intervals.md#intervals)
+More explanation and unique syntax found [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/tensors_and_intervals.md#intervals).
 
 
 <dl>
