@@ -1,7 +1,7 @@
 # Useful Tensor Functions
 Listed below are all the useful functions for a user in this ableC-tensors extension. There are a handful of functions that exist in the extension that are not listed here, but those are functions that are called by other functions and thus not considered important *for use*. A programmer who wishes to modify this code will still want to read the descriptions of these functions in the src file to fully understand all that is going on. For the most part, the functions below should be fairly intuitive. They are organized loosely by functionality. Note that some of the functions below may also have unique syntax that can be used to call them.
 
-Just as in [the special tensor syntax](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/special_tensor_syntax.md) documentation file, the word shape here represents the number of dimensions and size of those dimensions in a Tensor. If two Tensors are of equal shape, they have the same number of dimensions and the size of each of those dimensions is identical.
+Just as in [the special tensor syntax](../special_tensor_syntax.md) documentation file, the word shape here represents the number of dimensions and size of those dimensions in a Tensor. If two Tensors are of equal shape, they have the same number of dimensions and the size of each of those dimensions is identical.
 
 Note that some of the functions below have a function call that includes \_cilk at the end. These are identical functions that use cilk to perform parallel programming. We have not figured out which of the versions is more efficient with time and memory yet, thus they are both still included. 
 
@@ -12,7 +12,7 @@ Note that some of the functions below have a function call that includes \_cilk 
   <dd>Returns a Tensor with dim dimensions, each dimension the size of the corresponding integer in dim_size. The Tensor will have count elements, and those elements will be what is in data.</dd>
 </d1>
 
-More explanation and unique syntax found [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/tensors_and_intervals.md#tensors).
+More explanation and unique syntax found [here](../tensors_and_intervals.md#tensors).
 
 <dl>
 <b>Tensor copy(Tensor ten_to_copy)</b>
@@ -69,7 +69,7 @@ More explanation and unique syntax found [here](https://github.umn.edu/melt/able
   <dd>Returns a Tensor in which each dimension of ten_to_access is accessed by the corresponding Interval in interval_array. The number of dimensions in this returned Tensor will remain the same as ten_to_access, but the length of those dimensions may change.</dd>
 </dl>
 
-More explanation and unique syntax found [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/tensors_and_intervals.md#intervals).
+More explanation and unique syntax found [here](../tensors_and_intervals.md#intervals).
 
 <dl>
 <b>bool ten_equals(Tensor ten_one, Tensor ten_two)</b>
@@ -77,14 +77,14 @@ More explanation and unique syntax found [here](https://github.umn.edu/melt/able
   <dd>Compares the shape and elements in tensorOne and tensorTwo (note: does not compare the Tensors in memory). If the shape is different, returns false. If the shape is the same but elements corresponding to the same index are not the same, returns false. Otherwise, if the shape and all of the corresponding elements are the same for the two Tensors, returns true. (Opposite of != below.)
 </dd>
 </dl>
-Unique syntax found [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/special_tensor_syntax.md#overloaded-functions).
+Unique syntax found [here](../special_tensor_syntax.md#overloaded-functions).
 
 <dl>
 <b>bool ten_not_equals(Tensor ten_one, Tensor ten_two)</b>
   <dd><i>Parameters: ten_one and ten_two must be Tensors.</i></dd>
   <dd>Compares the shape and elements in tensorOne and tensorTwo (note: does not compare the Tensors in memory). If the shape is different, returns true. If the shape is the same but elements corresponding to the same index are not the same, returns true. Otherwise, if the shape and all of the corresponding elements are the same for the two Tensors, returns false. (Opposite of == above.)</dd>
 </dl>
-Unique syntax found [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/special_tensor_syntax.md#overloaded-functions).
+Unique syntax found [here](../special_tensor_syntax.md#overloaded-functions).
 
 <dl>
 <b>void freeT(Tensor ten_to_free)</b>
@@ -128,7 +128,7 @@ In addition, square, incr, and negate are all functions written with map.
   <dd><i>Parameters: fun must be a function that takes in a float and a void pointer as parameters and returns a float. ten must be a Tensor and context must be a void pointer.</i></dd>
   <dd>Returns the <i>same</i> Tensor in which fun has been performed on every element in ten while also using data from context (the void * argument in fun). Context will (almost?) always be a pointer to a struct.</dd>
 </dl>
-Note: this one is harder to understand and currently has no simple examples, but I would recommend looking at this [implementation](https://github.umn.edu/melt/ableC-tensors/blob/master/examples/inverse_pnm_colors_cilk.xc) for guidance. These void pointers are necessary for dynamically decided map functions.
+Note: this one is harder to understand and currently has no simple examples, but I would recommend looking at this [implementation](../../examples/inverse_pnm_colors_cilk.xc) for guidance. These void pointers are necessary for dynamically decided map functions.
 
 <dl>
 <b>Tensor square(Tensor ten_to_square)</b>
@@ -215,7 +215,7 @@ All of the functions below (excluding fold and ten_fold) are coded using fold an
 </dl>
 
 ## Tensor combination functions
-Unique syntax for all the functions in this section (except ten_combine and ten_combine_cilk, the first ones below) can be found [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/special_tensor_syntax.md#overloaded-functions). 
+Unique syntax for all the functions in this section (except ten_combine and ten_combine_cilk, the first ones below) can be found [here](../special_tensor_syntax.md#overloaded-functions). 
 
 Note that all of the functions in this section (minus ten_combine and ten_combine_cilk) are coded using ten_combine for the normal functions and ten_combine_cilk for the functions with cilk. All of the overloaded functions (linked above) use the version that does not use cilk. 
 
@@ -255,7 +255,7 @@ Note that all of the functions in this section (minus ten_combine and ten_combin
 </dl>
 
 ## Linear algebra functionality
-Unique syntax for the first four functions below (ten_multiply, dot_product, float_dot_product, and cross_product) can be found [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/special_tensor_syntax.md#new-syntax).
+Unique syntax for the first four functions below (ten_multiply, dot_product, float_dot_product, and cross_product) can be found [here](../special_tensor_syntax.md#new-syntax).
 
 <dl>
 <b>Tensor ten_multiply(Tensor ten_one, Tensor ten_two)</b>
