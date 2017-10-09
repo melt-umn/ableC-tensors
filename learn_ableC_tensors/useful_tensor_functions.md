@@ -68,7 +68,6 @@ More explanation and unique syntax found [here](tensors_and_intervals.md#tensors
   <dd><i>Parameters: ten_to_access is a Tensor with as many dimensions as the length of interval_array, an array of Intervals</i></dd>
   <dd>Returns a Tensor in which each dimension of ten_to_access is accessed by the corresponding Interval in interval_array. The number of dimensions in this returned Tensor will remain the same as ten_to_access, but the length of those dimensions may change.</dd>
 </dl>
-
 More explanation and unique syntax found [here](tensors_and_intervals.md#intervals).
 
 <dl>
