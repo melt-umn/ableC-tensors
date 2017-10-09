@@ -68,6 +68,7 @@ More explanation and unique syntax found [here](tensors_and_intervals.md#tensors
   <dd><i>Parameters: ten_to_access is a Tensor with as many dimensions as the length of interval_array, an array of Intervals</i></dd>
   <dd>Returns a Tensor in which each dimension of ten_to_access is accessed by the corresponding Interval in interval_array. The number of dimensions in this returned Tensor will remain the same as ten_to_access, but the length of those dimensions may change.</dd>
 </dl>
+
 More explanation and unique syntax found [here](tensors_and_intervals.md#intervals).
 
 <dl>
@@ -76,6 +77,7 @@ More explanation and unique syntax found [here](tensors_and_intervals.md#interva
   <dd>Compares the shape and elements in tensorOne and tensorTwo (note: does not compare the Tensors in memory). If the shape is different, returns false. If the shape is the same but elements corresponding to the same index are not the same, returns false. Otherwise, if the shape and all of the corresponding elements are the same for the two Tensors, returns true. (Opposite of != below.)
 </dd>
 </dl>
+
 Unique syntax found [here](special_tensor_syntax.md#overloaded-functions).
 
 <dl>
@@ -83,6 +85,7 @@ Unique syntax found [here](special_tensor_syntax.md#overloaded-functions).
   <dd><i>Parameters: ten_one and ten_two must be Tensors.</i></dd>
   <dd>Compares the shape and elements in tensorOne and tensorTwo (note: does not compare the Tensors in memory). If the shape is different, returns true. If the shape is the same but elements corresponding to the same index are not the same, returns true. Otherwise, if the shape and all of the corresponding elements are the same for the two Tensors, returns false. (Opposite of == above.)</dd>
 </dl>
+
 Unique syntax found [here](special_tensor_syntax.md#overloaded-functions).
 
 <dl>
