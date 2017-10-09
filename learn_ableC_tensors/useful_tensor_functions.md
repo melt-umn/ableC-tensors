@@ -272,7 +272,9 @@ More explanation and unique syntax found [here](https://github.umn.edu/melt/able
 </dl>
 
 ## Tensor combination functions
-Unique syntax for all the functions in this section (except ten_combine and ten_combine_cilk, the first ones below) can be found [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/special_tensor_syntax.md#overloaded-functions).
+Unique syntax for all the functions in this section (except ten_combine and ten_combine_cilk, the first ones below) can be found [here](https://github.umn.edu/melt/ableC-tensors/blob/master/learn_ableC_tensors/special_tensor_syntax.md#overloaded-functions). 
+
+Note that all of the functions below have a function call that includes \_cilk at the end. These are identical functions that use cilk to perform parallel programming. We do not know which of the versions is more efficient with time and memory yet, thus they are both still included. However, all of the overloaded functions (linked above) use the version that does not use cilk. 
 
 <dl>
 <b>Tensor ten_combine(float (*fun)(float, float),Tensor ten_one, Tensor ten_two)</b>
@@ -282,7 +284,8 @@ Unique syntax for all the functions in this section (except ten_combine and ten_
 </dl>
 
 <dl>
-<b>Tensor ten_elem_add(Tensor ten_one, Tensor ten_two) / Tensor ten_elem_add_cilk(Tensor ten_one, Tensor ten_two)</b>
+<b>Tensor ten_elem_add(Tensor ten_one, Tensor ten_two)</b>
+  <dd>Tensor ten_elem_add_cilk(Tensor ten_one, Tensor ten_two)</dd>
   <dd><i>Parameters: ten_one and ten_two must be Tensors of the same shape.</i></dd>
   <dd>Returns a Tensor matching the shape of tensorOne and tensorTwo, in which each element is equivalent to the elements in the same location of tensorOne and tensorTwo added.</dd>
 </dl>
