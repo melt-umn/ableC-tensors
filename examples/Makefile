@@ -39,7 +39,7 @@ examples: $(XC_SOURCES:.xc=.out)
 	$(CC) -c $(CFLAGS) -o $@ $^
 
 %.c: %.xc ableC.jar
-	java -jar ableC.jar $< #$(shell sdl-config --cflags)
+	java -Xss6M -jar ableC.jar $< #$(shell sdl-config --cflags)
 
 
 clean:
