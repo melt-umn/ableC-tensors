@@ -393,6 +393,7 @@ e::Expr ::= tensor::Tensor
   e.dimSize = tensor.dimSize;
   e.count = tensor.count;
   e.data = tensor.data;
+  e.pp = ppConcat([test('('), tensor.pp, text(')')]);
 
   local numDim :: Expr = mkIntConst(tensor.numDim, generate_location(e.location, module_name));
   local dimSize :: Expr = mkDimSizeExpr(tensor.dimSize, generate_location(e.location, module_name));
@@ -694,6 +695,7 @@ e::Expr ::= inter::Interval
   propagate substituted;
 
   e.interList = inter.interList;
+  e.pp = ppConcat([test('('), inter.pp, text(')')]);
 
   forwards to
     if null(inter.errors)
