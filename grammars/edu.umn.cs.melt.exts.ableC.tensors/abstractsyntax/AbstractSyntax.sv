@@ -420,7 +420,8 @@ tensor::Tensor ::= e::Expr ts::Tensor
   tensor.dimSize = (1 + head(ts.dimSize)) :: e.dimSize;
   tensor.count = e.count + ts.count;
   tensor.data = e.data ++ ts.data;
-  tensor.pp = e.pp ++ ts.pp;
+  tensor.pp = cons(e.pp, ts.pps);
+
 
   tensor.errors := e.errors ++ ts.errors;
   tensor.errors <-
@@ -459,7 +460,7 @@ tensor::Tensor ::= e::Expr
   tensor.dimSize = 1 :: e.dimSize;
   tensor.count = e.count;
   tensor.data = e.data;
-  tensor.pp = '';
+  tensor.pps = [e.pp];
   tensor.errors := e.errors;
 }
 
@@ -470,7 +471,7 @@ e::Expr ::=
   e.dimSize = [];
   e.count = 1;
   e.data = [e];
-  e.pp = '';
+  e.pp = [''];
   e.interList = [e];
 }
 
@@ -698,7 +699,7 @@ e::Expr ::= inter::Interval
   propagate substituted;
 
   e.interList = inter.interList;
-  e.pp = ppConcat([test('('), inter.pp, text(')')]);
+  e.pp = ppConcat([text("("),ppImplode(text(","),inter.pps,text(")")])
 
   forwards to
     if null(inter.errors)
@@ -712,7 +713,7 @@ abstract production consInterval
 inter::Interval ::= e::Expr is::Interval
 {
   inter.interList = e.interList ++ is.interList;
-  inter.pp = '';
+  inter.pp = cons(e.pp, is.pps);
   inter.errors := e.errors ++ is.errors;
 }
 
@@ -720,7 +721,7 @@ abstract production singleInterval
 inter::Interval ::= e::Expr
 {
   inter.interList = e.interList;
-  inter.pp = '';
+  inter.pps = [e.pp];
   inter.errors := e.errors;
 }
 
